@@ -1,8 +1,14 @@
 [gd_scene format=3]
 
-[ext_resource type="Texture2D" path="res://assets/plants/seed_placeholder.png" id="1_seed"]
+[ext_resource type="Script" path="res://scripts/plants/plant.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/plants/seed_placeholder.png" id="2_seed"]
+[ext_resource type="Texture2D" path="res://assets/plants/sprout_placeholder.png" id="3_sprout"]
+[ext_resource type="Texture2D" path="res://assets/plants/growing_placeholder.png" id="4_growing"]
+[ext_resource type="Texture2D" path="res://assets/plants/ripe_placeholder.png" id="5_ripe"]
 
 [node name="Plant" type="Node2D"]
+script = ExtResource("1_script")
+stage_textures = Array[Texture2D]([ExtResource("2_seed"), ExtResource("3_sprout"), ExtResource("4_growing"), ExtResource("5_ripe")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_seed")
+texture = ExtResource("2_seed")
