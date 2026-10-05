@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/world/world.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/environment/ground_placeholder.png" id="2_ground"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/plants/farm_tile.tscn" id="4_farm_tile"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_top"]
 normal = Vector2(0, 1)
@@ -42,6 +43,26 @@ shape = SubResource("WorldBoundaryShape2D_left")
 [node name="Right" type="CollisionShape2D" parent="Bounds"]
 position = Vector2(1280, 0)
 shape = SubResource("WorldBoundaryShape2D_right")
+
+[node name="FarmTiles" type="Node2D" parent="."]
+
+[node name="FarmTile" parent="FarmTiles" instance=ExtResource("4_farm_tile")]
+position = Vector2(560, 304)
+
+[node name="FarmTile2" parent="FarmTiles" instance=ExtResource("4_farm_tile")]
+position = Vector2(592, 304)
+
+[node name="FarmTile3" parent="FarmTiles" instance=ExtResource("4_farm_tile")]
+position = Vector2(624, 304)
+
+[node name="FarmTile4" parent="FarmTiles" instance=ExtResource("4_farm_tile")]
+position = Vector2(560, 336)
+
+[node name="FarmTile5" parent="FarmTiles" instance=ExtResource("4_farm_tile")]
+position = Vector2(592, 336)
+
+[node name="FarmTile6" parent="FarmTiles" instance=ExtResource("4_farm_tile")]
+position = Vector2(624, 336)
 
 [node name="Player" parent="." instance=ExtResource("3_player")]
 position = Vector2(640, 384)
