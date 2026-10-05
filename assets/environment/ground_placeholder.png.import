@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2nwualc05syj"
-path="res://.godot/imported/witch_placeholder.png-999f7a44f84ac7a5e73f6c47a15879f3.ctex"
+uid="uid://df2qmoyspkio6"
+path="res://.godot/imported/ground_placeholder.png-95138dbad4ef76fcf020097f17f34a6a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/witch_placeholder.png"
-dest_files=["res://.godot/imported/witch_placeholder.png-999f7a44f84ac7a5e73f6c47a15879f3.ctex"]
+source_file="res://assets/environment/ground_placeholder.png"
+dest_files=["res://.godot/imported/ground_placeholder.png-95138dbad4ef76fcf020097f17f34a6a.ctex"]
 
 [params]
 
