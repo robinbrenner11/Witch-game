@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" path="res://assets/environment/ground/ground_tileset.tres" id="2_tileset"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/plants/farm_tile.tscn" id="4_farm_tile"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hotbar.tscn" id="5_hotbar"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_top"]
 normal = Vector2(0, 1)
@@ -70,3 +71,7 @@ shape = 2
 
 [node name="Player" parent="Objects" instance=ExtResource("3_player")]
 position = Vector2(624, 420)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Hotbar" parent="UI" instance=ExtResource("5_hotbar")]

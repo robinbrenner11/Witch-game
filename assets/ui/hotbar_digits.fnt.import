@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://cksmaqk488nmf"
+path="res://.godot/imported/hotbar_digits.fnt-7160728ddc2e61a8797b3e999e975d54.fontdata"
+
+[deps]
+
+source_file="res://assets/ui/hotbar_digits.fnt"
+dest_files=["res://.godot/imported/hotbar_digits.fnt-7160728ddc2e61a8797b3e999e975d54.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

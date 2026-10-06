@@ -45,9 +45,9 @@ func _on_interactable_interacted(player: Node2D) -> void:
 
 
 func _plant_seed(seed_data: PlantData) -> void:
-	# Ohne gewählte Samen oder wenn die Sorte aufgebraucht ist, passiert nichts.
+	# Ohne Samen in der Hand oder wenn die Sorte aufgebraucht ist, passiert nichts.
 	if seed_data == null or not Inventory.remove(seed_data.seed_item_id()):
-		print("Keine Samen dieser Sorte mehr (Q wechselt)")
+		print("Keine Samen in der Hand (Hotbar: 1–8 oder Mausrad)")
 		return
 	plant = PLANT_SCENE.instantiate()
 	plant.data = seed_data

@@ -1,0 +1,1 @@
+Aufruf: python hotbar.py <ausgabeordner>  (z. B. assets/ui). Benötigt: pillow.

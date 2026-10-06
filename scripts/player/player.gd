@@ -10,16 +10,18 @@ extends CharacterBody2D
 # Blickrichtung, immer eine der vier Hauptrichtungen. Wird später auch
 # für die Laufanimation gebraucht.
 var facing := Vector2.DOWN
-# Welche Samen die Hexe gerade "in der Hand" hat und per E pflanzt.
-var selected_seed: PlantData = null
+# Welche Samen die Hexe gerade "in der Hand" hat und per E pflanzt. Ergibt
+# sich aus dem gewählten Hotbar-Platz; null, wenn dort keine Samen liegen.
+var selected_seed: PlantData:
+	get:
+		var item_id := Inventory.selected_item_id()
+		if not item_id.begins_with("seed_"):
+			return null
+		return PlantData.from_id(item_id.trim_prefix("seed_"))
 
 @onready var body_shape: CollisionShape2D = $CollisionShape2D
 @onready var interaction_area: Area2D = $InteractionArea
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-
-
-func _ready() -> void:
-	_select_next_seed()
 
 
 func _physics_process(_delta: float) -> void:
@@ -61,26 +63,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		var target := _find_closest_interactable()
 		if target:
 			target.interact(self)
-	elif event.is_action_pressed("next_seed"):
-		_select_next_seed()
-
-
-# Nur zum Testen per Q, bis die Hotbar kommt. Springt zur nächsten Samensorte,
-# von der noch etwas da ist (am Ende wieder von vorn).
-func _select_next_seed() -> void:
-	var seed_ids := Inventory.item_ids().filter(
-		func(item_id: String) -> bool:
-			return item_id.begins_with("seed_") and Inventory.count(item_id) > 0
-	)
-	if seed_ids.is_empty():
-		selected_seed = null
-		print("Keine Samen mehr")
-		return
-	var index := 0
-	if selected_seed != null:
-		index = (seed_ids.find(selected_seed.seed_item_id()) + 1) % seed_ids.size()
-	selected_seed = PlantData.from_id(seed_ids[index].trim_prefix("seed_"))
-	print("Samen gewählt: %s (%d)" % [selected_seed.display_name, Inventory.count(seed_ids[index])])
 
 
 func _find_closest_interactable() -> Interactable:
