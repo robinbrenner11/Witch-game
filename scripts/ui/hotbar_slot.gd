@@ -13,9 +13,6 @@ const FRAME_SELECTED := preload("res://assets/ui/hotbar_slot_selected.png")
 
 func show_item(icon_texture: Texture2D, amount: int) -> void:
 	icon.texture = icon_texture
-	# Aufgebrauchte Items bleiben als blasser Schatten stehen: Man sieht, was
-	# fehlt, und der Platz springt nicht weg, wenn es wieder da ist.
-	icon.modulate.a = 1.0 if amount > 0 else 0.35
 	count_label.text = str(amount) if amount > 0 else ""
 
 

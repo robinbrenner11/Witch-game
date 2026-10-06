@@ -58,7 +58,10 @@ func _plant_seed(seed_data: PlantData) -> void:
 
 
 func _harvest() -> void:
-	Inventory.add(plant.data.crop_item_id())
+	# Bei vollem Inventar bleibt die Pflanze einfach stehen statt zu verschwinden.
+	if not Inventory.add(plant.data.crop_item_id()):
+		print("Inventar voll")
+		return
 	print("Geerntet: %s (jetzt %d)" % [plant.data.display_name, Inventory.count(plant.data.crop_item_id())])
 	# queue_free löscht die Pflanze erst am Ende des Frames – sicherer als
 	# sofort, falls in diesem Frame noch jemand auf sie zugreift.
