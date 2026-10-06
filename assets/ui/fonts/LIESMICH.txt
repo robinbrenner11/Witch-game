@@ -1,0 +1,3 @@
+m5x7 von Daniel Linssen – https://managore.itch.io/m5x7
+Lizenz: CC0 1.0 (frei nutzbar, Nennung erwünscht → später in die Credits).
+Gestaltet für 16 px pro Schriftgröße-Einheit: Größe 16 = 1 Pixel, Größe 32 = 2 Pixel (UI-Maßstab).

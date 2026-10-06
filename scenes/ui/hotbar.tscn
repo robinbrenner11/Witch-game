@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/hotbar.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/ui/hotbar_panel.png" id="2_panel"]
+[ext_resource type="FontFile" path="res://assets/ui/fonts/m5x7.ttf" id="3_font"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
 content_margin_left = 4.0
@@ -14,7 +15,7 @@ texture_margin_top = 6.0
 texture_margin_right = 6.0
 texture_margin_bottom = 6.0
 
-[node name="Hotbar" type="PanelContainer"]
+[node name="Hotbar" type="VBoxContainer"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -25,9 +26,24 @@ offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+theme_override_constants/separation = 0
 script = ExtResource("1_script")
 
-[node name="Slots" type="HBoxContainer" parent="."]
+[node name="ItemName" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.917647, 0.87451, 0.796078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="Slots" type="HBoxContainer" parent="Panel"]
+layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 2

@@ -84,3 +84,12 @@ func icon_for(item_id: String) -> Texture2D:
 	if item_id.begins_with("crop_"):
 		return PlantData.from_id(item_id.trim_prefix("crop_")).crop_icon
 	return null
+
+
+## Anzeigename für die UI. Wie icon_for() vorläufig aus den Pflanzendaten.
+func display_name_for(item_id: String) -> String:
+	if item_id.begins_with("seed_"):
+		return PlantData.from_id(item_id.trim_prefix("seed_")).display_name + "-Samen"
+	if item_id.begins_with("crop_"):
+		return PlantData.from_id(item_id.trim_prefix("crop_")).display_name
+	return ""
