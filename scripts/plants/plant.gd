@@ -12,6 +12,7 @@ extends Node2D
 var growth_stage: int = 0
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var glow: NightLight = $Glow
 
 
 func _ready() -> void:
@@ -20,6 +21,10 @@ func _ready() -> void:
 	# in gleich breite Bilder, frame wählt eins davon aus.
 	sprite.texture = data.stages_texture
 	sprite.hframes = data.stage_count
+	glow.texture = data.glow_texture
+	glow.color = data.glow_color
+	glow.base_energy = data.glow_energy
+	glow.position = data.glow_offset
 	_update_sprite()
 
 
@@ -39,3 +44,5 @@ func _on_day_passed(_day: int) -> void:
 
 func _update_sprite() -> void:
 	sprite.frame = growth_stage
+	# Erst reife Pflanzen leuchten – so wird das Reifwerden nachts sichtbar.
+	glow.enabled = is_ripe() and data.glow_texture != null

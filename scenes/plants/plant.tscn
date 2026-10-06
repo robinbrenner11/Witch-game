@@ -1,9 +1,14 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/plants/plant.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/systems/night_light.gd" id="2_night_light"]
 
 [node name="Plant" type="Node2D"]
 script = ExtResource("1_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 offset = Vector2(0, -13)
+
+[node name="Glow" type="PointLight2D" parent="."]
+enabled = false
+script = ExtResource("2_night_light")

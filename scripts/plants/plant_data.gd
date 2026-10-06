@@ -15,6 +15,14 @@ extends Resource
 @export var seed_icon: Texture2D
 @export var crop_icon: Texture2D
 
+# Leuchten im Reif-Stadium (nachts). Ohne Textur leuchtet die Pflanze nicht.
+@export_group("Glow")
+@export var glow_texture: Texture2D
+@export var glow_color: Color = Color.WHITE
+@export var glow_energy: float = 1.0
+# Mittelpunkt des Lichts relativ zum Wurzelpunkt der Pflanze.
+@export var glow_offset: Vector2 = Vector2.ZERO
+
 
 ## Lädt eine Pflanzenart über ihre ID. Funktioniert, weil jede Art unter
 ## data/plants/<id>.tres liegt – load() merkt sich geladene Dateien, das

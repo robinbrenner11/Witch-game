@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/world/world.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/world/night_tint.gd" id="8_night_tint"]
 [ext_resource type="TileSet" path="res://assets/environment/ground/ground_tileset.tres" id="2_tileset"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/plants/farm_tile.tscn" id="4_farm_tile"]
@@ -76,6 +77,9 @@ position = Vector2(624, 420)
 
 [node name="Campfire" parent="Objects" instance=ExtResource("6_campfire")]
 position = Vector2(820, 300)
+
+[node name="NightTint" type="CanvasModulate" parent="."]
+script = ExtResource("8_night_tint")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

@@ -16,6 +16,17 @@ const START_TIME := 20 * 60
 const GAME_MINUTES_PER_SECOND := 1.0
 # Am Hexenfeuer: eine Spielstunde pro Sekunde.
 const FAST_FORWARD_FACTOR := 60.0
+# Wie dunkel es zu welcher Uhrzeit ist (Minute, 0 = Tag … 1 = tiefe Nacht).
+# Dazwischen wird gleichmäßig übergeblendet: Dämmerung 17:00–19:30,
+# Morgengrauen 4:00–6:00.
+const DARKNESS_CURVE: Array[Vector2] = [
+	Vector2(0, 1.0),
+	Vector2(4 * 60, 1.0),
+	Vector2(6 * 60, 0.0),
+	Vector2(17 * 60, 0.0),
+	Vector2(19.5 * 60, 1.0),
+	Vector2(24 * 60, 1.0),
+]
 
 var day: int = 1
 # Minuten seit Mitternacht. float, weil pro Frame nur Bruchteile dazukommen.
@@ -37,6 +48,16 @@ func _process(delta: float) -> void:
 func advance_day() -> void:
 	day += 1
 	day_passed.emit(day)
+
+
+## 0 am Tag, 1 in tiefer Nacht. Licht und Farbstimmung richten sich danach.
+func night_factor() -> float:
+	for i in range(1, DARKNESS_CURVE.size()):
+		var from := DARKNESS_CURVE[i - 1]
+		var to := DARKNESS_CURVE[i]
+		if minutes <= to.x:
+			return lerpf(from.y, to.y, inverse_lerp(from.x, to.x, minutes))
+	return 1.0
 
 
 func hour() -> int:
