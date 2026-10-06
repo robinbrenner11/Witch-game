@@ -296,3 +296,11 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - **Spielwerte nicht fest verstecken** (Wachstumszeit, Schaden, Geschwindigkeit, Sympathie), sodass Boni von außen darauf wirken können
 - **`player.gd` klein halten** – Zaubern, Lebenspunkte usw. später in eigene Nodes/Scripts
 - Buff- und Stat-System **noch nicht bauen**, nur im Hinterkopf behalten
+
+---
+
+## 11. Komfort und Einstellungen
+
+💡 Größe der UI einstellbar (sehr viel später)
+🔮 Nur ganzzahlige Stufen (1×, 2×, 3×), damit die Pixel scharf bleiben
+🔮 Technisch: UI-Grafiken dafür in 1× speichern und die UI als Ganzes skalieren – die Hotbar-Grafiken sind aktuell noch in 2× vorskaliert und müssten dann einmal neu exportiert werden (Generator: `docs/art/ui_generator/hotbar.py`)
