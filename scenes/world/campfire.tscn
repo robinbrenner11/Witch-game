@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/campfire.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/campfire.png" id="2_texture"]
+[ext_resource type="Script" path="res://scripts/systems/interactable.gd" id="3_interactable"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(22, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_interact"]
+size = Vector2(32, 24)
+
+[node name="Campfire" type="StaticBody2D"]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_texture")
+offset = Vector2(0, -16)
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Interactable" type="Area2D" parent="."]
+position = Vector2(0, -8)
+script = ExtResource("3_interactable")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("RectangleShape2D_interact")
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
