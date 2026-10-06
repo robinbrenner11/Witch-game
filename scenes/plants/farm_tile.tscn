@@ -1,17 +1,23 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/plants/farm_tile.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/plants/farm_tile_placeholder.png" id="2_soil"]
+[ext_resource type="Texture2D" path="res://assets/environment/ground/ground_atlas.png" id="2_atlas"]
 [ext_resource type="Script" path="res://scripts/systems/interactable.gd" id="3_interactable"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tile"]
 size = Vector2(32, 32)
 
 [node name="FarmTile" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_script")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_soil")
+[node name="BedSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("2_atlas")
+offset = Vector2(0, 16)
+hframes = 6
+vframes = 8
+frame = 18
 
 [node name="Interactable" type="Area2D" parent="."]
 script = ExtResource("3_interactable")

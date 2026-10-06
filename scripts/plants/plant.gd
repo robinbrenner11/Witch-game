@@ -1,12 +1,13 @@
+class_name Plant
 extends Node2D
 
 ## Eine Pflanze wächst über Nacht um eine Stufe. Ob sie wächst, entscheidet
 ## sie in can_grow_tonight() selbst – dort docken später Bedingungen wie
 ## Mondphase oder Nachbarpflanzen an.
 
-# Eine Grafik pro Wachstumsstufe; die letzte ist "erntereif".
-# Später kommt das aus einer PlantData-Resource je Pflanzenart.
-@export var stage_textures: Array[Texture2D] = []
+# Welche Art hier wächst. Muss gesetzt sein, bevor die Pflanze in den
+# Szenenbaum kommt (macht das Beet beim Pflanzen).
+@export var data: PlantData
 
 var growth_stage: int = 0
 
@@ -15,11 +16,15 @@ var growth_stage: int = 0
 
 func _ready() -> void:
 	DayCycle.day_passed.connect(_on_day_passed)
+	# Das Spritesheet enthält alle Stufen nebeneinander; hframes teilt es
+	# in gleich breite Bilder, frame wählt eins davon aus.
+	sprite.texture = data.stages_texture
+	sprite.hframes = data.stage_count
 	_update_sprite()
 
 
 func is_ripe() -> bool:
-	return growth_stage >= stage_textures.size() - 1
+	return growth_stage >= data.stage_count - 1
 
 
 func can_grow_tonight() -> bool:
@@ -33,4 +38,4 @@ func _on_day_passed(_day: int) -> void:
 
 
 func _update_sprite() -> void:
-	sprite.texture = stage_textures[growth_stage]
+	sprite.frame = growth_stage

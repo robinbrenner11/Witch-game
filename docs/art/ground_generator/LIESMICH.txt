@@ -1,0 +1,2 @@
+Aufruf: python build.py <ausgabeordner> <ordner_mit_original_tiles>
+Benötigt: numpy, pillow, scipy

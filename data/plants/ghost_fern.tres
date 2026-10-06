@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PlantData" format=3]
+
+[ext_resource type="Script" path="res://scripts/plants/plant_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/plants/ghost_fern_stages.png" id="2_stages"]
+[ext_resource type="Texture2D" path="res://assets/items/seed_ghost_fern.png" id="3_seed"]
+[ext_resource type="Texture2D" path="res://assets/items/crop_ghost_fern.png" id="4_crop"]
+
+[resource]
+script = ExtResource("1_script")
+id = "ghost_fern"
+display_name = "Geisterfarn"
+stages_texture = ExtResource("2_stages")
+stage_count = 4
+seed_icon = ExtResource("3_seed")
+crop_icon = ExtResource("4_crop")

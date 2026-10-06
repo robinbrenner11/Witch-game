@@ -1,0 +1,11 @@
+graveyard: Randstreifen-Abweichungen zwischen Varianten = 0
+soil_path: max. mittl. Kantendifferenz 16.7, Ausreißer>60: 0
+cobble_grass: max. mittl. Kantendifferenz 45.0, Ausreißer>60: 0
+graveyard_path: max. mittl. Kantendifferenz 24.7, Ausreißer>60: 0
+slab_grass: max. mittl. Kantendifferenz 49.9, Ausreißer>60: 0
+slab_path: max. mittl. Kantendifferenz 49.9, Ausreißer>60: 0
+slab_graveyard: max. mittl. Kantendifferenz 49.9, Ausreißer>60: 0
+bed_cap_left_dry: Außenkante == Erde: True
+bed_cap_left_wet: Außenkante == Erde: True
+bed_cap_right_dry: Außenkante == Erde: True
+bed_cap_right_wet: Außenkante == Erde: True

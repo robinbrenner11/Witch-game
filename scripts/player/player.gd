@@ -12,6 +12,7 @@ var facing := Vector2.DOWN
 
 @onready var body_shape: CollisionShape2D = $CollisionShape2D
 @onready var interaction_area: Area2D = $InteractionArea
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
 func _physics_process(_delta: float) -> void:
@@ -26,6 +27,23 @@ func _physics_process(_delta: float) -> void:
 	if direction != Vector2.ZERO:
 		facing = _to_four_directions(direction)
 		interaction_area.position = body_shape.position + facing * interaction_distance
+
+	_update_animation(direction != Vector2.ZERO)
+
+
+# Animationsnamen setzen sich aus Zustand und Richtung zusammen, z. B.
+# "walk_side". Für links gibt es kein eigenes Sheet – die Seitenansicht
+# wird einfach gespiegelt.
+func _update_animation(is_moving: bool) -> void:
+	var direction_name := "side"
+	if facing == Vector2.UP:
+		direction_name = "up"
+	elif facing == Vector2.DOWN:
+		direction_name = "down"
+	animated_sprite.flip_h = facing == Vector2.LEFT
+	# play() mit der laufenden Animation startet sie nicht neu, daher
+	# darf das jeden Frame aufgerufen werden.
+	animated_sprite.play(("walk_" if is_moving else "idle_") + direction_name)
 
 
 # _unhandled_input bekommt nur Eingaben, die nicht schon z. B. von der UI

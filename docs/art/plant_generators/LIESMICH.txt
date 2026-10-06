@@ -1,0 +1,2 @@
+Aufruf je Pflanze: python <pflanze>.py <ausgabeordner> <beet_tile.png>
+Benötigt: pillow. pix.py muss im selben Ordner liegen.
