@@ -20,9 +20,6 @@ const CAP_COLUMNS := {
 }
 
 @export var shape: BedShape = BedShape.MIDDLE
-# Platzhalter, bis es ein Inventar gibt: Welche Samen hier per E gepflanzt
-# werden, ist fest pro Beet eingestellt.
-@export var seed_plant: PlantData
 
 var plant: Plant = null
 
@@ -40,18 +37,20 @@ func _ready() -> void:
 		bed_sprite.frame_coords = Vector2i(CAP_COLUMNS[shape], BED_CAP_ROW)
 
 
-func _on_interactable_interacted(_player: Node2D) -> void:
+func _on_interactable_interacted(player: Node2D) -> void:
 	if plant == null:
-		_plant_seed()
+		_plant_seed((player as Player).selected_seed)
 	elif plant.is_ripe():
 		_harvest()
 
 
-func _plant_seed() -> void:
-	if seed_plant == null:
+func _plant_seed(seed_data: PlantData) -> void:
+	# Ohne gewählte Samen oder wenn die Sorte aufgebraucht ist, passiert nichts.
+	if seed_data == null or not Inventory.remove(seed_data.seed_item_id()):
+		print("Keine Samen dieser Sorte mehr (Q wechselt)")
 		return
 	plant = PLANT_SCENE.instantiate()
-	plant.data = seed_plant
+	plant.data = seed_data
 	# Ursprung der Pflanze ist ihr Wurzelpunkt, knapp unter der Beetmitte.
 	# So sortiert die Y-Sortierung sie richtig vor oder hinter die Hexe.
 	plant.position = Vector2(0, 5)
@@ -59,8 +58,8 @@ func _plant_seed() -> void:
 
 
 func _harvest() -> void:
-	# Platzhalter, bis es ein Inventar gibt.
-	print("Geerntet: %s" % plant.data.display_name)
+	Inventory.add(plant.data.crop_item_id())
+	print("Geerntet: %s (jetzt %d)" % [plant.data.display_name, Inventory.count(plant.data.crop_item_id())])
 	# queue_free löscht die Pflanze erst am Ende des Frames – sicherer als
 	# sofort, falls in diesem Frame noch jemand auf sie zugreift.
 	plant.queue_free()

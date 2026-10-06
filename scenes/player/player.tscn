@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bwkoiu7am2do0"]
 
 [ext_resource type="Script" uid="uid://binh4d4hx8cmm" path="res://scripts/player/player.gd" id="1_script"]
 [ext_resource type="SpriteFrames" path="res://assets/characters/witch_sprite_frames.tres" id="2_frames"]
@@ -9,27 +9,27 @@ size = Vector2(16, 8)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_interaction"]
 size = Vector2(16, 16)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=1812710132]
 motion_mode = 1
 script = ExtResource("1_script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2145794264]
 sprite_frames = ExtResource("2_frames")
 animation = &"idle_down"
 offset = Vector2(0, -32)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=197629844]
 position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_body")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=11050239]
 position = Vector2(0, -32)
 
-[node name="InteractionArea" type="Area2D" parent="."]
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1704708605]
 position = Vector2(0, 12)
 collision_layer = 0
 collision_mask = 2
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=2019824394]
 shape = SubResource("RectangleShape2D_interaction")

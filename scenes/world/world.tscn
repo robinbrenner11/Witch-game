@@ -4,12 +4,6 @@
 [ext_resource type="TileSet" path="res://assets/environment/ground/ground_tileset.tres" id="2_tileset"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/plants/farm_tile.tscn" id="4_farm_tile"]
-[ext_resource type="Resource" path="res://data/plants/moon_chalice.tres" id="5_moon_chalice"]
-[ext_resource type="Resource" path="res://data/plants/lantern_berry.tres" id="6_lantern_berry"]
-[ext_resource type="Resource" path="res://data/plants/mandrake.tres" id="7_mandrake"]
-[ext_resource type="Resource" path="res://data/plants/nightshade.tres" id="8_nightshade"]
-[ext_resource type="Resource" path="res://data/plants/blood_rose.tres" id="9_blood_rose"]
-[ext_resource type="Resource" path="res://data/plants/ghost_fern.tres" id="10_ghost_fern"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_top"]
 normal = Vector2(0, 1)
@@ -55,30 +49,24 @@ y_sort_enabled = true
 [node name="FarmTile" parent="Objects/FarmTiles" instance=ExtResource("4_farm_tile")]
 position = Vector2(592, 272)
 shape = 1
-seed_plant = ExtResource("5_moon_chalice")
 
 [node name="FarmTile2" parent="Objects/FarmTiles" instance=ExtResource("4_farm_tile")]
 position = Vector2(624, 272)
-seed_plant = ExtResource("6_lantern_berry")
 
 [node name="FarmTile3" parent="Objects/FarmTiles" instance=ExtResource("4_farm_tile")]
 position = Vector2(656, 272)
 shape = 2
-seed_plant = ExtResource("7_mandrake")
 
 [node name="FarmTile4" parent="Objects/FarmTiles" instance=ExtResource("4_farm_tile")]
 position = Vector2(592, 336)
 shape = 1
-seed_plant = ExtResource("8_nightshade")
 
 [node name="FarmTile5" parent="Objects/FarmTiles" instance=ExtResource("4_farm_tile")]
 position = Vector2(624, 336)
-seed_plant = ExtResource("9_blood_rose")
 
 [node name="FarmTile6" parent="Objects/FarmTiles" instance=ExtResource("4_farm_tile")]
 position = Vector2(656, 336)
 shape = 2
-seed_plant = ExtResource("10_ghost_fern")
 
 [node name="Player" parent="Objects" instance=ExtResource("3_player")]
 position = Vector2(624, 420)
