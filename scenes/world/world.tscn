@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/hotbar.tscn" id="5_hotbar"]
 [ext_resource type="PackedScene" path="res://scenes/world/campfire.tscn" id="6_campfire"]
 [ext_resource type="PackedScene" path="res://scenes/ui/clock.tscn" id="7_clock"]
+[ext_resource type="PackedScene" path="res://scenes/world/cauldron.tscn" id="9_cauldron"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_top"]
 normal = Vector2(0, 1)
@@ -77,6 +78,9 @@ position = Vector2(624, 420)
 
 [node name="Campfire" parent="Objects" instance=ExtResource("6_campfire")]
 position = Vector2(820, 300)
+
+[node name="Cauldron" parent="Objects" instance=ExtResource("9_cauldron")]
+position = Vector2(240, 168)
 
 [node name="NightTint" type="CanvasModulate" parent="."]
 script = ExtResource("8_night_tint")

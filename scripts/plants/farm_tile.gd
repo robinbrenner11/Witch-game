@@ -4,6 +4,9 @@ extends Node2D
 ## wächst, ist Sache der Pflanze selbst.
 
 const PLANT_SCENE := preload("res://scenes/plants/plant.tscn")
+# Vorerst fest hier. Wenn es mehr Tränke mit Wirkung aufs Beet gibt, gehört
+# die Wirkung besser in die Item-Daten.
+const GROWTH_POTION := "potion_growth"
 
 # Position im Beet. Endstücke haben einen abgerundeten Damm, der nahtlos
 # in die Erde übergeht. Eine Reihe ist also: LEFT_END, MIDDLE …, RIGHT_END.
@@ -42,6 +45,9 @@ func _on_interactable_interacted(player: Node2D) -> void:
 		_plant_seed((player as Player).selected_seed)
 	elif plant.is_ripe():
 		_harvest()
+	elif Inventory.selected_item_id() == GROWTH_POTION:
+		Inventory.remove(GROWTH_POTION)
+		plant.grow()
 
 
 func _plant_seed(seed_data: PlantData) -> void:

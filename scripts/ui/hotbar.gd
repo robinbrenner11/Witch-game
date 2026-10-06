@@ -3,7 +3,8 @@ extends VBoxContainer
 ## Die Hotbar am unteren Bildrand. Sie zeigt die ersten Inventar-Plätze an und
 ## nimmt die Tasten 1–8 und das Mausrad entgegen. Was gewählt ist, merkt sich
 ## das Inventar – die Hotbar ist nur das Fenster darauf.
-## Beim Wechseln blendet über der Leiste kurz der Name des Items auf.
+## Über der Leiste blendet kurz ein Text auf: beim Wechseln der Name des
+## Items, beim Bekommen z. B. "+1 Wachstumstrank".
 
 const SLOT_SCENE := preload("res://scenes/ui/hotbar_slot.tscn")
 # Sekunden, die der Name sichtbar bleibt, bevor er ausblendet.
@@ -29,6 +30,7 @@ func _ready() -> void:
 	Inventory.changed.connect(_refresh)
 	Inventory.selection_changed.connect(_refresh)
 	Inventory.selection_changed.connect(_show_item_name)
+	Inventory.item_added.connect(_on_item_added)
 	_refresh()
 
 
@@ -40,7 +42,15 @@ func _refresh() -> void:
 
 
 func _show_item_name() -> void:
-	item_name_label.text = Inventory.display_name_for(Inventory.selected_item_id())
+	_flash_text(Inventory.display_name_for(Inventory.selected_item_id()))
+
+
+func _on_item_added(item_id: String, amount: int) -> void:
+	_flash_text("+%d %s" % [amount, Inventory.display_name_for(item_id)])
+
+
+func _flash_text(text: String) -> void:
+	item_name_label.text = text
 	item_name_label.modulate.a = 1.0
 	# Ein Tween verändert einen Wert über Zeit, hier die Deckkraft. Ein noch
 	# laufender Tween vom letzten Wechsel wird vorher gestoppt, sonst würden

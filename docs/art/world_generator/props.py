@@ -1,6 +1,7 @@
-"""Platzhalter-Objekte für die Welt (32x32, Fußpunkt unten Mitte): Hexenfeuer.
+"""Platzhalter-Objekte für die Welt (32x32, Fußpunkt unten Mitte): Hexenfeuer,
+Kessel – dazu die Trank-Icons (16x16) für das Inventar.
 Licht von oben links, Aubergine-Kontur, nur Palettenfarben.
-Aufruf: python props.py <ausgabeordner>
+Aufruf: python props.py <ausgabeordner_props> <ausgabeordner_items>
 """
 import sys, os
 from PIL import Image
@@ -103,10 +104,81 @@ def campfire(frame):
     return cv.image()
 
 
+# Blasen im Sud je Frame (x, y, Farbe)
+BUBBLES = [
+    [(12, 14, "Q"), (19, 15, "w"), (16, 13, "Q")],
+    [(14, 15, "w"), (20, 14, "Q"), (11, 15, "Q")],
+]
+
+
+def cauldron(frame):
+    cv = Canvas(32, 32)
+    # drei kurze Füße
+    for fx in (9, 16, 23):
+        cv.put(fx, 29, "k"); cv.put(fx, 28, "k")
+    # bauchiger Topf: oben links Indigo-Glanz, sonst fast schwarz
+    for x, y in ellipse_points(16, 22, 10, 6.5):
+        col = "a"
+        if (x - 16) + (y - 22) * 1.3 < -7:
+            col = "i"
+        if (x - 16) + (y - 22) * 1.3 < -11:
+            col = "I"
+        if (x - 16) + (y - 22) > 8:
+            col = "k"
+        cv.put(x, y, col)
+    # Rand und Sud
+    for x, y in ellipse_points(16, 15, 10, 3.2):
+        cv.put(x, y, "k")
+    for x, y in ellipse_points(16, 15, 8.5, 2.2):
+        cv.put(x, y, "G" if (x - 16) + (y - 15) * 2 > -4 else "Q")
+    for x, y in ellipse_points(16, 15.8, 7.5, 1.4):
+        if (x - 16) > 2:
+            cv.put(x, y, "q")
+    for bx, by, col in BUBBLES[frame]:
+        cv.put(bx, by, col)
+    cv.put(8, 14, "I"); cv.put(9, 13, "I")   # Glanz am Rand
+    cv.outline("a")
+    return cv.image()
+
+
+def potion(liquid, light, dark, bubble=None):
+    """16x16 Rundkolben mit Korken. liquid/light/dark: Farben des Inhalts."""
+    cv = Canvas(16, 16)
+    for x, y in ellipse_points(7.5, 10.5, 4.6, 4.2):
+        if y >= 9:
+            col = liquid
+            if x + y < 15:
+                col = light
+            if x - y > 0 or y >= 14:
+                col = dark
+        else:
+            col = "n"   # leeres, dunkles Glas oberhalb des Füllstands
+        cv.put(x, y, col)
+    for y in range(4, 7):
+        for x in range(6, 10):
+            cv.put(x, y, "n")
+    for x in range(6, 10):
+        cv.put(x, 4, "g")                    # Goldring am Hals
+    for y in range(1, 4):
+        for x in range(6, 10):
+            cv.put(x, y, "H" if x < 8 else "e")   # Korken
+    cv.put(5, 8, "w"); cv.put(4, 9, "w")      # Glanzlicht oben links
+    if bubble:
+        cv.put(*bubble)
+    cv.outline("a")
+    return cv.image()
+
+
 if __name__ == "__main__":
-    out = sys.argv[1]
-    os.makedirs(out, exist_ok=True)
+    out_props, out_items = sys.argv[1], sys.argv[2]
+    os.makedirs(out_props, exist_ok=True)
     sheet = Image.new("RGBA", (32 * len(FLAMES), 32), (0, 0, 0, 0))
     for f in range(len(FLAMES)):
         sheet.alpha_composite(campfire(f), (32 * f, 0))
-    sheet.save(os.path.join(out, "campfire.png"))
+    sheet.save(os.path.join(out_props, "campfire.png"))
+    sheet = Image.new("RGBA", (32 * len(BUBBLES), 32), (0, 0, 0, 0))
+    for f in range(len(BUBBLES)):
+        sheet.alpha_composite(cauldron(f), (32 * f, 0))
+    sheet.save(os.path.join(out_props, "cauldron.png"))
+    potion("G", "Q", "q", (9, 11, "Q")).save(os.path.join(out_items, "potion_growth.png"))
+    potion("h", "H", "e", (6, 12, "d")).save(os.path.join(out_items, "potion_sludge.png"))

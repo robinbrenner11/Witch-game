@@ -9,6 +9,8 @@ extends Node
 
 signal changed
 signal selection_changed
+# Für Rückmeldungen wie "+1 Alraune". Kommt zusätzlich zu changed.
+signal item_added(item_id: String, amount: int)
 
 # Gesamtzahl der Plätze. Die ersten HOTBAR_SIZE davon liegen in der Hotbar
 # (Tasten 1–8), der Rest kommt später in ein Inventar-Fenster.
@@ -54,7 +56,12 @@ func add(item_id: String, amount: int = 1) -> bool:
 		_slots[free_slot] = item_id
 	_counts[item_id] = count(item_id) + amount
 	changed.emit()
+	item_added.emit(item_id, amount)
 	return true
+
+
+func has_room_for(item_id: String) -> bool:
+	return _counts.has(item_id) or _slots.has("")
 
 
 ## Gibt false zurück (und ändert nichts), wenn nicht genug da ist.
@@ -82,10 +89,12 @@ func selected_item_id() -> String:
 	return item_in_slot(selected_slot)
 
 
-## Vorläufig kommen Icons aus den Pflanzendaten, weil es bisher nur Samen und
-## Ernte gibt. Sobald andere Items (Tränke …) dazukommen, bekommt jedes Item
-## eine eigene Datendatei in data/items/ – dann ändert sich nur diese Funktion.
+## Icons und Namen kommen aus data/items/. Samen und Ernte haben dort (noch)
+## keine eigene Datei und werden aus den Pflanzendaten abgeleitet.
 func icon_for(item_id: String) -> Texture2D:
+	var item := ItemData.from_id(item_id)
+	if item:
+		return item.icon
 	if item_id.begins_with("seed_"):
 		return PlantData.from_id(item_id.trim_prefix("seed_")).seed_icon
 	if item_id.begins_with("crop_"):
@@ -93,8 +102,10 @@ func icon_for(item_id: String) -> Texture2D:
 	return null
 
 
-## Anzeigename für die UI. Wie icon_for() vorläufig aus den Pflanzendaten.
 func display_name_for(item_id: String) -> String:
+	var item := ItemData.from_id(item_id)
+	if item:
+		return item.display_name
 	if item_id.begins_with("seed_"):
 		return PlantData.from_id(item_id.trim_prefix("seed_")).display_name + "-Samen"
 	if item_id.begins_with("crop_"):

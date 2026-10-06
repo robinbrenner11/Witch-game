@@ -1,0 +1,47 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/cauldron.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/cauldron.png" id="2_texture"]
+[ext_resource type="Script" path="res://scripts/systems/interactable.gd" id="3_interactable"]
+[ext_resource type="Script" path="res://scripts/systems/night_light.gd" id="4_night_light"]
+[ext_resource type="Texture2D" path="res://assets/effects/lights/light_round_64.png" id="5_light"]
+[ext_resource type="Resource" path="res://data/recipes/growth_potion.tres" id="6_recipe_growth"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(22, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_interact"]
+size = Vector2(32, 24)
+
+[node name="Cauldron" type="StaticBody2D"]
+script = ExtResource("1_script")
+recipes = Array[Resource]([ExtResource("6_recipe_growth")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_texture")
+offset = Vector2(0, -16)
+hframes = 2
+
+[node name="IngredientIcon" type="Sprite2D" parent="."]
+position = Vector2(0, -36)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Interactable" type="Area2D" parent="."]
+position = Vector2(0, -10)
+script = ExtResource("3_interactable")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("RectangleShape2D_interact")
+
+[node name="Glow" type="PointLight2D" parent="."]
+position = Vector2(0, -17)
+color = Color(0.384314, 0.627451, 0.431373, 1)
+texture = ExtResource("5_light")
+script = ExtResource("4_night_light")
+base_energy = 1.8
+flicker = 0.06
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]

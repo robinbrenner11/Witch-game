@@ -38,8 +38,15 @@ func can_grow_tonight() -> bool:
 
 func _on_day_passed(_day: int) -> void:
 	if can_grow_tonight():
-		growth_stage += 1
-		_update_sprite()
+		grow()
+
+
+## Eine Stufe weiter. Kommt vom Tageswechsel oder z. B. vom Wachstumstrank.
+func grow() -> void:
+	if is_ripe():
+		return
+	growth_stage += 1
+	_update_sprite()
 
 
 func _update_sprite() -> void:
