@@ -38,7 +38,7 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 ## 5. Kleinkram, der früh billig und spät teuer ist
 
 - [ ] **Aktions-Animationen** – ausgießen, ernten, schnippen (bisher nur laufen/stehen)
-- [ ] **Blickrichtung beim Interagieren** – nur nach vorne, nicht hinter sich
+- [x] **Blickrichtung beim Interagieren** – nur nach vorne, nicht hinter sich
 - [ ] **Einmal früh exportieren** – Windows-Build bauen und testen
 
 ## Empfohlene Reihenfolge nach dem Auftrag vom 07.10.

@@ -4,3 +4,6 @@
 
 # Asset-Pakete (Quelldateien, nicht ins Repo)
 *.zip
+
+# Exportierte Builds (exe)
+/build/
