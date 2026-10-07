@@ -20,6 +20,7 @@ var selected_seed: PlantData:
 @onready var body_shape: CollisionShape2D = $CollisionShape2D
 @onready var interaction_area: Area2D = $InteractionArea
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var camera: Camera2D = $Camera2D
 
 
 func _physics_process(_delta: float) -> void:

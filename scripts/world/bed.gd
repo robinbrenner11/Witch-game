@@ -19,6 +19,11 @@ var _sleeping := false
 @onready var wake_spot: Marker2D = $WakeSpot
 
 
+func _ready() -> void:
+	# Main sucht das Bett beim Spielstart, um die Hexe daneben aufwachen zu lassen.
+	add_to_group("bed")
+
+
 func _on_interactable_interacted(player: Node2D) -> void:
 	if not _sleeping:
 		_sleep(player as Player)

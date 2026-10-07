@@ -312,6 +312,7 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - Buff- und Stat-System **noch nicht bauen**, nur im Hinterkopf behalten
 - **Spielstand**: Jedes System liefert `get_save_data()` / `load_save_data()`, `SaveGame` sammelt nur ein. Neue Systeme mit Zustand (NPCs, Truhen …) genauso anbinden
 - **Zustand, der Szenen überdauert, gehört in ein Autoload** (`Garden`, `Brewing`, `Inventory`, `DayCycle`); Szenen-Nodes zeigen ihn nur an
+- **Orte**: Jeder Ort ist eine Level-Szene in `scenes/world/` (Ground, Objects, Exits; Wände und Kameragrenzen ergeben sich aus der bemalten Fläche). `scenes/main.tscn` hält Hexe, UI und Nachtfärbung und tauscht den Ort aus; Ausgänge (`scenes/world/exit.tscn`) verbinden die Orte
 - **UI**: neue Grafiken in 1× speichern, Fenster mit `scale = 2` anzeigen (wie das Brau-Fenster); Inventar-Plätze über den Baustein `InventoryGrid`
 
 ---

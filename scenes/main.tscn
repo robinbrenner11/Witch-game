@@ -1,0 +1,27 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/world/night_tint.gd" id="2_night_tint"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hotbar.tscn" id="4_hotbar"]
+[ext_resource type="PackedScene" path="res://scenes/ui/clock.tscn" id="5_clock"]
+[ext_resource type="PackedScene" path="res://scenes/ui/inventory_window.tscn" id="6_inventory_window"]
+[ext_resource type="PackedScene" path="res://scenes/ui/brew_window.tscn" id="7_brew_window"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_script")
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+
+[node name="NightTint" type="CanvasModulate" parent="."]
+script = ExtResource("2_night_tint")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Hotbar" parent="UI" instance=ExtResource("4_hotbar")]
+
+[node name="Clock" parent="UI" instance=ExtResource("5_clock")]
+
+[node name="InventoryWindow" parent="UI" instance=ExtResource("6_inventory_window")]
+
+[node name="BrewWindow" parent="UI" instance=ExtResource("7_brew_window")]
