@@ -5,10 +5,10 @@ extends Node
 ## Die Hexe wandert beim Wechsel in den neuen Ort mit, deshalb bleiben z. B.
 ## ein getrunkenes Irrlicht oder offene Fenster erhalten.
 ##
-## Beim Spielstart wacht die Hexe im Unterschlupf am Bett auf – gespeichert
-## wird ohnehin nur beim Schlafen.
+## Beim Spielstart wacht die Hexe am Bett auf (im Garten).
 
-const START_LEVEL := "res://scenes/world/shelter.tscn"
+# Hier steht das Bett, an dem die Hexe beim Spielstart aufwacht.
+const START_LEVEL := "res://scenes/world/garden.tscn"
 
 var level: Level
 var _travelling := false

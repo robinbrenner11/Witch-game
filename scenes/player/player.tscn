@@ -18,6 +18,22 @@ size = Vector2(16, 16)
 motion_mode = 1
 script = ExtResource("1_script")
 
+[node name="FloatSparkles" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_unshaded")
+position = Vector2(0, -2)
+emitting = false
+amount = 18
+lifetime = 0.6
+local_coords = false
+emission_shape = 3
+emission_rect_extents = Vector2(6, 2)
+direction = Vector2(0, -1)
+spread = 40.0
+gravity = Vector2(0, -15)
+initial_velocity_min = 4.0
+initial_velocity_max = 14.0
+color = Color(0.894118, 0.345098, 0.694118, 1)
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2145794264]
 sprite_frames = ExtResource("2_frames")
 animation = &"idle_down"

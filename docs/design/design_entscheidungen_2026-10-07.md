@@ -157,4 +157,5 @@ Beschreibungstexte im Spiel (bereits nach den Schriftregeln: keine Gedankenstric
 ✅ Während der Kessel braut, ist das Fenster gesperrt (Knopf „Braut“). Fertige Tränke schweben über dem Kessel und werden mit E abgeholt.
 💡 **Mülleimer** später als eigenes Objekt in der Welt, nicht im Inventar.
 💡 Item-Details evtl. per Rechtsklick im Inventar – oder nur im Rezeptbuch (offen).
-
+✅ **Bett und Kessel stehen im Garten**, nicht im Unterschlupf. Die Hexe wacht im Garten auf. Der Unterschlupf bleibt vorerst ein leerer Ort.
+✅ **Schweben mit Shift**: 2,5× so schnell, die Hexe hebt per Magie leicht ab und hinterlässt magentafarbene Funken.
