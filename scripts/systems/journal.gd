@@ -8,7 +8,7 @@ extends Node
 signal changed
 
 # IDs der ersten Ziele, in der Reihenfolge der Notiz.
-const GOALS: Array[String] = ["plant", "brew", "sleep"]
+const GOALS: Array[String] = ["plant", "brew", "sleep", "wake"]
 
 var has_book := false
 # Ergebnis-IDs der Rezepte, deren lose Seite gefunden wurde.

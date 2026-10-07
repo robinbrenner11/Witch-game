@@ -1,6 +1,6 @@
 extends Node
 
-## Was in welchem Beet wächst. Läuft als Autoload, damit der Garten auch dann
+## Wo im Garten Beete sind und was darin wächst. Läuft als Autoload, damit der Garten auch dann
 ## weiterwächst, wenn die Garten-Szene gerade nicht geladen ist (Hexe im
 ## Unterschlupf oder Wald), und damit der Spielstand ihn speichern kann.
 ##
@@ -12,12 +12,19 @@ extends Node
 
 # Kommt bei jeder Änderung an einem Beet (gepflanzt, gewachsen, geerntet).
 signal plant_changed(cell: Vector2i)
+# Kommt, wenn ein Beet angelegt oder entfernt wurde ("Erde wecken").
+signal bed_changed(cell: Vector2i)
 
 const TILE_SIZE := 32
 
 # Zelle -> {"plant_id": String, "stage": int}. Bewusst ein einfaches
 # Dictionary statt eigener Klasse: lässt sich direkt speichern.
 var _plants: Dictionary[Vector2i, Dictionary] = {}
+# Welche Zellen Beete sind. Ein Dictionary als Menge: nur die Schlüssel zählen.
+var _beds: Dictionary[Vector2i, bool] = {}
+# false = noch nie festgelegt; dann übernimmt der Garten beim ersten Laden die
+# Beete, die in der Szene von Hand gesetzt sind (Startbeete).
+var beds_initialized := false
 
 
 func _ready() -> void:
@@ -27,6 +34,29 @@ func _ready() -> void:
 ## Rechnet eine Weltposition in die Zelle um, in der sie liegt.
 static func cell_at(world_position: Vector2) -> Vector2i:
 	return Vector2i((world_position / TILE_SIZE).floor())
+
+
+func has_bed(cell: Vector2i) -> bool:
+	return _beds.has(cell)
+
+
+func bed_cells() -> Array[Vector2i]:
+	return _beds.keys()
+
+
+func add_bed(cell: Vector2i) -> void:
+	if not has_bed(cell):
+		_beds[cell] = true
+		bed_changed.emit(cell)
+
+
+## Nur leere Beete lassen sich entfernen.
+func remove_bed(cell: Vector2i) -> bool:
+	if not has_bed(cell) or has_plant(cell):
+		return false
+	_beds.erase(cell)
+	bed_changed.emit(cell)
+	return true
 
 
 func has_plant(cell: Vector2i) -> bool:
@@ -145,30 +175,43 @@ func _aura_reaches(source_cell: Vector2i, target_cell: Vector2i) -> bool:
 
 ## Neues Spiel: alle Beete leer.
 func reset() -> void:
-	load_save_data([])
+	load_save_data({})
 
 
-## JSON kennt keine Vector2i-Schlüssel, deshalb als Liste mit x und y.
-func get_save_data() -> Array:
-	var result := []
+## JSON kennt keine Vector2i-Schlüssel, deshalb als Listen mit x und y.
+func get_save_data() -> Dictionary:
+	var plants := []
 	for cell in _plants:
-		result.append({
+		plants.append({
 			"x": cell.x,
 			"y": cell.y,
 			"plant_id": _plants[cell]["plant_id"],
 			"stage": _plants[cell]["stage"],
 		})
-	return result
+	var beds := []
+	for cell in _beds:
+		beds.append({"x": cell.x, "y": cell.y})
+	return {"plants": plants, "beds": beds, "beds_initialized": beds_initialized}
 
 
-func load_save_data(data: Array) -> void:
-	var old_cells := _plants.keys()
+func load_save_data(data: Variant) -> void:
+	# Ältere Spielstände speicherten nur die Pflanzen als Liste.
+	if data is Array:
+		data = {"plants": data}
+	var old_plants := _plants.keys()
+	var old_beds := _beds.keys()
 	_plants.clear()
-	for entry in data:
+	_beds.clear()
+	for entry in data.get("plants", []):
 		var cell := Vector2i(int(entry["x"]), int(entry["y"]))
 		_plants[cell] = {"plant_id": String(entry["plant_id"]), "stage": int(entry["stage"])}
-	# Beete, die gerade angezeigt werden, auf den neuen Stand bringen.
-	for cell in old_cells + _plants.keys():
+	for entry in data.get("beds", []):
+		_beds[Vector2i(int(entry["x"]), int(entry["y"]))] = true
+	beds_initialized = bool(data.get("beds_initialized", false))
+	# Beete und Pflanzen, die gerade angezeigt werden, auf den neuen Stand bringen.
+	for cell in old_beds + _beds.keys():
+		bed_changed.emit(cell)
+	for cell in old_plants + _plants.keys():
 		plant_changed.emit(cell)
 
 

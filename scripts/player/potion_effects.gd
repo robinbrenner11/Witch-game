@@ -28,7 +28,8 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("use_item"):
+	# Beim Schlafen oder Ortswechsel ist die Steuerung aus.
+	if event.is_action_pressed("use_item") and (get_parent() as Player).is_physics_processing():
 		_drink_selected()
 
 

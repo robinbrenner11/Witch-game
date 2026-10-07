@@ -5,8 +5,9 @@ extends Node2D
 
 const PLANT_SCENE := preload("res://scenes/plants/plant.tscn")
 
-# Position im Beet. Endstücke haben einen abgerundeten Damm, der nahtlos
-# in die Erde übergeht. Eine Reihe ist also: LEFT_END, MIDDLE …, RIGHT_END.
+# Position in der Beetreihe. Endstücke haben einen abgerundeten Damm, der
+# nahtlos in die Erde übergeht. Eine Reihe ist also: LEFT_END, MIDDLE …,
+# RIGHT_END. Ergibt sich automatisch aus den Nachbarbeeten links und rechts.
 enum BedShape { MIDDLE, LEFT_END, RIGHT_END, SINGLE }
 
 # Spalten in ground_atlas.png; die gegossene Version liegt jeweils 3 Spalten
@@ -19,7 +20,10 @@ const CAP_COLUMNS := {
 	BedShape.SINGLE: 2,
 }
 
-@export var shape: BedShape = BedShape.MIDDLE
+var shape: BedShape = BedShape.SINGLE
+# Fest gewürfelte Mustervariante, damit ein Mittelstück beim Umbauen der
+# Reihe nicht jedes Mal anders aussieht.
+var _pattern := randi_range(0, 2)
 
 # Anzeige der Pflanze; null, solange nichts wächst.
 var plant: Plant = null
@@ -33,13 +37,10 @@ var cell: Vector2i
 
 
 func _ready() -> void:
-	if shape == BedShape.MIDDLE:
-		# Drei Mustervarianten, damit lange Reihen nicht gestempelt aussehen.
-		bed_sprite.frame_coords = Vector2i(randi_range(0, 2), BED_ROW)
-	else:
-		bed_sprite.frame_coords = Vector2i(CAP_COLUMNS[shape], BED_CAP_ROW)
 	cell = Garden.cell_at(global_position)
 	Garden.plant_changed.connect(_on_garden_plant_changed)
+	Garden.bed_changed.connect(_on_garden_bed_changed)
+	_update_shape()
 	# Falls hier schon etwas wächst (Spielstand, Rückkehr in den Garten).
 	_sync_plant()
 
@@ -107,6 +108,30 @@ func _describe_growing_plant() -> void:
 		Messages.post("Bald ist sie so weit.")
 	else:
 		Messages.post("Sie wächst noch.")
+
+
+# Kommt ein Nachbarbeet dazu oder fällt weg, ändert sich die eigene Form.
+func _on_garden_bed_changed(changed_cell: Vector2i) -> void:
+	if changed_cell == cell + Vector2i.LEFT or changed_cell == cell + Vector2i.RIGHT:
+		_update_shape()
+
+
+func _update_shape() -> void:
+	var left := Garden.has_bed(cell + Vector2i.LEFT)
+	var right := Garden.has_bed(cell + Vector2i.RIGHT)
+	if left and right:
+		shape = BedShape.MIDDLE
+	elif right:
+		shape = BedShape.LEFT_END
+	elif left:
+		shape = BedShape.RIGHT_END
+	else:
+		shape = BedShape.SINGLE
+	if shape == BedShape.MIDDLE:
+		# Drei Mustervarianten, damit lange Reihen nicht gestempelt aussehen.
+		bed_sprite.frame_coords = Vector2i(_pattern, BED_ROW)
+	else:
+		bed_sprite.frame_coords = Vector2i(CAP_COLUMNS[shape], BED_CAP_ROW)
 
 
 func _on_garden_plant_changed(changed_cell: Vector2i) -> void:

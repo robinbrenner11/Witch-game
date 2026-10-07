@@ -9,12 +9,33 @@ extends Node2D
 ## Aufbau: Ground (TileMapLayer), Objects (Y-sortiert) und beliebig viele
 ## Exits (Ausgänge in andere Orte).
 
+# Terrain-Nummer der Erde im TileSet (grass 0, soil 1, path 2 …).
+const SOIL_TERRAIN := 1
+
+# Darf man hier mit einem Schnippen Beete anlegen? Nur im Garten.
+@export var allows_beds: bool = false
+
 @onready var ground: TileMapLayer = $Ground
 @onready var objects: Node2D = $Objects
 
 
 func _ready() -> void:
+	# Über die Gruppe finden z. B. die Zauber der Hexe den aktuellen Ort.
+	add_to_group("level")
 	_build_bounds()
+
+
+## Liegt an dieser Zelle reine Erde? Bei Ecken-Terrains heißt das: alle vier
+## Ecken des Tiles gehören zur Erde, Übergänge zu Gras oder Weg zählen nicht.
+func is_soil(cell: Vector2i) -> bool:
+	var data := ground.get_cell_tile_data(cell)
+	if data == null or data.terrain_set != 0:
+		return false
+	for corner in [TileSet.CELL_NEIGHBOR_TOP_LEFT_CORNER, TileSet.CELL_NEIGHBOR_TOP_RIGHT_CORNER,
+			TileSet.CELL_NEIGHBOR_BOTTOM_LEFT_CORNER, TileSet.CELL_NEIGHBOR_BOTTOM_RIGHT_CORNER]:
+		if data.get_terrain_peering_bit(corner) != SOIL_TERRAIN:
+			return false
+	return true
 
 
 ## Die bemalte Fläche in Pixeln. Daraus folgen Kameragrenzen und Wände, so

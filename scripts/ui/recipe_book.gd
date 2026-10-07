@@ -20,6 +20,7 @@ const GOAL_TEXTS := {
 	"plant": "Leg einen Samen in die Erde.",
 	"brew": "Wirf Zutaten in meinen Kessel und sieh, was geschieht.",
 	"sleep": "Schlaf. Die Nacht arbeitet für dich.",
+	"wake": "Weck die Erde mit einem Schnippen (R).",
 }
 
 var _page := 0
