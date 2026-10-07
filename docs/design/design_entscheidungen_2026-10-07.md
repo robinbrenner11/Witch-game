@@ -160,3 +160,13 @@ Beschreibungstexte im Spiel (bereits nach den Schriftregeln: keine Gedankenstric
 ✅ **Bett und Kessel stehen im Garten**, nicht im Unterschlupf. Die Hexe wacht im Garten auf. Der Unterschlupf bleibt vorerst ein leerer Ort.
 ✅ **Schweben mit Shift**: 2,5× so schnell, die Hexe hebt per Magie leicht ab und hinterlässt magentafarbene Funken.
 ✅ **Kein Morgen-Moment**: Beim Aufwachen erscheint kein Text. Was über den Tag passiert ist, entdeckt man selbst im Garten.
+
+## 9. Geschichte: die alte Hexe (Stand 07.10.2026)
+
+✅ Das Rezeptbuch gehört **nicht einer verstorbenen Hexe**, sondern einer **fremden, sehr mächtigen alten Hexe** (Oma-Hexe), die **noch lebt** und **geflohen** ist. Die Hauptfigur kannte sie nicht und übernimmt ihren verlassenen Garten.
+✅ Hintergrund: Vor etwa **10 Jahren** gab es eine **Plage von Monstern**. Die Dorfbewohner konnten sie **im Schacht halten**, aber es gibt immer noch viele davon. Die alte Hexe ist geflohen, weil sie in ihrem hohen Alter nicht mehr kämpfen kann.
+💡 Die alte Hexe kann später einmal **auftauchen**.
+💡 Ihre Geschichte ist eine der Geschichten, die die **Dorfbewohner erzählen**.
+🔮 Der Schacht passt als Ort für den ersten Dungeon (Monster, Kampf mit Magie).
+Offen: Name der alten Hexe.
+
