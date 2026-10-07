@@ -6,19 +6,19 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 
 ## 1. Fundament – ohne das wird jede Erweiterung später teuer
 
-- [ ] **Spielstand speichern und laden** *(Auftrag 07.10.)* – bisher geht beim Schließen alles verloren
-- [ ] **Gartendaten außerhalb der Szene** (Autoload) *(Auftrag 07.10.)* – Voraussetzung für Speichern und Szenenwechsel
+- [x] **Spielstand speichern und laden** *(Auftrag 07.10.)* – bisher geht beim Schließen alles verloren
+- [x] **Gartendaten außerhalb der Szene** (Autoload) *(Auftrag 07.10.)* – Voraussetzung für Speichern und Szenenwechsel
 - [ ] **Ein gemeinsames Item-Register** – Samen/Ernte werden noch aus den Pflanzendaten abgeleitet, Tränke haben eigene Dateien. Vor weiteren Items: alle Items einheitlich als Datendatei (Name, Icon, Beschreibung, max. Stapelgröße, Typ: Samen/Zutat/Trank/Werkzeug)
 - [ ] **Szenenwechsel** – Türen/Übergänge, Überblendung, Startpunkt pro Eingang (Unterschlupf ↔ Garten ↔ Wald)
-- [ ] **Pausieren** – Zeit und Spiel stoppen, solange ein Menü oder Fenster offen ist
+- [x] **Pausieren** – Zeit und Spiel stoppen, solange ein Menü oder Fenster offen ist (Inventar- und Brau-Fenster; Pausemenü fehlt noch)
 
 ## 2. Bedienung – was Spielerinnen sofort vermissen würden
 
 - [ ] **Rückmeldungen auf dem Bildschirm statt in der Konsole** – "Inventar voll", "Keine Samen in der Hand" usw. laufen über `print()` und sind im Spiel unsichtbar
 - [ ] **Interaktions-Hinweis** – hervorheben, womit E gerade interagiert (Umriss oder kleines "E")
-- [ ] **Inventar-Fenster** – 24 Plätze existieren, sichtbar sind nur 8; Fenster mit Drag & Drop (gleiche Bausteine wie das Brau-Fenster)
-- [ ] **Items benutzen** – eine einheitliche Aktion "ausgewähltes Item benutzen" (trinken, ausgießen, pflanzen)
-- [ ] **Items wegwerfen/entsorgen** – sonst verstopft Hexenschlamm das Inventar
+- [x] **Inventar-Fenster** – 24 Plätze existieren, sichtbar sind nur 8; Fenster mit Drag & Drop (gleiche Bausteine wie das Brau-Fenster) → Tab
+- [ ] **Items benutzen** – eine einheitliche Aktion "ausgewähltes Item benutzen" (trinken, ausgießen, pflanzen) – teilweise: Q/Rechtsklick trinkt, E gießt aus und pflanzt
+- [ ] **Items wegwerfen/entsorgen** – sonst verstopft Hexenschlamm das Inventar (entschieden: Mülleimer als Objekt in der Welt)
 - [ ] **Beete anlegen und entfernen** ("Erde wecken") – Beete sind bisher fest in die Karte gesetzt
 
 ## 3. Rahmen – macht aus dem Prototyp ein Spiel
@@ -27,7 +27,7 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 - [ ] **Pausemenü (Esc)** – Fortsetzen, Einstellungen, Speichern & Beenden
 - [ ] **Einstellungen** – Lautstärke, Vollbild/Fenster, später Tastenbelegung
 - [ ] **Sound** – bisher keine einzige Audiodatei. Minimum: Musik (SZA-Stimmung), Nachtatmosphäre, Schritte, Ernten, Pflanzen, Kessel-Blubbern, UI-Klicks
-- [ ] **Bett + Morgen-Moment** *(Auftrag 07.10.)*
+- [ ] **Bett + Morgen-Moment** *(Auftrag 07.10.)* – Bett fertig, Morgen-Moment fehlt noch
 
 ## 4. Einstieg – damit jemand außer dir das Spiel versteht
 

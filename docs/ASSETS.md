@@ -175,6 +175,8 @@ Generator: `docs/art/plant_generators/nightshade_aura.py` (Funktionen `field`, `
 
 Welken der Pflanzen unter der Kuppel: keine eigene Grafik, sondern per `modulate` bzw. kleinem Shader (entsättigt, kühl-dunkel).
 
+**Umgesetzt:** Im Spiel zeichnet `assets/effects/shaders/nightshade_domes.gdshader` die Aura als Nebel (nicht als Glas, Entscheidung vom 07.10.). Welken: `assets/effects/shaders/wilt.gdshader`. `nightshade_dome.png` wird nicht benutzt.
+
 ## Referenzen – `docs/art/`
 
 - `styleguide.pdf`, `hexen_palette.gpl` (Palette für Aseprite/GIMP, inkl. der 7 abgeleiteten Töne für die Pflanzen: Indigo, Indigo hell, Flieder, Giftgrün dunkel/hell, Nachtblau hell, Geisterblau, sowie der 27 Zwischentöne vom 07.10.2026, siehe `neue_farben.md`)

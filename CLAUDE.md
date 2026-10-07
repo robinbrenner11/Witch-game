@@ -207,6 +207,15 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 ✅ Mehrere Pflanzenarten
 ✅ Pflanzen dienen später für Tränke, Quests, Magie, Handel, Geschenke, Crafting, Ereignisse
 
+**Umgesetzt (Stand 07.10.2026)** – Details in `docs/design/design_entscheidungen_2026-10-07.md`:
+✅ Garten-Zustand im Autoload `Garden` (wächst auch ohne geladene Szene), Wachstum 1 Stufe pro Nacht, Ernte gibt 1 Samen zurück
+✅ Nachtschatten-Aura: hemmt die 8 Nachbarn ab der Blüte, Nachbarn welken (Shader), neblige blaue Aura, mehrere verschmelzen
+✅ Hexenschlamm = Dünger (1 Pflanze), Wachstumstrank 3×3, Mondernte 3×3 sofort reif; Magie macht den Mondkelch nicht reif
+✅ Brau-Fenster am Kessel: mitwachsende Felder, Kapazität 3 als Datenwert, 5 Rezepte, bekannte Mischungen mit Namen, sonst ???
+✅ Brauen über Nacht, Abholen am Kessel; Trinken mit Q/Rechtsklick (Irrlicht, Flüssiges Mondlicht, Ewige Nacht)
+✅ Bett: Schlafen überspringt den Tag bis 18:00 und speichert (Nacht, Inventar, Garten, Kessel)
+✅ Inventar-Fenster (Tab) mit Drag & Drop, Spiel pausiert bei offenen Fenstern
+
 🔮 Leitgedanke: **Kampf und Fortschritt entstehen aus dem Garten.** Pflanzen → Tränke → Zauber/Buffs. Dungeon-Beute (seltene Samen, Rezepte, Kristalle) fließt zurück in den Garten.
 
 ---
@@ -284,8 +293,8 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 
 ## 9. Vorgeschlagene Reihenfolge (🔮)
 
-1. Beet und Pflanzenwachstum (aktueller Meilenstein)
-2. Inventar, Ernte, Tränke brauen
+1. ✅ Beet und Pflanzenwachstum
+2. ✅ Inventar, Ernte, Tränke brauen (Grundversion; Basics siehe `docs/design/checkliste_basics.md`)
 3. Erster Begleiter: folgt der Hexe, gibt Gartenbonus
 4. Dialog, NPCs, Sidequests
 5. Startwahl Hexenpfad (sobald mind. Garten + NPCs existieren)
@@ -301,6 +310,9 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - **Spielwerte nicht fest verstecken** (Wachstumszeit, Schaden, Geschwindigkeit, Sympathie), sodass Boni von außen darauf wirken können
 - **`player.gd` klein halten** – Zaubern, Lebenspunkte usw. später in eigene Nodes/Scripts
 - Buff- und Stat-System **noch nicht bauen**, nur im Hinterkopf behalten
+- **Spielstand**: Jedes System liefert `get_save_data()` / `load_save_data()`, `SaveGame` sammelt nur ein. Neue Systeme mit Zustand (NPCs, Truhen …) genauso anbinden
+- **Zustand, der Szenen überdauert, gehört in ein Autoload** (`Garden`, `Brewing`, `Inventory`, `DayCycle`); Szenen-Nodes zeigen ihn nur an
+- **UI**: neue Grafiken in 1× speichern, Fenster mit `scale = 2` anzeigen (wie das Brau-Fenster); Inventar-Plätze über den Baustein `InventoryGrid`
 
 ---
 

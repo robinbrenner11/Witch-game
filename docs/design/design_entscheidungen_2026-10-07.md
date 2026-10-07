@@ -139,3 +139,22 @@ Beschreibungstexte im Spiel (bereits nach den Schriftregeln: keine Gedankenstric
 - **Rezepte als Datendateien mit Zutatenliste** (2–N Zutaten, beim Vergleich sortieren). Jeder Trank hat in den Item-Daten "trinken" oder "ausgießen".
 - **Kessel-Kapazität als Datenwert** (für Upgrades).
 - **Spieltexte**: Die Schrift kennt keine Gedankenstriche, keine deutschen Anführungszeichen, keine Auslassungspunkte. IDs sind englisch.
+
+---
+
+## 8. Nachträge aus der Umsetzung (07.10.2026, Coding-Session)
+
+✅ Nachtschatten hemmt erst ab der **Blüte** (`aura_min_stage = 2`, Stufen ab 0 gezählt).
+✅ Die Aura ist **kein Glas, sondern Nebel**: ziehende Schwaden, ausgefranster Rand, gerastert (Dither). Verschmelzen und Pochen wie geplant.
+✅ Auch reife Pflanzen unter der Aura welken sichtbar (wichtig für den späteren Ernte-Debuff).
+✅ Mit Trank in der Hand hat Ausgießen Vorrang vor Ernten; wächst nichts, wird geerntet und der Trank bleibt.
+✅ Magie macht den Mondkelch nicht reif (`magic_can_ripen = false`). Wenn es Mondphasen gibt, wird er nur bei Vollmond reif.
+✅ Inventar-Fenster mit **Tab**: Plätze 9–24 über der Hotbar, Drag & Drop, nur der Item-Name beim Darüberfahren (keine Box).
+✅ **Beschreibungstexte** der Tränke stehen in den Item-Daten und kommen später ins **Rezeptbuch**, nicht ins Inventar.
+✅ Hexenschlamm-Text: „Riecht nach Keller. Die Pflanzen lieben es.“
+✅ **Trinken: Q oder Rechtsklick.** Ausgießen bleibt E auf ein Beet.
+✅ Brau-Fenster: bekannte Kombinationen (schon einmal gebraut) zeigen Trank und Namen, unbekannte ???. Gelernt wird erst, wenn der Trank am Morgen fertig ist. Rechtsklick nimmt eine Zutat wieder heraus.
+✅ Während der Kessel braut, ist das Fenster gesperrt (Knopf „Braut“). Fertige Tränke schweben über dem Kessel und werden mit E abgeholt.
+💡 **Mülleimer** später als eigenes Objekt in der Welt, nicht im Inventar.
+💡 Item-Details evtl. per Rechtsklick im Inventar – oder nur im Rezeptbuch (offen).
+
