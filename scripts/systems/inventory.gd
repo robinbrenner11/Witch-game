@@ -90,6 +90,22 @@ func remove(item_id: String, amount: int = 1) -> bool:
 	return true
 
 
+func get_save_data() -> Dictionary:
+	return {"slots": _slots, "counts": _counts, "selected_slot": selected_slot}
+
+
+func load_save_data(data: Dictionary) -> void:
+	_slots.fill("")
+	var saved_slots: Array = data["slots"]
+	for i in mini(saved_slots.size(), SIZE):
+		_slots[i] = saved_slots[i]
+	_counts.clear()
+	for item_id in data["counts"]:
+		_counts[item_id] = int(data["counts"][item_id])
+	selected_slot = int(data.get("selected_slot", 0))
+	changed.emit()
+
+
 func count(item_id: String) -> int:
 	return _counts.get(item_id, 0)
 

@@ -21,6 +21,7 @@ DayCycle="*res://scripts/systems/day_cycle.gd"
 Inventory="*res://scripts/systems/inventory.gd"
 Garden="*res://scripts/systems/garden.gd"
 ScreenFade="*res://scripts/ui/screen_fade.gd"
+SaveGame="*res://scripts/systems/save_game.gd"
 
 [display]
 
@@ -65,6 +66,11 @@ debug_next_day={
 debug_all_seeds={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194332,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+debug_delete_save={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194333,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 hotbar_1={

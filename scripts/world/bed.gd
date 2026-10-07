@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 ## Das Bett: Die Hexe schläft den Tag durch und wacht zur nächsten Nacht auf.
-## (Das Hexenfeuer ist dagegen nur Zeitraffer.) Später wird hier auch gespeichert.
+## (Das Hexenfeuer ist dagegen nur Zeitraffer.) Beim Schlafen wird gespeichert.
 
 const EMPTY_TEXTURE := preload("res://assets/environment/props/bed.png")
 const SLEEPING_TEXTURE := preload("res://assets/environment/props/bed_sleeping.png")
@@ -33,6 +33,9 @@ func _sleep(player: Player) -> void:
 	await ScreenFade.fade_out()
 
 	DayCycle.sleep_until_night()
+	# Erst nach dem Wachstum über Nacht speichern, damit der Stand zum
+	# Aufwachen passt.
+	SaveGame.save_game()
 	await get_tree().create_timer(DARK_TIME).timeout
 
 	await ScreenFade.fade_in()

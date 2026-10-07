@@ -59,6 +59,16 @@ func advance_day() -> void:
 	day_passed.emit(day)
 
 
+func get_save_data() -> Dictionary:
+	return {"day": day, "minutes": minutes}
+
+
+func load_save_data(data: Dictionary) -> void:
+	day = int(data["day"])
+	minutes = float(data["minutes"])
+	fast_forward = false
+
+
 ## 0 am Tag, 1 in tiefer Nacht. Licht und Farbstimmung richten sich danach.
 func night_factor() -> float:
 	for i in range(1, DARKNESS_CURVE.size()):

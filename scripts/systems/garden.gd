@@ -74,6 +74,30 @@ func can_grow_tonight(cell: Vector2i) -> bool:
 	return not is_ripe(cell)
 
 
+## JSON kennt keine Vector2i-Schlüssel, deshalb als Liste mit x und y.
+func get_save_data() -> Array:
+	var result := []
+	for cell in _plants:
+		result.append({
+			"x": cell.x,
+			"y": cell.y,
+			"plant_id": _plants[cell]["plant_id"],
+			"stage": _plants[cell]["stage"],
+		})
+	return result
+
+
+func load_save_data(data: Array) -> void:
+	var old_cells := _plants.keys()
+	_plants.clear()
+	for entry in data:
+		var cell := Vector2i(int(entry["x"]), int(entry["y"]))
+		_plants[cell] = {"plant_id": String(entry["plant_id"]), "stage": int(entry["stage"])}
+	# Beete, die gerade angezeigt werden, auf den neuen Stand bringen.
+	for cell in old_cells + _plants.keys():
+		plant_changed.emit(cell)
+
+
 func _on_day_passed(_day: int) -> void:
 	# Erst für alle Beete entscheiden, dann wachsen lassen. Sonst hinge das
 	# Ergebnis davon ab, in welcher Reihenfolge die Beete drankommen, sobald
