@@ -79,6 +79,15 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 	return {"inventory_slot": slot_index}
 
 
+# Rechtsklick teilt den Stapel: Die Hälfte kommt auf den nächsten freien Platz.
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+		if Inventory.count_in_slot(slot_index) > 1 and not Inventory.split_stack(slot_index):
+			Messages.post("Kein Platz mehr in der Tasche.")
+		# Sonst würde derselbe Rechtsklick in der Welt noch einen Trank trinken.
+		accept_event()
+
+
 # Zwei Arten von gezogenen Dingen kommen hier an: ein anderer Inventar-Platz
 # (tauschen) oder etwas von außerhalb des Inventars, z. B. eine Zutat aus dem
 # Kessel. Das bringt in "return_item" selbst mit, wie es zurückgelegt wird –

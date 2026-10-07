@@ -173,6 +173,20 @@ func move(from_slot: int, to_slot: int) -> void:
 	changed.emit()
 
 
+## Legt die Hälfte des Stapels (abgerundet) auf den ersten freien Platz.
+## Gibt false zurück, wenn es nichts zu teilen gibt oder kein Platz frei ist.
+func split_stack(slot: int) -> bool:
+	var half := _slot_counts[slot] / 2
+	var free_slot := _slot_items.find("")
+	if half == 0 or free_slot == -1:
+		return false
+	_slot_items[free_slot] = _slot_items[slot]
+	_slot_counts[free_slot] = half
+	_slot_counts[slot] -= half
+	changed.emit()
+	return true
+
+
 ## Gesamtzahl über alle Plätze.
 func count(item_id: String) -> int:
 	var total := 0
