@@ -31,11 +31,12 @@ const DEBUG_SEEDS := [
 	"seed_nightshade", "seed_moon_chalice", "seed_blood_rose",
 ]
 
-# Welches Item auf welchem Platz liegt ("" = leer). Jedes Item belegt genau
-# einen Platz; die Anzahl steht getrennt in _counts. Ein Platz wird frei,
-# sobald sein Item aufgebraucht ist – die anderen Items bleiben, wo sie sind.
-var _slots: Array[String] = []
-var _counts: Dictionary[String, int] = {}
+# Jeder Platz hat ein Item ("" = leer) und eine Anzahl. Ein Item kann auf
+# mehreren Plätzen liegen, wenn ein Stapel voll ist (max_stack in ItemData,
+# wie in Stardew Valley meist 999). Ein Platz wird frei, sobald er leer ist –
+# die anderen Items bleiben, wo sie sind.
+var _slot_items: Array[String] = []
+var _slot_counts: Array[int] = []
 
 # Welcher Hotbar-Platz gewählt ist, also was die Hexe "in der Hand" hat.
 # Liegt hier statt in der Hotbar, weil Spiellogik (Beet, später Kessel) es
@@ -47,8 +48,10 @@ var selected_slot: int = 0:
 
 
 func _ready() -> void:
-	_slots.resize(SIZE)
-	_slots.fill("")
+	_slot_items.resize(SIZE)
+	_slot_items.fill("")
+	_slot_counts.resize(SIZE)
+	_slot_counts.fill(0)
 	for item_id in START_ITEMS:
 		add(item_id, START_ITEMS[item_id])
 
@@ -60,70 +63,131 @@ func _unhandled_input(event: InputEvent) -> void:
 		print("Debug: je 3 Samen aller Sorten")
 
 
-## Neue Items landen auf dem ersten freien Platz. Gibt false zurück (und
-## ändert nichts), wenn das Item noch keinen Platz hat und alles voll ist.
+## Füllt erst angefangene Stapel desselben Items auf, dann freie Plätze.
+## Passt nicht alles hinein, gibt es false zurück und ändert nichts.
 func add(item_id: String, amount: int = 1) -> bool:
-	if not _counts.has(item_id):
-		var free_slot := _slots.find("")
-		if free_slot == -1:
-			return false
-		_slots[free_slot] = item_id
-	_counts[item_id] = count(item_id) + amount
+	if not has_room_for(item_id, amount):
+		return false
+	var left := amount
+	var stack_size := max_stack(item_id)
+	# Erst vorhandene Stapel, dann leere Plätze.
+	for pass_item in [item_id, ""]:
+		for slot in SIZE:
+			if left == 0:
+				break
+			if _slot_items[slot] != pass_item:
+				continue
+			var put := mini(left, stack_size - _slot_counts[slot])
+			if put <= 0:
+				continue
+			_slot_items[slot] = item_id
+			_slot_counts[slot] += put
+			left -= put
 	changed.emit()
 	item_added.emit(item_id, amount)
 	return true
 
 
-func has_room_for(item_id: String) -> bool:
-	return _counts.has(item_id) or _slots.has("")
+func has_room_for(item_id: String, amount: int = 1) -> bool:
+	var room := 0
+	var stack_size := max_stack(item_id)
+	for slot in SIZE:
+		if _slot_items[slot] == item_id:
+			room += stack_size - _slot_counts[slot]
+		elif _slot_items[slot] == "":
+			room += stack_size
+	return room >= amount
 
 
-## Gibt false zurück (und ändert nichts), wenn nicht genug da ist.
+## Nimmt zuerst aus dem Platz in der Hand (was man benutzt, kommt von dort),
+## dann von hinten. Gibt false zurück (und ändert nichts), wenn nicht genug da ist.
 func remove(item_id: String, amount: int = 1) -> bool:
 	if count(item_id) < amount:
 		return false
-	_counts[item_id] -= amount
-	if _counts[item_id] == 0:
-		_counts.erase(item_id)
-		_slots[_slots.find(item_id)] = ""
+	var order: Array[int] = [selected_slot]
+	for slot in range(SIZE - 1, -1, -1):
+		if slot != selected_slot:
+			order.append(slot)
+	var left := amount
+	for slot in order:
+		if left == 0:
+			break
+		if _slot_items[slot] == item_id:
+			var taken := mini(left, _slot_counts[slot])
+			_take(slot, taken)
+			left -= taken
+	changed.emit()
+	return true
+
+
+## Nimmt aus genau diesem Platz (z. B. beim Ziehen in den Kessel).
+func remove_from_slot(slot: int, amount: int = 1) -> bool:
+	if _slot_counts[slot] < amount:
+		return false
+	_take(slot, amount)
 	changed.emit()
 	return true
 
 
 func get_save_data() -> Dictionary:
-	return {"slots": _slots, "counts": _counts, "selected_slot": selected_slot}
+	return {"slots": _slot_items, "slot_counts": _slot_counts, "selected_slot": selected_slot}
 
 
 func load_save_data(data: Dictionary) -> void:
-	_slots.fill("")
-	var saved_slots: Array = data["slots"]
-	for i in mini(saved_slots.size(), SIZE):
-		_slots[i] = saved_slots[i]
-	_counts.clear()
-	for item_id in data["counts"]:
-		_counts[item_id] = int(data["counts"][item_id])
+	_slot_items.fill("")
+	_slot_counts.fill(0)
+	var saved_items: Array = data["slots"]
+	for slot in mini(saved_items.size(), SIZE):
+		_slot_items[slot] = saved_items[slot]
+		if data.has("slot_counts"):
+			_slot_counts[slot] = int(data["slot_counts"][slot])
+		elif _slot_items[slot] != "":
+			# Älterer Spielstand: Anzahl stand pro Item statt pro Platz.
+			_slot_counts[slot] = int(data["counts"][_slot_items[slot]])
 	selected_slot = int(data.get("selected_slot", 0))
 	changed.emit()
 
 
-## Tauscht den Inhalt zweier Plätze (Drag & Drop). Ist das Ziel leer, wird
-## das Item einfach verschoben.
+## Drag & Drop: Liegt auf dem Ziel dasselbe Item, werden die Stapel
+## zusammengelegt (soweit Platz ist). Sonst tauschen die beiden Plätze.
 func move(from_slot: int, to_slot: int) -> void:
 	if from_slot == to_slot:
 		return
-	var moved := _slots[from_slot]
-	_slots[from_slot] = _slots[to_slot]
-	_slots[to_slot] = moved
+	var item_id := _slot_items[from_slot]
+	if item_id != "" and _slot_items[to_slot] == item_id:
+		var put := mini(_slot_counts[from_slot], max_stack(item_id) - _slot_counts[to_slot])
+		_slot_counts[to_slot] += put
+		_take(from_slot, put)
+	else:
+		_slot_items[from_slot] = _slot_items[to_slot]
+		_slot_items[to_slot] = item_id
+		var moved_count := _slot_counts[from_slot]
+		_slot_counts[from_slot] = _slot_counts[to_slot]
+		_slot_counts[to_slot] = moved_count
 	changed.emit()
 
 
+## Gesamtzahl über alle Plätze.
 func count(item_id: String) -> int:
-	return _counts.get(item_id, 0)
+	var total := 0
+	for slot in SIZE:
+		if _slot_items[slot] == item_id:
+			total += _slot_counts[slot]
+	return total
+
+
+func count_in_slot(slot: int) -> int:
+	return _slot_counts[slot]
+
+
+func max_stack(item_id: String) -> int:
+	var item := ItemData.from_id(item_id)
+	return item.max_stack if item else ItemData.DEFAULT_MAX_STACK
 
 
 ## Leerer String, wenn auf dem Platz nichts liegt.
 func item_in_slot(slot: int) -> String:
-	return _slots[slot]
+	return _slot_items[slot]
 
 
 func selected_item_id() -> String:
@@ -139,3 +203,9 @@ func icon_for(item_id: String) -> Texture2D:
 func display_name_for(item_id: String) -> String:
 	var item := ItemData.from_id(item_id)
 	return item.display_name if item else ""
+
+
+func _take(slot: int, amount: int) -> void:
+	_slot_counts[slot] -= amount
+	if _slot_counts[slot] == 0:
+		_slot_items[slot] = ""

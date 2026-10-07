@@ -8,7 +8,7 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 
 - [x] **Spielstand speichern und laden** *(Auftrag 07.10.)* – bisher geht beim Schließen alles verloren
 - [x] **Gartendaten außerhalb der Szene** (Autoload) *(Auftrag 07.10.)* – Voraussetzung für Speichern und Szenenwechsel
-- [ ] **Ein gemeinsames Item-Register** – Samen/Ernte werden noch aus den Pflanzendaten abgeleitet, Tränke haben eigene Dateien. Vor weiteren Items: alle Items einheitlich als Datendatei (Name, Icon, Beschreibung, max. Stapelgröße, Typ: Samen/Zutat/Trank/Werkzeug)
+- [x] **Ein gemeinsames Item-Register** – Samen/Ernte werden noch aus den Pflanzendaten abgeleitet, Tränke haben eigene Dateien. Vor weiteren Items: alle Items einheitlich als Datendatei (Name, Icon, Beschreibung, max. Stapelgröße, Typ: Samen/Zutat/Trank/Werkzeug)
 - [ ] **Szenenwechsel** – Türen/Übergänge, Überblendung, Startpunkt pro Eingang (Unterschlupf ↔ Garten ↔ Wald)
 - [x] **Pausieren** – Zeit und Spiel stoppen, solange ein Menü oder Fenster offen ist (Inventar- und Brau-Fenster; Pausemenü fehlt noch)
 

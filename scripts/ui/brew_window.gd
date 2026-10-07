@@ -60,9 +60,15 @@ func open() -> void:
 
 
 func close() -> void:
+	# Was nicht mehr ins Inventar passt, bleibt im Kessel liegen und ist beim
+	# nächsten Öffnen wieder da, statt zu verschwinden.
+	var kept: Array[String] = []
 	for item_id in _ingredients:
-		Inventory.add(item_id)
-	_ingredients.clear()
+		if not Inventory.add(item_id):
+			kept.append(item_id)
+	_ingredients = kept
+	if not kept.is_empty():
+		Messages.post("Kein Platz mehr in der Tasche.")
 	hide()
 	get_tree().paused = false
 	get_tree().call_group("hotbar", "show")
@@ -87,7 +93,7 @@ func can_add(item_id: String) -> bool:
 
 func add_from_inventory(inventory_slot: int) -> void:
 	var item_id := Inventory.item_in_slot(inventory_slot)
-	if can_add(item_id) and Inventory.remove(item_id):
+	if can_add(item_id) and Inventory.remove_from_slot(inventory_slot):
 		_ingredients.append(item_id)
 		_refresh()
 

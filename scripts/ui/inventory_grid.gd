@@ -31,5 +31,5 @@ func _ready() -> void:
 func _refresh() -> void:
 	for slot in _slots:
 		var item_id := Inventory.item_in_slot(slot.slot_index)
-		slot.show_item(Inventory.icon_for(item_id), Inventory.count(item_id))
+		slot.show_item(Inventory.icon_for(item_id), Inventory.count_in_slot(slot.slot_index))
 		slot.set_selected(slot.slot_index == Inventory.selected_slot)

@@ -11,10 +11,16 @@ enum Type { SEED, INGREDIENT, POTION, TOOL, MISC }
 # auf die Beete.
 enum Use { NONE, DRINK, POUR }
 
+# Wie in Stardew Valley: fast alles stapelt bis 999. Werkzeuge bekommen in
+# ihrer Datei max_stack = 1.
+const DEFAULT_MAX_STACK := 999
+
 @export var id: String = ""
 @export var display_name: String = ""
 @export var icon: Texture2D
 @export var type: Type = Type.MISC
+# Wie viele davon auf einen Inventar-Platz passen.
+@export var max_stack: int = DEFAULT_MAX_STACK
 # Spieltext: keine Gedankenstriche, keine deutschen Anführungszeichen, keine
 # Auslassungspunkte – die Pixelschrift kennt sie nicht.
 @export_multiline var description: String = ""
