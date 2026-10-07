@@ -4,8 +4,8 @@ extends Node
 ## damit Beete, später Kessel, Händler und die Hotbar darauf zugreifen können,
 ## ohne einander zu kennen.
 ##
-## Item-IDs sind einfache Strings nach dem Schema "seed_<pflanze>" und
-## "crop_<pflanze>" (gleiche Namen wie die Grafiken in assets/items/).
+## Item-IDs sind einfache Strings: der Dateiname in data/items/ (z. B.
+## "seed_mandrake"). Alles Weitere über ein Item steht in ItemData.
 
 signal changed
 signal selection_changed
@@ -130,25 +130,12 @@ func selected_item_id() -> String:
 	return item_in_slot(selected_slot)
 
 
-## Icons und Namen kommen aus data/items/. Samen und Ernte haben dort (noch)
-## keine eigene Datei und werden aus den Pflanzendaten abgeleitet.
+## Icons und Namen kommen aus data/items/. Leere Plätze ("") ergeben null bzw. "".
 func icon_for(item_id: String) -> Texture2D:
 	var item := ItemData.from_id(item_id)
-	if item:
-		return item.icon
-	if item_id.begins_with("seed_"):
-		return PlantData.from_id(item_id.trim_prefix("seed_")).seed_icon
-	if item_id.begins_with("crop_"):
-		return PlantData.from_id(item_id.trim_prefix("crop_")).crop_icon
-	return null
+	return item.icon if item else null
 
 
 func display_name_for(item_id: String) -> String:
 	var item := ItemData.from_id(item_id)
-	if item:
-		return item.display_name
-	if item_id.begins_with("seed_"):
-		return PlantData.from_id(item_id.trim_prefix("seed_")).display_name + "-Samen"
-	if item_id.begins_with("crop_"):
-		return PlantData.from_id(item_id.trim_prefix("crop_")).display_name
-	return ""
+	return item.display_name if item else ""

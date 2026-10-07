@@ -2,8 +2,7 @@ class_name PlantData
 extends Resource
 
 ## Beschreibt eine Pflanzenart (Mondkelch, Alraune …). Jede Art ist eine
-## .tres-Datei in data/plants/. Neue Pflanzen entstehen so ohne neuen Code –
-## später kommen hier Wachstumsbedingungen, Licht, Ernte-Item usw. dazu.
+## .tres-Datei in data/plants/. Neue Pflanzen entstehen so ohne neuen Code.
 
 # Gemeinsamer Schlüssel für Samen, Pflanze und Ernte (siehe docs/ASSETS.md).
 @export var id: String = ""
@@ -11,9 +10,11 @@ extends Resource
 # Spritesheet mit allen Wachstumsstufen nebeneinander, letzte = erntereif.
 @export var stages_texture: Texture2D
 @export var stage_count: int = 4
-# Für das spätere Inventar.
-@export var seed_icon: Texture2D
-@export var crop_icon: Texture2D
+# Welche Items zu dieser Pflanze gehören (IDs in data/items/). Die Ernte ist
+# ein beliebiges Item, nicht fest eine Zutat – so können Pflanzen später
+# auch zu Werkzeugen oder Waffen heranwachsen.
+@export var seed_item_id: String = ""
+@export var harvest_item_id: String = ""
 # Samen, die man beim Ernten zusätzlich zurückbekommt. Vorerst 1, damit der
 # Garten-Pilot nicht ausblutet – später evtl. 0 und Samen kommen anders rein.
 @export var seeds_on_harvest: int = 1
@@ -49,11 +50,3 @@ enum AuraEffect { NONE, BLOCK_GROWTH }
 ## ist also auch bei häufigem Aufruf billig.
 static func from_id(plant_id: String) -> PlantData:
 	return load("res://data/plants/%s.tres" % plant_id)
-
-
-func seed_item_id() -> String:
-	return "seed_" + id
-
-
-func crop_item_id() -> String:
-	return "crop_" + id

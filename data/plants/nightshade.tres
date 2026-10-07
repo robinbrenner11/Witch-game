@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/plants/plant_data.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/plants/nightshade_stages.png" id="2_stages"]
-[ext_resource type="Texture2D" path="res://assets/items/seed_nightshade.png" id="3_seed"]
-[ext_resource type="Texture2D" path="res://assets/items/crop_nightshade.png" id="4_crop"]
 
 [resource]
 script = ExtResource("1_script")
@@ -11,8 +9,8 @@ id = "nightshade"
 display_name = "Nachtschatten"
 stages_texture = ExtResource("2_stages")
 stage_count = 4
-seed_icon = ExtResource("3_seed")
-crop_icon = ExtResource("4_crop")
+seed_item_id = "seed_nightshade"
+harvest_item_id = "crop_nightshade"
 aura_effect = 1
 aura_radius = 1
 aura_min_stage = 2

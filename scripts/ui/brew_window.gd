@@ -79,10 +79,10 @@ func is_locked() -> bool:
 	return Brewing.is_brewing()
 
 
-## Vorerst ist alles Geerntete eine Zutat. Später könnte das in den
-## Item-Daten stehen (z. B. auch Kristalle aus Dungeons).
+## In den Kessel darf alles vom Typ Zutat (Ernte, später z. B. Kristalle).
 func can_add(item_id: String) -> bool:
-	return not is_locked() and item_id.begins_with("crop_") and _ingredients.size() < Brewing.capacity
+	var item := ItemData.from_id(item_id)
+	return not is_locked() and item != null and item.type == ItemData.Type.INGREDIENT 		and _ingredients.size() < Brewing.capacity
 
 
 func add_from_inventory(inventory_slot: int) -> void:

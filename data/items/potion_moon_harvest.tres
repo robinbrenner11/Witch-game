@@ -8,6 +8,7 @@ script = ExtResource("1_script")
 id = "potion_moon_harvest"
 display_name = "Mondernte"
 icon = ExtResource("2_icon")
+type = 2
 description = "Der Mond hat es eilig heute Nacht."
 use = 2
 pour_radius = 1

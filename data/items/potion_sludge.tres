@@ -8,6 +8,7 @@ script = ExtResource("1_script")
 id = "potion_sludge"
 display_name = "Hexenschlamm"
 icon = ExtResource("2_icon")
+type = 2
 description = "Riecht nach Keller. Die Pflanzen lieben es."
 use = 2
 pour_radius = 0

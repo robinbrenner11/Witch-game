@@ -14,10 +14,8 @@ var facing := Vector2.DOWN
 # sich aus dem gewählten Hotbar-Platz; null, wenn dort keine Samen liegen.
 var selected_seed: PlantData:
 	get:
-		var item_id := Inventory.selected_item_id()
-		if not item_id.begins_with("seed_"):
-			return null
-		return PlantData.from_id(item_id.trim_prefix("seed_"))
+		var item := ItemData.from_id(Inventory.selected_item_id())
+		return item.plant() if item else null
 
 @onready var body_shape: CollisionShape2D = $CollisionShape2D
 @onready var interaction_area: Area2D = $InteractionArea

@@ -8,5 +8,6 @@ script = ExtResource("1_script")
 id = "potion_will_o_wisp"
 display_name = "Irrlicht"
 icon = ExtResource("2_icon")
+type = 2
 description = "Folge ihm nicht. Oder doch."
 use = 1

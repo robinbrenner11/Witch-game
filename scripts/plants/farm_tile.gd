@@ -70,7 +70,7 @@ func _pour_held_item() -> bool:
 
 func _plant_seed(seed_data: PlantData) -> void:
 	# Ohne Samen in der Hand oder wenn die Sorte aufgebraucht ist, passiert nichts.
-	if seed_data == null or not Inventory.remove(seed_data.seed_item_id()):
+	if seed_data == null or not Inventory.remove(seed_data.seed_item_id):
 		Messages.post("Die Erde wartet auf Samen.")
 		return
 	Garden.plant_seed(cell, seed_data.id)
@@ -79,13 +79,13 @@ func _plant_seed(seed_data: PlantData) -> void:
 func _harvest() -> void:
 	var data := Garden.plant_data_at(cell)
 	# Bei vollem Inventar bleibt die Pflanze einfach stehen statt zu verschwinden.
-	if not Inventory.add(data.crop_item_id()):
+	if not Inventory.add(data.harvest_item_id):
 		Messages.post("Kein Platz mehr in der Tasche.")
 		return
 	# Ist das Inventar genau jetzt voll geworden, gehen die Samen verloren –
 	# die Ernte selbst ist wichtiger.
 	if data.seeds_on_harvest > 0:
-		Inventory.add(data.seed_item_id(), data.seeds_on_harvest)
+		Inventory.add(data.seed_item_id, data.seeds_on_harvest)
 	Garden.remove_plant(cell)
 
 
