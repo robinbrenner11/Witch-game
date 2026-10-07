@@ -170,3 +170,9 @@ Beschreibungstexte im Spiel (bereits nach den Schriftregeln: keine Gedankenstric
 🔮 Der Schacht passt als Ort für den ersten Dungeon (Monster, Kampf mit Magie).
 Offen: Name der alten Hexe.
 
+## 10. Nachträge (07.10.2026, später)
+
+✅ **Erde wecken mit R** (Schnippen): nur im Garten und nur auf reiner Erde. R auf ein leeres Beet legt es wieder schlafen. Beetformen ergeben sich aus den Nachbarn. Die Notiz der alten Hexe hat dafür ein viertes Ziel.
+✅ **Brunnen statt Mülleimer**: E wirft ein Stück des Items in der Hand hinein, Shift + E den ganzen Stapel. Das Wasser glimmt magenta.
+💡 Vielleicht gibt der Brunnen eines Tages etwas zurück (selten, als Überraschung).
+

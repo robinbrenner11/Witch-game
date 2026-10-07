@@ -18,8 +18,8 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 - [x] **Interaktions-Hinweis** – hervorheben, womit E gerade interagiert (Umriss oder kleines "E")
 - [x] **Inventar-Fenster** – 24 Plätze existieren, sichtbar sind nur 8; Fenster mit Drag & Drop (gleiche Bausteine wie das Brau-Fenster) → Tab
 - [ ] **Items benutzen** – eine einheitliche Aktion "ausgewähltes Item benutzen" (trinken, ausgießen, pflanzen) – teilweise: Q/Rechtsklick trinkt, E gießt aus und pflanzt
-- [ ] **Items wegwerfen/entsorgen** – sonst verstopft Hexenschlamm das Inventar (entschieden: Mülleimer als Objekt in der Welt)
-- [ ] **Beete anlegen und entfernen** ("Erde wecken") – Beete sind bisher fest in die Karte gesetzt
+- [x] **Items wegwerfen/entsorgen** – Brunnen im Garten: E wirft eins, Shift + E den ganzen Stapel
+- [x] **Beete anlegen und entfernen** ("Erde wecken") – Beete sind bisher fest in die Karte gesetzt
 
 ## 3. Rahmen – macht aus dem Prototyp ein Spiel
 

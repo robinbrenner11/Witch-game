@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/exit.tscn" id="10_54xm6"]
 [ext_resource type="PackedScene" path="res://scenes/world/cauldron.tscn" id="11_cauldron"]
 [ext_resource type="PackedScene" path="res://scenes/world/bed.tscn" id="12_bed"]
+[ext_resource type="PackedScene" path="res://scenes/world/well.tscn" id="14_well"]
 
 [node name="Garden" type="Node2D" unique_id=1391929232]
 script = ExtResource("1_np1m0")
@@ -69,6 +70,9 @@ position = Vector2(784, 168)
 
 [node name="Bed" parent="Objects" instance=ExtResource("12_bed")]
 position = Vector2(464, 416)
+
+[node name="Well" parent="Objects" instance=ExtResource("14_well")]
+position = Vector2(800, 448)
 
 [node name="NightshadeDomes" parent="." unique_id=580771241 instance=ExtResource("7_gl55c")]
 
