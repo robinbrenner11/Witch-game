@@ -17,6 +17,9 @@ extends Resource
 # Samen, die man beim Ernten zusätzlich zurückbekommt. Vorerst 1, damit der
 # Garten-Pilot nicht ausblutet – später evtl. 0 und Samen kommen anders rein.
 @export var seeds_on_harvest: int = 1
+# false = Magie (Hexenschlamm, Tränke) bringt die Pflanze höchstens bis
+# kurz vor die Reife. Für den Mondkelch, der nur bei Vollmond reif wird.
+@export var magic_can_ripen: bool = true
 
 # Aura: wirkt auf die Beete ringsum. Allgemein gehalten, damit später auch
 # positive Auren (z. B. "nebenan wachsen nur perfekte Pflanzen") nur neue

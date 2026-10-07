@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="RecipeData" format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/recipe_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+ingredients = Array[String](["crop_blood_rose", "crop_nightshade", "crop_mandrake"])
+result_item_id = "potion_endless_night"

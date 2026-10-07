@@ -4,6 +4,5 @@
 
 [resource]
 script = ExtResource("1_script")
-ingredient_a = "crop_mandrake"
-ingredient_b = "crop_moon_chalice"
-result_item_id = "potion_growth"
+ingredients = Array[String](["crop_mandrake", "crop_ghost_fern", "crop_moon_chalice"])
+result_item_id = "potion_moon_harvest"

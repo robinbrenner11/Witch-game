@@ -4,11 +4,6 @@ extends Node2D
 ## es nur an und leitet die Interaktion der Hexe dorthin weiter.
 
 const PLANT_SCENE := preload("res://scenes/plants/plant.tscn")
-# Vorerst fest hier. Wenn es mehr Tränke mit Wirkung aufs Beet gibt, gehört
-# die Wirkung besser in die Item-Daten (Schritt 4: trinken/ausgießen).
-const GROWTH_POTION := "potion_growth"
-# Hexenschlamm, der Fehlschlag aus dem Kessel, taugt als Dünger.
-const SLUDGE := "potion_sludge"
 
 # Position im Beet. Endstücke haben einen abgerundeten Damm, der nahtlos
 # in die Erde übergeht. Eine Reihe ist also: LEFT_END, MIDDLE …, RIGHT_END.
@@ -50,19 +45,25 @@ func _ready() -> void:
 
 
 func _on_interactable_interacted(player: Node2D) -> void:
-	var held := Inventory.selected_item_id()
-	# Der Trank wirkt auf 3×3, also auch, wenn dieses Beet selbst leer oder
-	# reif ist. Verbraucht wird er nur, wenn irgendwo etwas gewachsen ist.
-	if held == GROWTH_POTION:
-		if Garden.grow_area(cell, 1):
-			Inventory.remove(GROWTH_POTION)
-	elif not Garden.has_plant(cell):
+	if _pour_held_item():
+		return
+	if not Garden.has_plant(cell):
 		_plant_seed((player as Player).selected_seed)
 	elif Garden.is_ripe(cell):
 		_harvest()
-	elif held == SLUDGE:
-		Inventory.remove(SLUDGE)
-		Garden.grow(cell)
+
+
+## Gießt das Item in der Hand aus, falls es dafür gedacht ist (Hexenschlamm,
+## Wachstumstrank, Mondernte). Die Wirkung steht in den Item-Daten. Wächst
+## nichts, bleibt das Item erhalten und E macht das Übliche (z. B. ernten).
+func _pour_held_item() -> bool:
+	var item := ItemData.from_id(Inventory.selected_item_id())
+	if item == null or item.use != ItemData.Use.POUR:
+		return false
+	if not Garden.grow_area(cell, item.pour_radius, item.pour_stages):
+		return false
+	Inventory.remove(item.id)
+	return true
 
 
 func _plant_seed(seed_data: PlantData) -> void:

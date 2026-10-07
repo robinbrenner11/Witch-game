@@ -14,6 +14,7 @@ stages_texture = ExtResource("2_stages")
 stage_count = 4
 seed_icon = ExtResource("3_seed")
 crop_icon = ExtResource("4_crop")
+magic_can_ripen = false
 glow_texture = ExtResource("5_glow")
 glow_color = Color(0.662745, 0.607843, 0.878431, 1)
 glow_energy = 1.1

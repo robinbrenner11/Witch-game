@@ -7,12 +7,7 @@ extends StaticBody2D
 ## E mit einer Zutat in der Hand: Zutat hinein.
 ## E mit etwas anderem (oder leeren Händen): erste Zutat wieder herausholen.
 
-const FAILED_RESULT := "potion_sludge"
 const FRAME_TIME := 0.4
-
-# Im Inspector eingetragen. Neue Rezepte = neue Datei in data/recipes/ und hier
-# in die Liste ziehen.
-@export var recipes: Array[RecipeData] = []
 
 var _first_ingredient := ""
 var _frame_timer := 0.0
@@ -43,7 +38,7 @@ func _on_interactable_interacted(_player: Node2D) -> void:
 		Inventory.remove(held)
 		_set_first_ingredient(held)
 		return
-	var result := _find_result(_first_ingredient, held)
+	var result := RecipeData.result_for([_first_ingredient, held])
 	# Erst prüfen, ob der Trank Platz hat, bevor Zutaten verschwinden.
 	if not Inventory.has_room_for(result):
 		print("Inventar voll")
@@ -57,13 +52,6 @@ func _on_interactable_interacted(_player: Node2D) -> void:
 # stehen (z. B. auch Kristalle aus Dungeons).
 func _is_ingredient(item_id: String) -> bool:
 	return item_id.begins_with("crop_")
-
-
-func _find_result(first: String, second: String) -> String:
-	for recipe in recipes:
-		if recipe.matches(first, second):
-			return recipe.result_item_id
-	return FAILED_RESULT
 
 
 func _set_first_ingredient(item_id: String) -> void:

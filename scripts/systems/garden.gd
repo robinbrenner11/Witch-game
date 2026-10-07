@@ -68,18 +68,31 @@ func grow(cell: Vector2i) -> void:
 	plant_changed.emit(cell)
 
 
-## Magie im Bereich: alle Pflanzen bis radius Felder um center wachsen eine
-## Stufe (radius 1 = 3×3). Gibt false zurück, wenn dort nichts wachsen konnte,
-## damit der Trank dann nicht verschwendet wird.
-func grow_area(center: Vector2i, radius: int) -> bool:
+## Magie im Bereich: alle Pflanzen bis radius Felder um center wachsen um
+## stages Stufen (radius 0 = nur center, 1 = 3×3). Gibt false zurück, wenn
+## dort nichts wachsen konnte, damit der Trank nicht verschwendet wird.
+func grow_area(center: Vector2i, radius: int, stages: int = 1) -> bool:
 	var any_grew := false
 	for x in range(-radius, radius + 1):
 		for y in range(-radius, radius + 1):
-			var cell := center + Vector2i(x, y)
-			if has_plant(cell) and not is_ripe(cell):
-				grow(cell)
+			if grow_by_magic(center + Vector2i(x, y), stages):
 				any_grew = true
 	return any_grew
+
+
+## Magie setzt sich über Auren und Nachtregeln hinweg, aber manche Pflanzen
+## lassen sich von ihr nicht reif machen (Mondkelch).
+func grow_by_magic(cell: Vector2i, stages: int) -> bool:
+	var grew := false
+	for i in stages:
+		if not has_plant(cell) or is_ripe(cell):
+			break
+		var data := plant_data_at(cell)
+		if not data.magic_can_ripen and stage_at(cell) >= data.stage_count - 2:
+			break
+		grow(cell)
+		grew = true
+	return grew
 
 
 ## Natürliches Wachstum über Nacht. Es kann blockiert sein (Auren), Magie
