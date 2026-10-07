@@ -1,7 +1,7 @@
 extends Node2D
 
-## Ein Beetfeld. Es weiß nur, ob etwas darauf wächst – wie die Pflanze
-## wächst, ist Sache der Pflanze selbst.
+## Ein Beetfeld. Was darauf wächst, steht im Autoload Garden – das Beet zeigt
+## es nur an und leitet die Interaktion der Hexe dorthin weiter.
 
 const PLANT_SCENE := preload("res://scenes/plants/plant.tscn")
 # Vorerst fest hier. Wenn es mehr Tränke mit Wirkung aufs Beet gibt, gehört
@@ -24,7 +24,10 @@ const CAP_COLUMNS := {
 
 @export var shape: BedShape = BedShape.MIDDLE
 
+# Anzeige der Pflanze; null, solange nichts wächst.
 var plant: Plant = null
+# Unter dieser Zelle kennt Garden dieses Beet.
+var cell: Vector2i
 
 # Das Beet-Sprite liegt in der Szene an der Oberkante des Tiles (Position
 # y = -16, Offset +16). Für die Y-Sortierung zählt die Position: So wird die
@@ -38,16 +41,20 @@ func _ready() -> void:
 		bed_sprite.frame_coords = Vector2i(randi_range(0, 2), BED_ROW)
 	else:
 		bed_sprite.frame_coords = Vector2i(CAP_COLUMNS[shape], BED_CAP_ROW)
+	cell = Garden.cell_at(global_position)
+	Garden.plant_changed.connect(_on_garden_plant_changed)
+	# Falls hier schon etwas wächst (Spielstand, Rückkehr in den Garten).
+	_sync_plant()
 
 
 func _on_interactable_interacted(player: Node2D) -> void:
-	if plant == null:
+	if not Garden.has_plant(cell):
 		_plant_seed((player as Player).selected_seed)
-	elif plant.is_ripe():
+	elif Garden.is_ripe(cell):
 		_harvest()
 	elif Inventory.selected_item_id() == GROWTH_POTION:
 		Inventory.remove(GROWTH_POTION)
-		plant.grow()
+		Garden.grow(cell)
 
 
 func _plant_seed(seed_data: PlantData) -> void:
@@ -55,25 +62,46 @@ func _plant_seed(seed_data: PlantData) -> void:
 	if seed_data == null or not Inventory.remove(seed_data.seed_item_id()):
 		print("Keine Samen in der Hand (Hotbar: 1–8 oder Mausrad)")
 		return
-	plant = PLANT_SCENE.instantiate()
-	plant.data = seed_data
-	# Ursprung der Pflanze ist ihr Wurzelpunkt, knapp unter der Beetmitte.
-	# So sortiert die Y-Sortierung sie richtig vor oder hinter die Hexe.
-	plant.position = Vector2(0, 5)
-	add_child(plant)
+	Garden.plant_seed(cell, seed_data.id)
 
 
 func _harvest() -> void:
+	var data := Garden.plant_data_at(cell)
 	# Bei vollem Inventar bleibt die Pflanze einfach stehen statt zu verschwinden.
-	if not Inventory.add(plant.data.crop_item_id()):
+	if not Inventory.add(data.crop_item_id()):
 		print("Inventar voll")
 		return
 	# Ist das Inventar genau jetzt voll geworden, gehen die Samen verloren –
 	# die Ernte selbst ist wichtiger.
-	if plant.data.seeds_on_harvest > 0:
-		Inventory.add(plant.data.seed_item_id(), plant.data.seeds_on_harvest)
-	print("Geerntet: %s (jetzt %d)" % [plant.data.display_name, Inventory.count(plant.data.crop_item_id())])
-	# queue_free löscht die Pflanze erst am Ende des Frames – sicherer als
-	# sofort, falls in diesem Frame noch jemand auf sie zugreift.
-	plant.queue_free()
-	plant = null
+	if data.seeds_on_harvest > 0:
+		Inventory.add(data.seed_item_id(), data.seeds_on_harvest)
+	print("Geerntet: %s (jetzt %d)" % [data.display_name, Inventory.count(data.crop_item_id())])
+	Garden.remove_plant(cell)
+
+
+func _on_garden_plant_changed(changed_cell: Vector2i) -> void:
+	if changed_cell == cell:
+		_sync_plant()
+
+
+## Bringt die angezeigte Pflanze auf den Stand von Garden: anlegen, Stufe
+## setzen oder entfernen.
+func _sync_plant() -> void:
+	var data := Garden.plant_data_at(cell)
+	if data == null:
+		if plant:
+			# queue_free löscht erst am Ende des Frames – sicherer als sofort,
+			# falls in diesem Frame noch jemand auf die Pflanze zugreift.
+			plant.queue_free()
+			plant = null
+		return
+	if plant == null or plant.data != data:
+		if plant:
+			plant.queue_free()
+		plant = PLANT_SCENE.instantiate()
+		plant.data = data
+		# Ursprung der Pflanze ist ihr Wurzelpunkt, knapp unter der Beetmitte.
+		# So sortiert die Y-Sortierung sie richtig vor oder hinter die Hexe.
+		plant.position = Vector2(0, 5)
+		add_child(plant)
+	plant.growth_stage = Garden.stage_at(cell)

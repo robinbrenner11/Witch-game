@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 DayCycle="*res://scripts/systems/day_cycle.gd"
 Inventory="*res://scripts/systems/inventory.gd"
+Garden="*res://scripts/systems/garden.gd"
 
 [display]
 

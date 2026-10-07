@@ -1,22 +1,26 @@
 class_name Plant
 extends Node2D
 
-## Eine Pflanze wächst über Nacht um eine Stufe. Ob sie wächst, entscheidet
-## sie in can_grow_tonight() selbst – dort docken später Bedingungen wie
-## Mondphase oder Nachbarpflanzen an.
+## Zeigt eine Pflanze im Beet an. Ihr Zustand (Art, Stufe) liegt im Autoload
+## Garden – das Beet setzt data und growth_stage von dort aus. Ob und wann sie
+## wächst, entscheidet Garden.
 
 # Welche Art hier wächst. Muss gesetzt sein, bevor die Pflanze in den
-# Szenenbaum kommt (macht das Beet beim Pflanzen).
+# Szenenbaum kommt (macht das Beet).
 @export var data: PlantData
 
-var growth_stage: int = 0
+# Ein Setter: läuft bei jeder Zuweisung, so passt das Bild immer zur Stufe.
+var growth_stage: int = 0:
+	set(value):
+		growth_stage = value
+		if is_node_ready():
+			_update_sprite()
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var glow: NightLight = $Glow
 
 
 func _ready() -> void:
-	DayCycle.day_passed.connect(_on_day_passed)
 	# Das Spritesheet enthält alle Stufen nebeneinander; hframes teilt es
 	# in gleich breite Bilder, frame wählt eins davon aus.
 	sprite.texture = data.stages_texture
@@ -30,23 +34,6 @@ func _ready() -> void:
 
 func is_ripe() -> bool:
 	return growth_stage >= data.stage_count - 1
-
-
-func can_grow_tonight() -> bool:
-	return not is_ripe()
-
-
-func _on_day_passed(_day: int) -> void:
-	if can_grow_tonight():
-		grow()
-
-
-## Eine Stufe weiter. Kommt vom Tageswechsel oder z. B. vom Wachstumstrank.
-func grow() -> void:
-	if is_ripe():
-		return
-	growth_stage += 1
-	_update_sprite()
 
 
 func _update_sprite() -> void:
