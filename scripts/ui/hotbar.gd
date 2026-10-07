@@ -6,7 +6,8 @@ extends VBoxContainer
 ## darauf. Läuft auch, wenn das Spiel pausiert, damit man bei offenem
 ## Inventar-Fenster Items in die Hotbar ziehen kann.
 ## Über der Leiste blendet kurz ein Text auf: beim Wechseln der Name des
-## Items, beim Bekommen z. B. "+1 Wachstumstrank".
+## Items, beim Bekommen z. B. "+1 Wachstumstrank", und alles, was über
+## Messages gemeldet wird.
 
 # Sekunden, die der Name sichtbar bleibt, bevor er ausblendet.
 const NAME_SHOW_TIME := 1.5
@@ -24,6 +25,7 @@ func _ready() -> void:
 	# Die Plätze selbst zeichnet das InventoryGrid neu. Hier nur der Text.
 	Inventory.selection_changed.connect(_show_item_name)
 	Inventory.item_added.connect(_on_item_added)
+	Messages.posted.connect(_flash_text)
 
 
 func _show_item_name() -> void:

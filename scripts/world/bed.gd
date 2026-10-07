@@ -46,3 +46,4 @@ func _sleep(player: Player) -> void:
 	player.show()
 	player.set_controls_enabled(true)
 	_sleeping = false
+	Messages.post("Nacht %d beginnt." % DayCycle.day)

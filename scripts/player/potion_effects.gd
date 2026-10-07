@@ -54,11 +54,13 @@ func _drink_selected() -> void:
 		"potion_will_o_wisp":
 			_wisp_position = global_position + WISP_OFFSET
 			wisp.show()
+			Messages.post("Ein Licht hat sich dir angeschlossen.")
 		"potion_liquid_moonlight":
 			moonlight.enabled = true
+			Messages.post("Die Nacht wird durchsichtig.")
 		"potion_endless_night":
 			DayCycle.lengthen_night(ENDLESS_NIGHT_FACTOR)
-	print("%s getrunken" % item.display_name)
+			Messages.post("Die Nacht dehnt sich.")
 
 
 func _on_day_passed(_day: int) -> void:

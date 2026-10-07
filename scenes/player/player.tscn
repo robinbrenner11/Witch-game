@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://binh4d4hx8cmm" path="res://scripts/player/player.gd" id="1_script"]
 [ext_resource type="SpriteFrames" path="res://assets/characters/witch_sprite_frames.tres" id="2_frames"]
 [ext_resource type="PackedScene" path="res://scenes/player/potion_effects.tscn" id="3_potion_effects"]
+[ext_resource type="Script" path="res://scripts/player/interaction_hint.gd" id="4_hint"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_unshaded"]
+light_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(16, 8)
@@ -36,3 +40,9 @@ monitorable = false
 shape = SubResource("RectangleShape2D_interaction")
 
 [node name="PotionEffects" parent="." instance=ExtResource("3_potion_effects")]
+
+[node name="InteractionHint" type="Node2D" parent="."]
+top_level = true
+z_index = 10
+material = SubResource("CanvasItemMaterial_unshaded")
+script = ExtResource("4_hint")

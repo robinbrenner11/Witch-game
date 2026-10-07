@@ -51,6 +51,8 @@ func _on_interactable_interacted(player: Node2D) -> void:
 		_plant_seed((player as Player).selected_seed)
 	elif Garden.is_ripe(cell):
 		_harvest()
+	else:
+		_describe_growing_plant()
 
 
 ## Gießt das Item in der Hand aus, falls es dafür gedacht ist (Hexenschlamm,
@@ -69,7 +71,7 @@ func _pour_held_item() -> bool:
 func _plant_seed(seed_data: PlantData) -> void:
 	# Ohne Samen in der Hand oder wenn die Sorte aufgebraucht ist, passiert nichts.
 	if seed_data == null or not Inventory.remove(seed_data.seed_item_id()):
-		print("Keine Samen in der Hand (Hotbar: 1–8 oder Mausrad)")
+		Messages.post("Die Erde wartet auf Samen.")
 		return
 	Garden.plant_seed(cell, seed_data.id)
 
@@ -78,14 +80,29 @@ func _harvest() -> void:
 	var data := Garden.plant_data_at(cell)
 	# Bei vollem Inventar bleibt die Pflanze einfach stehen statt zu verschwinden.
 	if not Inventory.add(data.crop_item_id()):
-		print("Inventar voll")
+		Messages.post("Kein Platz mehr in der Tasche.")
 		return
 	# Ist das Inventar genau jetzt voll geworden, gehen die Samen verloren –
 	# die Ernte selbst ist wichtiger.
 	if data.seeds_on_harvest > 0:
 		Inventory.add(data.seed_item_id(), data.seeds_on_harvest)
-	print("Geerntet: %s (jetzt %d)" % [data.display_name, Inventory.count(data.crop_item_id())])
 	Garden.remove_plant(cell)
+
+
+## Gehemmte Pflanzen verraten nicht, warum. Das soll man selbst herausfinden.
+func _describe_growing_plant() -> void:
+	if Garden.is_growth_blocked(cell):
+		Messages.post("Etwas hält sie zurück.")
+		return
+	# Bewusst vage: Man ahnt, wie weit sie ist, ohne genaue Nächte zu kennen.
+	var data := Garden.plant_data_at(cell)
+	var nights_left := data.stage_count - 1 - Garden.stage_at(cell)
+	if Garden.stage_at(cell) == 0:
+		Messages.post("Noch schläft sie in der Erde.")
+	elif nights_left == 1:
+		Messages.post("Bald ist sie so weit.")
+	else:
+		Messages.post("Sie wächst noch.")
 
 
 func _on_garden_plant_changed(changed_cell: Vector2i) -> void:

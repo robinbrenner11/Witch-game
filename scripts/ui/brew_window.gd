@@ -96,9 +96,11 @@ func return_ingredient(index: int) -> void:
 	if is_locked() or index >= _ingredients.size():
 		return
 	# Bei vollem Inventar bleibt die Zutat lieber im Kessel.
-	if Inventory.add(_ingredients[index]):
-		_ingredients.remove_at(index)
-		_refresh()
+	if not Inventory.add(_ingredients[index]):
+		Messages.post("Kein Platz mehr in der Tasche.")
+		return
+	_ingredients.remove_at(index)
+	_refresh()
 
 
 ## Die Zutaten wandern in den Kessel und brauen über Nacht.

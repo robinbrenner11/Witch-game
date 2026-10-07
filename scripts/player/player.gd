@@ -70,7 +70,7 @@ func _update_animation(is_moving: bool) -> void:
 # offene Dialogbox hindurch.
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
-		var target := _find_closest_interactable()
+		var target := find_closest_interactable()
 		if target:
 			target.interact(self)
 			# Dieselbe E-Taste soll nicht gleich ein eben geöffnetes Fenster
@@ -78,7 +78,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 
-func _find_closest_interactable() -> Interactable:
+func find_closest_interactable() -> Interactable:
 	var closest: Interactable = null
 	var closest_distance := INF
 	for area in interaction_area.get_overlapping_areas():
