@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://de7fsgarsfgk4" path="res://scripts/world/night_tint.gd" id="8_night_tint"]
 [ext_resource type="PackedScene" path="res://scenes/world/cauldron.tscn" id="9_cauldron"]
 [ext_resource type="PackedScene" path="res://scenes/world/bed.tscn" id="10_bed"]
+[ext_resource type="PackedScene" path="res://scenes/world/nightshade_domes.tscn" id="11_domes"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_top"]
 normal = Vector2(0, 1)
@@ -70,35 +71,35 @@ shape = 1
 position = Vector2(624, 336)
 
 [node name="FarmTile6" parent="Objects/FarmTiles" unique_id=1638375725 instance=ExtResource("4_farm_tile")]
-position = Vector2(658, 336)
+position = Vector2(656, 336)
 shape = 2
 
 [node name="FarmTile7" parent="Objects/FarmTiles" unique_id=1322305281 instance=ExtResource("4_farm_tile")]
-position = Vector2(593, 303)
+position = Vector2(624, 304)
 shape = 1
 
 [node name="FarmTile8" parent="Objects/FarmTiles" unique_id=1966574264 instance=ExtResource("4_farm_tile")]
-position = Vector2(689, 303)
+position = Vector2(688, 304)
 shape = 1
 
 [node name="FarmTile9" parent="Objects/FarmTiles" unique_id=1059590211 instance=ExtResource("4_farm_tile")]
-position = Vector2(689, 335)
+position = Vector2(688, 336)
 shape = 1
 
 [node name="FarmTile10" parent="Objects/FarmTiles" unique_id=1566935779 instance=ExtResource("4_farm_tile")]
-position = Vector2(657, 303)
+position = Vector2(656, 304)
 shape = 1
 
 [node name="FarmTile11" parent="Objects/FarmTiles" unique_id=807095075 instance=ExtResource("4_farm_tile")]
-position = Vector2(625, 303)
+position = Vector2(592, 304)
 shape = 1
 
 [node name="FarmTile12" parent="Objects/FarmTiles" unique_id=1249300137 instance=ExtResource("4_farm_tile")]
-position = Vector2(690, 272)
+position = Vector2(688, 272)
 shape = 1
 
 [node name="Player" parent="Objects" unique_id=1166168417 instance=ExtResource("3_player")]
-position = Vector2(624, 420)
+position = Vector2(520, 288)
 
 [node name="Campfire" parent="Objects" unique_id=724909297 instance=ExtResource("6_campfire")]
 position = Vector2(820, 300)
@@ -108,6 +109,8 @@ position = Vector2(240, 168)
 
 [node name="Bed" parent="Objects" unique_id=373638779 instance=ExtResource("10_bed")]
 position = Vector2(304, 192)
+
+[node name="NightshadeDomes" parent="." unique_id=1871346579 instance=ExtResource("11_domes")]
 
 [node name="NightTint" type="CanvasModulate" parent="." unique_id=344841956]
 script = ExtResource("8_night_tint")
