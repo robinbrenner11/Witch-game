@@ -45,6 +45,15 @@ func _process(delta: float) -> void:
 		advance_day()
 
 
+## Schlafen im Bett: Der Tag wird übersprungen, es geht direkt mit dem
+## Beginn der nächsten Nacht weiter. Egal wann sie schlafen geht, es
+## vergeht immer genau ein Tag.
+func sleep_until_night() -> void:
+	fast_forward = false
+	minutes = NIGHT_START
+	advance_day()
+
+
 func advance_day() -> void:
 	day += 1
 	day_passed.emit(day)

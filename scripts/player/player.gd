@@ -40,6 +40,16 @@ func _physics_process(_delta: float) -> void:
 	_update_animation(direction != Vector2.ZERO)
 
 
+## Schaltet Laufen und Interagieren ab, z. B. während sie schläft (später
+## auch bei Dialogen oder offenen Fenstern).
+func set_controls_enabled(enabled: bool) -> void:
+	set_physics_process(enabled)
+	set_process_unhandled_input(enabled)
+	if enabled:
+		# Sonst zeigt sie bis zum ersten Tastendruck noch die alte Animation.
+		_update_animation(false)
+
+
 # Animationsnamen setzen sich aus Zustand und Richtung zusammen, z. B.
 # "walk_side". Für links gibt es kein eigenes Sheet – die Seitenansicht
 # wird einfach gespiegelt.
