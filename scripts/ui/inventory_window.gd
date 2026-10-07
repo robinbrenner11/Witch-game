@@ -16,6 +16,9 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Ist schon ein anderes Fenster offen (Spiel pausiert), nicht öffnen.
+	if not visible and get_tree().paused:
+		return
 	if event.is_action_pressed("inventory") or (visible and event.is_action_pressed("ui_cancel")):
 		_set_open(not visible)
 		get_viewport().set_input_as_handled()

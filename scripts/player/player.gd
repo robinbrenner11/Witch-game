@@ -73,6 +73,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		var target := _find_closest_interactable()
 		if target:
 			target.interact(self)
+			# Dieselbe E-Taste soll nicht gleich ein eben geöffnetes Fenster
+			# wieder schließen.
+			get_viewport().set_input_as_handled()
 
 
 func _find_closest_interactable() -> Interactable:

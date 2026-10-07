@@ -1,0 +1,175 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/brew_window.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/brew_panel.png" id="2_panel"]
+[ext_resource type="FontFile" path="res://assets/ui/fonts/m5x7.ttf" id="3_font"]
+[ext_resource type="Texture2D" path="res://assets/ui/brew_cauldron.png" id="4_cauldron"]
+[ext_resource type="Texture2D" path="res://assets/ui/brew_arrow.png" id="5_arrow"]
+[ext_resource type="Texture2D" path="res://assets/ui/brew_slot_result.png" id="6_result_slot"]
+[ext_resource type="Texture2D" path="res://assets/ui/brew_button.png" id="7_button"]
+[ext_resource type="Texture2D" path="res://assets/ui/brew_button_pressed.png" id="8_button_pressed"]
+[ext_resource type="Texture2D" path="res://assets/ui/brew_button_disabled.png" id="9_button_disabled"]
+[ext_resource type="Script" path="res://scripts/ui/inventory_grid.gd" id="10_grid"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBox_button"]
+texture = ExtResource("7_button")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBox_button_pressed"]
+texture = ExtResource("8_button_pressed")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBox_button_disabled"]
+texture = ExtResource("9_button_disabled")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[node name="BrewWindow" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Window" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -168.0
+offset_right = 0.0
+offset_bottom = 0.0
+scale = Vector2(2, 2)
+mouse_filter = 2
+
+[node name="Panel" type="NinePatchRect" parent="Window"]
+layout_mode = 0
+offset_right = 190.0
+offset_bottom = 168.0
+texture = ExtResource("2_panel")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Title" type="Label" parent="Window"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 3.0
+offset_right = 80.0
+offset_bottom = 17.0
+theme_override_colors/font_color = Color(0.917647, 0.87451, 0.796078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 16
+text = "Kessel"
+
+[node name="Cauldron" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 42.0
+offset_right = 90.0
+offset_bottom = 78.0
+mouse_filter = 2
+texture = ExtResource("4_cauldron")
+
+[node name="Slots" type="Control" parent="Window"]
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="Pips" type="Control" parent="Window"]
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="ResultName" type="Label" parent="Window"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 78.0
+offset_right = 122.0
+offset_bottom = 92.0
+theme_override_colors/font_color = Color(0.85098, 0.643137, 0.254902, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="Arrow" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 28.0
+offset_right = 138.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("5_arrow")
+
+[node name="ResultSlot" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 20.0
+offset_right = 168.0
+offset_bottom = 44.0
+mouse_filter = 2
+texture = ExtResource("6_result_slot")
+
+[node name="ResultIcon" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 148.0
+offset_top = 24.0
+offset_right = 164.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="BrewButton" type="Button" parent="Window"]
+layout_mode = 0
+offset_left = 133.0
+offset_top = 50.0
+offset_right = 179.0
+offset_bottom = 66.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.917647, 0.87451, 0.796078, 1)
+theme_override_colors/font_hover_color = Color(0.917647, 0.87451, 0.796078, 1)
+theme_override_colors/font_pressed_color = Color(0.917647, 0.87451, 0.796078, 1)
+theme_override_colors/font_disabled_color = Color(0.541176, 0.321569, 0.25098, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBox_button")
+theme_override_styles/hover = SubResource("StyleBox_button")
+theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
+theme_override_styles/disabled = SubResource("StyleBox_button_disabled")
+text = "Brauen"
+
+[node name="Divider" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 94.0
+offset_right = 180.0
+offset_bottom = 95.0
+mouse_filter = 2
+
+[node name="Inventory" type="GridContainer" parent="Window"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 99.0
+offset_right = 173.0
+offset_bottom = 161.0
+mouse_filter = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 1
+columns = 8
+script = ExtResource("10_grid")
+slot_count = 24
+slot_size = 20
+
+[connection signal="pressed" from="Window/BrewButton" to="." method="_on_brew_button_pressed"]

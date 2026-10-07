@@ -8,6 +8,8 @@ const SLOT_SCENE := preload("res://scenes/ui/inventory_slot.tscn")
 
 @export var first_slot: int = 0
 @export var slot_count: int = Inventory.HOTBAR_SIZE
+# 40 = normal, 20 = halbe Größe für doppelt groß angezeigte Fenster.
+@export var slot_size: int = InventorySlot.FULL_SIZE
 
 var _slots: Array[InventorySlot] = []
 
@@ -18,6 +20,7 @@ func _ready() -> void:
 	for i in slot_count:
 		var slot: InventorySlot = SLOT_SCENE.instantiate()
 		slot.slot_index = first_slot + i
+		slot.slot_size = slot_size
 		add_child(slot)
 		_slots.append(slot)
 	Inventory.changed.connect(_refresh)

@@ -18,6 +18,9 @@ var _name_tween: Tween
 
 
 func _ready() -> void:
+	# Fenster mit eigenem Inventar (Brau-Fenster) blenden die Hotbar über
+	# diese Gruppe aus.
+	add_to_group("hotbar")
 	# Die Plätze selbst zeichnet das InventoryGrid neu. Hier nur der Text.
 	Inventory.selection_changed.connect(_show_item_name)
 	Inventory.item_added.connect(_on_item_added)

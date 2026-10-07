@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/bed.tscn" id="10_bed"]
 [ext_resource type="PackedScene" path="res://scenes/world/nightshade_domes.tscn" id="11_domes"]
 [ext_resource type="PackedScene" path="res://scenes/ui/inventory_window.tscn" id="12_inventory_window"]
+[ext_resource type="PackedScene" path="res://scenes/ui/brew_window.tscn" id="13_brew_window"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_top"]
 normal = Vector2(0, 1)
@@ -119,3 +120,5 @@ script = ExtResource("8_night_tint")
 [node name="Clock" parent="UI" unique_id=2032156989 instance=ExtResource("7_clock")]
 
 [node name="InventoryWindow" parent="UI" instance=ExtResource("12_inventory_window")]
+
+[node name="BrewWindow" parent="UI" instance=ExtResource("13_brew_window")]

@@ -1,0 +1,177 @@
+class_name BrewWindow
+extends Control
+
+## Das Brau-Fenster am Kessel. Zutaten zieht man aus dem Inventar in die
+## Felder über dem Kessel. Die Felder wachsen mit: Ist eins belegt, erscheint
+## das nächste, bis die Kapazität des Kessels erreicht ist. Kein festes Raster,
+## weil die Reihenfolge egal ist und Zweier- wie Dreier-Rezepte sich fertig
+## anfühlen sollen.
+##
+## Alle Grafiken sind in 1× gezeichnet; das Fenster wird doppelt so groß
+## angezeigt (Window hat scale = 2). Positionen stammen aus
+## docs/art/ui_generator/brew_window.py (window_v2).
+##
+## Solange es offen ist, ist das Spiel pausiert. Schließen (E oder Esc) legt
+## nicht gebraute Zutaten zurück ins Inventar.
+
+const SLOT_SCENE := preload("res://scenes/ui/brew_slot.tscn")
+const CAULDRON := preload("res://assets/ui/brew_cauldron.png")
+const CAULDRON_READY := preload("res://assets/ui/brew_cauldron_ready.png")
+const ARROW := preload("res://assets/ui/brew_arrow.png")
+const ARROW_ACTIVE := preload("res://assets/ui/brew_arrow_active.png")
+const PIP := preload("res://assets/ui/brew_pip.png")
+const PIP_EMPTY := preload("res://assets/ui/brew_pip_empty.png")
+const UNKNOWN := preload("res://assets/ui/brew_unknown.png")
+
+# Layout in 1×-Pixeln (siehe Generator).
+const CAULDRON_CENTER_X := 62
+const SLOT_BASE_Y := 16
+const SLOT_SPACING := 22
+const PIP_Y := 76
+const PIP_SPACING := 7
+
+# Was gerade im Kessel liegt (aus dem Inventar genommen).
+var _ingredients: Array[String] = []
+
+@onready var cauldron: TextureRect = $Window/Cauldron
+@onready var slots: Control = $Window/Slots
+@onready var pips: Control = $Window/Pips
+@onready var result_name: Label = $Window/ResultName
+@onready var arrow: TextureRect = $Window/Arrow
+@onready var result_icon: TextureRect = $Window/ResultIcon
+@onready var brew_button: Button = $Window/BrewButton
+@onready var divider: TextureRect = $Window/Divider
+
+
+func _ready() -> void:
+	hide()
+	add_to_group("brew_window")
+	_build_divider()
+
+
+func open() -> void:
+	show()
+	get_tree().paused = true
+	# Das Inventar steckt im Fenster, die Hotbar wäre doppelt.
+	get_tree().call_group("hotbar", "hide")
+	_refresh()
+
+
+func close() -> void:
+	for item_id in _ingredients:
+		Inventory.add(item_id)
+	_ingredients.clear()
+	hide()
+	get_tree().paused = false
+	get_tree().call_group("hotbar", "show")
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and (event.is_action_pressed("interact") or event.is_action_pressed("ui_cancel")):
+		close()
+		get_viewport().set_input_as_handled()
+
+
+## Vorerst ist alles Geerntete eine Zutat. Später könnte das in den
+## Item-Daten stehen (z. B. auch Kristalle aus Dungeons).
+func can_add(item_id: String) -> bool:
+	return item_id.begins_with("crop_") and _ingredients.size() < Brewing.capacity
+
+
+func add_from_inventory(inventory_slot: int) -> void:
+	var item_id := Inventory.item_in_slot(inventory_slot)
+	if can_add(item_id) and Inventory.remove(item_id):
+		_ingredients.append(item_id)
+		_refresh()
+
+
+func return_ingredient(index: int) -> void:
+	if index >= _ingredients.size():
+		return
+	# Bei vollem Inventar bleibt die Zutat lieber im Kessel.
+	if Inventory.add(_ingredients[index]):
+		_ingredients.remove_at(index)
+		_refresh()
+
+
+# Vorläufig: Der Trank ist sofort fertig. Später braut er über Nacht.
+func _on_brew_button_pressed() -> void:
+	if _ingredients.size() < Brewing.MIN_INGREDIENTS:
+		return
+	var result := RecipeData.result_for(_ingredients)
+	if not Inventory.has_room_for(result):
+		print("Inventar voll")
+		return
+	Brewing.learn(_ingredients, result)
+	Inventory.add(result)
+	_ingredients.clear()
+	_refresh()
+
+
+func _refresh() -> void:
+	_build_slots()
+	_build_pips()
+	var ready := _ingredients.size() >= Brewing.MIN_INGREDIENTS
+	cauldron.texture = CAULDRON_READY if ready else CAULDRON
+	arrow.texture = ARROW_ACTIVE if ready else ARROW
+	brew_button.disabled = not ready
+	_show_result(ready)
+
+
+## Bekannte Kombinationen zeigen Trank und Namen, unbekannte nur "???" –
+## was herauskommt, erfährt man erst beim Brauen.
+func _show_result(ready: bool) -> void:
+	if not ready:
+		result_icon.texture = null
+		result_name.text = ""
+		return
+	var known := Brewing.known_result(_ingredients)
+	if known == "":
+		result_icon.texture = UNKNOWN
+		result_name.text = "???"
+	else:
+		result_icon.texture = Inventory.icon_for(known)
+		result_name.text = Inventory.display_name_for(known)
+
+
+func _build_slots() -> void:
+	for child in slots.get_children():
+		child.queue_free()
+	var visible_count := mini(_ingredients.size() + 1, Brewing.capacity)
+	for i in visible_count:
+		var slot: BrewSlot = SLOT_SCENE.instantiate()
+		slot.index = i
+		slot.window = self
+		slot.position = _slot_position(i, visible_count)
+		slots.add_child(slot)
+		if i < _ingredients.size():
+			slot.show_ingredient(Inventory.icon_for(_ingredients[i]))
+
+
+## Felder im flachen Bogen über dem Kessel, außen etwas tiefer.
+func _slot_position(i: int, count: int) -> Vector2:
+	var offset := i - (count - 1) / 2.0
+	var x := roundi(CAULDRON_CENTER_X + offset * SLOT_SPACING) - 10
+	var y := SLOT_BASE_Y + roundi(offset * offset * 3)
+	return Vector2(x, y)
+
+
+## Rauten unter dem Kessel: belegt / frei.
+func _build_pips() -> void:
+	for child in pips.get_children():
+		child.queue_free()
+	var start_x := CAULDRON_CENTER_X - (Brewing.capacity * PIP_SPACING - 2) / 2
+	for i in Brewing.capacity:
+		var pip := TextureRect.new()
+		pip.texture = PIP if i < _ingredients.size() else PIP_EMPTY
+		pip.position = Vector2(start_x + i * PIP_SPACING, PIP_Y)
+		pip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		pips.add_child(pip)
+
+
+## Gepunktete Trennlinie zwischen Kessel und Inventar, wie im Mockup.
+func _build_divider() -> void:
+	var image := Image.create(int(divider.size.x), 1, false, Image.FORMAT_RGBA8)
+	for x in image.get_width():
+		image.set_pixel(x, 0, Color("#8A5240") if x % 4 == 0 else Color("#4D1230"))
+	divider.texture = ImageTexture.create_from_image(image)
