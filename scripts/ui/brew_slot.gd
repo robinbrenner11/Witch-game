@@ -26,7 +26,7 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 
 
 func _get_drag_data(_at_position: Vector2) -> Variant:
-	if icon.texture == null:
+	if icon.texture == null or window.is_locked():
 		return null
 	var preview := TextureRect.new()
 	preview.texture = icon.texture

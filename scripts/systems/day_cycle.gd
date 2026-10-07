@@ -11,6 +11,8 @@ signal day_passed(day: int)
 
 const MINUTES_PER_DAY := 24 * 60
 const NIGHT_START := 18 * 60
+# Ab hier ist die Nacht vorbei (siehe DARKNESS_CURVE).
+const MORNING := 6 * 60
 const START_TIME := 20 * 60
 # Normal vergeht pro echter Sekunde eine Spielminute (eine Nacht ≈ 12 Minuten).
 const GAME_MINUTES_PER_SECOND := 1.0
@@ -34,12 +36,18 @@ var minutes: float = START_TIME
 # Zeitraffer, z. B. während die Hexe am Feuer rastet. Endet von selbst, wenn
 # die nächste Nacht beginnt, damit man nicht versehentlich durchrauscht.
 var fast_forward: bool = false
+# Trank "Ewige Nacht": Bis zum Morgen läuft die Zeit um diesen Faktor
+# langsamer. 1.5 = die Nacht dauert 50 % länger.
+var night_slowdown: float = 1.0
 
 
 func _process(delta: float) -> void:
 	var speed := GAME_MINUTES_PER_SECOND * (FAST_FORWARD_FACTOR if fast_forward else 1.0)
+	speed /= night_slowdown
 	var before := minutes
 	minutes = fmod(minutes + delta * speed, MINUTES_PER_DAY)
+	if before < MORNING and minutes >= MORNING:
+		night_slowdown = 1.0
 	if before < NIGHT_START and minutes >= NIGHT_START:
 		fast_forward = false
 		advance_day()
@@ -54,8 +62,15 @@ func sleep_until_night() -> void:
 	advance_day()
 
 
+## Die laufende Nacht dauert länger (bis zum Morgen). Mehrfach trinken
+## verlängert nicht weiter.
+func lengthen_night(factor: float) -> void:
+	night_slowdown = factor
+
+
 func advance_day() -> void:
 	day += 1
+	night_slowdown = 1.0
 	day_passed.emit(day)
 
 

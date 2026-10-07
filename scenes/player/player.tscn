@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://binh4d4hx8cmm" path="res://scripts/player/player.gd" id="1_script"]
 [ext_resource type="SpriteFrames" path="res://assets/characters/witch_sprite_frames.tres" id="2_frames"]
+[ext_resource type="PackedScene" path="res://scenes/player/potion_effects.tscn" id="3_potion_effects"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(16, 8)
@@ -33,3 +34,5 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=2019824394]
 shape = SubResource("RectangleShape2D_interaction")
+
+[node name="PotionEffects" parent="." instance=ExtResource("3_potion_effects")]

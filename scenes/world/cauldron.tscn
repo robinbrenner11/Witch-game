@@ -20,6 +20,9 @@ texture = ExtResource("2_texture")
 offset = Vector2(0, -16)
 hframes = 2
 
+[node name="PotionIcon" type="Sprite2D" parent="."]
+position = Vector2(0, -38)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_body")

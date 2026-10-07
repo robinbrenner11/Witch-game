@@ -12,7 +12,9 @@ extends Control
 ## docs/art/ui_generator/brew_window.py (window_v2).
 ##
 ## Solange es offen ist, ist das Spiel pausiert. Schließen (E oder Esc) legt
-## nicht gebraute Zutaten zurück ins Inventar.
+## nicht gebraute Zutaten zurück ins Inventar. Braut der Kessel schon, zeigt
+## das Fenster die Zutaten nur an (gesperrt) – fertig ist der Trank am
+## nächsten Morgen.
 
 const SLOT_SCENE := preload("res://scenes/ui/brew_slot.tscn")
 const CAULDRON := preload("res://assets/ui/brew_cauldron.png")
@@ -72,10 +74,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
+## Während der Kessel braut, kann man nichts hineinlegen oder herausnehmen.
+func is_locked() -> bool:
+	return Brewing.is_brewing()
+
+
 ## Vorerst ist alles Geerntete eine Zutat. Später könnte das in den
 ## Item-Daten stehen (z. B. auch Kristalle aus Dungeons).
 func can_add(item_id: String) -> bool:
-	return item_id.begins_with("crop_") and _ingredients.size() < Brewing.capacity
+	return not is_locked() and item_id.begins_with("crop_") and _ingredients.size() < Brewing.capacity
 
 
 func add_from_inventory(inventory_slot: int) -> void:
@@ -86,7 +93,7 @@ func add_from_inventory(inventory_slot: int) -> void:
 
 
 func return_ingredient(index: int) -> void:
-	if index >= _ingredients.size():
+	if is_locked() or index >= _ingredients.size():
 		return
 	# Bei vollem Inventar bleibt die Zutat lieber im Kessel.
 	if Inventory.add(_ingredients[index]):
@@ -94,27 +101,29 @@ func return_ingredient(index: int) -> void:
 		_refresh()
 
 
-# Vorläufig: Der Trank ist sofort fertig. Später braut er über Nacht.
+## Die Zutaten wandern in den Kessel und brauen über Nacht.
 func _on_brew_button_pressed() -> void:
-	if _ingredients.size() < Brewing.MIN_INGREDIENTS:
+	if _ingredients.size() < Brewing.MIN_INGREDIENTS or not Brewing.can_start():
 		return
-	var result := RecipeData.result_for(_ingredients)
-	if not Inventory.has_room_for(result):
-		print("Inventar voll")
-		return
-	Brewing.learn(_ingredients, result)
-	Inventory.add(result)
+	Brewing.start(_ingredients)
 	_ingredients.clear()
 	_refresh()
+
+
+## Was gerade in den Feldern liegt: beim Brauen der Kesselinhalt, sonst das,
+## was die Hexe gerade hineinlegt.
+func _shown_ingredients() -> Array[String]:
+	return Brewing.brewing_ingredients() if is_locked() else _ingredients
 
 
 func _refresh() -> void:
 	_build_slots()
 	_build_pips()
-	var ready := _ingredients.size() >= Brewing.MIN_INGREDIENTS
+	var ready := _shown_ingredients().size() >= Brewing.MIN_INGREDIENTS
 	cauldron.texture = CAULDRON_READY if ready else CAULDRON
 	arrow.texture = ARROW_ACTIVE if ready else ARROW
-	brew_button.disabled = not ready
+	brew_button.disabled = not ready or is_locked()
+	brew_button.text = "Braut" if is_locked() else "Brauen"
 	_show_result(ready)
 
 
@@ -125,7 +134,7 @@ func _show_result(ready: bool) -> void:
 		result_icon.texture = null
 		result_name.text = ""
 		return
-	var known := Brewing.known_result(_ingredients)
+	var known := Brewing.known_result(_shown_ingredients())
 	if known == "":
 		result_icon.texture = UNKNOWN
 		result_name.text = "???"
@@ -137,15 +146,17 @@ func _show_result(ready: bool) -> void:
 func _build_slots() -> void:
 	for child in slots.get_children():
 		child.queue_free()
-	var visible_count := mini(_ingredients.size() + 1, Brewing.capacity)
+	var shown := _shown_ingredients()
+	# Ein leeres Feld mehr, solange noch etwas hineinpasst.
+	var visible_count := shown.size() if is_locked() else mini(shown.size() + 1, Brewing.capacity)
 	for i in visible_count:
 		var slot: BrewSlot = SLOT_SCENE.instantiate()
 		slot.index = i
 		slot.window = self
 		slot.position = _slot_position(i, visible_count)
 		slots.add_child(slot)
-		if i < _ingredients.size():
-			slot.show_ingredient(Inventory.icon_for(_ingredients[i]))
+		if i < shown.size():
+			slot.show_ingredient(Inventory.icon_for(shown[i]))
 
 
 ## Felder im flachen Bogen über dem Kessel, außen etwas tiefer.
@@ -163,7 +174,7 @@ func _build_pips() -> void:
 	var start_x := CAULDRON_CENTER_X - (Brewing.capacity * PIP_SPACING - 2) / 2
 	for i in Brewing.capacity:
 		var pip := TextureRect.new()
-		pip.texture = PIP if i < _ingredients.size() else PIP_EMPTY
+		pip.texture = PIP if i < _shown_ingredients().size() else PIP_EMPTY
 		pip.position = Vector2(start_x + i * PIP_SPACING, PIP_Y)
 		pip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		pips.add_child(pip)
