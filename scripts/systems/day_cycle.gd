@@ -133,6 +133,8 @@ func minute() -> int:
 
 # Nur zum Testen: Später ersetzt Rasten am Hexenfeuer diese Taste ganz.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("debug_next_day"):
+	# OS.is_debug_build(): nur im Editor und in Debug-Exporten, nie in der
+	# fertigen exe für Spielerinnen.
+	if OS.is_debug_build() and event.is_action_pressed("debug_next_day"):
 		advance_day()
 		print("Nacht %d beginnt" % day)

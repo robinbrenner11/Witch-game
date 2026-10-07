@@ -63,7 +63,8 @@ func reset() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("debug_all_seeds"):
+	# Debug-Taste: nur im Editor und in Debug-Exporten.
+	if OS.is_debug_build() and event.is_action_pressed("debug_all_seeds"):
 		for item_id in DEBUG_SEEDS:
 			add(item_id, 3)
 		print("Debug: je 3 Samen aller Sorten")

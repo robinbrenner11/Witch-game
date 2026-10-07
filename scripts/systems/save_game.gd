@@ -81,5 +81,6 @@ func delete_save() -> void:
 
 # Nur zum Testen.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("debug_delete_save"):
+	# Debug-Taste: nur im Editor und in Debug-Exporten.
+	if OS.is_debug_build() and event.is_action_pressed("debug_delete_save"):
 		delete_save()
