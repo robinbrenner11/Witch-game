@@ -1,0 +1,3 @@
+Aufruf: python potions.py <ausgabeordner> [vorschauordner]
+        z. B. python potions.py assets/items docs/art/vorschau
+Benötigt: pillow.

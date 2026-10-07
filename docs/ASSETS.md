@@ -1,6 +1,6 @@
 # Asset-Übersicht (für Claude Code)
 
-Alle Grafiken sind auf Palette und 32er-Raster geprüft, harte Pixelkanten, keine Skalierung nötig.
+Alle Grafiken sind auf Palette und 32er-Raster geprüft, harte Pixelkanten, keine Skalierung nötig. Seit 07.10.2026 ist die Palette gelockert: Zwischentöne sind erlaubt und stehen alle in `docs/art/hexen_palette.gpl`.
 `docs/` enthält eine `.gdignore` und wird deshalb von Godot nicht importiert. Dort liegen nur Referenzen und Vorschauen.
 
 ## Hexe – `assets/characters/`
@@ -124,10 +124,62 @@ Dann liegt die Node-Position genau auf der **Mitte des Beet-Tiles**. Für späte
 
 **Leuchten:** Es ist nur angedeutet (helle Pixel und Funken). Für den Mondkelch, die Laternenbeere (warm), die Alraunen-Augen und den Geisterfarn lohnt sich im Reif-Stadium ein kleines `PointLight2D`.
 
+## Tränke – `assets/items/` (07.10.2026)
+
+16×16 wie `potion_growth.png`. Generator: `docs/art/item_generators/potions.py` · Vorschau: `vorschau/vorschau_traenke_8x.png`.
+Jeder Trank hat eine eigene Flaschensilhouette, damit man sie in der Hotbar auseinanderhält.
+
+| Datei | Trank | Form |
+|---|---|---|
+| `potion_will_o_wisp.png` | Irrlicht | kleines Tropfen-Fläschchen, Geisterblau/Flieder, heller Kern, zwei Funken schweben heraus |
+| `potion_moon_harvest.png` | Mondernte | breite, bauchige Flasche, grün, goldene Mondsichel |
+| `potion_liquid_moonlight.png` | Flüssiges Mondlicht | schlanke, hohe Phiole, hell schimmernd, goldener Stopfen und Fuß |
+| `potion_endless_night.png` | Ewige Nacht | kantige Rautenflasche, Nachthimmel mit Sternen, Bordeaux-Siegel |
+
+## Bett – `assets/environment/props/` (07.10.2026)
+
+Generator: `docs/art/world_generator/bed.py` · Vorschau: `vorschau/vorschau_bett_4x.png`
+
+| Datei | Größe | Hinweis |
+|---|---|---|
+| `bed.png` | 32×64 (1×2 Tiles) | leeres Bett, Kopfteil oben, Fußteil unten; Kollision über beide Tiles |
+| `bed_sleeping.png` | 32×64 | Hexe schläft, Decke bis über die Nase; während des Schlafens statt `bed.png` zeigen |
+
+## Brau-Fenster – `assets/ui/brew_*` (07.10.2026)
+
+Generator: `docs/art/ui_generator/brew_window.py` (Positionen in `window_v2`, Feld-Bogen in `slot_positions`) · Vorschau: `vorschau/vorschau_braufenster_v2_2x.png` (vier Zustände), `vorschau/vorschau_braufenster_teile_6x.png`
+
+**In 1× gespeichert**, im Spiel doppelt so groß anzeigen (Fenster-Root `scale = 2`). Fenstergröße im Mockup: 190×168 (1×).
+Inventar-Plätze im Fenster: bestehende `hotbar_slot.png` (2× vorskaliert) auf 20×20 anzeigen.
+
+| Datei | Größe | Hinweis |
+|---|---|---|
+| `brew_panel.png` | 15×15 | Fensterrahmen, **9-Slice, Ränder je 6 px**; Grund leicht transparent |
+| `brew_slot.png` | 20×20 | Zutaten-Feld, leer mit schwachem Runenkreis; Icon 16×16 bei (2, 2) |
+| `brew_slot_result.png` | 24×24 | Ergebnis-Feld mit Goldrahmen; Icon 16×16 bei (4, 4) |
+| `brew_arrow.png` / `brew_arrow_active.png` | 18×9 | Pfeil inaktiv (Gold) / aktiv (Magenta, funkelt) |
+| `brew_button.png` | 16×12 | Knopf, **9-Slice, Ränder je 4 px**; im Mockup auf 46×16 gestreckt |
+| `brew_button_pressed.png` / `brew_button_disabled.png` | 16×12 | gedrückt / inaktiv (< 2 Zutaten) |
+| `brew_unknown.png` | 16×16 | „?“ für unbekannte Rezepte |
+| `brew_pip.png` / `brew_pip_empty.png` | 5×5 | Kapazitäts-Raute belegt (Gold) / frei (Umriss) |
+| `brew_cauldron.png` / `brew_cauldron_ready.png` | 56×36 | Kessel im Fenster: grüner Sud / Sud glüht magenta (brau-bereit) |
+
+## Nachtschatten-Kuppel – `assets/effects/` und `assets/ui/` (07.10.2026)
+
+Generator: `docs/art/plant_generators/nightshade_aura.py` (Funktionen `field`, `smin`, `render_domes` = Vorlage für den Shader) · Vorschauen: `vorschau/vorschau_nachtschatten_kuppel_3x.gif`, `vorschau/vorschau_kuppeln_verschmolzen_3x.gif`, `vorschau/vorschau_debuff_8x.png`
+
+| Datei | Größe | Hinweis |
+|---|---|---|
+| `effects/nightshade_dome.png` | 480×120 (4 Frames à 120×120) | Kuppel über dem 3×3-Bereich, **über** den Pflanzen; Wurzelpunkt des Nachtschattens bei (60, 69) im Frame; Abspielen 0-1-2-1 (Frame 0 länger). Referenz/Fallback, im Spiel als Shader, damit mehrere Kuppeln verschmelzen |
+| `ui/debuff_nightshade.png` | 16×16 | Debuff-Icon (kleine Kuppel mit verwelkter Blüte), für später |
+
+Welken der Pflanzen unter der Kuppel: keine eigene Grafik, sondern per `modulate` bzw. kleinem Shader (entsättigt, kühl-dunkel).
+
 ## Referenzen – `docs/art/`
 
-- `styleguide.pdf`, `hexen_palette.gpl` (Palette für Aseprite/GIMP, inkl. der 7 abgeleiteten Töne für die Pflanzen: Indigo, Indigo hell, Flieder, Giftgrün dunkel/hell, Nachtblau hell, Geisterblau)
+- `styleguide.pdf`, `hexen_palette.gpl` (Palette für Aseprite/GIMP, inkl. der 7 abgeleiteten Töne für die Pflanzen: Indigo, Indigo hell, Flieder, Giftgrün dunkel/hell, Nachtblau hell, Geisterblau, sowie der 27 Zwischentöne vom 07.10.2026, siehe `neue_farben.md`)
 - `plant_generators/`: Python-Scripts für Pflanzen, Icons (`icons.py`) und Licht (`lights.py`)
+- `item_generators/potions.py`, `world_generator/bed.py`, `ui_generator/brew_window.py`, `plant_generators/nightshade_aura.py`: Generatoren der Grafiken vom 07.10.2026 (Details: `neue_assets.md`)
 - `ground_generator/extra.py`: Erweiterung für Friedhofsgras, Beet-Endstücke und die neuen Übergänge (+ `extra_preview.py`, `pruefbericht_extra.txt`)
 - `vorschau/vorschau_neue_boeden_2x.png`, `vorschau_items_4x.png`, `vorschau_nacht_3x.png`
 - `vorschau/uebersicht_pflanzen.png`: alle Pflanzen in 1× und 3×

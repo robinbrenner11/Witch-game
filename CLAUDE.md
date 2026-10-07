@@ -35,7 +35,8 @@ Grundlegende technische Entscheidungen nicht stillschweigend ändern. Bei größ
 Unveränderliche Grundregeln:
 - 2D Pixel-Art, Top-down, **keine Isometrie**
 - harte Pixelkanten, kein Anti-Aliasing, keine Gradienten
-- ganzzahlige Skalierung, begrenzte Farbpalette
+- ganzzahlige Skalierung
+- Die Palette ist die Basis und bestimmt die Farbsemantik. Zwischentöne und passende Ergänzungen sind erlaubt, wenn sie Verläufe natürlicher machen (Schatten Richtung Blau/Violett, Lichter Richtung Warm). Keine weichen Gradienten. Richtwert 8–12 Farben pro Grafik. Neue Töne in `docs/art/hexen_palette.gpl` nachtragen.
 - Licht grundsätzlich von **oben links**
 - dunkle Aubergine-Outlines statt reinem Schwarz
 - Lesbarkeit im Gameplay vor Detailreichtum, klare Charakter-Silhouetten
@@ -155,6 +156,10 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - 🔮 **Vorschlag** – von Claude ergänzt, noch nicht entschieden
 
 **Wichtig für Claude:** Nichts aus dem Bereich 💡/🔮 eigenmächtig bauen. Die Ideen dienen dazu, heutige Entscheidungen so zu treffen, dass diese Features später ohne Rewrite möglich sind.
+
+**Neuere Entscheidungen** stehen in eigenen Dateien und gehen dieser Sammlung bei Widersprüchen vor:
+- `docs/design/design_entscheidungen_2026-10-07.md` – Tagesrhythmus, Bett, Garten, Nachtschatten, Hexenschlamm, Brauen, 5 Rezepte, Grafikregeln
+- `docs/design/checkliste_basics.md` – was vor den großen Erweiterungen noch fehlt (abhaken, wenn erledigt)
 
 ---
 

@@ -24,3 +24,32 @@ Columns: 5
  98 160 110	Giftgruen hell
  52  70 120	Nachtblau hell
 120 140 185	Geisterblau
+#
+# --- Ergänzungen 07.10.2026 (gelockerte Palette: Zwischentöne) ---
+ 31  36  74	Glas leer
+156 104  52	Gold dunkel
+244 204 120	Gold hell
+206 214 244	Eisblau hell
+255 246 220	Lichtkern warmweiss
+214 232 222	Silber-Mondlicht
+240 244 255	Glanz kalt
+ 26  20  46	Nachtviolett
+150  44  72	Bordeaux hell
+ 54  14  36	Bordeaux tief
+ 92  30  78	Magenta gedaempft
+255 210 236	Magenta hell rosa
+ 32  20  30	Ebenholz 1
+ 52  34  46	Ebenholz 2
+ 78  52  64	Ebenholz 3
+104  72  84	Ebenholz 4
+198 184 190	Laken Schatten
+150 136 160	Laken Schatten tief
+ 24  18  36	Kessel 0
+ 38  30  58	Kessel 1
+ 56  50  96	Kessel 2
+ 82  78 140	Kessel 3
+ 30  22  44	Kesselrand 0
+ 66  58  92	Kesselrand 1
+104  96 140	Kesselrand 2
+ 24  26  40	Welk dunkel
+124 124 104	Welk oliv
