@@ -14,8 +14,8 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 
 ## 2. Bedienung – was Spielerinnen sofort vermissen würden
 
-- [ ] **Rückmeldungen auf dem Bildschirm statt in der Konsole** – "Inventar voll", "Keine Samen in der Hand" usw. laufen über `print()` und sind im Spiel unsichtbar
-- [ ] **Interaktions-Hinweis** – hervorheben, womit E gerade interagiert (Umriss oder kleines "E")
+- [x] **Rückmeldungen auf dem Bildschirm statt in der Konsole** – "Inventar voll", "Keine Samen in der Hand" usw. laufen über `print()` und sind im Spiel unsichtbar
+- [x] **Interaktions-Hinweis** – hervorheben, womit E gerade interagiert (Umriss oder kleines "E")
 - [x] **Inventar-Fenster** – 24 Plätze existieren, sichtbar sind nur 8; Fenster mit Drag & Drop (gleiche Bausteine wie das Brau-Fenster) → Tab
 - [ ] **Items benutzen** – eine einheitliche Aktion "ausgewähltes Item benutzen" (trinken, ausgießen, pflanzen) – teilweise: Q/Rechtsklick trinkt, E gießt aus und pflanzt
 - [ ] **Items wegwerfen/entsorgen** – sonst verstopft Hexenschlamm das Inventar (entschieden: Mülleimer als Objekt in der Welt)
