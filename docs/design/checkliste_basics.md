@@ -39,7 +39,7 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 
 - [ ] **Aktions-Animationen** – ausgießen, ernten, schnippen (bisher nur laufen/stehen)
 - [x] **Blickrichtung beim Interagieren** – nur nach vorne, nicht hinter sich
-- [ ] **Einmal früh exportieren** – Windows-Build bauen und testen
+- [x] **Einmal früh exportieren** – Windows-Build bauen und testen (build/windows/Bitterbloom.exe, Voreinstellung in export_presets.cfg)
 
 ## Empfohlene Reihenfolge nach dem Auftrag vom 07.10.
 
