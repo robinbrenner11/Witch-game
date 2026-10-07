@@ -159,3 +159,4 @@ Beschreibungstexte im Spiel (bereits nach den Schriftregeln: keine Gedankenstric
 💡 Item-Details evtl. per Rechtsklick im Inventar – oder nur im Rezeptbuch (offen).
 ✅ **Bett und Kessel stehen im Garten**, nicht im Unterschlupf. Die Hexe wacht im Garten auf. Der Unterschlupf bleibt vorerst ein leerer Ort.
 ✅ **Schweben mit Shift**: 2,5× so schnell, die Hexe hebt per Magie leicht ab und hinterlässt magentafarbene Funken.
+✅ **Kein Morgen-Moment**: Beim Aufwachen erscheint kein Text. Was über den Tag passiert ist, entdeckt man selbst im Garten.

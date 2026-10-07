@@ -27,7 +27,7 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 - [x] **Pausemenü (Esc)** – Fortsetzen, Einstellungen, Speichern & Beenden
 - [x] **Einstellungen** – Lautstärke, Vollbild/Fenster, später Tastenbelegung (Tastenbelegung fehlt noch)
 - [ ] **Sound** – bisher keine einzige Audiodatei. Minimum: Musik (SZA-Stimmung), Nachtatmosphäre, Schritte, Ernten, Pflanzen, Kessel-Blubbern, UI-Klicks
-- [ ] **Bett + Morgen-Moment** *(Auftrag 07.10.)* – Bett fertig, Morgen-Moment fehlt noch
+- [x] **Bett + Morgen-Moment** *(Auftrag 07.10.)* – Bett fertig, Morgen-Moment bewusst weggelassen (selbst entdecken)
 
 ## 4. Einstieg – damit jemand außer dir das Spiel versteht
 

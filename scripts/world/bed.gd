@@ -51,4 +51,5 @@ func _sleep(player: Player) -> void:
 	player.show()
 	player.set_controls_enabled(true)
 	_sleeping = false
-	Messages.post("Nacht %d beginnt." % DayCycle.day)
+	# Bewusst kein Text am Morgen: Was über den Tag passiert ist, soll man
+	# selbst im Garten entdecken.
