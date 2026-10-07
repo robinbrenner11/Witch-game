@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/clock.gd" id="1_script"]
 [ext_resource type="FontFile" path="res://assets/ui/fonts/m5x7.ttf" id="2_font"]
+[ext_resource type="Script" path="res://scripts/ui/moon_icon.gd" id="3_moon_icon"]
 
 [node name="Clock" type="Label"]
 anchors_preset = 1
@@ -18,3 +19,30 @@ theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 2
 script = ExtResource("1_script")
+
+[node name="Moon" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_top = 30.0
+offset_bottom = 62.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="MoonName" type="Label" parent="Moon"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.662745, 0.607843, 0.878431, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 32
+
+[node name="MoonIcon" type="Control" parent="Moon"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("3_moon_icon")

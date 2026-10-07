@@ -21,6 +21,8 @@ extends Resource
 # false = Magie (Hexenschlamm, Tränke) bringt die Pflanze höchstens bis
 # kurz vor die Reife. Für den Mondkelch, der nur bei Vollmond reif wird.
 @export var magic_can_ripen: bool = true
+# true = wird von allein nur in einer Vollmondnacht reif (Mondkelch).
+@export var ripens_only_at_full_moon: bool = false
 
 # Aura: wirkt auf die Beete ringsum. Allgemein gehalten, damit später auch
 # positive Auren (z. B. "nebenan wachsen nur perfekte Pflanzen") nur neue

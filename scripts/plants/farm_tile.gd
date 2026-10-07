@@ -96,6 +96,9 @@ func _describe_growing_plant() -> void:
 		return
 	# Bewusst vage: Man ahnt, wie weit sie ist, ohne genaue Nächte zu kennen.
 	var data := Garden.plant_data_at(cell)
+	if data.ripens_only_at_full_moon and Garden.stage_at(cell) == data.stage_count - 2:
+		Messages.post("Sie wartet auf etwas am Himmel.")
+		return
 	var nights_left := data.stage_count - 1 - Garden.stage_at(cell)
 	if Garden.stage_at(cell) == 0:
 		Messages.post("Noch schläft sie in der Erde.")

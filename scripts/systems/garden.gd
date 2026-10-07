@@ -95,11 +95,19 @@ func grow_by_magic(cell: Vector2i, stages: int) -> bool:
 	return grew
 
 
-## Natürliches Wachstum über Nacht. Es kann blockiert sein (Auren), Magie
-## über grow() setzt sich darüber hinweg. Hier docken später weitere
-## Bedingungen an: Mondphase (Mondkelch), Blutrose ab Stufe 3 usw.
+## Natürliches Wachstum über Nacht. Es kann blockiert sein (Auren, Mond),
+## Magie über grow() setzt sich darüber hinweg. Hier docken später weitere
+## Bedingungen an (Blutrose ab Stufe 3 usw.).
 func can_grow_tonight(cell: Vector2i) -> bool:
-	return not is_ripe(cell) and not is_growth_blocked(cell)
+	return not is_ripe(cell) and not is_growth_blocked(cell) and not is_waiting_for_full_moon(cell)
+
+
+## Steht die Pflanze kurz vor der Reife und braucht dafür den Vollmond, der
+## heute Nacht nicht da ist? Gewachsen wird beim Beginn der Nacht, also zählt
+## die Mondphase der neuen Nacht.
+func is_waiting_for_full_moon(cell: Vector2i) -> bool:
+	var data := plant_data_at(cell)
+	return data != null and data.ripens_only_at_full_moon 		and stage_at(cell) == data.stage_count - 2 and not DayCycle.is_full_moon()
 
 
 ## Liegt das Beet im Bereich einer hemmenden Aura (Nachtschatten)? Die

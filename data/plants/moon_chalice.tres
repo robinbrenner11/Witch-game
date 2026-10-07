@@ -13,6 +13,7 @@ stage_count = 4
 seed_item_id = "seed_moon_chalice"
 harvest_item_id = "crop_moon_chalice"
 magic_can_ripen = false
+ripens_only_at_full_moon = true
 glow_texture = ExtResource("5_glow")
 glow_color = Color(0.662745, 0.607843, 0.878431, 1)
 glow_energy = 1.1

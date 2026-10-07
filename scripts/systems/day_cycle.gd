@@ -14,6 +14,14 @@ const NIGHT_START := 18 * 60
 # Ab hier ist die Nacht vorbei (siehe DARKNESS_CURVE).
 const MORNING := 6 * 60
 const START_TIME := 20 * 60
+# Der Mond durchläuft seine Phasen in 8 Nächten. Nacht 1 beginnt mit der
+# zunehmenden Sichel, der erste Vollmond kommt also in Nacht 4.
+const MOON_PHASE_NAMES: Array[String] = [
+	"Neumond", "Zunehmende Sichel", "Zunehmender Halbmond", "Zunehmender Mond",
+	"Vollmond", "Abnehmender Mond", "Abnehmender Halbmond", "Abnehmende Sichel",
+]
+const FULL_MOON := 4
+const FIRST_NIGHT_MOON_PHASE := 1
 # Normal vergeht pro echter Sekunde eine Spielminute (eine Nacht ≈ 12 Minuten).
 const GAME_MINUTES_PER_SECOND := 1.0
 # Am Hexenfeuer: eine Spielstunde pro Sekunde.
@@ -100,6 +108,19 @@ func night_factor() -> float:
 		if minutes <= to.x:
 			return lerpf(from.y, to.y, inverse_lerp(from.x, to.x, minutes))
 	return 1.0
+
+
+## 0 = Neumond … 4 = Vollmond … 7 = abnehmende Sichel.
+func moon_phase() -> int:
+	return (day - 1 + FIRST_NIGHT_MOON_PHASE) % MOON_PHASE_NAMES.size()
+
+
+func moon_phase_name() -> String:
+	return MOON_PHASE_NAMES[moon_phase()]
+
+
+func is_full_moon() -> bool:
+	return moon_phase() == FULL_MOON
 
 
 func hour() -> int:
