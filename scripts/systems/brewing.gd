@@ -72,6 +72,11 @@ func learn(ingredients: Array[String], result_item_id: String) -> void:
 	_known[_key(ingredients)] = result_item_id
 
 
+## Neues Spiel: leerer Kessel, nichts bekannt, Startkapazität.
+func reset() -> void:
+	load_save_data({})
+
+
 func get_save_data() -> Dictionary:
 	return {"capacity": capacity, "known": _known, "brewing": _brewing, "finished": _finished}
 

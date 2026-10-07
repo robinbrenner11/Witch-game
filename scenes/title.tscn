@@ -1,0 +1,79 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/title.gd" id="1_script"]
+[ext_resource type="Theme" path="res://assets/ui/menu_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" path="res://scenes/ui/settings_menu.tscn" id="3_settings"]
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.054902, 0.039216, 0.0784314, 1)
+
+[node name="Scaled" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 180.0
+scale = Vector2(2, 2)
+mouse_filter = 2
+
+[node name="Menu" type="CenterContainer" parent="Scaled"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Box" type="VBoxContainer" parent="Scaled/Menu"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="GameTitle" type="Label" parent="Scaled/Menu/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.643137, 0.254902, 1)
+theme_override_font_sizes/font_size = 32
+text = "Bitterbloom"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Scaled/Menu/Box"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ContinueButton" type="Button" parent="Scaled/Menu/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Fortsetzen"
+
+[node name="NewGameButton" type="Button" parent="Scaled/Menu/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Neues Spiel"
+
+[node name="SettingsButton" type="Button" parent="Scaled/Menu/Box"]
+layout_mode = 2
+text = "Einstellungen"
+
+[node name="QuitButton" type="Button" parent="Scaled/Menu/Box"]
+layout_mode = 2
+text = "Beenden"
+
+[node name="SettingsMenu" parent="." instance=ExtResource("3_settings")]
+layout_mode = 1
+
+[connection signal="pressed" from="Scaled/Menu/Box/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="Scaled/Menu/Box/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="Scaled/Menu/Box/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Scaled/Menu/Box/QuitButton" to="." method="_on_quit_button_pressed"]

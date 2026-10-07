@@ -135,6 +135,11 @@ func _aura_reaches(source_cell: Vector2i, target_cell: Vector2i) -> bool:
 	return maxi(distance.x, distance.y) <= source.aura_radius
 
 
+## Neues Spiel: alle Beete leer.
+func reset() -> void:
+	load_save_data([])
+
+
 ## JSON kennt keine Vector2i-Schlüssel, deshalb als Liste mit x und y.
 func get_save_data() -> Array:
 	var result := []

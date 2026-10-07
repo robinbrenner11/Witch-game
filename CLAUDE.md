@@ -1,8 +1,8 @@
-# Hexen-Spiel – Projektleitfaden für Claude Code
+# Bitterbloom – Projektleitfaden für Claude Code
 
 ## 1. Vision
 
-2D-Pixel-Art-Life-Sim über den Alltag einer jungen Hexe. Die Spielerin lebt in einem kleinen Hexenhaus, pflegt einen magischen Garten, baut Pflanzen an, sammelt Ressourcen, braut Tränke und entdeckt nach und nach die magische Welt. Später kommt ein Social-System dazu (NPCs mit Persönlichkeit, Beziehungen, Geschichten, Tagesabläufen).
+**Bitterbloom** ist eine 2D-Pixel-Art-Life-Sim über den Alltag einer jungen Hexe. Die Spielerin lebt in einem kleinen Hexenhaus, pflegt einen magischen Garten, baut Pflanzen an, sammelt Ressourcen, braut Tränke und entdeckt nach und nach die magische Welt. Später kommt ein Social-System dazu (NPCs mit Persönlichkeit, Beziehungen, Geschichten, Tagesabläufen).
 
 Zentrale Identität: **Dark Cozy Witchcraft**. Nicht einfach „cute", nicht einfach „dark". Die Welt soll mysteriös und leicht düster wirken, aber gemütlich. Sie soll **nicht** wie „Stardew Valley mit Hexenhüten" und auch nicht wie ein reines Gothic-Spiel aussehen.
 

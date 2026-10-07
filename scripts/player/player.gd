@@ -23,6 +23,11 @@ var selected_seed: PlantData:
 @onready var camera: Camera2D = $Camera2D
 
 
+func _ready() -> void:
+	# Damit z. B. das Pausemenü die Hexe findet, ohne ihren Pfad zu kennen.
+	add_to_group("player")
+
+
 func _physics_process(_delta: float) -> void:
 	# get_vector liefert die Richtung schon normalisiert, damit die Hexe
 	# diagonal nicht schneller läuft als gerade.

@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Witch Game"
-run/main_scene="res://scenes/main.tscn"
+config/name="Bitterbloom"
+run/main_scene="res://scenes/title.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,7 @@ Inventory="*res://scripts/systems/inventory.gd"
 Garden="*res://scripts/systems/garden.gd"
 Brewing="*res://scripts/systems/brewing.gd"
 Messages="*res://scripts/systems/messages.gd"
+Settings="*res://scripts/systems/settings.gd"
 ScreenFade="*res://scripts/ui/screen_fade.gd"
 SaveGame="*res://scripts/systems/save_game.gd"
 

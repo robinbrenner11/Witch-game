@@ -23,9 +23,9 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 
 ## 3. Rahmen – macht aus dem Prototyp ein Spiel
 
-- [ ] **Hauptmenü** – Neues Spiel, Fortsetzen, Einstellungen, Beenden (bisher startet das Spiel direkt in der Welt)
-- [ ] **Pausemenü (Esc)** – Fortsetzen, Einstellungen, Speichern & Beenden
-- [ ] **Einstellungen** – Lautstärke, Vollbild/Fenster, später Tastenbelegung
+- [x] **Hauptmenü** – Neues Spiel, Fortsetzen, Einstellungen, Beenden (bisher startet das Spiel direkt in der Welt)
+- [x] **Pausemenü (Esc)** – Fortsetzen, Einstellungen, Speichern & Beenden
+- [x] **Einstellungen** – Lautstärke, Vollbild/Fenster, später Tastenbelegung (Tastenbelegung fehlt noch)
 - [ ] **Sound** – bisher keine einzige Audiodatei. Minimum: Musik (SZA-Stimmung), Nachtatmosphäre, Schritte, Ernten, Pflanzen, Kessel-Blubbern, UI-Klicks
 - [ ] **Bett + Morgen-Moment** *(Auftrag 07.10.)* – Bett fertig, Morgen-Moment fehlt noch
 

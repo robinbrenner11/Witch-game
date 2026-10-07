@@ -1,0 +1,79 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/settings_menu.gd" id="1_script"]
+[ext_resource type="Theme" path="res://assets/ui/menu_theme.tres" id="2_theme"]
+
+[node name="SettingsMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Scaled" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 180.0
+scale = Vector2(2, 2)
+mouse_filter = 2
+
+[node name="Center" type="CenterContainer" parent="Scaled"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Scaled/Center"]
+layout_mode = 2
+
+[node name="Box" type="VBoxContainer" parent="Scaled/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Scaled/Center/Panel/Box"]
+layout_mode = 2
+text = "Einstellungen"
+horizontal_alignment = 1
+
+[node name="Volume" type="HBoxContainer" parent="Scaled/Center/Panel/Box"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Scaled/Center/Panel/Box/Volume"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "Lautstärke"
+
+[node name="VolumeDown" type="Button" parent="Scaled/Center/Panel/Box/Volume"]
+layout_mode = 2
+text = "-"
+
+[node name="VolumeValue" type="Label" parent="Scaled/Center/Panel/Box/Volume"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="VolumeUp" type="Button" parent="Scaled/Center/Panel/Box/Volume"]
+layout_mode = 2
+text = "+"
+
+[node name="FullscreenButton" type="Button" parent="Scaled/Center/Panel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Vollbild: aus"
+
+[node name="BackButton" type="Button" parent="Scaled/Center/Panel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Zurück"
+
+[connection signal="pressed" from="Scaled/Center/Panel/Box/Volume/VolumeDown" to="." method="_on_volume_down_pressed"]
+[connection signal="pressed" from="Scaled/Center/Panel/Box/Volume/VolumeUp" to="." method="_on_volume_up_pressed"]
+[connection signal="pressed" from="Scaled/Center/Panel/Box/FullscreenButton" to="." method="_on_fullscreen_button_pressed"]
+[connection signal="pressed" from="Scaled/Center/Panel/Box/BackButton" to="." method="_on_back_button_pressed"]

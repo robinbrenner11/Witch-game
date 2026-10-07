@@ -1,7 +1,7 @@
 extends Node
 
-## Speichert und lädt den Spielstand. Gespeichert wird beim Schlafen,
-## geladen beim Spielstart.
+## Speichert und lädt den Spielstand. Gespeichert wird beim Schlafen und über
+## das Pausemenü; geladen wird über "Fortsetzen" im Titelmenü.
 ##
 ## Jedes System liefert selbst, was von ihm gespeichert werden muss
 ## (get_save_data / load_save_data). SaveGame sammelt nur ein und schreibt die
@@ -18,8 +18,17 @@ const SAVE_PATH := "user://savegame.json"
 const VERSION := 1
 
 
-func _ready() -> void:
-	load_game()
+func has_save() -> bool:
+	return FileAccess.file_exists(SAVE_PATH)
+
+
+## Alles auf Anfang. Der alte Spielstand bleibt liegen, bis zum ersten Mal
+## gespeichert wird.
+func new_game() -> void:
+	DayCycle.reset()
+	Inventory.reset()
+	Garden.reset()
+	Brewing.reset()
 
 
 func save_game() -> void:
@@ -39,17 +48,18 @@ func save_game() -> void:
 	print("Spielstand gespeichert (Nacht %d)" % DayCycle.day)
 
 
-func load_game() -> void:
-	if not FileAccess.file_exists(SAVE_PATH):
-		return
+## Gibt false zurück, wenn es keinen brauchbaren Spielstand gibt.
+func load_game() -> bool:
+	if not has_save():
+		return false
 	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(SAVE_PATH))
 	if not data is Dictionary:
-		push_warning("Spielstand ist beschädigt, es beginnt ein neues Spiel")
-		return
+		push_warning("Spielstand ist beschädigt")
+		return false
 	# JSON kennt nur Kommazahlen, deshalb int().
 	if int(data.get("version", 0)) != VERSION:
-		push_warning("Spielstand hat ein altes Format, es beginnt ein neues Spiel")
-		return
+		push_warning("Spielstand hat ein altes Format")
+		return false
 	DayCycle.load_save_data(data["day_cycle"])
 	Inventory.load_save_data(data["inventory"])
 	Garden.load_save_data(data["garden"])
@@ -57,6 +67,7 @@ func load_game() -> void:
 	if data.has("brewing"):
 		Brewing.load_save_data(data["brewing"])
 	print("Spielstand geladen (Nacht %d)" % DayCycle.day)
+	return true
 
 
 func delete_save() -> void:

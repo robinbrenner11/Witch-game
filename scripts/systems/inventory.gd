@@ -49,11 +49,17 @@ var selected_slot: int = 0:
 
 func _ready() -> void:
 	_slot_items.resize(SIZE)
-	_slot_items.fill("")
 	_slot_counts.resize(SIZE)
+	reset()
+
+
+## Neues Spiel: leere Tasche mit den Startsamen.
+func reset() -> void:
+	_slot_items.fill("")
 	_slot_counts.fill(0)
 	for item_id in START_ITEMS:
 		add(item_id, START_ITEMS[item_id])
+	selected_slot = 0
 
 
 func _unhandled_input(event: InputEvent) -> void:

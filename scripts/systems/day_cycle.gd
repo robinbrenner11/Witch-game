@@ -74,6 +74,14 @@ func advance_day() -> void:
 	day_passed.emit(day)
 
 
+## Neues Spiel: erste Nacht, 20 Uhr.
+func reset() -> void:
+	day = 1
+	minutes = START_TIME
+	fast_forward = false
+	night_slowdown = 1.0
+
+
 func get_save_data() -> Dictionary:
 	return {"day": day, "minutes": minutes}
 
