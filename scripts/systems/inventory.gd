@@ -106,6 +106,17 @@ func load_save_data(data: Dictionary) -> void:
 	changed.emit()
 
 
+## Tauscht den Inhalt zweier Plätze (Drag & Drop). Ist das Ziel leer, wird
+## das Item einfach verschoben.
+func move(from_slot: int, to_slot: int) -> void:
+	if from_slot == to_slot:
+		return
+	var moved := _slots[from_slot]
+	_slots[from_slot] = _slots[to_slot]
+	_slots[to_slot] = moved
+	changed.emit()
+
+
 func count(item_id: String) -> int:
 	return _counts.get(item_id, 0)
 

@@ -1,10 +1,10 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/ui/hotbar_slot.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/ui/inventory_slot.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/ui/hotbar_slot.png" id="2_frame"]
 [ext_resource type="FontFile" path="res://assets/ui/hotbar_digits.fnt" id="3_digits"]
 
-[node name="HotbarSlot" type="TextureRect"]
+[node name="InventorySlot" type="TextureRect"]
 custom_minimum_size = Vector2(40, 40)
 mouse_filter = 2
 texture = ExtResource("2_frame")

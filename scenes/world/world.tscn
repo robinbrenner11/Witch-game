@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/cauldron.tscn" id="9_cauldron"]
 [ext_resource type="PackedScene" path="res://scenes/world/bed.tscn" id="10_bed"]
 [ext_resource type="PackedScene" path="res://scenes/world/nightshade_domes.tscn" id="11_domes"]
+[ext_resource type="PackedScene" path="res://scenes/ui/inventory_window.tscn" id="12_inventory_window"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_top"]
 normal = Vector2(0, 1)
@@ -116,3 +117,5 @@ script = ExtResource("8_night_tint")
 [node name="Hotbar" parent="UI" unique_id=713886720 instance=ExtResource("5_hotbar")]
 
 [node name="Clock" parent="UI" unique_id=2032156989 instance=ExtResource("7_clock")]
+
+[node name="InventoryWindow" parent="UI" instance=ExtResource("12_inventory_window")]
