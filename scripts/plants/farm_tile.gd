@@ -74,6 +74,7 @@ func _plant_seed(seed_data: PlantData) -> void:
 		Messages.post("Die Erde wartet auf Samen.")
 		return
 	Garden.plant_seed(cell, seed_data.id)
+	Journal.complete_goal("plant")
 
 
 func _harvest() -> void:

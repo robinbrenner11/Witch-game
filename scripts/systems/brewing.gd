@@ -59,13 +59,26 @@ func take_finished() -> bool:
 	if _finished == "" or not Inventory.add(_finished):
 		return false
 	_finished = ""
+	Journal.complete_goal("brew")
 	changed.emit()
 	return true
 
 
-## Leerer String, wenn die Hexe diese Kombination noch nie gebraut hat.
+## Leerer String, wenn die Hexe diese Kombination weder gebraut noch auf einer
+## losen Buchseite gelesen hat.
 func known_result(ingredients: Array[String]) -> String:
-	return _known.get(_key(ingredients), "")
+	var key := _key(ingredients)
+	if _known.has(key):
+		return _known[key]
+	for recipe in RecipeData.all():
+		if recipe.matches(ingredients) and Journal.is_page_found(recipe.result_item_id):
+			return recipe.result_item_id
+	return ""
+
+
+## Hat die Hexe diesen Trank schon einmal gebraut?
+func has_brewed(result_item_id: String) -> bool:
+	return _known.values().has(result_item_id)
 
 
 func learn(ingredients: Array[String], result_item_id: String) -> void:

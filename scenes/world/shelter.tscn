@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/world/level.gd" id="1_26gm3"]
 [ext_resource type="TileSet" path="res://assets/environment/ground/ground_tileset.tres" id="2_f826e"]
 [ext_resource type="PackedScene" path="res://scenes/world/exit.tscn" id="7_fyyhj"]
+[ext_resource type="PackedScene" path="res://scenes/world/lectern.tscn" id="8_lectern"]
 
 [node name="Shelter" type="Node2D" unique_id=1181676868]
 script = ExtResource("1_26gm3")
@@ -13,6 +14,9 @@ tile_set = ExtResource("2_f826e")
 
 [node name="Objects" type="Node2D" parent="." unique_id=537871698]
 y_sort_enabled = true
+
+[node name="Lectern" parent="Objects" instance=ExtResource("8_lectern")]
+position = Vector2(240, 176)
 
 [node name="ToGarden" parent="." unique_id=1356411817 instance=ExtResource("7_fyyhj")]
 position = Vector2(432, 208)

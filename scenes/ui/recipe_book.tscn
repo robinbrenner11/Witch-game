@@ -1,0 +1,65 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/recipe_book.gd" id="1_script"]
+[ext_resource type="Theme" path="res://assets/ui/menu_theme.tres" id="2_theme"]
+
+[node name="RecipeBook" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Scaled" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 180.0
+scale = Vector2(2, 2)
+mouse_filter = 2
+
+[node name="Center" type="CenterContainer" parent="Scaled"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Scaled/Center"]
+custom_minimum_size = Vector2(250, 130)
+layout_mode = 2
+
+[node name="Box" type="VBoxContainer" parent="Scaled/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Content" type="VBoxContainer" parent="Scaled/Center/Panel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="Navigation" type="HBoxContainer" parent="Scaled/Center/Panel/Box"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="Previous" type="Button" parent="Scaled/Center/Panel/Box/Navigation"]
+layout_mode = 2
+focus_mode = 0
+text = "<"
+
+[node name="PageLabel" type="Label" parent="Scaled/Center/Panel/Box/Navigation"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Next" type="Button" parent="Scaled/Center/Panel/Box/Navigation"]
+layout_mode = 2
+focus_mode = 0
+text = ">"
+
+[connection signal="pressed" from="Scaled/Center/Panel/Box/Navigation/Previous" to="." method="_on_previous_pressed"]
+[connection signal="pressed" from="Scaled/Center/Panel/Box/Navigation/Next" to="." method="_on_next_pressed"]

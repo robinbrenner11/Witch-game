@@ -38,6 +38,7 @@ func _sleep(player: Player) -> void:
 	await ScreenFade.fade_out()
 
 	DayCycle.sleep_until_night()
+	Journal.complete_goal("sleep")
 	# Erst nach dem Wachstum über Nacht speichern, damit der Stand zum
 	# Aufwachen passt.
 	SaveGame.save_game()

@@ -1,0 +1,26 @@
+extends StaticBody2D
+
+## Das Lesepult im Unterschlupf. Darauf liegt das Buch der alten Hexe, bis die
+## Hexe es mitnimmt. Danach schlägt E am Pult das Buch auf.
+
+const WITH_BOOK := preload("res://assets/environment/props/lectern_book.png")
+const EMPTY := preload("res://assets/environment/props/lectern.png")
+
+@onready var sprite: Sprite2D = $Sprite2D
+
+
+func _ready() -> void:
+	Journal.changed.connect(_update_look)
+	_update_look()
+
+
+func _on_interactable_interacted(_player: Node2D) -> void:
+	if not Journal.has_book:
+		Journal.find_book()
+		Messages.post("Ein altes Buch. Mit B kannst du darin lesen.")
+	else:
+		get_tree().call_group("recipe_book", "open")
+
+
+func _update_look() -> void:
+	sprite.texture = EMPTY if Journal.has_book else WITH_BOOK
