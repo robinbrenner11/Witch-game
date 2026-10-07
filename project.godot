@@ -24,6 +24,7 @@ Brewing="*res://scripts/systems/brewing.gd"
 Journal="*res://scripts/systems/journal.gd"
 Messages="*res://scripts/systems/messages.gd"
 Settings="*res://scripts/systems/settings.gd"
+Music="*res://scripts/systems/music.gd"
 ScreenFade="*res://scripts/ui/screen_fade.gd"
 SaveGame="*res://scripts/systems/save_game.gd"
 
