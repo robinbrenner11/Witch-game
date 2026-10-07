@@ -5,6 +5,7 @@ extends Control
 ## Spiel begonnen wird – erst danach startet main.tscn.
 
 const GAME_SCENE := "res://scenes/main.tscn"
+const INTRO_SCENE := "res://scenes/intro.tscn"
 
 # Neues Spiel bei vorhandenem Spielstand braucht einen zweiten Klick.
 var _confirm_new_game := false
@@ -33,7 +34,8 @@ func _on_new_game_button_pressed() -> void:
 		new_game_button.text = "Wirklich neu beginnen?"
 		return
 	SaveGame.new_game()
-	_start()
+	# Ein neues Spiel beginnt mit der kurzen Einleitung.
+	get_tree().change_scene_to_file(INTRO_SCENE)
 
 
 func _on_settings_button_pressed() -> void:

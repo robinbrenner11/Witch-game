@@ -31,9 +31,9 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 
 ## 4. Einstieg – damit jemand außer dir das Spiel versteht
 
-- [ ] **Spielstart** – Ankunft im Unterschlupf, Fund des Rezeptbuchs der verstorbenen Hexe (ein paar Zeilen Text)
-- [ ] **Rezeptbuch-Fenster** – bekannte Rezepte und "???"
-- [ ] **Erste Ziele** – 2–3 kleine Aufgaben (pflanzen, ersten Trank brauen, schlafen), damit der Kreislauf klar wird
+- [x] **Spielstart** – Ankunft im Unterschlupf, Fund des Rezeptbuchs der verstorbenen Hexe (ein paar Zeilen Text)
+- [x] **Rezeptbuch-Fenster** – bekannte Rezepte und "???"
+- [x] **Erste Ziele** – 2–3 kleine Aufgaben (pflanzen, ersten Trank brauen, schlafen), damit der Kreislauf klar wird
 
 ## 5. Kleinkram, der früh billig und spät teuer ist
 

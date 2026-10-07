@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/world/level.gd" id="1_tvyim"]
 [ext_resource type="TileSet" path="res://assets/environment/ground/ground_tileset.tres" id="2_euhvq"]
 [ext_resource type="PackedScene" path="res://scenes/world/exit.tscn" id="3_uuut2"]
+[ext_resource type="PackedScene" path="res://scenes/world/loose_page.tscn" id="9_loose_page"]
 
 [node name="Forest" type="Node2D" unique_id=91417010]
 script = ExtResource("1_tvyim")
@@ -13,6 +14,10 @@ tile_set = ExtResource("2_euhvq")
 
 [node name="Objects" type="Node2D" parent="." unique_id=909635295]
 y_sort_enabled = true
+
+[node name="LoosePage" parent="Objects" instance=ExtResource("9_loose_page")]
+position = Vector2(560, 360)
+recipe_result_id = "potion_liquid_moonlight"
 
 [node name="ToGarden" parent="." unique_id=1610764744 instance=ExtResource("3_uuut2")]
 position = Vector2(400, 16)

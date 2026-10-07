@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" path="res://assets/environment/ground/ground_tileset.tres" id="2_f826e"]
 [ext_resource type="PackedScene" path="res://scenes/world/exit.tscn" id="7_fyyhj"]
 [ext_resource type="PackedScene" path="res://scenes/world/lectern.tscn" id="8_lectern"]
+[ext_resource type="PackedScene" path="res://scenes/world/loose_page.tscn" id="9_loose_page"]
 
 [node name="Shelter" type="Node2D" unique_id=1181676868]
 script = ExtResource("1_26gm3")
@@ -17,6 +18,10 @@ y_sort_enabled = true
 
 [node name="Lectern" parent="Objects" instance=ExtResource("8_lectern")]
 position = Vector2(240, 176)
+
+[node name="LoosePage" parent="Objects" instance=ExtResource("9_loose_page")]
+position = Vector2(320, 112)
+recipe_result_id = "potion_endless_night"
 
 [node name="ToGarden" parent="." unique_id=1356411817 instance=ExtResource("7_fyyhj")]
 position = Vector2(432, 208)
