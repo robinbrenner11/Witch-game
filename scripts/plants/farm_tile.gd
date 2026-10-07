@@ -68,6 +68,10 @@ func _harvest() -> void:
 	if not Inventory.add(plant.data.crop_item_id()):
 		print("Inventar voll")
 		return
+	# Ist das Inventar genau jetzt voll geworden, gehen die Samen verloren –
+	# die Ernte selbst ist wichtiger.
+	if plant.data.seeds_on_harvest > 0:
+		Inventory.add(plant.data.seed_item_id(), plant.data.seeds_on_harvest)
 	print("Geerntet: %s (jetzt %d)" % [plant.data.display_name, Inventory.count(plant.data.crop_item_id())])
 	# queue_free löscht die Pflanze erst am Ende des Frames – sicherer als
 	# sofort, falls in diesem Frame noch jemand auf sie zugreift.

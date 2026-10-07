@@ -17,12 +17,19 @@ signal item_added(item_id: String, amount: int)
 const SIZE := 24
 const HOTBAR_SIZE := 8
 
-# Bewusst nur drei Arten zum Start – die anderen soll die Hexe später finden.
+# Bewusst nur drei Arten zum Start – Nachtschatten, Mondkelch und Blutrose
+# soll die Hexe später finden.
 const START_ITEMS := {
 	"seed_mandrake": 3,
-	"seed_nightshade": 3,
-	"seed_moon_chalice": 3,
+	"seed_ghost_fern": 3,
+	"seed_lantern_berry": 3,
 }
+
+# Nur zum Testen (Debug-Taste): alle Samensorten auf einmal.
+const DEBUG_SEEDS := [
+	"seed_mandrake", "seed_ghost_fern", "seed_lantern_berry",
+	"seed_nightshade", "seed_moon_chalice", "seed_blood_rose",
+]
 
 # Welches Item auf welchem Platz liegt ("" = leer). Jedes Item belegt genau
 # einen Platz; die Anzahl steht getrennt in _counts. Ein Platz wird frei,
@@ -44,6 +51,13 @@ func _ready() -> void:
 	_slots.fill("")
 	for item_id in START_ITEMS:
 		add(item_id, START_ITEMS[item_id])
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug_all_seeds"):
+		for item_id in DEBUG_SEEDS:
+			add(item_id, 3)
+		print("Debug: je 3 Samen aller Sorten")
 
 
 ## Neue Items landen auf dem ersten freien Platz. Gibt false zurück (und

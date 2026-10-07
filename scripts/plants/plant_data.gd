@@ -14,6 +14,9 @@ extends Resource
 # Für das spätere Inventar.
 @export var seed_icon: Texture2D
 @export var crop_icon: Texture2D
+# Samen, die man beim Ernten zusätzlich zurückbekommt. Vorerst 1, damit der
+# Garten-Pilot nicht ausblutet – später evtl. 0 und Samen kommen anders rein.
+@export var seeds_on_harvest: int = 1
 
 # Leuchten im Reif-Stadium (nachts). Ohne Textur leuchtet die Pflanze nicht.
 @export_group("Glow")
