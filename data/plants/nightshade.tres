@@ -13,3 +13,6 @@ stages_texture = ExtResource("2_stages")
 stage_count = 4
 seed_icon = ExtResource("3_seed")
 crop_icon = ExtResource("4_crop")
+aura_effect = 1
+aura_radius = 1
+aura_min_stage = 2

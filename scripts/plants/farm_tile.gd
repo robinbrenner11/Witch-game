@@ -5,8 +5,10 @@ extends Node2D
 
 const PLANT_SCENE := preload("res://scenes/plants/plant.tscn")
 # Vorerst fest hier. Wenn es mehr Tränke mit Wirkung aufs Beet gibt, gehört
-# die Wirkung besser in die Item-Daten.
+# die Wirkung besser in die Item-Daten (Schritt 4: trinken/ausgießen).
 const GROWTH_POTION := "potion_growth"
+# Hexenschlamm, der Fehlschlag aus dem Kessel, taugt als Dünger.
+const SLUDGE := "potion_sludge"
 
 # Position im Beet. Endstücke haben einen abgerundeten Damm, der nahtlos
 # in die Erde übergeht. Eine Reihe ist also: LEFT_END, MIDDLE …, RIGHT_END.
@@ -48,12 +50,18 @@ func _ready() -> void:
 
 
 func _on_interactable_interacted(player: Node2D) -> void:
-	if not Garden.has_plant(cell):
+	var held := Inventory.selected_item_id()
+	# Der Trank wirkt auf 3×3, also auch, wenn dieses Beet selbst leer oder
+	# reif ist. Verbraucht wird er nur, wenn irgendwo etwas gewachsen ist.
+	if held == GROWTH_POTION:
+		if Garden.grow_area(cell, 1):
+			Inventory.remove(GROWTH_POTION)
+	elif not Garden.has_plant(cell):
 		_plant_seed((player as Player).selected_seed)
 	elif Garden.is_ripe(cell):
 		_harvest()
-	elif Inventory.selected_item_id() == GROWTH_POTION:
-		Inventory.remove(GROWTH_POTION)
+	elif held == SLUDGE:
+		Inventory.remove(SLUDGE)
 		Garden.grow(cell)
 
 
@@ -82,6 +90,11 @@ func _harvest() -> void:
 func _on_garden_plant_changed(changed_cell: Vector2i) -> void:
 	if changed_cell == cell:
 		_sync_plant()
+	# Jede Änderung im Garten kann eine Aura an- oder ausschalten (Nachtschatten
+	# gepflanzt, gewachsen, geerntet). Bei ein paar Dutzend Beeten ist es
+	# einfacher, immer nachzusehen, als genau auszurechnen, wen es betrifft.
+	elif plant:
+		plant.wilted = Garden.is_growth_blocked(cell)
 
 
 ## Bringt die angezeigte Pflanze auf den Stand von Garden: anlegen, Stufe
@@ -105,3 +118,4 @@ func _sync_plant() -> void:
 		plant.position = Vector2(0, 5)
 		add_child(plant)
 	plant.growth_stage = Garden.stage_at(cell)
+	plant.wilted = Garden.is_growth_blocked(cell)

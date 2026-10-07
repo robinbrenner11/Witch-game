@@ -9,12 +9,23 @@ extends Node2D
 # Szenenbaum kommt (macht das Beet).
 @export var data: PlantData
 
+const WILT_MATERIAL := preload("res://assets/effects/shaders/wilt_material.tres")
+
 # Ein Setter: läuft bei jeder Zuweisung, so passt das Bild immer zur Stufe.
 var growth_stage: int = 0:
 	set(value):
 		growth_stage = value
 		if is_node_ready():
 			_update_sprite()
+
+# Unter einer hemmenden Aura (Nachtschatten): entsättigt und kühl-dunkel.
+# Alle welken Pflanzen teilen sich ein Material, das ist billiger als eins
+# pro Pflanze.
+var wilted: bool = false:
+	set(value):
+		wilted = value
+		if is_node_ready():
+			sprite.material = WILT_MATERIAL if wilted else null
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var glow: NightLight = $Glow
@@ -30,6 +41,7 @@ func _ready() -> void:
 	glow.base_energy = data.glow_energy
 	glow.position = data.glow_offset
 	_update_sprite()
+	sprite.material = WILT_MATERIAL if wilted else null
 
 
 func is_ripe() -> bool:

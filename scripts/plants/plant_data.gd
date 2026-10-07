@@ -18,6 +18,20 @@ extends Resource
 # Garten-Pilot nicht ausblutet – später evtl. 0 und Samen kommen anders rein.
 @export var seeds_on_harvest: int = 1
 
+# Aura: wirkt auf die Beete ringsum. Allgemein gehalten, damit später auch
+# positive Auren (z. B. "nebenan wachsen nur perfekte Pflanzen") nur neue
+# Werte in den Pflanzendaten sind. Nachtschatten ist die erste Aura.
+enum AuraEffect { NONE, BLOCK_GROWTH }
+
+@export_group("Aura")
+@export var aura_effect: AuraEffect = AuraEffect.NONE
+# 1 = die 8 Nachbarfelder (auch diagonal), 2 = 5×5 usw.
+@export var aura_radius: int = 1
+# Ab welcher Wachstumsstufe die Aura wirkt (0 = Samen).
+@export var aura_min_stage: int = 0
+# Ob die Aura auch Pflanzen derselben Art trifft.
+@export var aura_affects_own_kind: bool = false
+
 # Leuchten im Reif-Stadium (nachts). Ohne Textur leuchtet die Pflanze nicht.
 @export_group("Glow")
 @export var glow_texture: Texture2D

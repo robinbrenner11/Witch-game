@@ -59,8 +59,8 @@ func remove_plant(cell: Vector2i) -> void:
 
 
 ## Eine Stufe weiter, egal ob die Nacht es erlaubt. So wirkt Magie
-## (Wachstumstrank, später Hexenschlamm); das natürliche Wachstum läuft
-## über can_grow_tonight().
+## (Hexenschlamm, Wachstumstrank); das natürliche Wachstum läuft über
+## can_grow_tonight().
 func grow(cell: Vector2i) -> void:
 	if not has_plant(cell) or is_ripe(cell):
 		return
@@ -68,10 +68,58 @@ func grow(cell: Vector2i) -> void:
 	plant_changed.emit(cell)
 
 
-## Hier docken später Bedingungen an: Mondphase (Mondkelch), Nachbarn
-## (Nachtschatten), Blutrose ab Stufe 3 usw.
+## Magie im Bereich: alle Pflanzen bis radius Felder um center wachsen eine
+## Stufe (radius 1 = 3×3). Gibt false zurück, wenn dort nichts wachsen konnte,
+## damit der Trank dann nicht verschwendet wird.
+func grow_area(center: Vector2i, radius: int) -> bool:
+	var any_grew := false
+	for x in range(-radius, radius + 1):
+		for y in range(-radius, radius + 1):
+			var cell := center + Vector2i(x, y)
+			if has_plant(cell) and not is_ripe(cell):
+				grow(cell)
+				any_grew = true
+	return any_grew
+
+
+## Natürliches Wachstum über Nacht. Es kann blockiert sein (Auren), Magie
+## über grow() setzt sich darüber hinweg. Hier docken später weitere
+## Bedingungen an: Mondphase (Mondkelch), Blutrose ab Stufe 3 usw.
 func can_grow_tonight(cell: Vector2i) -> bool:
-	return not is_ripe(cell)
+	return not is_ripe(cell) and not is_growth_blocked(cell)
+
+
+## Liegt das Beet im Bereich einer hemmenden Aura (Nachtschatten)? Die
+## Pflanze zeigt das durch Welken, auch wenn sie schon reif ist.
+func is_growth_blocked(cell: Vector2i) -> bool:
+	if not has_plant(cell):
+		return false
+	for source_cell in active_aura_cells(PlantData.AuraEffect.BLOCK_GROWTH):
+		if _aura_reaches(source_cell, cell):
+			return true
+	return false
+
+
+## Alle Beete, deren Pflanze gerade eine Aura dieser Art ausstrahlt. Braucht
+## später auch die Kuppel, um zu wissen, wo sie hingehört.
+func active_aura_cells(effect: PlantData.AuraEffect) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	for cell in _plants:
+		var data := plant_data_at(cell)
+		if data.aura_effect == effect and stage_at(cell) >= data.aura_min_stage:
+			result.append(cell)
+	return result
+
+
+func _aura_reaches(source_cell: Vector2i, target_cell: Vector2i) -> bool:
+	if source_cell == target_cell:
+		return false
+	var source := plant_data_at(source_cell)
+	if not source.aura_affects_own_kind and source == plant_data_at(target_cell):
+		return false
+	# Größerer Abstand auf einer Achse zählt, so ist der Bereich ein Quadrat.
+	var distance := (target_cell - source_cell).abs()
+	return maxi(distance.x, distance.y) <= source.aura_radius
 
 
 ## JSON kennt keine Vector2i-Schlüssel, deshalb als Liste mit x und y.
