@@ -1,6 +1,6 @@
 extends Control
 
-## Einstellungen (Lautstärke, Vollbild). Baustein für Titel- und Pausemenü:
+## Einstellungen (Lautstärke, Vollbild, Sprache). Baustein für Titel- und Pausemenü:
 ## open() zeigt es, beim Schließen kommt das Signal closed.
 
 signal closed
@@ -43,6 +43,14 @@ func _on_fullscreen_button_pressed() -> void:
 	_refresh()
 
 
+## Schaltet zur nächsten Sprache. Der Knopf zeigt die aktuelle Sprache in
+## ihrer eigenen Sprache (Language: English / Sprache: Deutsch).
+func _on_language_button_pressed() -> void:
+	var languages := Settings.LANGUAGES
+	var next := (languages.find(Settings.language) + 1) % languages.size()
+	Settings.set_language(languages[next])
+
+
 func _on_back_button_pressed() -> void:
 	_close()
 
@@ -54,4 +62,5 @@ func _close() -> void:
 
 func _refresh() -> void:
 	volume_value.text = "%d %%" % roundi(Settings.volume * 100)
-	fullscreen_button.text = "Vollbild: an" if Settings.fullscreen else "Vollbild: aus"
+	# Schlüssel statt Text: Godot übersetzt ihn beim Anzeigen.
+	fullscreen_button.text = "SETTINGS_FULLSCREEN_ON" if Settings.fullscreen else "SETTINGS_FULLSCREEN_OFF"

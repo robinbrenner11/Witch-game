@@ -165,6 +165,11 @@ hotbar_previous={
 
 3d/physics_engine="Jolt Physics"
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://data/translations/texts.en.translation", "res://data/translations/texts.de.translation")
+locale/fallback="en"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

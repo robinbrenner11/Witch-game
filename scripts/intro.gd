@@ -5,14 +5,9 @@ extends Control
 ## nächste startet das Spiel.
 
 const GAME_SCENE := "res://scenes/main.tscn"
-# Spieltexte: keine Gedankenstriche, keine deutschen Anführungszeichen,
-# keine Auslassungspunkte.
-const LINES: Array[String] = [
-	"Ten years ago, the Bitterbloom woke in the deep woods.",
-	"The villagers keep it at bay. Barely.",
-	"The old witch they now call Mother Blight fled and never returned.",
-	"Her garden has been waiting ever since.",
-]
+# Schlüssel in data/translations/texts.csv. Spieltexte: keine Gedankenstriche,
+# keine typografischen Anführungszeichen, keine Auslassungspunkte.
+const LINES: Array[String] = ["INTRO_LINE_1", "INTRO_LINE_2", "INTRO_LINE_3", "INTRO_LINE_4"]
 const FADE_TIME := 1.4
 # Die Szene ist 2× vergrößert (320 Pixel breit). Längere Zeilen brechen um,
 # statt über den Rand hinauszulaufen.

@@ -37,7 +37,7 @@ theme_override_constants/separation = 4
 
 [node name="Title" type="Label" parent="Scaled/Center/Panel/Box"]
 layout_mode = 2
-text = "Einstellungen"
+text = "SETTINGS_TITLE"
 horizontal_alignment = 1
 
 [node name="Volume" type="HBoxContainer" parent="Scaled/Center/Panel/Box"]
@@ -47,7 +47,7 @@ theme_override_constants/separation = 4
 [node name="Label" type="Label" parent="Scaled/Center/Panel/Box/Volume"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
-text = "Lautstärke"
+text = "SETTINGS_VOLUME"
 
 [node name="VolumeDown" type="Button" parent="Scaled/Center/Panel/Box/Volume"]
 layout_mode = 2
@@ -66,14 +66,20 @@ text = "+"
 [node name="FullscreenButton" type="Button" parent="Scaled/Center/Panel/Box"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Vollbild: aus"
+text = "SETTINGS_FULLSCREEN_OFF"
+
+[node name="LanguageButton" type="Button" parent="Scaled/Center/Panel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SETTINGS_LANGUAGE"
 
 [node name="BackButton" type="Button" parent="Scaled/Center/Panel/Box"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Zurück"
+text = "UI_BACK"
 
 [connection signal="pressed" from="Scaled/Center/Panel/Box/Volume/VolumeDown" to="." method="_on_volume_down_pressed"]
 [connection signal="pressed" from="Scaled/Center/Panel/Box/Volume/VolumeUp" to="." method="_on_volume_up_pressed"]
 [connection signal="pressed" from="Scaled/Center/Panel/Box/FullscreenButton" to="." method="_on_fullscreen_button_pressed"]
+[connection signal="pressed" from="Scaled/Center/Panel/Box/LanguageButton" to="." method="_on_language_button_pressed"]
 [connection signal="pressed" from="Scaled/Center/Panel/Box/BackButton" to="." method="_on_back_button_pressed"]

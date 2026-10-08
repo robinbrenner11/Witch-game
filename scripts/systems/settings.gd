@@ -1,14 +1,19 @@
 extends Node
 
-## Spieler-Einstellungen (Lautstärke, Vollbild). Getrennt vom Spielstand, weil
+## Spieler-Einstellungen (Lautstärke, Vollbild, Sprache). Getrennt vom Spielstand, weil
 ## sie für jedes Spiel gelten und auch ohne Spielstand erhalten bleiben sollen.
 ## Läuft als Autoload und wendet die Werte gleich beim Start an.
 
 const PATH := "user://settings.cfg"
+# Reihenfolge beim Durchschalten im Menü.
+const LANGUAGES: Array[String] = ["en", "de"]
 
 # 0 = stumm, 1 = volle Lautstärke.
 var volume: float = 0.8
 var fullscreen: bool = false
+# Sprache der Spieltexte. Englisch ist die Hauptsprache, Deutsch die zweite.
+# Die Texte stehen in data/translations/texts.csv.
+var language: String = "en"
 
 
 func _ready() -> void:
@@ -28,6 +33,12 @@ func set_fullscreen(value: bool) -> void:
 	save()
 
 
+func set_language(value: String) -> void:
+	language = value if value in LANGUAGES else "en"
+	apply()
+	save()
+
+
 func apply() -> void:
 	# Bus 0 ist "Master", über den aller Ton läuft. Lautstärke wird dort in
 	# Dezibel angegeben; linear_to_db rechnet um. Bei 0 ganz stumm schalten.
@@ -36,6 +47,9 @@ func apply() -> void:
 	var mode := DisplayServer.WINDOW_MODE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_WINDOWED
 	if DisplayServer.window_get_mode() != mode:
 		DisplayServer.window_set_mode(mode)
+	# Alle Labels und Buttons, deren Text ein Schlüssel ist, wechseln damit
+	# sofort die Sprache (Godot übersetzt sie automatisch).
+	TranslationServer.set_locale(language)
 
 
 func save() -> void:
@@ -43,6 +57,7 @@ func save() -> void:
 	var config := ConfigFile.new()
 	config.set_value("audio", "volume", volume)
 	config.set_value("display", "fullscreen", fullscreen)
+	config.set_value("general", "language", language)
 	config.save(PATH)
 
 
@@ -52,3 +67,4 @@ func _load() -> void:
 		return
 	volume = config.get_value("audio", "volume", volume)
 	fullscreen = config.get_value("display", "fullscreen", fullscreen)
+	language = config.get_value("general", "language", language)
