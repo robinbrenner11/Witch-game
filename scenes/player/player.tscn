@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scripts/player/interaction_hint.gd" id="4_hint"]
 [ext_resource type="Script" path="res://scripts/player/earth_magic.gd" id="6_earth_magic"]
 [ext_resource type="Script" path="res://scripts/player/pour_magic.gd" id="7_pour_magic"]
+[ext_resource type="Script" path="res://scripts/player/vitals.gd" id="8_vitals"]
+[ext_resource type="Script" path="res://scripts/player/combat.gd" id="9_combat"]
 [ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_36x8.png" id="90_shadow"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_unshaded"]
@@ -77,3 +79,9 @@ script = ExtResource("6_earth_magic")
 
 [node name="PourMagic" type="Node2D" parent="."]
 script = ExtResource("7_pour_magic")
+
+[node name="Vitals" type="Node" parent="."]
+script = ExtResource("8_vitals")
+
+[node name="Combat" type="Node2D" parent="."]
+script = ExtResource("9_combat")

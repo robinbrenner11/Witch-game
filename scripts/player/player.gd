@@ -29,6 +29,12 @@ var selected_seed: PlantData:
 		return item.plant() if item else null
 
 var _float_time := 0.0
+# Digitalis gezogen (Combat setzt das). Dann schaut die Hexe zur Maus statt
+# in Laufrichtung, Shift ist ein Dash statt Schweben, E ruht.
+var combat_mode := false
+# Dash: feste Geschwindigkeit für kurze Zeit, die das Laufen ersetzt.
+var _dash_velocity := Vector2.ZERO
+var _dash_time := 0.0
 # Läuft gerade eine Aktion, steht hier ihr Name ("pour", "harvest" …), sonst "".
 var _action := ""
 
@@ -52,21 +58,38 @@ func _physics_process(delta: float) -> void:
 	if is_busy():
 		velocity = Vector2.ZERO
 		return
+	if _dash_time > 0.0:
+		_dash_time -= delta
+		velocity = _dash_velocity
+		move_and_slide()
+		return
 	# get_vector liefert die Richtung schon normalisiert, damit die Hexe
 	# diagonal nicht schneller läuft als gerade.
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var floating := Input.is_action_pressed("float") and direction != Vector2.ZERO
+	var floating := Input.is_action_pressed("float") and direction != Vector2.ZERO and not combat_mode
 	velocity = direction * speed * (float_speed_factor if floating else 1.0)
 	# move_and_slide rechnet delta selbst ein und berücksichtigt Kollisionen.
 	move_and_slide()
 
-	# Beim Stehenbleiben die letzte Richtung behalten.
-	if direction != Vector2.ZERO:
-		facing = _to_four_directions(direction)
-		interaction_area.position = body_shape.position + facing * interaction_distance
+	# Beim Stehenbleiben die letzte Richtung behalten. Im Kampf bestimmt das
+	# Zielen die Blickrichtung (Combat ruft face_towards auf).
+	if direction != Vector2.ZERO and not combat_mode:
+		face_towards(direction)
 
 	_update_animation(direction != Vector2.ZERO, floating)
 	_update_float(delta, floating)
+
+
+## Schaut in eine der vier Richtungen, die dieser am nächsten liegt.
+func face_towards(direction: Vector2) -> void:
+	facing = _to_four_directions(direction)
+	interaction_area.position = body_shape.position + facing * interaction_distance
+
+
+## Ein kurzer Stoß in eine Richtung (Ausweichen im Kampf).
+func start_dash(dash_velocity: Vector2, seconds: float) -> void:
+	_dash_velocity = dash_velocity
+	_dash_time = seconds
 
 
 ## Spielt eine Aktion einmal in Blickrichtung ab, z. B. "pour" oder "harvest".
@@ -155,7 +178,7 @@ func _update_float(delta: float, floating: bool) -> void:
 # abgefangen wurden – so interagiert die Hexe später nicht "durch" eine
 # offene Dialogbox hindurch.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact") and not is_busy():
+	if event.is_action_pressed("interact") and not is_busy() and not combat_mode:
 		var target := find_closest_interactable()
 		if target:
 			target.interact(self)

@@ -297,3 +297,5 @@ MSG_MOON_HALF_TONIGHT,Half moon tonight.,Heute Nacht ist Halbmond.
 MSG_MOON_FULL_TONIGHT,Full moon. The witch ring hums.,Vollmond. Der Hexenring summt.
 BOOK_MOON_FULL_NOW,full tonight,heute voll
 BOOK_MOON_FULL_IN,full in %d,voll in %d
+MSG_SAFE_ZONE,This place is safe. Digitalis rests.,Hier bist du sicher. Digitalis ruht.
+MSG_NO_POWER,Not enough witch power.,Nicht genug Hexenkraft.

@@ -12,7 +12,7 @@ const SPARK_COLOR := Color("#E458B1")
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Beim Schlafen oder Ortswechsel ist die Steuerung aus.
-	if event.is_action_pressed("snap") and player.can_act():
+	if event.is_action_pressed("snap") and player.can_act() and not player.combat_mode:
 		_snap()
 		get_viewport().set_input_as_handled()
 

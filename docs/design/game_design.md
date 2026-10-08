@@ -227,6 +227,7 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
   - eigene Tasten für Wurftränke;
   - Shift: Ausweichen. Das ist das Schweben als kurzer Dash.
 - 💡 Die Hotbar zeigt im Kampfmodus Formen und Wurftränke.
+- ✅ (08.10.2026) **Kampfmodus auf F.** 💡 Digitalis als Werkzeug in der Overworld (Erde wecken, schneiden, greifen …) bekommt später eine eigene Bedienung, getrennt vom Kampfmodus.
 - ✅ **Reinigen statt töten:** Die Blüte fällt von besiegten Wesen ab, das geheilte Tier läuft davon und lässt eine verdorbene Zutat zurück.
 - ✅ **Gegner** sind von der Blüte befallene Wesen, Pflanzen, Käfer usw. Kreative Monster sind ausdrücklich erwünscht.
 - ✅ **Blütenherz:** Jedes befallene Gebiet hat einen Boss. Ist er gereinigt, heilt das Gebiet.

@@ -15,6 +15,8 @@ const SOIL_TERRAINS: Array[int] = [1, 6]
 
 # Darf man hier mit einem Schnippen Beete anlegen? Nur im Garten.
 @export var allows_beds: bool = false
+# Sichere Zone (Garten, Unterschlupf): Hier bleibt Digitalis ruhig, kein Kampf.
+@export var safe_zone: bool = false
 # Nur in diesem Bereich (Pixel), im Garten innerhalb des Zauns. Leer = überall.
 @export var bed_area: Rect2 = Rect2()
 # So viele Pixel am unteren Kartenrand sieht man, kann sie aber nicht

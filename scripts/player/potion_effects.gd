@@ -12,6 +12,8 @@ const WISP_OFFSET := Vector2(-14, -46)
 # Wie schnell es hinterherkommt (höher = enger an der Hexe).
 const WISP_FOLLOW := 3.0
 const ENDLESS_NIGHT_FACTOR := 1.5
+# So viel Hexenkraft gibt jeder getrunkene Trank zurück.
+const POTION_POWER := 5.0
 
 var _time := 0.0
 var _wisp_position := Vector2.ZERO
@@ -29,7 +31,11 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Beim Schlafen oder Ortswechsel ist die Steuerung aus.
-	if event.is_action_pressed("use_item") and (get_parent() as Player).can_act():
+	var player := get_parent() as Player
+	# Im Kampf ist Rechtsklick der große Zauber; getrunken wird dann mit Q.
+	if player.combat_mode and event is InputEventMouseButton:
+		return
+	if event.is_action_pressed("use_item") and player.can_act():
 		_drink_selected()
 
 
@@ -54,6 +60,8 @@ func _drink_selected() -> void:
 	player.play_action("drink")
 	# Die Wirkung setzt ein, wenn sie das Fläschchen absetzt (Frame 4).
 	await player.wait_for_action_frame(3)
+	# Jeder Trank gibt etwas Hexenkraft zurück (game_design.md, Magie).
+	($"../Vitals" as Vitals).restore_power(POTION_POWER)
 	# Jede Trinkwirkung ist eigenes Verhalten, deshalb hier im Code statt
 	# als Zahlen in den Item-Daten.
 	match item.id:

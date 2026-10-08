@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/brew_window.tscn" id="7_brew_window"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="8_pause_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/grimoire_book.tscn" id="9_grimoire_book"]
+[ext_resource type="Script" path="res://scripts/ui/vitals_bar.gd" id="20_vitals"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_script")
@@ -23,6 +24,11 @@ script = ExtResource("2_night_tint")
 [node name="PauseMenu" parent="UI" instance=ExtResource("8_pause_menu")]
 
 [node name="Hotbar" parent="UI" instance=ExtResource("4_hotbar")]
+
+[node name="VitalsBar" type="Control" parent="UI"]
+layout_mode = 3
+mouse_filter = 2
+script = ExtResource("20_vitals")
 
 [node name="Clock" parent="UI" instance=ExtResource("5_clock")]
 
