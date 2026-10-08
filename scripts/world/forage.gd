@@ -18,7 +18,7 @@ signal collected
 @export var regrow_nights: int = 0
 # Nur bei Vollmond reif, und nur einmal pro Vollmond (Mondmoos).
 @export var full_moon_only: bool = false
-# Was man hört, wenn noch nichts zu holen ist.
+# Schlüssel der Meldung, wenn noch nichts zu holen ist (data/translations).
 @export var not_ready_message: String = ""
 
 # Setzt WildGrowth, damit der Zustand in Wilds gefunden wird.
@@ -58,10 +58,10 @@ func is_ripe() -> bool:
 func _on_interacted(player: Node2D) -> void:
 	if not is_ripe():
 		if not_ready_message != "":
-			Messages.post(not_ready_message)
+			Messages.post(tr(not_ready_message))
 		return
 	if not Inventory.has_room_for(drop_item_id):
-		Messages.post("Kein Platz mehr in der Tasche.")
+		Messages.post(tr("MSG_BAG_FULL"))
 		return
 	var witch := player as Player
 	witch.play_action("harvest")

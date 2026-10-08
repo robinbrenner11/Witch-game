@@ -68,7 +68,7 @@ func close() -> void:
 			kept.append(item_id)
 	_ingredients = kept
 	if not kept.is_empty():
-		Messages.post("Kein Platz mehr in der Tasche.")
+		Messages.post(tr("MSG_BAG_FULL"))
 	hide()
 	get_tree().paused = false
 	get_tree().call_group("hotbar", "show")
@@ -103,7 +103,7 @@ func return_ingredient(index: int) -> void:
 		return
 	# Bei vollem Inventar bleibt die Zutat lieber im Kessel.
 	if not Inventory.add(_ingredients[index]):
-		Messages.post("Kein Platz mehr in der Tasche.")
+		Messages.post(tr("MSG_BAG_FULL"))
 		return
 	_ingredients.remove_at(index)
 	_refresh()
@@ -131,7 +131,7 @@ func _refresh() -> void:
 	cauldron.texture = CAULDRON_READY if ready else CAULDRON
 	arrow.texture = ARROW_ACTIVE if ready else ARROW
 	brew_button.disabled = not ready or is_locked()
-	brew_button.text = "Braut" if is_locked() else "Brauen"
+	brew_button.text = "BREW_BUSY" if is_locked() else "BREW_BUTTON"
 	_show_result(ready)
 
 

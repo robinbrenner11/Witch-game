@@ -17,7 +17,7 @@ func _ready() -> void:
 func _on_interactable_interacted(_player: Node2D) -> void:
 	Journal.find_page(recipe_result_id)
 	if Journal.has_book:
-		Messages.post("Eine lose Seite. Sie gehört in das Buch.")
+		Messages.post(tr("MSG_PAGE_FOR_BOOK"))
 	else:
-		Messages.post("Eine lose Seite aus einem alten Buch.")
+		Messages.post(tr("MSG_PAGE_LOOSE"))
 	queue_free()

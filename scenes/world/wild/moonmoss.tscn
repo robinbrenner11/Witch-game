@@ -17,4 +17,4 @@ shadow_offset = Vector2(2, 1)
 drop_item_id = "moonmoss"
 picked_texture = ExtResource("5_picked")
 full_moon_only = true
-not_ready_message = "Das Moos schläft bis zum vollen Mond."
+not_ready_message = "MSG_MOSS_SLEEPS"

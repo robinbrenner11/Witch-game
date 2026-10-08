@@ -31,7 +31,7 @@ func _on_continue_button_pressed() -> void:
 func _on_new_game_button_pressed() -> void:
 	if SaveGame.has_save() and not _confirm_new_game:
 		_confirm_new_game = true
-		new_game_button.text = "Wirklich neu beginnen?"
+		new_game_button.text = "TITLE_CONFIRM_NEW"
 		return
 	SaveGame.new_game()
 	# Ein neues Spiel beginnt mit der kurzen Einleitung.

@@ -55,20 +55,20 @@ mouse_filter = 2
 [node name="ContinueButton" type="Button" parent="Scaled/Menu/Box"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Fortsetzen"
+text = "TITLE_CONTINUE"
 
 [node name="NewGameButton" type="Button" parent="Scaled/Menu/Box"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Neues Spiel"
+text = "TITLE_NEW_GAME"
 
 [node name="SettingsButton" type="Button" parent="Scaled/Menu/Box"]
 layout_mode = 2
-text = "Einstellungen"
+text = "SETTINGS_TITLE"
 
 [node name="QuitButton" type="Button" parent="Scaled/Menu/Box"]
 layout_mode = 2
-text = "Beenden"
+text = "TITLE_QUIT"
 
 [node name="SettingsMenu" parent="." instance=ExtResource("3_settings")]
 layout_mode = 1

@@ -73,7 +73,7 @@ func _pour_held_item(player: Player) -> bool:
 func _plant_seed(seed_data: PlantData) -> void:
 	# Ohne Samen in der Hand oder wenn die Sorte aufgebraucht ist, passiert nichts.
 	if seed_data == null or not Inventory.remove(seed_data.seed_item_id):
-		Messages.post("Die Erde wartet auf Samen.")
+		Messages.post(tr("MSG_SOIL_WAITS"))
 		return
 	Garden.plant_seed(cell, seed_data.id)
 	Journal.complete_goal("plant")
@@ -83,7 +83,7 @@ func _harvest(player: Player) -> void:
 	var data := Garden.plant_data_at(cell)
 	# Bei vollem Inventar bleibt die Pflanze einfach stehen statt zu verschwinden.
 	if not Inventory.has_room_for(data.harvest_item_id):
-		Messages.post("Kein Platz mehr in der Tasche.")
+		Messages.post(tr("MSG_BAG_FULL"))
 		return
 	player.play_action("harvest")
 	# Die Pflanze verschwindet erst, wenn die Hexe sie herauszieht (Frame 3).
@@ -100,20 +100,20 @@ func _harvest(player: Player) -> void:
 ## Gehemmte Pflanzen verraten nicht, warum. Das soll man selbst herausfinden.
 func _describe_growing_plant() -> void:
 	if Garden.is_growth_blocked(cell):
-		Messages.post("Etwas hält sie zurück.")
+		Messages.post(tr("MSG_PLANT_HELD_BACK"))
 		return
 	# Bewusst vage: Man ahnt, wie weit sie ist, ohne genaue Nächte zu kennen.
 	var data := Garden.plant_data_at(cell)
 	if data.ripens_only_at_full_moon and Garden.stage_at(cell) == data.stage_count - 2:
-		Messages.post("Sie wartet auf etwas am Himmel.")
+		Messages.post(tr("MSG_PLANT_WAITS_SKY"))
 		return
 	var nights_left := data.stage_count - 1 - Garden.stage_at(cell)
 	if Garden.stage_at(cell) == 0:
-		Messages.post("Noch schläft sie in der Erde.")
+		Messages.post(tr("MSG_PLANT_ASLEEP"))
 	elif nights_left == 1:
-		Messages.post("Bald ist sie so weit.")
+		Messages.post(tr("MSG_PLANT_ALMOST"))
 	else:
-		Messages.post("Sie wächst noch.")
+		Messages.post(tr("MSG_PLANT_GROWING"))
 
 
 # Kommt ein Nachbarbeet dazu oder fällt weg, ändert sich die eigene Form.

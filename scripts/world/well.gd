@@ -12,16 +12,16 @@ func _on_interactable_interacted(_player: Node2D) -> void:
 	var slot := Inventory.selected_slot
 	var item_id := Inventory.item_in_slot(slot)
 	if item_id == "":
-		Messages.post("Tief unten glitzert etwas.")
+		Messages.post(tr("MSG_WELL_GLITTER"))
 		return
 	var whole_stack := Input.is_action_pressed("float")
 	var amount := Inventory.count_in_slot(slot) if whole_stack else 1
 	var item_name := Inventory.display_name_for(item_id)
 	Inventory.remove_from_slot(slot, amount)
 	if amount > 1:
-		Messages.post("Der ganze Stapel %s versinkt im Brunnen." % item_name)
+		Messages.post(tr("MSG_WELL_STACK") % item_name)
 	else:
-		Messages.post("%s versinkt im Brunnen." % item_name)
+		Messages.post(tr("MSG_WELL_ONE") % item_name)
 	_splash()
 
 

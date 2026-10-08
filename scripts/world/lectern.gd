@@ -17,7 +17,7 @@ func _ready() -> void:
 func _on_interactable_interacted(_player: Node2D) -> void:
 	if not Journal.has_book:
 		Journal.find_book()
-		Messages.post("Ein altes Buch. Mit B kannst du darin lesen.")
+		Messages.post(tr("MSG_LECTERN_BOOK"))
 	else:
 		get_tree().call_group("recipe_book", "open")
 

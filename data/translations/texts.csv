@@ -10,3 +10,57 @@ INTRO_LINE_2,The villagers keep it at bay. Barely.,Die Dorfbewohner halten sie i
 INTRO_LINE_3,The old witch they now call Mother Blight fled and never returned.,"Die alte Hexe, die sie heute Mother Blight nennen, floh und kam nie zurück."
 INTRO_LINE_4,Her garden has been waiting ever since.,Ihr Garten wartet seitdem.
 INTRO_CONTINUE,Press any key,Weiter mit einer Taste
+MSG_BAG_FULL,No more room in your bag.,Kein Platz mehr in der Tasche.
+MSG_SOIL_WAITS,The soil is waiting for a seed.,Die Erde wartet auf Samen.
+MSG_PLANT_HELD_BACK,Something is holding it back.,Etwas hält sie zurück.
+MSG_PLANT_WAITS_SKY,It is waiting for something in the sky.,Sie wartet auf etwas am Himmel.
+MSG_PLANT_ASLEEP,It is still asleep in the soil.,Noch schläft sie in der Erde.
+MSG_PLANT_ALMOST,It is almost ready.,Bald ist sie so weit.
+MSG_PLANT_GROWING,It is still growing.,Sie wächst noch.
+MSG_EARTH_TOO_DEEP,The earth sleeps too deeply here.,Hier schläft die Erde zu tief.
+MSG_ALREADY_GROWING,Something is already growing here.,Hier wächst schon etwas.
+MSG_WISP_JOINS,A little light has joined you.,Ein Licht hat sich dir angeschlossen.
+MSG_NIGHT_CLEAR,The night grows clear as glass.,Die Nacht wird durchsichtig.
+MSG_NIGHT_STRETCHES,The night stretches.,Die Nacht dehnt sich.
+MSG_LECTERN_BOOK,An old book. Press B to read it.,Ein altes Buch. Mit B kannst du darin lesen.
+MSG_PAGE_FOR_BOOK,A loose page. It belongs in the book.,Eine lose Seite. Sie gehört in das Buch.
+MSG_PAGE_LOOSE,A loose page from an old book.,Eine lose Seite aus einem alten Buch.
+MSG_WELL_STACK,The whole stack of %s sinks into the well.,Der ganze Stapel %s versinkt im Brunnen.
+MSG_WELL_ONE,%s sinks into the well.,%s versinkt im Brunnen.
+MSG_WELL_GLITTER,Something glitters far below.,Tief unten glitzert etwas.
+MSG_BERRIES_EMPTY,No berries on this bush right now.,An diesem Strauch hängen gerade keine Beeren.
+MSG_MOSS_SLEEPS,The moss sleeps until the full moon.,Das Moos schläft bis zum vollen Mond.
+MOON_NEW,New Moon,Neumond
+MOON_WAXING_CRESCENT,Waxing Crescent,Zunehmende Sichel
+MOON_WAXING_HALF,Waxing Half Moon,Zunehmender Halbmond
+MOON_WAXING_GIBBOUS,Waxing Gibbous,Zunehmender Mond
+MOON_FULL,Full Moon,Vollmond
+MOON_WANING_GIBBOUS,Waning Gibbous,Abnehmender Mond
+MOON_WANING_HALF,Waning Half Moon,Abnehmender Halbmond
+MOON_WANING_CRESCENT,Waning Crescent,Abnehmende Sichel
+CLOCK_NIGHT,Night %d,Nacht %d
+TITLE_CONTINUE,Continue,Fortsetzen
+TITLE_NEW_GAME,New Game,Neues Spiel
+TITLE_QUIT,Quit,Beenden
+TITLE_CONFIRM_NEW,Really start over?,Wirklich neu beginnen?
+PAUSE_TITLE,Paused,Pause
+PAUSE_SAVE_QUIT,Save and quit,Speichern und beenden
+BREW_TITLE,Cauldron,Kessel
+BREW_BUTTON,Brew,Brauen
+BREW_BUSY,Brewing,Braut
+BOOK_NOTE_START,"Whoever reads this,
+I could not stay. The garden is yours now.
+Be good to it, and it will be good to you.
+
+Start small:","Wer das hier liest,
+ich konnte nicht bleiben. Der Garten gehört jetzt dir.
+Sei gut zu ihm, dann ist er gut zu dir.
+
+Fang klein an:"
+GOAL_PLANT,Put a seed in the earth.,Leg einen Samen in die Erde.
+GOAL_BREW,Toss ingredients into my cauldron and see what happens.,"Wirf Zutaten in meinen Kessel und sieh, was geschieht."
+GOAL_SLEEP,Sleep. The night works for you.,Schlaf. Die Nacht arbeitet für dich.
+GOAL_WAKE,Wake the earth with a snap (R).,Weck die Erde mit einem Schnippen (R).
+BOOK_UNDISCOVERED,Not yet discovered.,Noch nicht entdeckt.
+BOOK_USE_DRINK,For drinking.,Zum Trinken.
+BOOK_USE_POUR,For pouring onto a bed.,Zum Ausgießen auf ein Beet.

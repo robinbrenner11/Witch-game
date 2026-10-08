@@ -17,8 +17,8 @@ const START_TIME := 20 * 60
 # Der Mond durchläuft seine Phasen in 8 Nächten. Nacht 1 beginnt mit der
 # zunehmenden Sichel, der erste Vollmond kommt also in Nacht 4.
 const MOON_PHASE_NAMES: Array[String] = [
-	"Neumond", "Zunehmende Sichel", "Zunehmender Halbmond", "Zunehmender Mond",
-	"Vollmond", "Abnehmender Mond", "Abnehmender Halbmond", "Abnehmende Sichel",
+	"MOON_NEW", "MOON_WAXING_CRESCENT", "MOON_WAXING_HALF", "MOON_WAXING_GIBBOUS",
+	"MOON_FULL", "MOON_WANING_GIBBOUS", "MOON_WANING_HALF", "MOON_WANING_CRESCENT",
 ]
 const FULL_MOON := 4
 const FIRST_NIGHT_MOON_PHASE := 1
@@ -116,7 +116,7 @@ func moon_phase() -> int:
 
 
 func moon_phase_name() -> String:
-	return MOON_PHASE_NAMES[moon_phase()]
+	return tr(MOON_PHASE_NAMES[moon_phase()])
 
 
 ## Zählt die Mondzyklen (je 8 Nächte), z. B. damit Mondmoos pro Vollmond

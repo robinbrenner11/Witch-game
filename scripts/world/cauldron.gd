@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
 func _on_interactable_interacted(_player: Node2D) -> void:
 	if Brewing.finished_potion() != "":
 		if not Brewing.take_finished():
-			Messages.post("Kein Platz mehr in der Tasche.")
+			Messages.post(tr("MSG_BAG_FULL"))
 		return
 	# Über die Gruppe statt über einen festen Pfad: Der Kessel muss nicht
 	# wissen, wo in der Szene das Fenster hängt.

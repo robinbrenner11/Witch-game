@@ -11,7 +11,7 @@ const ENDLESS_NIGHT_COLOR := Color("#E458B1")
 
 
 func _process(_delta: float) -> void:
-	text = "Nacht %d   %02d:%02d" % [DayCycle.day, DayCycle.hour(), DayCycle.minute()]
+	text = tr("CLOCK_NIGHT") % DayCycle.day + "   %02d:%02d" % [DayCycle.hour(), DayCycle.minute()]
 	if DayCycle.fast_forward:
 		text += "  >>"
 	add_theme_color_override("font_color", ENDLESS_NIGHT_COLOR if DayCycle.night_slowdown > 1.0 else NORMAL_COLOR)

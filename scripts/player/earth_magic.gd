@@ -25,10 +25,10 @@ func _snap() -> void:
 	# Die Zelle direkt vor der Hexe, dort wo auch E wirkt.
 	var cell := Garden.cell_at(player.interaction_area.global_position)
 	if level == null or not level.allows_bed_at(cell):
-		Messages.post("Hier schläft die Erde zu tief.")
+		Messages.post(tr("MSG_EARTH_TOO_DEEP"))
 		return
 	if Garden.has_plant(cell) or _has_wild_growth(cell):
-		Messages.post("Hier wächst schon etwas.")
+		Messages.post(tr("MSG_ALREADY_GROWING"))
 		return
 	if Garden.has_bed(cell):
 		Garden.remove_bed(cell)

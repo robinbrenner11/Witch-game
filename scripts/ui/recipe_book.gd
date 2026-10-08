@@ -13,14 +13,13 @@ const UNKNOWN := preload("res://assets/ui/brew_unknown.png")
 const GOLD := Color("#D9A441")
 const INK_DONE := Color("#9688A0")
 
-# Spieltexte: keine Gedankenstriche, keine deutschen Anführungszeichen,
-# keine Auslassungspunkte.
-const NOTE_START := "Wer das hier liest,\nich konnte nicht bleiben. Der Garten gehört jetzt dir.\nSei gut zu ihm, dann ist er gut zu dir.\n\nFang klein an:"
+# Schlüssel in data/translations/texts.csv.
+const NOTE_START := "BOOK_NOTE_START"
 const GOAL_TEXTS := {
-	"plant": "Leg einen Samen in die Erde.",
-	"brew": "Wirf Zutaten in meinen Kessel und sieh, was geschieht.",
-	"sleep": "Schlaf. Die Nacht arbeitet für dich.",
-	"wake": "Weck die Erde mit einem Schnippen (R).",
+	"plant": "GOAL_PLANT",
+	"brew": "GOAL_BREW",
+	"sleep": "GOAL_SLEEP",
+	"wake": "GOAL_WAKE",
 }
 
 var _page := 0
@@ -101,9 +100,11 @@ func _build_note() -> void:
 	text.fit_content = true
 	text.custom_minimum_size.x = 230
 	text.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var bbcode := NOTE_START
+	# Zusammengesetzter Text, deshalb tr() von Hand: Godot übersetzt nur
+	# Texte automatisch, die genau ein Schlüssel sind.
+	var bbcode := tr(NOTE_START)
 	for goal in Journal.GOALS:
-		var line: String = GOAL_TEXTS[goal]
+		var line := tr(GOAL_TEXTS[goal])
 		if Journal.is_goal_done(goal):
 			line = "[s][color=#%s]%s[/color][/s]" % [INK_DONE.to_html(false), line]
 		bbcode += "\n" + line
@@ -133,13 +134,13 @@ func _build_recipe(recipe: RecipeData) -> void:
 	row.add_child(_icon(potion.icon if known else UNKNOWN))
 	content.add_child(row)
 
-	var description := _text(potion.description if known else "Noch nicht entdeckt.")
+	var description := _text(potion.description if known else "BOOK_UNDISCOVERED")
 	description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	description.custom_minimum_size.x = 230
 	description.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	content.add_child(description)
 	if known:
-		var use := _text("Zum Trinken." if potion.use == ItemData.Use.DRINK else "Zum Ausgießen auf ein Beet.")
+		var use := _text("BOOK_USE_DRINK" if potion.use == ItemData.Use.DRINK else "BOOK_USE_POUR")
 		use.add_theme_color_override("font_color", INK_DONE)
 		use.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		content.add_child(use)

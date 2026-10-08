@@ -45,21 +45,21 @@ theme_override_constants/separation = 4
 
 [node name="Title" type="Label" parent="Scaled/Menu/Panel/Box"]
 layout_mode = 2
-text = "Pause"
+text = "PAUSE_TITLE"
 horizontal_alignment = 1
 
 [node name="ResumeButton" type="Button" parent="Scaled/Menu/Panel/Box"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Fortsetzen"
+text = "TITLE_CONTINUE"
 
 [node name="SettingsButton" type="Button" parent="Scaled/Menu/Panel/Box"]
 layout_mode = 2
-text = "Einstellungen"
+text = "SETTINGS_TITLE"
 
 [node name="SaveQuitButton" type="Button" parent="Scaled/Menu/Panel/Box"]
 layout_mode = 2
-text = "Speichern und beenden"
+text = "PAUSE_SAVE_QUIT"
 
 [node name="SettingsMenu" parent="." instance=ExtResource("3_settings")]
 layout_mode = 1

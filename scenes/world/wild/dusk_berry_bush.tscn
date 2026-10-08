@@ -18,4 +18,4 @@ shadow_offset = Vector2(2, 1)
 drop_item_id = "dusk_berries"
 picked_texture = ExtResource("5_picked")
 regrow_nights = 4
-not_ready_message = "An diesem Strauch hängen gerade keine Beeren."
+not_ready_message = "MSG_BERRIES_EMPTY"

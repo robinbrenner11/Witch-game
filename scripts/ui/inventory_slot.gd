@@ -83,7 +83,7 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 		if Inventory.count_in_slot(slot_index) > 1 and not Inventory.split_stack(slot_index):
-			Messages.post("Kein Platz mehr in der Tasche.")
+			Messages.post(tr("MSG_BAG_FULL"))
 		# Sonst würde derselbe Rechtsklick in der Welt noch einen Trank trinken.
 		accept_event()
 
