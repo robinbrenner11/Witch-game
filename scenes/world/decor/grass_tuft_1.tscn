@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/decor.gd" id="1_decor"]
+[ext_resource type="Texture2D" path="res://assets/environment/flora/grass_tuft_1.png" id="2_tex"]
+
+[node name="GrassTuft1" type="Node2D"]
+script = ExtResource("1_decor")
+texture = ExtResource("2_tex")
+frame_count = 4
+fps = 4.0

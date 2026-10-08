@@ -9,8 +9,9 @@ extends Node2D
 ## Aufbau: Ground (TileMapLayer), Objects (Y-sortiert) und beliebig viele
 ## Exits (Ausgänge in andere Orte).
 
-# Terrain-Nummer der Erde im TileSet (grass 0, soil 1, path 2 …).
-const SOIL_TERRAIN := 1
+# Terrain-Nummern der Erde im TileSet, auf der Beete gehen: die alte Erde
+# (soil 1) und die Gartenerde (earth 6, Böden v2).
+const SOIL_TERRAINS: Array[int] = [1, 6]
 
 # Darf man hier mit einem Schnippen Beete anlegen? Nur im Garten.
 @export var allows_beds: bool = false
@@ -33,7 +34,7 @@ func is_soil(cell: Vector2i) -> bool:
 		return false
 	for corner in [TileSet.CELL_NEIGHBOR_TOP_LEFT_CORNER, TileSet.CELL_NEIGHBOR_TOP_RIGHT_CORNER,
 			TileSet.CELL_NEIGHBOR_BOTTOM_LEFT_CORNER, TileSet.CELL_NEIGHBOR_BOTTOM_RIGHT_CORNER]:
-		if data.get_terrain_peering_bit(corner) != SOIL_TERRAIN:
+		if data.get_terrain_peering_bit(corner) not in SOIL_TERRAINS:
 			return false
 	return true
 

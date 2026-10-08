@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/garden_gate.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/fence_gate_h.png" id="2_texture"]
+
+[node name="GardenGate" type="Node2D" groups=["fence_gate"]]
+script = ExtResource("1_script")
+texture = ExtResource("2_texture")

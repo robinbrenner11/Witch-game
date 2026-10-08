@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/world/bed.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/environment/props/bed.png" id="2_texture"]
 [ext_resource type="Script" path="res://scripts/systems/interactable.gd" id="3_interactable"]
+[ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_38x9.png" id="90_shadow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(28, 56)
@@ -12,6 +13,12 @@ size = Vector2(40, 68)
 
 [node name="Bed" type="StaticBody2D"]
 script = ExtResource("1_script")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+z_index = -5
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(2, 1)
+texture = ExtResource("90_shadow")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_texture")

@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/decor.gd" id="1_decor"]
+[ext_resource type="Texture2D" path="res://assets/environment/flora/fern_1.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_30x7.png" id="4_shadow"]
+
+[node name="Fern1" type="Node2D"]
+script = ExtResource("1_decor")
+texture = ExtResource("2_tex")
+frame_count = 4
+fps = 4.0
+shadow_texture = ExtResource("4_shadow")
+shadow_offset = Vector2(1, 1)

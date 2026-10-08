@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/decor.gd" id="1_decor"]
+[ext_resource type="Texture2D" path="res://assets/environment/flora/flowers_blood.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_22x6.png" id="4_shadow"]
+
+[node name="FlowersBlood" type="Node2D"]
+script = ExtResource("1_decor")
+texture = ExtResource("2_tex")
+shadow_texture = ExtResource("4_shadow")
+shadow_offset = Vector2(1, 1)

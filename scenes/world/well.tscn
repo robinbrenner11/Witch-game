@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://scripts/systems/interactable.gd" id="3_interactable"]
 [ext_resource type="Script" path="res://scripts/systems/night_light.gd" id="4_night_light"]
 [ext_resource type="Texture2D" path="res://assets/effects/lights/light_round_32.png" id="5_light"]
+[ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_34x9.png" id="90_shadow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(26, 12)
@@ -14,6 +15,12 @@ size = Vector2(34, 30)
 
 [node name="Well" type="StaticBody2D"]
 script = ExtResource("1_script")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+z_index = -5
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(2, 1)
+texture = ExtResource("90_shadow")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_texture")

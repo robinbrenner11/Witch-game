@@ -29,6 +29,7 @@ var wilted: bool = false:
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var glow: NightLight = $Glow
+@onready var shadow: Sprite2D = $Shadow
 
 
 func _ready() -> void:
@@ -50,5 +51,7 @@ func is_ripe() -> bool:
 
 func _update_sprite() -> void:
 	sprite.frame = growth_stage
+	# Ein Samen in der Erde wirft noch keinen Schatten.
+	shadow.visible = growth_stage > 0
 	# Erst reife Pflanzen leuchten – so wird das Reifwerden nachts sichtbar.
 	glow.enabled = is_ripe() and data.glow_texture != null
