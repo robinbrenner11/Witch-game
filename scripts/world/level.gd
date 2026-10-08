@@ -15,6 +15,9 @@ const SOIL_TERRAINS: Array[int] = [1, 6]
 
 # Darf man hier mit einem Schnippen Beete anlegen? Nur im Garten.
 @export var allows_beds: bool = false
+# Für Orte ohne Kachelboden (Innenräume aus einer Raumgrafik): Diese Fläche
+# gilt dann für Kamera und Ränder. Leer = die bemalte Fläche zählt.
+@export var fixed_rect: Rect2 = Rect2()
 
 @onready var ground: TileMapLayer = $Ground
 @onready var objects: Node2D = $Objects
@@ -42,6 +45,8 @@ func is_soil(cell: Vector2i) -> bool:
 ## Die bemalte Fläche in Pixeln. Daraus folgen Kameragrenzen und Wände, so
 ## wachsen beide automatisch mit, wenn man die Karte größer malt.
 func pixel_rect() -> Rect2:
+	if fixed_rect.has_area():
+		return fixed_rect
 	var used := ground.get_used_rect()
 	var tile_size := Vector2(ground.tile_set.tile_size)
 	return Rect2(Vector2(used.position) * tile_size, Vector2(used.size) * tile_size)

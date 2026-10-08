@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/nightshade_domes.tscn" id="7_domes"]
 [ext_resource type="PackedScene" path="res://scenes/world/exit.tscn" id="10_exit"]
 [ext_resource type="PackedScene" path="res://scenes/world/cauldron.tscn" id="11_cauldron"]
-[ext_resource type="PackedScene" path="res://scenes/world/bed.tscn" id="12_bed"]
 [ext_resource type="Script" path="res://scripts/plants/farm_beds.gd" id="13_farm_beds"]
 [ext_resource type="PackedScene" path="res://scenes/world/well.tscn" id="14_well"]
 [ext_resource type="TileSet" path="res://assets/environment/props/fence_tileset.tres" id="15_fence_set"]
@@ -99,9 +98,6 @@ position = Vector2(816, 636)
 
 [node name="HollowTree" parent="Objects" instance=ExtResource("18_hollow_tree")]
 position = Vector2(816, 120)
-
-[node name="Bed" parent="Objects" instance=ExtResource("12_bed")]
-position = Vector2(720, 256)
 
 [node name="Campfire" parent="Objects" instance=ExtResource("5_campfire")]
 position = Vector2(944, 330)
@@ -272,6 +268,15 @@ position = Vector2(980, 560)
 
 [node name="Firefly5" parent="Fireflies" instance=ExtResource("19_firefly")]
 position = Vector2(450, 300)
+
+[node name="BushLavender9" parent="Objects/Decor" instance=ExtResource("d6_bush_lavender")]
+position = Vector2(712, 212)
+
+[node name="FlowersBlood9" parent="Objects/Decor" instance=ExtResource("d19_flowers_blood")]
+position = Vector2(752, 222)
+
+[node name="GrassTuft9" parent="Objects/Decor" instance=ExtResource("d13_grass_tuft_1")]
+position = Vector2(690, 250)
 
 [node name="NightshadeDomes" parent="." instance=ExtResource("7_domes")]
 

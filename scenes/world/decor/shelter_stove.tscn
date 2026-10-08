@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/decor.gd" id="1_decor"]
+[ext_resource type="Texture2D" path="res://assets/environment/shelter/shelter_stove.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/environment/shelter/shelter_stove_glow.png" id="3_glow"]
+[ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_32x8.png" id="4_shadow"]
+
+[node name="ShelterStove" type="Node2D"]
+script = ExtResource("1_decor")
+texture = ExtResource("2_tex")
+frame_count = 4
+fps = 8.0
+glow_texture = ExtResource("3_glow")
+collision_size = Vector2(24, 8)
+shadow_texture = ExtResource("4_shadow")
+shadow_offset = Vector2(1, 1)
+light_energy = 1.1
+light_color = Color(1, 0.62, 0.32, 1)
+light_radius = 70.0
+light_offset = Vector2(0, -16)
+light_flicker = 0.1

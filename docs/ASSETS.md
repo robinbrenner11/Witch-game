@@ -138,7 +138,7 @@ Generator: `docs/art/ground_generator/calm.py` · Vergleich: `vorschau/vergleich
 |---|---|
 | `seed_<pflanze>.png` | Samentütchen mit Etikett (Pflanzen-Emblem auf dunklem Feld, Goldrahmen) |
 | `crop_<pflanze>.png` | Ernte-Item (Mondkelch-Blüte, Laternenbeeren, Alraune, Nachtschatten-Traube, Blutrose, Farnwedel) |
-| `items_plants_atlas.png` | alle 12 als Atlas 96×32: Zeile 0 Samen, Zeile 1 Ernte, Spalten in der Reihenfolge moon_chalice, lantern_berry, mandrake, nightshade, blood_rose, ghost_fern |
+| ~~`items_plants_atlas.png`~~ (08.10. entfernt, im Spiel nicht benutzt; Generator `plant_generators/icons.py`) | alle 12 als Atlas 96×32: Zeile 0 Samen, Zeile 1 Ernte, Spalten in der Reihenfolge moon_chalice, lantern_berry, mandrake, nightshade, blood_rose, ghost_fern |
 
 `<pflanze>` ist derselbe Name wie bei `assets/plants/<pflanze>_stages.png`. Damit lassen sich Samen, Pflanze und Ernte über einen gemeinsamen Schlüssel verbinden (z. B. `plant_id = "mandrake"`).
 
@@ -234,7 +234,7 @@ Generator: `docs/art/plant_generators/nightshade_aura.py` (Funktionen `field`, `
 
 Welken der Pflanzen unter der Kuppel: keine eigene Grafik, sondern per `modulate` bzw. kleinem Shader (entsättigt, kühl-dunkel).
 
-**Umgesetzt:** Im Spiel zeichnet `assets/effects/shaders/nightshade_domes.gdshader` die Aura als Nebel (nicht als Glas, Entscheidung vom 07.10.). Welken: `assets/effects/shaders/wilt.gdshader`. `nightshade_dome.png` wird nicht benutzt.
+**Umgesetzt:** Im Spiel zeichnet `assets/effects/shaders/nightshade_domes.gdshader` die Aura als Nebel (nicht als Glas, Entscheidung vom 07.10.). Welken: `assets/effects/shaders/wilt.gdshader`. `nightshade_dome.png` wurde nicht benutzt und am 08.10. entfernt (Generator: `plant_generators/nightshade_aura.py`).
 
 ## Flora und Fauna – `assets/environment/flora/`, `fauna/` (08.10.2026)
 

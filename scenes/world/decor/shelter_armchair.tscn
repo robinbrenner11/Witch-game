@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/decor.gd" id="1_decor"]
+[ext_resource type="Texture2D" path="res://assets/environment/shelter/shelter_armchair.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_46x10.png" id="4_shadow"]
+
+[node name="ShelterArmchair" type="Node2D"]
+script = ExtResource("1_decor")
+texture = ExtResource("2_tex")
+collision_size = Vector2(36, 10)
+shadow_texture = ExtResource("4_shadow")
+shadow_offset = Vector2(2, 1)

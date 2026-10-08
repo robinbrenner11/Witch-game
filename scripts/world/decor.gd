@@ -37,6 +37,12 @@ const LIGHT_TEXTURE := preload("res://assets/effects/lights/light_round_64.png")
 # Liegt flach auf dem Boden: immer unter der Hexe, auch wenn sie mitten
 # darin steht (Hexenring). Sonst gilt die Y-Sortierung.
 @export var flat: bool = false
+# Hängt von oben (Glas am Balken): Der Ursprung ist dann der Aufhängepunkt
+# oben Mitte statt des Fußpunkts.
+@export var hang: bool = false
+# Fester Frame, z. B. Truhe zu (0) statt offen (1). -1 = zufällig.
+# Mit fps = 0 bleibt das Bild stehen.
+@export var start_frame: int = -1
 
 @export_group("Light")
 # 0 = kein Licht.
@@ -65,7 +71,7 @@ func _add_sprite(strip: Texture2D, unshaded: bool) -> AnimatedSprite2D:
 	var animated := AnimatedSprite2D.new()
 	animated.sprite_frames = strip_frames(strip, frame_count, fps)
 	var height := strip.get_height()
-	animated.offset = Vector2(0, -height / 2.0)
+	animated.offset = Vector2(0, height / 2.0 if hang else -height / 2.0)
 	animated.flip_h = flip
 	if flat:
 		animated.z_index = FLAT_Z
@@ -77,8 +83,14 @@ func _add_sprite(strip: Texture2D, unshaded: bool) -> AnimatedSprite2D:
 	if frame_count > 1:
 		# Zufälliger Startframe, sonst wiegen alle Bäume im Gleichtakt. Die
 		# Leucht-Ebene übernimmt den Frame des Bildes, sonst läuft sie daneben her.
-		animated.frame = sprite.frame if sprite else randi() % frame_count
-		animated.play()
+		if sprite:
+			animated.frame = sprite.frame
+		elif start_frame >= 0:
+			animated.frame = start_frame
+		else:
+			animated.frame = randi() % frame_count
+		if fps > 0.0:
+			animated.play()
 	return animated
 
 
