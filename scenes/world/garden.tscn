@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://scripts/world/fence.gd" id="16_fence"]
 [ext_resource type="PackedScene" path="res://scenes/world/garden_gate.tscn" id="17_gate"]
 [ext_resource type="PackedScene" path="res://scenes/world/hollow_tree.tscn" id="18_hollow_tree"]
+[ext_resource type="PackedScene" path="res://scenes/world/firefly.tscn" id="19_firefly"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/tree_oak.tscn" id="d0_tree_oak"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/tree_fir.tscn" id="d1_tree_fir"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/tree_elder.tscn" id="d2_tree_elder"]
@@ -254,6 +255,23 @@ flip = true
 
 [node name="GrassTuft23" parent="Objects/Decor" instance=ExtResource("d14_grass_tuft_2")]
 position = Vector2(960, 20)
+
+[node name="Fireflies" type="Node2D" parent="."]
+
+[node name="Firefly1" parent="Fireflies" instance=ExtResource("19_firefly")]
+position = Vector2(600, 540)
+
+[node name="Firefly2" parent="Fireflies" instance=ExtResource("19_firefly")]
+position = Vector2(1060, 400)
+
+[node name="Firefly3" parent="Fireflies" instance=ExtResource("19_firefly")]
+position = Vector2(660, 240)
+
+[node name="Firefly4" parent="Fireflies" instance=ExtResource("19_firefly")]
+position = Vector2(980, 560)
+
+[node name="Firefly5" parent="Fireflies" instance=ExtResource("19_firefly")]
+position = Vector2(450, 300)
 
 [node name="NightshadeDomes" parent="." instance=ExtResource("7_domes")]
 

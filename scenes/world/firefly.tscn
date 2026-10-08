@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/firefly.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/effects/lights/light_glimmer_16.png" id="2_light"]
+[ext_resource type="Script" path="res://scripts/systems/night_light.gd" id="3_night_light"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_unshaded"]
+light_mode = 1
+
+[node name="Firefly" type="Node2D"]
+z_index = 4
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_unshaded")
+
+[node name="Light" type="PointLight2D" parent="."]
+color = Color(1, 0.78, 0.45, 1)
+texture = ExtResource("2_light")
+texture_scale = 2.0
+script = ExtResource("3_night_light")
+base_energy = 0.5

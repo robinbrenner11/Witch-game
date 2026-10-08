@@ -15,6 +15,8 @@ extends Node2D
 
 # Schatten liegen unter allen Objekten, aber über Boden (-10) und Beeten (-6).
 const SHADOW_Z := -5
+# Flache Deko (Hexenring, Teppich) liegt wie die Beete auf dem Boden.
+const FLAT_Z := -6
 const SHADOW_ALPHA := 0.5
 const LIGHT_TEXTURE := preload("res://assets/effects/lights/light_round_64.png")
 
@@ -32,6 +34,9 @@ const LIGHT_TEXTURE := preload("res://assets/effects/lights/light_round_64.png")
 @export var shadow_offset: Vector2 = Vector2.ZERO
 # Gespiegelt aufstellen, damit gleiche Objekte nicht gestempelt wirken.
 @export var flip: bool = false
+# Liegt flach auf dem Boden: immer unter der Hexe, auch wenn sie mitten
+# darin steht (Hexenring). Sonst gilt die Y-Sortierung.
+@export var flat: bool = false
 
 @export_group("Light")
 # 0 = kein Licht.
@@ -62,6 +67,8 @@ func _add_sprite(strip: Texture2D, unshaded: bool) -> AnimatedSprite2D:
 	var height := strip.get_height()
 	animated.offset = Vector2(0, -height / 2.0)
 	animated.flip_h = flip
+	if flat:
+		animated.z_index = FLAT_Z
 	if unshaded:
 		var material := CanvasItemMaterial.new()
 		material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
