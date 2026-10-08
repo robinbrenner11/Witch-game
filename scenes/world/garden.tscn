@@ -37,10 +37,17 @@
 [ext_resource type="PackedScene" path="res://scenes/world/moth.tscn" id="f_moth"]
 [ext_resource type="PackedScene" path="res://scenes/world/toad.tscn" id="f_toad"]
 [ext_resource type="PackedScene" path="res://scenes/world/bat_flyer.tscn" id="f_bat_flyer"]
+[ext_resource type="Script" path="res://scripts/world/wild_growth.gd" id="w_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/wild/wild_grass_1.tscn" id="w_wild_grass_1"]
+[ext_resource type="PackedScene" path="res://scenes/world/wild/wild_grass_2.tscn" id="w_wild_grass_2"]
+[ext_resource type="PackedScene" path="res://scenes/world/wild/wild_grass_3.tscn" id="w_wild_grass_3"]
+[ext_resource type="PackedScene" path="res://scenes/world/wild/weed_thistle.tscn" id="w_weed_thistle"]
+[ext_resource type="PackedScene" path="res://scenes/world/wild/weed_dock.tscn" id="w_weed_dock"]
 
 [node name="Garden" type="Node2D"]
 script = ExtResource("1_level")
 allows_beds = true
+bed_area = Rect2(512, 192, 608, 416)
 
 [node name="Ground" type="TileMapLayer" parent="."]
 z_index = -10
@@ -294,6 +301,13 @@ position = Vector2(764, 54)
 
 [node name="MothLantern2" parent="Fireflies" instance=ExtResource("f_moth")]
 position = Vector2(762, 50)
+
+[node name="WildWeeds" type="Node" parent="."]
+script = ExtResource("w_script")
+kinds = Array[PackedScene]([ExtResource("w_wild_grass_1"), ExtResource("w_wild_grass_2"), ExtResource("w_wild_grass_3"), ExtResource("w_weed_thistle"), ExtResource("w_weed_dock")])
+start_clusters = 3
+max_count = 24
+terrains = Array[int]([6, 8])
 
 [node name="Toad" parent="Objects" instance=ExtResource("f_toad")]
 position = Vector2(600, 500)

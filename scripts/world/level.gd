@@ -15,6 +15,8 @@ const SOIL_TERRAINS: Array[int] = [1, 6]
 
 # Darf man hier mit einem Schnippen Beete anlegen? Nur im Garten.
 @export var allows_beds: bool = false
+# Nur in diesem Bereich (Pixel), im Garten innerhalb des Zauns. Leer = überall.
+@export var bed_area: Rect2 = Rect2()
 # Für Orte ohne Kachelboden (Innenräume aus einer Raumgrafik): Diese Fläche
 # gilt dann für Kamera und Ränder. Leer = die bemalte Fläche zählt.
 @export var fixed_rect: Rect2 = Rect2()
@@ -27,6 +29,15 @@ func _ready() -> void:
 	# Über die Gruppe finden z. B. die Zauber der Hexe den aktuellen Ort.
 	add_to_group("level")
 	_build_bounds()
+
+
+## Darf hier ein Beet entstehen? Nur wo der Ort es erlaubt, im Beet-Bereich
+## und auf reiner Erde.
+func allows_bed_at(cell: Vector2i) -> bool:
+	var center := Vector2(cell * Garden.TILE_SIZE) + Vector2.ONE * Garden.TILE_SIZE / 2.0
+	if bed_area.has_area() and not bed_area.has_point(center):
+		return false
+	return allows_beds and is_soil(cell)
 
 
 ## Liegt an dieser Zelle reine Erde? Bei Ecken-Terrains heißt das: alle vier

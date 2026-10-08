@@ -24,10 +24,10 @@ func _snap() -> void:
 	var level := get_tree().get_first_node_in_group("level") as Level
 	# Die Zelle direkt vor der Hexe, dort wo auch E wirkt.
 	var cell := Garden.cell_at(player.interaction_area.global_position)
-	if level == null or not level.allows_beds or not level.is_soil(cell):
+	if level == null or not level.allows_bed_at(cell):
 		Messages.post("Hier schläft die Erde zu tief.")
 		return
-	if Garden.has_plant(cell):
+	if Garden.has_plant(cell) or _has_wild_growth(cell):
 		Messages.post("Hier wächst schon etwas.")
 		return
 	if Garden.has_bed(cell):
@@ -36,6 +36,14 @@ func _snap() -> void:
 		Garden.add_bed(cell)
 		Journal.complete_goal("wake")
 	_burst(level, Vector2(cell * Garden.TILE_SIZE) + Vector2.ONE * Garden.TILE_SIZE / 2.0)
+
+
+## Wildgras und Unkraut müssen erst weggeräumt werden (siehe WildGrowth).
+func _has_wild_growth(cell: Vector2i) -> bool:
+	for node in get_tree().get_nodes_in_group("wild"):
+		if Garden.cell_at(node.global_position) == cell:
+			return true
+	return false
 
 
 ## Ein kurzer Funkenregen in Magenta über der Zelle, danach löscht er sich selbst.

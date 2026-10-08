@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/item_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/flora/grass_tuft_3.png" id="2_tuft"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
+atlas = ExtResource("2_tuft")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_script")
+id = "wild_herb"
+display_name = "Wildkraut"
+icon = SubResource("AtlasTexture_icon")
+type = 1
+description = "Wächst, wo niemand hinsieht. Zäh und ein bisschen bitter."
