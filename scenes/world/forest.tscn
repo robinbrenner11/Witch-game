@@ -596,6 +596,10 @@ regrow = 3
 terrains = Array[int]([8])
 clearance = 28.0
 
+[node name="BlightedPage1" parent="Objects" instance=ExtResource("o10_loose_page")]
+position = Vector2(578, 704)
+page_id = "page_journal_01"
+
 [node name="ToGarden" parent="." instance=ExtResource("3_exit")]
 position = Vector2(528, 16)
 target_scene = "res://scenes/world/garden.tscn"

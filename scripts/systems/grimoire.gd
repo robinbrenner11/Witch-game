@@ -19,7 +19,8 @@ const GOALS: Array[String] = ["plant", "brew", "sleep", "wake"]
 
 var has_book := false
 var _done_goals: Array[String] = []
-# Seiten-ID -> {"fragments": int, "restored": bool}. Wer drinsteht, ist gefunden.
+# Seiten-ID -> {"parts": [Fragment-Nummern], "restored": bool, "rewarded": bool}.
+# Wer drinsteht, ist gefunden (bei Fragmenten: mindestens ein Teil).
 var _pages: Dictionary = {}
 # Rezept-Ergebnis-ID -> Liste der Zutaten, die ein Gerücht verraten hat.
 var _hints: Dictionary = {}
@@ -58,18 +59,41 @@ func is_goal_done(goal: String) -> bool:
 
 # --- Seiten ------------------------------------------------------------------
 
-## Eine Seite aufgehoben. Bei zerrissenen Seiten zählt jedes Fragment.
-func find_page(page_id: String) -> void:
+## Eine Seite (oder ein Teil davon) aufgehoben. fragment = welcher Teil einer
+## zerrissenen Seite; bei ganzen Seiten 0.
+func find_page(page_id: String, fragment: int = 0) -> void:
 	if not _pages.has(page_id):
-		_pages[page_id] = {"fragments": 0, "restored": false}
+		_pages[page_id] = {"parts": [], "restored": false, "rewarded": false}
 		report("page", {"id": page_id})
-	_pages[page_id]["fragments"] = int(_pages[page_id]["fragments"]) + 1
+	var parts: Array = _pages[page_id]["parts"]
+	if not parts.has(fragment):
+		parts.append(fragment)
 	page_found.emit(page_id)
+	_check_readable(page_id)
 	changed.emit()
 
 
 func is_page_found(page_id: String) -> bool:
 	return _pages.has(page_id)
+
+
+func has_fragment(page_id: String, fragment: int) -> bool:
+	return _pages.has(page_id) and Array(_pages[page_id]["parts"]).has(fragment)
+
+
+func fragments_found(page_id: String) -> int:
+	return Array(_pages[page_id]["parts"]).size() if _pages.has(page_id) else 0
+
+
+## Gefundene, aber noch befallene Seiten. Am Lesepult lassen sie sich mit
+## einem Opfer wiederherstellen.
+func blighted_pages() -> Array[String]:
+	var result: Array[String] = []
+	for page_id: String in _pages:
+		var page := PageData.from_id(page_id)
+		if page and page.state == PageData.State.BLIGHTED and not bool(_pages[page_id]["restored"]):
+			result.append(page_id)
+	return result
 
 
 ## Lesbar: lose Seiten sofort, befallene nach dem Opfer, zerrissene, wenn alle
@@ -82,14 +106,32 @@ func is_page_readable(page_id: String) -> bool:
 		PageData.State.BLIGHTED:
 			return bool(_pages[page_id]["restored"])
 		PageData.State.FRAGMENTS:
-			return int(_pages[page_id]["fragments"]) >= page.fragment_count
+			return fragments_found(page_id) >= page.fragment_count
 	return true
 
 
+## Gelingt das Opfer jetzt? Mondbedingung der Seite, z. B. nur bei Vollmond.
+func is_moon_right(page: PageData) -> bool:
+	return page.moon_condition < 0 or DayCycle.moon_phase() == page.moon_condition
+
+
+## Nach dem Opfer am Lesepult: Die Ranken welken, Vesperas Tinte kehrt zurück.
 func restore_page(page_id: String) -> void:
 	if _pages.has(page_id):
 		_pages[page_id]["restored"] = true
+		_check_readable(page_id)
 		changed.emit()
+
+
+## Wird eine Seite lesbar, gibt es einmal ihre Hauptbelohnung. Rezepte
+## brauchen nichts extra: has_recipe_page() schaut selbst nach.
+func _check_readable(page_id: String) -> void:
+	if not is_page_readable(page_id) or bool(_pages[page_id].get("rewarded", false)):
+		return
+	_pages[page_id]["rewarded"] = true
+	var page := PageData.from_id(page_id)
+	if page.reward and page.reward.type != RewardData.Type.RECIPE:
+		_apply_reward(page.reward)
 
 
 # --- Rezepte -----------------------------------------------------------------
@@ -232,6 +274,32 @@ func choose_path(path: PathData) -> void:
 	if not _paths.has(path.discipline_id):
 		_paths[path.discipline_id] = {}
 	_paths[path.discipline_id][str(path.level)] = path.id
+	changed.emit()
+
+
+## Pfadwechsel am Lesepult: kostet seltene Items (respec_cost des Pfads).
+## Wer den Pfad auf Stufe 5 wechselt, verliert auch die Wahl auf Stufe 10,
+## weil die Optionen dort davon abhängen.
+func can_respec(discipline_id: String, milestone: int) -> bool:
+	var path := PathData.from_id(chosen_path(discipline_id, milestone))
+	if path == null:
+		return false
+	for item_id: String in path.respec_cost:
+		if Inventory.count(item_id) < path.respec_cost[item_id]:
+			return false
+	return true
+
+
+func respec(discipline_id: String, milestone: int) -> void:
+	if not can_respec(discipline_id, milestone):
+		return
+	var path := PathData.from_id(chosen_path(discipline_id, milestone))
+	for item_id: String in path.respec_cost:
+		Inventory.remove(item_id, path.respec_cost[item_id])
+	var chosen: Dictionary = _paths[discipline_id]
+	chosen.erase(str(milestone))
+	if milestone == 5:
+		chosen.erase("10")
 	changed.emit()
 
 

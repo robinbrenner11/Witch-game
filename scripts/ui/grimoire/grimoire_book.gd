@@ -14,6 +14,8 @@ const DIM := Color(0.054902, 0.0392157, 0.0784314, 0.7)
 
 ## Am Kessel geöffnet? Dann zeigt Recipes "Brew this".
 var opened_from_cauldron := false
+## Am Lesepult geöffnet? Dann lassen sich Pfade wechseln.
+var opened_at_lectern := false
 
 var _chapters: Array[ChapterData] = []
 var _index := 0
@@ -24,6 +26,9 @@ var _tabs: Array[BookTab] = []
 var _paused_before := false
 var _hid_hotbar := false
 var _refresh_queued := false
+# Eine Ansicht ohne eigenes Lesezeichen (das Opfer am Lesepult). Solange sie
+# gesetzt ist, zeigt das Buch sie statt des Kapitels.
+var _special: GrimoireSpread
 
 var _frame: Control
 var _pages: Control
@@ -54,10 +59,12 @@ func _ready() -> void:
 
 ## chapter_id leer: dort öffnen, wo es Neues gibt, sonst auf der zuletzt
 ## gelesenen Seite.
-func open(chapter_id: String = "", from_cauldron: bool = false) -> void:
+func open(chapter_id: String = "", from_cauldron: bool = false, at_lectern: bool = false) -> void:
 	if not Grimoire.has_book:
 		return
 	opened_from_cauldron = from_cauldron
+	opened_at_lectern = at_lectern
+	_special = null
 	if chapter_id != "":
 		_index = _find(chapter_id)
 	else:
@@ -78,7 +85,15 @@ func open(chapter_id: String = "", from_cauldron: bool = false) -> void:
 	_rebuild()
 
 
+## Am Lesepult mit befallenen Seiten: gleich die Opfer-Ansicht zeigen.
+func open_offering() -> void:
+	open("", false, true)
+	_special = SpreadOffering.new(self, null)
+	_rebuild()
+
+
 func close() -> void:
+	_current_spread().on_close()
 	hide()
 	if not _paused_before:
 		get_tree().paused = false
@@ -88,6 +103,7 @@ func close() -> void:
 
 
 func go_to(chapter_id: String) -> void:
+	_leave_special()
 	_index = _find(chapter_id)
 	refresh()
 
@@ -135,6 +151,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Erst innerhalb des Kapitels, am Ende ins nächste offene Kapitel.
 func _flip(direction: int) -> void:
+	if _special:
+		return
 	if not _spread_for(_chapters[_index]).flip(direction):
 		_change_chapter(direction)
 	else:
@@ -143,6 +161,7 @@ func _flip(direction: int) -> void:
 
 ## Zum nächsten offenen Kapitel; versiegelte werden übersprungen.
 func _change_chapter(direction: int) -> void:
+	_leave_special()
 	var i := _index
 	for step in _chapters.size():
 		i = wrapi(i + direction, 0, _chapters.size())
@@ -156,11 +175,20 @@ func _rebuild() -> void:
 	_refresh_queued = false
 	for child in _pages.get_children():
 		child.queue_free()
-	var chapter := _chapters[_index]
 	var left := _page_box(BookStyle.LEFT_PAGE)
 	var right := _page_box(BookStyle.RIGHT_PAGE)
-	_spread_for(chapter).build(left, right)
+	_current_spread().build(left, right)
 	_update_tabs()
+
+
+func _current_spread() -> GrimoireSpread:
+	return _special if _special else _spread_for(_chapters[_index])
+
+
+func _leave_special() -> void:
+	if _special:
+		_special.on_close()
+		_special = null
 
 
 func _page_box(page: Rect2) -> VBoxContainer:
@@ -193,6 +221,8 @@ func _make_spread(chapter: ChapterData) -> GrimoireSpread:
 			return SpreadCover.new(self, chapter)
 		"recipes":
 			return SpreadRecipes.new(self, chapter)
+		"journal":
+			return SpreadJournal.new(self, chapter)
 	if chapter.template == ChapterData.Template.DISCIPLINE and DisciplineData.from_id(chapter.id):
 		return SpreadDiscipline.new(self, chapter)
 	return SpreadBlank.new(self, chapter)
@@ -219,7 +249,7 @@ func _build_tabs() -> void:
 func _update_tabs() -> void:
 	for i in _tabs.size():
 		var tab := _tabs[i]
-		tab.active = i == _index
+		tab.active = i == _index and _special == null
 		tab.locked = not Grimoire.is_unlocked(tab.chapter)
 		tab.has_new = not tab.locked and _spread_for(tab.chapter).has_new()
 		tab.queue_redraw()

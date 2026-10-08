@@ -96,6 +96,8 @@ static func text_button(text: String, color: Color = INK) -> Button:
 	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
 		button.add_theme_color_override(state, color)
 	button.add_theme_color_override("font_hover_color", MAGENTA)
+	# Gesperrt (z. B. "Offer", solange etwas fehlt): blass.
+	button.add_theme_color_override("font_disabled_color", INK_FAINT)
 	var empty := StyleBoxEmpty.new()
 	for style in ["normal", "hover", "pressed", "focus", "disabled"]:
 		button.add_theme_stylebox_override(style, empty)

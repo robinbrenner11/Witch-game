@@ -189,3 +189,21 @@ STAT_HARVEST_BONUS,+%d%% chance of an extra harvest,+%d %% Chance auf eine Extra
 STAT_SEED_BONUS,+%d%% chance of an extra seed,+%d %% Chance auf einen Extra-Samen
 STAT_BREW_BONUS,+%d%% chance of a bonus potion,+%d %% Chance auf einen Bonus-Trank
 STAT_FORAGE_BONUS,+%d%% chance to pick twice,"+%d %% Chance, doppelt zu pflücken"
+PAGE_JOURNAL_01_LORE,Today the garden answered before I asked. I have never been so strong. I wonder how long a witch may stay like this.,"Heute hat mir der Garten geantwortet, bevor ich fragte. Ich war nie so stark. Ich frage mich, wie lange eine Hexe so bleiben darf."
+PAGE_JOURNAL_01_STUB,Tod,Heu
+MSG_PAGE_BLIGHTED,"A page, eaten by the Bitterbloom. Perhaps the lectern can help.","Eine Seite, von der Bitterblüte zerfressen. Vielleicht hilft das Lesepult."
+MSG_PAGE_FRAGMENT,A torn piece of a page. %d of %d.,Ein abgerissenes Stück einer Seite. %d von %d.
+MSG_PAGE_RESTORED,The vines wither. Vespera's ink returns.,Die Ranken welken. Vesperas Tinte kehrt zurück.
+BOOK_PAGE_KIND_RECIPE,A recipe page,Eine Rezeptseite
+BOOK_PAGE_KIND_JOURNAL,A journal page,Eine Tagebuchseite
+BOOK_PAGE_KIND_DIGITALIS,A page about Digitalis,Eine Seite über Digitalis
+BOOK_PAGE_KIND_HINT,A page with a hint,Eine Seite mit einem Hinweis
+BOOK_PAGE_BLIGHTED,The Bitterbloom has eaten into this page.,Die Bitterblüte hat sich in diese Seite gefressen.
+BOOK_RESTORE_AT_LECTERN,Perhaps it can be restored at the lectern.,Vielleicht lässt sie sich am Lesepult wiederherstellen.
+BOOK_OFFERING,Offering,Opfer
+BOOK_OFFERING_HINT,Lay down what the page asks for.,"Leg hin, was die Seite verlangt."
+BOOK_OFFER,Offer,Opfern
+BOOK_MOON_CONDITION,Only beneath a %s.,Nur unter einem %s.
+BOOK_NOTHING_TO_RESTORE,No page is waiting here.,Hier wartet keine Seite.
+BOOK_FRAGMENTS,%d of %d pieces,%d von %d Stücken
+BOOK_PATH_CHANGE,Change path (%s),Pfad wechseln (%s)

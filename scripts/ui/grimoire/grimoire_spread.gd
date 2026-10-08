@@ -30,6 +30,12 @@ func flip(_direction: int) -> bool:
 	return false
 
 
+## Das Buch wird geschlossen oder die Seite verlassen. Hier z. B. Opfergaben
+## zurück ins Inventar legen.
+func on_close() -> void:
+	pass
+
+
 ## Gibt es im Kapitel etwas, das noch nicht angesehen wurde? Dann glimmt das
 ## Lesezeichen.
 func has_new() -> bool:

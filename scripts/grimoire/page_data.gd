@@ -28,6 +28,9 @@ static var _all: Dictionary[String, PageData] = {}
 @export var lore_key: String = ""
 # Platz im Kapitel Journal (Vesperas Zeitfolge).
 @export var journal_order: int = 0
+# Fehlt die Seite noch, zeigt das Journal einen ausgerissenen Stummel mit
+# diesem halben Wort als Hinweis auf den Fundort (Schlüssel in data/translations).
+@export var stub_hint_key: String = ""
 @export var dream_id: String = ""
 
 

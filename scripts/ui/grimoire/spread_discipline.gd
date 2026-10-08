@@ -132,6 +132,16 @@ func _path_box(path: PathData, chosen: String, level: int) -> Control:
 	box.add_child(BookStyle.label(path.description_key, text_color, text_width))
 	if level < path.level:
 		box.add_child(BookStyle.label(tr("BOOK_PATH_LOCKED") % path.level, BookStyle.INK_FAINT))
+	# Am Lesepult lässt sich ein gewählter Pfad gegen seltene Items wechseln.
+	if is_chosen and book.opened_at_lectern:
+		var cost: Array[String] = []
+		for item_id: String in path.respec_cost:
+			cost.append("%d %s" % [path.respec_cost[item_id], Inventory.display_name_for(item_id)])
+		var change := BookStyle.text_button(tr("BOOK_PATH_CHANGE") % ", ".join(cost),
+				BookStyle.GOLD_DARK if Grimoire.can_respec(path.discipline_id, path.level) else BookStyle.INK_FAINT)
+		change.disabled = not Grimoire.can_respec(path.discipline_id, path.level)
+		change.pressed.connect(func() -> void: Grimoire.respec(path.discipline_id, path.level))
+		box.add_child(change)
 	return box
 
 

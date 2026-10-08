@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="PageData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/page_data.gd" id="1_page"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="Resource_reward"]
+script = ExtResource("2_reward")
+type = 4
+target_id = "wildcraft"
+value = 40
+
+[resource]
+script = ExtResource("1_page")
+id = "page_journal_01"
+kind = 1
+state = 1
+offering = Dictionary[String, int]({"owl_feather": 2, "wild_herb": 3})
+reward = SubResource("Resource_reward")
+lore_key = "PAGE_JOURNAL_01_LORE"
+journal_order = 1
+stub_hint_key = "PAGE_JOURNAL_01_STUB"
