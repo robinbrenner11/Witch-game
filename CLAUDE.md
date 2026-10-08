@@ -317,6 +317,9 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - **Zustand, der Szenen überdauert, gehört in ein Autoload** (`Garden`, `Brewing`, `Inventory`, `DayCycle`); Szenen-Nodes zeigen ihn nur an
 - **Orte**: Jeder Ort ist eine Level-Szene in `scenes/world/` (Ground, Objects, Exits; Wände und Kameragrenzen ergeben sich aus der bemalten Fläche). `scenes/main.tscn` hält Hexe, UI und Nachtfärbung und tauscht den Ort aus; Ausgänge (`scenes/world/exit.tscn`) verbinden die Orte
 - **UI**: neue Grafiken in 1× speichern, Fenster mit `scale = 2` anzeigen (wie das Brau-Fenster); Inventar-Plätze über den Baustein `InventoryGrid`
+- **Texte**: Spieltexte nie direkt, sondern als Schlüssel in `data/translations/texts.csv` (en/de). In Labels/Buttons steht der Schlüssel, im Code `tr("SCHLÜSSEL")`. Item-Namen sind Schlüssel (`ITEM_<ID>`)
+- **Fortschritt**: Systeme melden Ereignisse mit `Grimoire.report("aktion", {"id": …})`; Boni fragen sie mit `Grimoire.get_stat()` ab. Nichts direkt in Disziplinen eintragen
+- **Umgebung**: Deko als `Decor`-Szenen in `scenes/world/decor/` (Fußpunkt = Ursprung, Schatten, Kollision, Licht als Export-Werte); Sammelbares über `WildGrowth` + Autoload `Wilds`
 
 ---
 

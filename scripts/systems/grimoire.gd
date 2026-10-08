@@ -425,6 +425,36 @@ func is_seen(key: String) -> bool:
 	return _seen.has(key)
 
 
+# --- Debug ----------------------------------------------------------------------
+
+# Nur im Editor und in Debug-Exporten (wie N, F1, F2): F3 Erfahrung, F4 alle
+# Seiten, F5 ganzes Herbarium.
+func _unhandled_input(event: InputEvent) -> void:
+	if not OS.is_debug_build():
+		return
+	if event.is_action_pressed("debug_grimoire_xp"):
+		has_book = true
+		for discipline_id: String in DisciplineData.all():
+			add_xp(discipline_id, 100)
+	elif event.is_action_pressed("debug_grimoire_pages"):
+		has_book = true
+		for page: PageData in PageData.all().values():
+			for part in page.fragment_count:
+				find_page(page.id, part)
+			restore_page(page.id)
+		Messages.post("Debug: alle Seiten")
+	elif event.is_action_pressed("debug_grimoire_entries"):
+		for entry in EntryData.all():
+			_counts[entry.discover_on] = maxi(count_of(entry.discover_on), 1)
+			for trigger in entry.fact_triggers:
+				if trigger != "":
+					var parts := trigger.split(":")
+					_counts[parts[0]] = maxi(count_of(parts[0]), int(parts[1]) if parts.size() > 1 else 1)
+		_check_completed_groups()
+		changed.emit()
+		Messages.post("Debug: ganzes Herbarium")
+
+
 # --- Spielstand --------------------------------------------------------------
 
 func reset() -> void:

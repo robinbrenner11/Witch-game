@@ -285,6 +285,18 @@ Bezug: Mockups `grimoire_mockup_A_2x.png` (Pergament, gewählt) und `grimoire_mo
 
 ---
 
+## 5b. Umsetzungsstand (08.10.2026)
+
+Gebaut (G1–G6), alles mit **Platzhalter-Grafiken aus Code** (Farben aus der Palette, Maße aus Abschnitt 4). Die echten Grafiken aus Abschnitt 6 ersetzen später nur die Zeichnungen in `scripts/ui/grimoire/` (`BookFrame`, `BookTab`, `BookSlot`, Ranken in `BookStyle.draw_blight`, Hand in `SpreadCover`).
+
+- **Autoload `Grimoire`** (`scripts/systems/grimoire.gd`) ersetzt `Journal`. Alte Spielstände werden **nicht** übernommen (Absprache: Spielstände sind Testdaten).
+- **Daten** in `data/grimoire/`: `chapters/` (12 inkl. Innendeckel), `pages/` (2 Rezeptseiten, 1 befallene Beispiel-Journalseite im Wald), `disciplines/` (Herbalism, Brewing, Wildcraft), `paths/` (18 Pfade laut Tabelle), `entries/` (Herbarium: 6 Pflanzen, 5 Waldfunde). Klassen in `scripts/grimoire/`.
+- **Ereignisse:** `Grimoire.report(aktion, {"id": …})` mit den Aktionen `plant`, `harvest`, `brew`, `brew_experiment`, `forage`, `clear`, `visit`, `page`. Boni über `Grimoire.get_stat()`: `harvest_bonus`, `seed_bonus`, `brew_bonus`, `brew_count`, `forage_bonus`, `moonpicker` wirken schon; `quality_bonus`, `potency`, `lingering`, `volatile`, `seeker`, `pathfinder`, `pagefinder`, `rare_variants`, `nightshade_tamer` werden gespeichert, wirken aber erst, wenn es das System dazu gibt.
+- **Kapitel:** Innendeckel, Recipes (Raster, Filter, 3 Zustände, ready to brew, Brew this am Kessel), Disziplinen (Stufen, Ranke, Pfade, Pfadwechsel am Lesepult), Journal (Stummel, befallen, Fragmente, Tinte kehrt zurück), Herbarium (Fakten, volle Seiten). Digitalis und People als Silhouetten, Warding, Bonding und Bestiary versiegelt.
+- **Lesepult:** Opfer-Ansicht mit Drag & Drop aus dem Inventar, Mondbedingung, Pfadwechsel gegen 3 Owl Feather + 2 Moonmoss.
+- **Debug:** F3 +100 Erfahrung je Disziplin, F4 alle Seiten, F5 ganzes Herbarium.
+- **Noch offen:** Umblätter-Animation, Tintenklecks, Ranken-Welken als Animation, Pin im HUD, Träume, People/Bestiary/Digitalis mit Inhalt, Inhalt der ca. 12 Seiten (Frage 4). Werte (Erfahrungskurve, Belohnungen) sind erste Vorschläge zum Austarieren.
+
 ## 6. Grafiken (🔮 später generieren, Liste merken)
 
 - Einband als 9-Slice (Bordeaux-Leder, Gold-Ecken)
