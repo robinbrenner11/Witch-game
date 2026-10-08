@@ -29,7 +29,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Beim Schlafen oder Ortswechsel ist die Steuerung aus.
-	if event.is_action_pressed("use_item") and (get_parent() as Player).is_physics_processing():
+	if event.is_action_pressed("use_item") and (get_parent() as Player).can_act():
 		_drink_selected()
 
 
@@ -48,7 +48,12 @@ func _drink_selected() -> void:
 	var item := ItemData.from_id(Inventory.selected_item_id())
 	if item == null or item.use != ItemData.Use.DRINK:
 		return
+	# Sofort aus dem Inventar, damit derselbe Trank nicht doppelt getrunken wird.
 	Inventory.remove(item.id)
+	var player := get_parent() as Player
+	player.play_action("drink")
+	# Die Wirkung setzt ein, wenn sie das Fläschchen absetzt (Frame 4).
+	await player.wait_for_action_frame(3)
 	# Jede Trinkwirkung ist eigenes Verhalten, deshalb hier im Code statt
 	# als Zahlen in den Item-Daten.
 	match item.id:

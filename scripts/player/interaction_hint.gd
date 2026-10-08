@@ -21,7 +21,7 @@ var _time := 0.0
 func _process(delta: float) -> void:
 	var target := player.find_closest_interactable()
 	# Beim Schlafen ist die Steuerung und damit auch der Hinweis aus.
-	visible = target != null and player.is_physics_processing()
+	visible = target != null and player.can_act()
 	if not visible:
 		return
 	_time += delta

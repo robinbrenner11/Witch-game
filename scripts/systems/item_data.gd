@@ -34,6 +34,8 @@ const DEFAULT_MAX_STACK := 999
 @export var pour_radius: int = 0
 # 99 = sofort erntereif.
 @export var pour_stages: int = 1
+# Farbe von Orb und Regen beim Ausgießen (siehe docs/ASSETS.md, Zauber-Ausgießen).
+@export var pour_color: Color = Color("#62A06E")
 
 
 ## Gibt null zurück, wenn es keine Datei für diese ID gibt (auch bei "").

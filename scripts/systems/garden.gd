@@ -110,15 +110,29 @@ func grow_area(center: Vector2i, radius: int, stages: int = 1) -> bool:
 	return any_grew
 
 
+## Würde grow_area() hier etwas wachsen lassen? Ändert nichts. So kann die
+## Hexe vor dem Ausgießen prüfen, ob sich der Trank lohnt.
+func can_grow_area(center: Vector2i, radius: int) -> bool:
+	for x in range(-radius, radius + 1):
+		for y in range(-radius, radius + 1):
+			if can_grow_by_magic(center + Vector2i(x, y)):
+				return true
+	return false
+
+
 ## Magie setzt sich über Auren und Nachtregeln hinweg, aber manche Pflanzen
 ## lassen sich von ihr nicht reif machen (Mondkelch).
+func can_grow_by_magic(cell: Vector2i) -> bool:
+	if not has_plant(cell) or is_ripe(cell):
+		return false
+	var data := plant_data_at(cell)
+	return data.magic_can_ripen or stage_at(cell) < data.stage_count - 2
+
+
 func grow_by_magic(cell: Vector2i, stages: int) -> bool:
 	var grew := false
 	for i in stages:
-		if not has_plant(cell) or is_ripe(cell):
-			break
-		var data := plant_data_at(cell)
-		if not data.magic_can_ripen and stage_at(cell) >= data.stage_count - 2:
+		if not can_grow_by_magic(cell):
 			break
 		grow(cell)
 		grew = true

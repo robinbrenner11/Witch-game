@@ -12,12 +12,15 @@ const SPARK_COLOR := Color("#E458B1")
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Beim Schlafen oder Ortswechsel ist die Steuerung aus.
-	if event.is_action_pressed("snap") and player.is_physics_processing():
+	if event.is_action_pressed("snap") and player.can_act():
 		_snap()
 		get_viewport().set_input_as_handled()
 
 
 func _snap() -> void:
+	player.play_action("snap")
+	# Die Erde reagiert erst im Moment des Schnippens (Frame 2 der Animation).
+	await player.wait_for_action_frame(1)
 	var level := get_tree().get_first_node_in_group("level") as Level
 	# Die Zelle direkt vor der Hexe, dort wo auch E wirkt.
 	var cell := Garden.cell_at(player.interaction_area.global_position)

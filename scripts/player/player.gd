@@ -1,6 +1,10 @@
 class_name Player
 extends CharacterBody2D
 
+## Kommt, wenn eine Aktion (Ausgießen, Ernten, Trinken, Schnippen) zu Ende
+## gespielt ist. Wer auf das Ende warten will, nutzt await action_finished.
+signal action_finished(action: String)
+
 # Pixel pro Sekunde. Mit @export lässt sich der Wert im Inspector anpassen,
 # ohne das Script zu öffnen.
 @export var speed: float = 80.0
@@ -25,20 +29,29 @@ var selected_seed: PlantData:
 		return item.plant() if item else null
 
 var _float_time := 0.0
+# Läuft gerade eine Aktion, steht hier ihr Name ("pour", "harvest" …), sonst "".
+var _action := ""
 
 @onready var body_shape: CollisionShape2D = $CollisionShape2D
 @onready var interaction_area: Area2D = $InteractionArea
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var camera: Camera2D = $Camera2D
 @onready var float_sparkles: CPUParticles2D = $FloatSparkles
+@onready var pour_magic: PourMagic = $PourMagic
 
 
 func _ready() -> void:
 	# Damit z. B. das Pausemenü die Hexe findet, ohne ihren Pfad zu kennen.
 	add_to_group("player")
+	animated_sprite.animation_finished.connect(_on_animation_finished)
 
 
 func _physics_process(delta: float) -> void:
+	# Während einer Aktion steht sie still. Die Aktionen sind kurz, deshalb
+	# lohnt sich kein Abbrechen per Laufen.
+	if is_busy():
+		velocity = Vector2.ZERO
+		return
 	# get_vector liefert die Richtung schon normalisiert, damit die Hexe
 	# diagonal nicht schneller läuft als gerade.
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -54,6 +67,32 @@ func _physics_process(delta: float) -> void:
 
 	_update_animation(direction != Vector2.ZERO, floating)
 	_update_float(delta, floating)
+
+
+## Spielt eine Aktion einmal in Blickrichtung ab, z. B. "pour" oder "harvest".
+## Danach geht es von selbst zurück zu idle (siehe _on_animation_finished).
+func play_action(action: String) -> void:
+	_action = action
+	_update_float(0.0, false)
+	animated_sprite.play(action + "_" + _direction_name())
+
+
+## Wartet, bis die laufende Aktion bei diesem Frame (ab 0) angekommen ist,
+## z. B. beim Stoß des Ausgießens. Endet die Aktion vorher, geht es sofort weiter.
+func wait_for_action_frame(frame: int) -> void:
+	while is_busy() and animated_sprite.frame < frame:
+		await animated_sprite.frame_changed
+
+
+## Steht gerade eine Aktion an? Dann wird nicht gelaufen und nichts Neues begonnen.
+func is_busy() -> bool:
+	return _action != ""
+
+
+## Darf sie gerade etwas tun? Nicht beim Schlafen oder Ortswechsel
+## (Steuerung aus) und nicht mitten in einer Aktion.
+func can_act() -> bool:
+	return is_physics_processing() and not is_busy()
 
 
 ## Schaltet Laufen und Interagieren ab, z. B. während sie schläft (später
@@ -74,15 +113,30 @@ func set_controls_enabled(enabled: bool) -> void:
 # wird einfach gespiegelt. Beim Schweben bewegen sich die Beine nicht,
 # deshalb dann die Steh-Pose.
 func _update_animation(is_moving: bool, floating: bool = false) -> void:
-	var direction_name := "side"
-	if facing == Vector2.UP:
-		direction_name = "up"
-	elif facing == Vector2.DOWN:
-		direction_name = "down"
+	# Eine laufende Aktion nicht überschreiben, z. B. wenn beim Ortswechsel
+	# die Steuerung wieder angeht.
+	if is_busy():
+		return
 	animated_sprite.flip_h = facing == Vector2.LEFT
 	# play() mit der laufenden Animation startet sie nicht neu, daher
 	# darf das jeden Frame aufgerufen werden.
-	animated_sprite.play(("walk_" if is_moving and not floating else "idle_") + direction_name)
+	animated_sprite.play(("walk_" if is_moving and not floating else "idle_") + _direction_name())
+
+
+func _direction_name() -> String:
+	if facing == Vector2.UP:
+		return "up"
+	if facing == Vector2.DOWN:
+		return "down"
+	return "side"
+
+
+# Nur die Aktionen laufen ohne Loop, also endet hier immer eine Aktion.
+func _on_animation_finished() -> void:
+	var finished := _action
+	_action = ""
+	_update_animation(false)
+	action_finished.emit(finished)
 
 
 ## Beim Schweben hebt sie ein paar Pixel ab, wippt sanft und hinterlässt
@@ -101,7 +155,7 @@ func _update_float(delta: float, floating: bool) -> void:
 # abgefangen wurden – so interagiert die Hexe später nicht "durch" eine
 # offene Dialogbox hindurch.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact"):
+	if event.is_action_pressed("interact") and not is_busy():
 		var target := find_closest_interactable()
 		if target:
 			target.interact(self)

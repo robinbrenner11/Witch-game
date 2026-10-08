@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" path="res://scenes/player/potion_effects.tscn" id="3_potion_effects"]
 [ext_resource type="Script" path="res://scripts/player/interaction_hint.gd" id="4_hint"]
 [ext_resource type="Script" path="res://scripts/player/earth_magic.gd" id="6_earth_magic"]
+[ext_resource type="Script" path="res://scripts/player/pour_magic.gd" id="7_pour_magic"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_unshaded"]
 light_mode = 1
@@ -66,3 +67,6 @@ script = ExtResource("4_hint")
 
 [node name="EarthMagic" type="Node2D" parent="."]
 script = ExtResource("6_earth_magic")
+
+[node name="PourMagic" type="Node2D" parent="."]
+script = ExtResource("7_pour_magic")

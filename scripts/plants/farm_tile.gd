@@ -45,27 +45,28 @@ func _ready() -> void:
 	_sync_plant()
 
 
-func _on_interactable_interacted(player: Node2D) -> void:
-	if _pour_held_item():
+func _on_interactable_interacted(player: Player) -> void:
+	if _pour_held_item(player):
 		return
 	if not Garden.has_plant(cell):
-		_plant_seed((player as Player).selected_seed)
+		_plant_seed(player.selected_seed)
 	elif Garden.is_ripe(cell):
-		_harvest()
+		_harvest(player)
 	else:
 		_describe_growing_plant()
 
 
 ## Gießt das Item in der Hand aus, falls es dafür gedacht ist (Hexenschlamm,
-## Wachstumstrank, Mondernte). Die Wirkung steht in den Item-Daten. Wächst
-## nichts, bleibt das Item erhalten und E macht das Übliche (z. B. ernten).
-func _pour_held_item() -> bool:
+## Wachstumstrank, Mondernte). Die Wirkung steht in den Item-Daten und tritt
+## erst nach dem Zauber ein (PourMagic). Wächst nichts, bleibt das Item
+## erhalten und E macht das Übliche (z. B. ernten).
+func _pour_held_item(player: Player) -> bool:
 	var item := ItemData.from_id(Inventory.selected_item_id())
 	if item == null or item.use != ItemData.Use.POUR:
 		return false
-	if not Garden.grow_area(cell, item.pour_radius, item.pour_stages):
+	if not Garden.can_grow_area(cell, item.pour_radius):
 		return false
-	Inventory.remove(item.id)
+	player.pour_magic.pour(item, cell)
 	return true
 
 
@@ -78,11 +79,16 @@ func _plant_seed(seed_data: PlantData) -> void:
 	Journal.complete_goal("plant")
 
 
-func _harvest() -> void:
+func _harvest(player: Player) -> void:
 	var data := Garden.plant_data_at(cell)
 	# Bei vollem Inventar bleibt die Pflanze einfach stehen statt zu verschwinden.
-	if not Inventory.add(data.harvest_item_id):
+	if not Inventory.has_room_for(data.harvest_item_id):
 		Messages.post("Kein Platz mehr in der Tasche.")
+		return
+	player.play_action("harvest")
+	# Die Pflanze verschwindet erst, wenn die Hexe sie herauszieht (Frame 3).
+	await player.wait_for_action_frame(2)
+	if not Garden.is_ripe(cell) or not Inventory.add(data.harvest_item_id):
 		return
 	# Ist das Inventar genau jetzt voll geworden, gehen die Samen verloren –
 	# die Ernte selbst ist wichtiger.

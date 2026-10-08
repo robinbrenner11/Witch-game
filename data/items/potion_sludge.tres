@@ -12,3 +12,4 @@ type = 2
 description = "Riecht nach Keller. Die Pflanzen lieben es."
 use = 2
 pour_radius = 0
+pour_color = Color(0.541176, 0.321569, 0.25098, 1)

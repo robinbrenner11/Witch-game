@@ -13,3 +13,4 @@ description = "Der Mond hat es eilig heute Nacht."
 use = 2
 pour_radius = 1
 pour_stages = 99
+pour_color = Color(0.85098, 0.643137, 0.254902, 1)
