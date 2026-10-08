@@ -119,6 +119,12 @@ func moon_phase_name() -> String:
 	return MOON_PHASE_NAMES[moon_phase()]
 
 
+## Zählt die Mondzyklen (je 8 Nächte), z. B. damit Mondmoos pro Vollmond
+## nur einmal gepflückt werden kann.
+func moon_cycle() -> int:
+	return (day - 1 + FIRST_NIGHT_MOON_PHASE) / MOON_PHASE_NAMES.size()
+
+
 func is_full_moon() -> bool:
 	return moon_phase() == FULL_MOON
 

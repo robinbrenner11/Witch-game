@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/forage.gd" id="1_forage"]
+[ext_resource type="Texture2D" path="res://assets/environment/forage/forage_berries.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/environment/forage/forage_berries_glow.png" id="3_glow"]
+[ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_36x9.png" id="4_shadow"]
+[ext_resource type="Texture2D" path="res://assets/environment/forage/forage_berries_picked.png" id="5_picked"]
+
+[node name="DuskBerryBush" type="Node2D"]
+script = ExtResource("1_forage")
+texture = ExtResource("2_tex")
+frame_count = 4
+fps = 2.0
+glow_texture = ExtResource("3_glow")
+collision_size = Vector2(20, 8)
+shadow_texture = ExtResource("4_shadow")
+shadow_offset = Vector2(2, 1)
+drop_item_id = "dusk_berries"
+picked_texture = ExtResource("5_picked")
+regrow_nights = 4
+not_ready_message = "An diesem Strauch hängen gerade keine Beeren."

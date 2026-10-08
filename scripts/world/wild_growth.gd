@@ -7,8 +7,13 @@ extends Node
 ## Plätze für Neues. Ein Ort kann mehrere davon haben, je einen pro Sorte
 ## von Dingen mit eigenen Regeln.
 ##
-## Die Objekte (Szenen in kinds) brauchen ein Signal "collected", das kommt,
-## wenn sie eingesammelt sind (siehe weed.gd).
+## Die Objekte (Szenen in kinds) melden mit dem Signal "collected", dass sie
+## eingesammelt und weg sind (siehe weed.gd, forage.gd). Haben sie die
+## Variablen wild_place und wild_id, bekommen sie die mit, um ihren eigenen
+## Zustand in Wilds zu lesen (z. B. Beerenstrauch gepflückt).
+
+# Wie Neues entsteht, siehe Wilds.MODES.
+enum Regrow { STEADY, RESPAWN, CHANCE, NONE }
 
 # Unter diesem Namen merkt sich Wilds den Zustand, zusammen mit dem Ort.
 @export var group: String = "weeds"
@@ -21,8 +26,13 @@ extends Node
 @export var start_clusters: int = 3
 # Mehr Einzelstücke wachsen nie gleichzeitig.
 @export var max_count: int = 24
-# So viele Nächte nach dem letzten Einsammeln wächst nichts nach.
+@export var regrow: Regrow = Regrow.STEADY
+# STEADY: So viele Nächte nach dem letzten Einsammeln wächst nichts nach.
 @export var pause_nights: int = 1
+# RESPAWN: Nach so vielen Nächten kommt ein eingesammeltes Stück woanders wieder.
+@export var respawn_nights: int = 3
+# CHANCE: Wahrscheinlichkeit pro Nacht für ein neues Stück.
+@export_range(0.0, 1.0) var chance: float = 0.25
 # Nur auf diesen Böden (Terrain-Nummern im Ground-TileSet: 6 Erde, 7 Waldboden,
 # 8 Wiese). Pfad (2) ist absichtlich nicht dabei.
 @export var terrains: Array[int] = [6, 7, 8]
@@ -42,7 +52,10 @@ func _ready() -> void:
 	_level = get_parent() as Level
 	_place = "%s/%s" % [_level.scene_file_path.get_file().get_basename(), group]
 	var first_visit := not Wilds.is_known(_place)
-	Wilds.register(_place, max_count, pause_nights)
+	Wilds.register(_place, {
+		"mode": Wilds.MODES[regrow], "max": max_count, "pause": pause_nights,
+		"respawn_nights": respawn_nights, "chance": chance,
+	})
 	# Warten, bis der Ort fertig aufgebaut ist (Beete, Deko), sonst sind die
 	# freien Plätze noch nicht bekannt.
 	await get_tree().process_frame
@@ -107,6 +120,9 @@ func _spawn(id: String, scene: PackedScene, at: Vector2) -> void:
 	node.add_to_group("wild")
 	if "flip" in node:
 		node.flip = randf() < 0.5
+	if "wild_id" in node:
+		node.wild_place = _place
+		node.wild_id = id
 	node.collected.connect(func() -> void: Wilds.remove_item(_place, id))
 	_level.objects.add_child(node)
 

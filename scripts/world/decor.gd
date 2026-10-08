@@ -54,6 +54,7 @@ const LIGHT_TEXTURE := preload("res://assets/effects/lights/light_round_64.png")
 @export var light_flicker: float = 0.0
 
 var sprite: AnimatedSprite2D
+var glow_sprite: AnimatedSprite2D
 
 
 func _ready() -> void:
@@ -62,7 +63,7 @@ func _ready() -> void:
 	_add_shadow()
 	sprite = _add_sprite(texture, false)
 	if glow_texture:
-		_add_sprite(glow_texture, true)
+		glow_sprite = _add_sprite(glow_texture, true)
 	_add_collision()
 	_add_light()
 

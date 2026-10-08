@@ -33,6 +33,10 @@
 [ext_resource type="PackedScene" path="res://scenes/world/wild/wild_grass_3.tscn" id="w_wild_grass_3"]
 [ext_resource type="PackedScene" path="res://scenes/world/wild/weed_thistle.tscn" id="w_weed_thistle"]
 [ext_resource type="PackedScene" path="res://scenes/world/wild/weed_dock.tscn" id="w_weed_dock"]
+[ext_resource type="PackedScene" path="res://scenes/world/wild/ember_morel.tscn" id="w_ember_morel"]
+[ext_resource type="PackedScene" path="res://scenes/world/wild/dusk_berry_bush.tscn" id="w_dusk_berry_bush"]
+[ext_resource type="PackedScene" path="res://scenes/world/wild/owl_feather.tscn" id="w_owl_feather"]
+[ext_resource type="PackedScene" path="res://scenes/world/wild/moonmoss.tscn" id="w_moonmoss"]
 
 [node name="Forest" type="Node2D"]
 script = ExtResource("1_level")
@@ -631,6 +635,54 @@ kinds = Array[PackedScene]([ExtResource("w_wild_grass_1"), ExtResource("w_wild_g
 start_clusters = 4
 max_count = 32
 terrains = Array[int]([7, 8])
+
+[node name="WildMorels" type="Node" parent="."]
+script = ExtResource("w_script")
+group = "morels"
+kinds = Array[PackedScene]([ExtResource("w_ember_morel")])
+cluster_size = Vector2i(1, 1)
+start_clusters = 3
+max_count = 4
+regrow = 1
+respawn_nights = 3
+terrains = Array[int]([7])
+clearance = 22.0
+
+[node name="WildBerries" type="Node" parent="."]
+script = ExtResource("w_script")
+group = "berries"
+kinds = Array[PackedScene]([ExtResource("w_dusk_berry_bush")])
+cluster_size = Vector2i(1, 1)
+start_clusters = 2
+max_count = 3
+regrow = 2
+chance = 0.12
+terrains = Array[int]([7, 8])
+clearance = 30.0
+
+[node name="WildFeathers" type="Node" parent="."]
+script = ExtResource("w_script")
+group = "feathers"
+kinds = Array[PackedScene]([ExtResource("w_owl_feather")])
+cluster_size = Vector2i(1, 1)
+start_clusters = 1
+max_count = 2
+regrow = 2
+chance = 0.25
+terrains = Array[int]([7, 8])
+area = Rect2(688, 448, 176, 112)
+clearance = 14.0
+
+[node name="WildMoss" type="Node" parent="."]
+script = ExtResource("w_script")
+group = "moss"
+kinds = Array[PackedScene]([ExtResource("w_moonmoss")])
+cluster_size = Vector2i(1, 1)
+start_clusters = 3
+max_count = 3
+regrow = 3
+terrains = Array[int]([8])
+clearance = 28.0
 
 [node name="ToGarden" parent="." instance=ExtResource("3_exit")]
 position = Vector2(528, 16)
