@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/decor/shelter_rug.tscn" id="d_shelter_rug"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/shelter_shelf.tscn" id="d_shelter_shelf"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/shelter_stove.tscn" id="d_shelter_stove"]
+[ext_resource type="PackedScene" path="res://scenes/world/moth.tscn" id="f_moth"]
 
 [node name="Shelter" type="Node2D"]
 script = ExtResource("1_level")
@@ -100,6 +101,9 @@ position = Vector2(128, 29)
 
 [node name="Jar2" parent="Objects" instance=ExtResource("d_shelter_jar")]
 position = Vector2(168, 28)
+
+[node name="MothCandles" parent="." instance=ExtResource("f_moth")]
+position = Vector2(122, 90)
 
 [node name="ToGarden" parent="." instance=ExtResource("7_exit")]
 position = Vector2(160, 244)

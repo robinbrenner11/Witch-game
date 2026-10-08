@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/toad.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_18x5.png" id="2_shadow"]
+
+[node name="Toad" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+z_index = -5
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(1, 1)
+texture = ExtResource("2_shadow")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

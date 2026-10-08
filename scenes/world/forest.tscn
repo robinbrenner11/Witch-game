@@ -25,6 +25,8 @@
 [ext_resource type="PackedScene" path="res://scenes/world/decor/tree_fir.tscn" id="o19_tree_fir"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/tree_oak.tscn" id="o20_tree_oak"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/tree_willow.tscn" id="o21_tree_willow"]
+[ext_resource type="PackedScene" path="res://scenes/world/moth.tscn" id="f_moth"]
+[ext_resource type="PackedScene" path="res://scenes/world/bat_flyer.tscn" id="f_bat_flyer"]
 
 [node name="Forest" type="Node2D"]
 script = ExtResource("1_level")
@@ -605,6 +607,17 @@ position = Vector2(1048, 760)
 
 [node name="TreeWillow1" parent="Objects/Decor" instance=ExtResource("o21_tree_willow")]
 position = Vector2(880, 384)
+
+[node name="Moth1" parent="Fireflies" instance=ExtResource("f_moth")]
+position = Vector2(647, 92)
+
+[node name="Moth2" parent="Fireflies" instance=ExtResource("f_moth")]
+position = Vector2(564, 484)
+
+[node name="Moth3" parent="Fireflies" instance=ExtResource("f_moth")]
+position = Vector2(970, 311)
+
+[node name="BatFlyer" parent="." instance=ExtResource("f_bat_flyer")]
 
 [node name="ToGarden" parent="." instance=ExtResource("3_exit")]
 position = Vector2(528, 16)

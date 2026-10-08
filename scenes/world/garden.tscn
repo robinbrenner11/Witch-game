@@ -34,6 +34,9 @@
 [ext_resource type="PackedScene" path="res://scenes/world/decor/flowers_moon.tscn" id="d17_flowers_moon"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/flowers_ember.tscn" id="d18_flowers_ember"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/flowers_blood.tscn" id="d19_flowers_blood"]
+[ext_resource type="PackedScene" path="res://scenes/world/moth.tscn" id="f_moth"]
+[ext_resource type="PackedScene" path="res://scenes/world/toad.tscn" id="f_toad"]
+[ext_resource type="PackedScene" path="res://scenes/world/bat_flyer.tscn" id="f_bat_flyer"]
 
 [node name="Garden" type="Node2D"]
 script = ExtResource("1_level")
@@ -279,6 +282,23 @@ position = Vector2(752, 222)
 position = Vector2(690, 250)
 
 [node name="NightshadeDomes" parent="." instance=ExtResource("7_domes")]
+
+[node name="MothFire1" parent="Fireflies" instance=ExtResource("f_moth")]
+position = Vector2(944, 316)
+
+[node name="MothFire2" parent="Fireflies" instance=ExtResource("f_moth")]
+position = Vector2(946, 312)
+
+[node name="MothLantern1" parent="Fireflies" instance=ExtResource("f_moth")]
+position = Vector2(764, 54)
+
+[node name="MothLantern2" parent="Fireflies" instance=ExtResource("f_moth")]
+position = Vector2(762, 50)
+
+[node name="Toad" parent="Objects" instance=ExtResource("f_toad")]
+position = Vector2(600, 500)
+
+[node name="BatFlyer" parent="." instance=ExtResource("f_bat_flyer")]
 
 [node name="ToShelter" parent="." instance=ExtResource("10_exit")]
 position = Vector2(816, 128)
