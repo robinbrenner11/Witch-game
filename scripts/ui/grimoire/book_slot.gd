@@ -1,27 +1,30 @@
-class_name RecipeSlot
+class_name BookSlot
 extends Control
 
-## Ein Platz im Rezept-Raster. Feste Plätze, auch leere bleiben sichtbar
-## (gepunktet). Zustände: unbekannt (?), angedeutet (Silhouette mit ~),
-## bekannt (Trank). Ein goldenes Quadrat heißt: alle Zutaten sind da.
+## Ein Platz in einem Raster des Grimoire (Rezepte, Herbarium, Digitalis,
+## People). Feste Plätze, auch leere bleiben sichtbar (gepunktet).
+## Zustände: unbekannt (?), angedeutet (Silhouette mit ~), bekannt (Bild).
+## Ein goldenes Quadrat markiert etwas Besonderes, bei Rezepten "alle
+## Zutaten sind da". Neues glimmt magenta, bis es angesehen wurde.
 
-signal chosen(slot: RecipeSlot)
+signal chosen(slot: BookSlot)
 
 enum State { EMPTY, UNKNOWN, HINTED, KNOWN }
 
 const UNKNOWN_ICON := preload("res://assets/ui/brew_unknown.png")
 
-var recipe: RecipeData
+# Was der Platz zeigt (RecipeData, EntryData …); das Raster weiß, was es ist.
+var data: Variant
+# Das Bild des Eintrags. Der Platz hält die Textur selbst fest: draw_texture
+# merkt sich nur einen Verweis für die Grafikkarte, und würde die Datei mit
+# dem Bild freigegeben, erschiene ein weißes Quadrat.
+var icon: Texture2D
 var state := State.EMPTY
 var selected := false
-var ready_to_brew := false
+var marked := false
 var is_new := false
 
 var _time := 0.0
-# Das Feld hält seine Textur selbst fest. draw_texture merkt sich nur einen
-# Verweis für die Grafikkarte; würde die Item-Datei mitsamt Icon freigegeben,
-# erschiene statt des Tranks ein weißes Quadrat.
-var _icon: Texture2D
 
 
 func _ready() -> void:
@@ -55,19 +58,15 @@ func _draw() -> void:
 		State.UNKNOWN:
 			draw_texture(UNKNOWN_ICON, icon_pos)
 		State.HINTED:
-			# Silhouette: der Trank, ganz in Tinte getaucht.
-			draw_texture(_potion_icon(), icon_pos, Color(BookStyle.AUBERGINE, 0.7))
+			# Silhouette: das Bild, ganz in Tinte getaucht.
+			if icon:
+				draw_texture(icon, icon_pos, Color(BookStyle.AUBERGINE, 0.7))
 			draw_string(get_theme_default_font(), Vector2(size.x - 7, 9), "~", HORIZONTAL_ALIGNMENT_LEFT, -1, 16, BookStyle.MAGENTA)
 		State.KNOWN:
-			draw_texture(_potion_icon(), icon_pos)
-	if ready_to_brew:
+			if icon:
+				draw_texture(icon, icon_pos)
+	if marked:
 		draw_rect(Rect2(size.x - 5, 2, 3, 3), BookStyle.GOLD)
 	if is_new:
 		var pulse := 0.5 + 0.5 * sin(_time * 4.0)
 		BookStyle.draw_frame(self, rect, Color(BookStyle.MAGENTA, 0.3 + 0.7 * pulse))
-
-
-func _potion_icon() -> Texture2D:
-	if _icon == null:
-		_icon = Inventory.icon_for(recipe.result_item_id)
-	return _icon

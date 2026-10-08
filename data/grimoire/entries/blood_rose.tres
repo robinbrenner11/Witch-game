@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "blood_rose"
+page_group = "garden"
+order = 4
+title_key = "ITEM_CROP_BLOOD_ROSE"
+item_ids = Array[String](["crop_blood_rose", "seed_blood_rose"])
+discover_on = "plant/blood_rose"
+facts = Array[String](["ENTRY_BLOOD_ROSE_1", "ENTRY_BLOOD_ROSE_2", "ENTRY_BLOOD_ROSE_3"])
+fact_triggers = Array[String](["", "harvest/blood_rose:1", "harvest/blood_rose:5"])

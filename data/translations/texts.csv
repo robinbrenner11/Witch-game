@@ -207,3 +207,48 @@ BOOK_MOON_CONDITION,Only beneath a %s.,Nur unter einem %s.
 BOOK_NOTHING_TO_RESTORE,No page is waiting here.,Hier wartet keine Seite.
 BOOK_FRAGMENTS,%d of %d pieces,%d von %d Stücken
 BOOK_PATH_CHANGE,Change path (%s),Pfad wechseln (%s)
+ENTRY_MANDRAKE_1,A root with a face. It hums when the moon is low.,"Eine Wurzel mit Gesicht. Sie summt, wenn der Mond tief steht."
+ENTRY_MANDRAKE_2,Ripe after a few nights. Pull it quickly.,Nach ein paar Nächten reif. Schnell herausziehen.
+ENTRY_MANDRAKE_3,Pairs with Ghost Fern for growth.,Mit Geisterfarn wird daraus Wachstum.
+ENTRY_GHOST_FERN_1,Pale fronds that seem to step aside when you pass.,"Blasse Wedel, die zur Seite zu treten scheinen, wenn du vorbeigehst."
+ENTRY_GHOST_FERN_2,"Grows from spores, not seeds.","Wächst aus Sporen, nicht aus Samen."
+ENTRY_GHOST_FERN_3,Lends its patience to growth potions.,Leiht Wachstumstränken seine Geduld.
+ENTRY_LANTERN_BERRY_1,Berries that keep a little warmth inside.,"Beeren, die ein wenig Wärme in sich tragen."
+ENTRY_LANTERN_BERRY_2,They glow faintly once ripe.,Reif glimmen sie leicht.
+ENTRY_LANTERN_BERRY_3,"With nightshade, it makes a light that follows you.","Mit Nachtschatten wird daraus ein Licht, das dir folgt."
+ENTRY_NIGHTSHADE_1,"Dark petals, darker intentions.","Dunkle Blüten, dunklere Absichten."
+ENTRY_NIGHTSHADE_2,"When it blooms, its neighbours stop growing.","Wenn sie blüht, hören ihre Nachbarn auf zu wachsen."
+ENTRY_NIGHTSHADE_3,"Its dome is a warning, not a curse.","Ihre Kuppel ist eine Warnung, kein Fluch."
+ENTRY_BLOOD_ROSE_1,Bordeaux petals with a magenta heart.,Bordeauxrote Blüten mit magentafarbenem Herz.
+ENTRY_BLOOD_ROSE_2,"Thorny, slow and stubborn.","Dornig, langsam und stur."
+ENTRY_BLOOD_ROSE_3,"Brewed right, it holds the night still.","Richtig gebraut, hält sie die Nacht fest."
+ENTRY_MOON_CHALICE_1,A cup that waits for the sky.,"Ein Kelch, der auf den Himmel wartet."
+ENTRY_MOON_CHALICE_2,Only the full moon ripens it.,Nur der Vollmond macht ihn reif.
+ENTRY_MOON_CHALICE_3,Magic cannot hurry it.,Magie kann ihn nicht drängen.
+ENTRY_EMBER_MOREL_1,Warm caps that smell of smoke.,"Warme Hüte, die nach Rauch riechen."
+ENTRY_EMBER_MOREL_2,They grow under old trees and return after three nights.,Sie wachsen unter alten Bäumen und kommen nach drei Nächten wieder.
+ENTRY_EMBER_MOREL_3,Someone surely brews fire with them.,Irgendwer braut damit bestimmt Feuer.
+ENTRY_DUSK_BERRIES_1,Pale blue and cool as the evening.,Blassblau und kühl wie der Abend.
+ENTRY_DUSK_BERRIES_2,A bush bears again after four nights.,Ein Strauch trägt nach vier Nächten wieder.
+ENTRY_DUSK_BERRIES_3,Someone in the woods loves them.,Jemand im Wald liebt sie.
+ENTRY_OWL_FEATHER_1,Black with a violet sheen.,Schwarz mit violettem Schimmer.
+ENTRY_OWL_FEATHER_2,Found only near the owl's tree.,Nur in der Nähe des Eulenbaums zu finden.
+ENTRY_OWL_FEATHER_3,Old pages ask for feathers like these.,Alte Seiten verlangen nach solchen Federn.
+ENTRY_MOONMOSS_1,Silver tips on old stones.,Silberne Spitzen auf alten Steinen.
+ENTRY_MOONMOSS_2,Each stone gives once per moon.,Jeder Stein gibt einmal pro Mond.
+ENTRY_MOONMOSS_3,Its light keeps in a bottle.,Sein Licht hält sich in einer Flasche.
+ENTRY_WILD_HERB_1,Grows where no one looks.,"Wächst, wo niemand hinsieht."
+ENTRY_WILD_HERB_2,"It comes back slowly, in clumps.","Es kommt langsam wieder, in Büscheln."
+ENTRY_WILD_HERB_3,"Bitter, but the cauldron does not mind.","Bitter, aber den Kessel stört das nicht."
+MSG_ENTRY_DISCOVERED,New in the herbarium: %s.,Neu im Herbarium: %s.
+MSG_PAGE_COMPLETE,A page of the herbarium is complete.,Eine Seite im Herbarium ist vollständig.
+BOOK_GROUP_GARDEN,Garden,Garten
+BOOK_GROUP_WOODS,Woods,Wald
+BOOK_ENTRY_UNKNOWN,Not yet discovered.,Noch nicht entdeckt.
+DIGITALIS_STAFF,Staff,Stab
+DIGITALIS_SICKLE,Sickle,Sichel
+DIGITALIS_THORNWHIP,Thornwhip,Dornenpeitsche
+DIGITALIS_ROOTMAUL,Rootmaul,Wurzelhammer
+DIGITALIS_STAFF_HINT,Something in the garden is still waiting for you.,Etwas im Garten wartet noch auf dich.
+DIGITALIS_GNARL_HINT,Gnarl knows more.,Gnarl weiß mehr.
+PEOPLE_NOT_MET,No one has crossed your path yet.,Noch hat niemand deinen Weg gekreuzt.

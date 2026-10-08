@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "dusk_berries"
+page_group = "woods"
+order = 7
+title_key = "ITEM_DUSK_BERRIES"
+item_ids = Array[String](["dusk_berries"])
+discover_on = "forage/dusk_berries"
+facts = Array[String](["ENTRY_DUSK_BERRIES_1", "ENTRY_DUSK_BERRIES_2", "ENTRY_DUSK_BERRIES_3"])
+fact_triggers = Array[String](["", "forage/dusk_berries:2", "forage/dusk_berries:5"])

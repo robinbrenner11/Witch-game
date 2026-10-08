@@ -31,12 +31,12 @@ static func seen_key(recipe: RecipeData) -> String:
 	return "recipe/" + recipe.result_item_id
 
 
-static func state_of(recipe: RecipeData) -> RecipeSlot.State:
+static func state_of(recipe: RecipeData) -> BookSlot.State:
 	if Grimoire.knows_recipe(recipe):
-		return RecipeSlot.State.KNOWN
+		return BookSlot.State.KNOWN
 	if not Grimoire.hinted_ingredients(recipe.result_item_id).is_empty():
-		return RecipeSlot.State.HINTED
-	return RecipeSlot.State.UNKNOWN
+		return BookSlot.State.HINTED
+	return BookSlot.State.UNKNOWN
 
 
 ## Wofür der Trank ist; bestimmt den Filter. Werfen und Geschenk kommen mit
@@ -58,7 +58,7 @@ static func is_ready(recipe: RecipeData) -> bool:
 
 func has_new() -> bool:
 	for recipe in sorted_recipes():
-		if state_of(recipe) != RecipeSlot.State.UNKNOWN and not Grimoire.is_seen(seen_key(recipe)):
+		if state_of(recipe) != BookSlot.State.UNKNOWN and not Grimoire.is_seen(seen_key(recipe)):
 			return true
 	return false
 
@@ -69,17 +69,17 @@ func build(left: Control, right: Control) -> void:
 		selected = _first_interesting(recipes)
 	_build_index(left, recipes)
 	_build_detail(right, selected)
-	if selected and state_of(selected) != RecipeSlot.State.UNKNOWN:
+	if selected and state_of(selected) != BookSlot.State.UNKNOWN:
 		Grimoire.mark_seen(seen_key(selected))
 
 
 ## Am liebsten etwas Neues, sonst das erste bekannte Rezept.
 func _first_interesting(recipes: Array[RecipeData]) -> RecipeData:
 	for recipe in recipes:
-		if state_of(recipe) != RecipeSlot.State.UNKNOWN and not Grimoire.is_seen(seen_key(recipe)):
+		if state_of(recipe) != BookSlot.State.UNKNOWN and not Grimoire.is_seen(seen_key(recipe)):
 			return recipe
 	for recipe in recipes:
-		if state_of(recipe) == RecipeSlot.State.KNOWN:
+		if state_of(recipe) == BookSlot.State.KNOWN:
 			return recipe
 	return recipes[0] if not recipes.is_empty() else null
 
@@ -87,7 +87,7 @@ func _first_interesting(recipes: Array[RecipeData]) -> RecipeData:
 # --- Linke Seite: Raster -------------------------------------------------------
 
 func _build_index(page: Control, recipes: Array[RecipeData]) -> void:
-	var known := recipes.filter(func(r: RecipeData) -> bool: return state_of(r) == RecipeSlot.State.KNOWN).size()
+	var known := recipes.filter(func(r: RecipeData) -> bool: return state_of(r) == BookSlot.State.KNOWN).size()
 	var header := HBoxContainer.new()
 	header.add_child(BookStyle.label(chapter.title_key, BookStyle.INK_VESPERA_TITLE))
 	var spacer := Control.new()
@@ -116,18 +116,20 @@ func _build_index(page: Control, recipes: Array[RecipeData]) -> void:
 	grid.add_theme_constant_override("h_separation", 4)
 	grid.add_theme_constant_override("v_separation", 4)
 	for i in maxi(MIN_SLOTS, ceili(recipes.size() / float(COLUMNS)) * COLUMNS):
-		var slot := RecipeSlot.new()
+		var slot := BookSlot.new()
 		if i < recipes.size():
 			var recipe := recipes[i]
-			slot.recipe = recipe
+			slot.data = recipe
+			slot.icon = Inventory.icon_for(recipe.result_item_id)
 			slot.state = state_of(recipe)
 			slot.selected = recipe == selected
-			slot.ready_to_brew = slot.state == RecipeSlot.State.KNOWN and is_ready(recipe)
-			slot.is_new = slot.state != RecipeSlot.State.UNKNOWN and not Grimoire.is_seen(seen_key(recipe))
+			# Goldenes Quadrat: alle Zutaten liegen bereit ("ready to brew").
+			slot.marked = slot.state == BookSlot.State.KNOWN and is_ready(recipe)
+			slot.is_new = slot.state != BookSlot.State.UNKNOWN and not Grimoire.is_seen(seen_key(recipe))
 			if filter != "all" and category_of(recipe) != filter:
 				slot.modulate.a = 0.3
-			slot.chosen.connect(func(s: RecipeSlot) -> void:
-				selected = s.recipe
+			slot.chosen.connect(func(s: BookSlot) -> void:
+				selected = s.data
 				book.refresh())
 		grid.add_child(slot)
 	page.add_child(grid)
@@ -140,7 +142,7 @@ func _build_detail(page: Control, recipe: RecipeData) -> void:
 		return
 	var state := state_of(recipe)
 	var potion := ItemData.from_id(recipe.result_item_id)
-	if state != RecipeSlot.State.KNOWN:
+	if state != BookSlot.State.KNOWN:
 		_build_unknown(page, recipe, state)
 		return
 	# Selbst erbraut steht es in der Tinte der Spielerin, gelesen in Vesperas.
@@ -161,7 +163,7 @@ func _build_detail(page: Control, recipe: RecipeData) -> void:
 
 	if not missing.is_empty():
 		var link := BookStyle.text_button(tr("BOOK_MISSING") % Inventory.display_name_for(missing[0]) + " >", BookStyle.MISSING)
-		link.pressed.connect(func() -> void: book.go_to("herbarium"))
+		link.pressed.connect(func() -> void: book.show_item_entry(missing[0]))
 		page.add_child(link)
 
 	var result := HBoxContainer.new()
@@ -190,7 +192,7 @@ func _ingredient_row(item_id: String, have: int, need: int) -> Control:
 	var row := HBoxContainer.new()
 	row.add_child(BookStyle.icon(Inventory.icon_for(item_id)))
 	var name := BookStyle.text_button(Inventory.display_name_for(item_id), BookStyle.INK)
-	name.pressed.connect(func() -> void: book.go_to("herbarium"))
+	name.pressed.connect(func() -> void: book.show_item_entry(item_id))
 	row.add_child(name)
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -200,7 +202,7 @@ func _ingredient_row(item_id: String, have: int, need: int) -> Control:
 	return row
 
 
-func _build_unknown(page: Control, recipe: RecipeData, state: RecipeSlot.State) -> void:
+func _build_unknown(page: Control, recipe: RecipeData, state: BookSlot.State) -> void:
 	page.add_child(BookStyle.heading("???", BookStyle.INK_FAINT, text_width))
 	var hinted := Grimoire.hinted_ingredients(recipe.result_item_id)
 	var row := HBoxContainer.new()
@@ -208,10 +210,10 @@ func _build_unknown(page: Control, recipe: RecipeData, state: RecipeSlot.State) 
 		if hinted.has(item_id):
 			row.add_child(BookStyle.icon(Inventory.icon_for(item_id)))
 		else:
-			row.add_child(BookStyle.icon(RecipeSlot.UNKNOWN_ICON))
+			row.add_child(BookStyle.icon(BookSlot.UNKNOWN_ICON))
 	page.add_child(row)
 	page.add_child(BookStyle.label("BOOK_UNDISCOVERED", BookStyle.INK_FAINT, text_width))
-	if state == RecipeSlot.State.HINTED:
+	if state == BookSlot.State.HINTED:
 		page.add_child(BookStyle.label("BOOK_RUMOR", BookStyle.INK_PLAYER, text_width))
 
 

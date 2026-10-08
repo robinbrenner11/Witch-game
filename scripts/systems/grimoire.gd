@@ -36,6 +36,11 @@ var _firsts: Dictionary = {}
 var _taught: Array[String] = []
 # Aktion -> wie oft heute Nacht schon. Wird beim Schlafen geleert.
 var _repeats: Dictionary = {}
+# "Aktion/Sache" -> wie oft insgesamt. Daraus ergibt sich, welche Einträge im
+# Herbarium entdeckt und welche Fakten aufgedeckt sind.
+var _counts: Dictionary = {}
+# Seitengruppen (Herbarium), deren Belohnung es schon gab.
+var _completed_groups: Array[String] = []
 
 
 func _ready() -> void:
@@ -182,6 +187,8 @@ func report(action: String, details: Dictionary = {}) -> void:
 	var first_key := action + "/" + subject
 	var count := int(_repeats.get(action, 0)) + 1
 	_repeats[action] = count
+	var was_discovered := _discovered_ids()
+	_counts[first_key] = int(_counts.get(first_key, 0)) + 1
 	for discipline: DisciplineData in DisciplineData.all().values():
 		var gained := 0
 		if discipline.xp_small.has(action):
@@ -191,6 +198,11 @@ func report(action: String, details: Dictionary = {}) -> void:
 		if gained > 0:
 			add_xp(discipline.id, gained)
 	_firsts[first_key] = true
+	for entry in EntryData.all():
+		if entry.discover_on == first_key and not was_discovered.has(entry.id):
+			Messages.post(tr("MSG_ENTRY_DISCOVERED") % tr(entry.title_key))
+	_check_completed_groups()
+	changed.emit()
 
 
 func _repeat_factor(discipline: DisciplineData, count: int) -> float:
@@ -275,6 +287,64 @@ func choose_path(path: PathData) -> void:
 		_paths[path.discipline_id] = {}
 	_paths[path.discipline_id][str(path.level)] = path.id
 	changed.emit()
+
+
+# --- Herbarium und Bestiary ------------------------------------------------------
+
+func count_of(event: String) -> int:
+	return int(_counts.get(event, 0))
+
+
+func is_discovered(entry: EntryData) -> bool:
+	return count_of(entry.discover_on) > 0
+
+
+## Wie viele Fakten des Eintrags aufgedeckt sind. Fakten decken sich der Reihe
+## nach auf; ein Auslöser "Aktion/Sache:Anzahl" zählt, sobald so oft passiert.
+func revealed_facts(entry: EntryData) -> int:
+	if not is_discovered(entry):
+		return 0
+	var revealed := 0
+	for i in entry.facts.size():
+		var trigger := entry.fact_triggers[i] if i < entry.fact_triggers.size() else ""
+		if trigger != "":
+			var parts := trigger.split(":")
+			var needed := int(parts[1]) if parts.size() > 1 else 1
+			if count_of(parts[0]) < needed:
+				break
+		revealed += 1
+	return revealed
+
+
+func is_entry_complete(entry: EntryData) -> bool:
+	return revealed_facts(entry) >= entry.facts.size()
+
+
+func is_group_complete(chapter_id: String, group: String) -> bool:
+	for entry in EntryData.in_chapter(chapter_id):
+		if entry.page_group == group and not is_entry_complete(entry):
+			return false
+	return true
+
+
+func _discovered_ids() -> Array[String]:
+	var result: Array[String] = []
+	for entry in EntryData.all():
+		if is_discovered(entry):
+			result.append(entry.id)
+	return result
+
+
+## Volle Seiten im Herbarium bringen einmal ihre Belohnung.
+func _check_completed_groups() -> void:
+	for entry in EntryData.all():
+		var key := entry.chapter + "/" + entry.page_group
+		if entry.page_reward == null or _completed_groups.has(key):
+			continue
+		if is_group_complete(entry.chapter, entry.page_group):
+			_completed_groups.append(key)
+			_apply_reward(entry.page_reward)
+			Messages.post(tr("MSG_PAGE_COMPLETE"))
 
 
 ## Pfadwechsel am Lesepult: kostet seltene Items (respec_cost des Pfads).
@@ -365,7 +435,8 @@ func get_save_data() -> Dictionary:
 	return {
 		"has_book": has_book, "goals": _done_goals, "pages": _pages,
 		"hints": _hints, "seen": _seen, "xp": _xp, "paths": _paths,
-		"firsts": _firsts, "taught": _taught,
+		"firsts": _firsts, "taught": _taught, "counts": _counts,
+		"completed_groups": _completed_groups,
 	}
 
 
@@ -379,5 +450,7 @@ func load_save_data(data: Dictionary) -> void:
 	_paths = data.get("paths", {}).duplicate(true)
 	_firsts = data.get("firsts", {}).duplicate(true)
 	_taught.assign(data.get("taught", []))
+	_counts = data.get("counts", {}).duplicate(true)
+	_completed_groups.assign(data.get("completed_groups", []))
 	_repeats.clear()
 	changed.emit()

@@ -108,6 +108,14 @@ func go_to(chapter_id: String) -> void:
 	refresh()
 
 
+## Zum Herbarium-Eintrag einer Zutat (Klick im Rezept).
+func show_item_entry(item_id: String) -> void:
+	go_to("herbarium")
+	var spread := _spread_for(_chapters[_index])
+	if spread is SpreadHerbarium:
+		(spread as SpreadHerbarium).select_item(item_id)
+
+
 ## Baut die Doppelseite neu auf, am Ende des Frames: So darf ein Knopf auf
 ## der Seite das auslösen, ohne sich selbst mitten im Klick zu löschen.
 func refresh() -> void:
@@ -223,6 +231,10 @@ func _make_spread(chapter: ChapterData) -> GrimoireSpread:
 			return SpreadRecipes.new(self, chapter)
 		"journal":
 			return SpreadJournal.new(self, chapter)
+		"herbarium", "bestiary":
+			return SpreadHerbarium.new(self, chapter)
+		"digitalis", "people":
+			return SpreadSilhouettes.new(self, chapter)
 	if chapter.template == ChapterData.Template.DISCIPLINE and DisciplineData.from_id(chapter.id):
 		return SpreadDiscipline.new(self, chapter)
 	return SpreadBlank.new(self, chapter)

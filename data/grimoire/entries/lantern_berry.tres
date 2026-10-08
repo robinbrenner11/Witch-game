@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "lantern_berry"
+page_group = "garden"
+order = 2
+title_key = "ITEM_CROP_LANTERN_BERRY"
+item_ids = Array[String](["crop_lantern_berry", "seed_lantern_berry"])
+discover_on = "plant/lantern_berry"
+facts = Array[String](["ENTRY_LANTERN_BERRY_1", "ENTRY_LANTERN_BERRY_2", "ENTRY_LANTERN_BERRY_3"])
+fact_triggers = Array[String](["", "harvest/lantern_berry:1", "harvest/lantern_berry:5"])

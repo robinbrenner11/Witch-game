@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="Resource_reward"]
+script = ExtResource("2_reward")
+type = 4
+target_id = "herbalism"
+value = 60
+
+[resource]
+script = ExtResource("1_entry")
+id = "mandrake"
+page_group = "garden"
+order = 0
+title_key = "ITEM_CROP_MANDRAKE"
+item_ids = Array[String](["crop_mandrake", "seed_mandrake"])
+discover_on = "plant/mandrake"
+facts = Array[String](["ENTRY_MANDRAKE_1", "ENTRY_MANDRAKE_2", "ENTRY_MANDRAKE_3"])
+fact_triggers = Array[String](["", "harvest/mandrake:1", "harvest/mandrake:5"])
+page_reward = SubResource("Resource_reward")

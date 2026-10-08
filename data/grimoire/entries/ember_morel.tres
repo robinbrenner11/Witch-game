@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="Resource_reward"]
+script = ExtResource("2_reward")
+type = 4
+target_id = "wildcraft"
+value = 60
+
+[resource]
+script = ExtResource("1_entry")
+id = "ember_morel"
+page_group = "woods"
+order = 6
+title_key = "ITEM_EMBER_MOREL"
+item_ids = Array[String](["ember_morel"])
+discover_on = "forage/ember_morel"
+facts = Array[String](["ENTRY_EMBER_MOREL_1", "ENTRY_EMBER_MOREL_2", "ENTRY_EMBER_MOREL_3"])
+fact_triggers = Array[String](["", "forage/ember_morel:2", "forage/ember_morel:5"])
+page_reward = SubResource("Resource_reward")

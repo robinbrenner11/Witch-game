@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "moonmoss"
+page_group = "woods"
+order = 9
+title_key = "ITEM_MOONMOSS"
+item_ids = Array[String](["moonmoss"])
+discover_on = "forage/moonmoss"
+facts = Array[String](["ENTRY_MOONMOSS_1", "ENTRY_MOONMOSS_2", "ENTRY_MOONMOSS_3"])
+fact_triggers = Array[String](["", "forage/moonmoss:2", "forage/moonmoss:4"])

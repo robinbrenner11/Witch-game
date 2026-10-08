@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "moon_chalice"
+page_group = "garden"
+order = 5
+title_key = "ITEM_CROP_MOON_CHALICE"
+item_ids = Array[String](["crop_moon_chalice", "seed_moon_chalice"])
+discover_on = "plant/moon_chalice"
+facts = Array[String](["ENTRY_MOON_CHALICE_1", "ENTRY_MOON_CHALICE_2", "ENTRY_MOON_CHALICE_3"])
+fact_triggers = Array[String](["", "harvest/moon_chalice:1", "harvest/moon_chalice:3"])

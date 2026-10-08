@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "wild_herb"
+page_group = "woods"
+order = 10
+title_key = "ITEM_WILD_HERB"
+item_ids = Array[String](["wild_herb"])
+discover_on = "clear/wild_herb"
+facts = Array[String](["ENTRY_WILD_HERB_1", "ENTRY_WILD_HERB_2", "ENTRY_WILD_HERB_3"])
+fact_triggers = Array[String](["", "clear/wild_herb:10", "clear/wild_herb:25"])

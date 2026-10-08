@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "ghost_fern"
+page_group = "garden"
+order = 1
+title_key = "ITEM_CROP_GHOST_FERN"
+item_ids = Array[String](["crop_ghost_fern", "seed_ghost_fern"])
+discover_on = "plant/ghost_fern"
+facts = Array[String](["ENTRY_GHOST_FERN_1", "ENTRY_GHOST_FERN_2", "ENTRY_GHOST_FERN_3"])
+fact_triggers = Array[String](["", "harvest/ghost_fern:1", "harvest/ghost_fern:5"])

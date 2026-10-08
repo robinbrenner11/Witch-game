@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "owl_feather"
+page_group = "woods"
+order = 8
+title_key = "ITEM_OWL_FEATHER"
+item_ids = Array[String](["owl_feather"])
+discover_on = "forage/owl_feather"
+facts = Array[String](["ENTRY_OWL_FEATHER_1", "ENTRY_OWL_FEATHER_2", "ENTRY_OWL_FEATHER_3"])
+fact_triggers = Array[String](["", "forage/owl_feather:2", "forage/owl_feather:4"])

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "nightshade"
+page_group = "garden"
+order = 3
+title_key = "ITEM_CROP_NIGHTSHADE"
+item_ids = Array[String](["crop_nightshade", "seed_nightshade"])
+discover_on = "plant/nightshade"
+facts = Array[String](["ENTRY_NIGHTSHADE_1", "ENTRY_NIGHTSHADE_2", "ENTRY_NIGHTSHADE_3"])
+fact_triggers = Array[String](["", "harvest/nightshade:1", "harvest/nightshade:5"])

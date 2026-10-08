@@ -10,7 +10,7 @@ var need := 1
 var given := 0
 var offering: SpreadOffering
 
-# Das Feld hält seine Textur selbst fest (siehe RecipeSlot).
+# Das Feld hält seine Textur selbst fest (siehe BookSlot).
 var _icon: Texture2D
 
 
