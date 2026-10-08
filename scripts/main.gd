@@ -53,6 +53,8 @@ func _load_level(scene_path: String) -> void:
 		level.queue_free()
 	level = load(scene_path).instantiate()
 	add_child(level)
+	# Ein neuer Ort zählt fürs Grimoire (Wildcraft), aber nur beim ersten Mal viel.
+	Grimoire.report("visit", {"id": level.name})
 	# Ganz nach vorn in der Reihenfolge, damit der Ort unter der UI liegt.
 	move_child(level, 0)
 	# In Objects, damit die Y-Sortierung die Hexe vor oder hinter Dinge stellt.

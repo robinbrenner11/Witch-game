@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="DisciplineData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/discipline_data.gd" id="1_discipline"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="Resource_r0"]
+script = ExtResource("2_reward")
+type = 5
+target_id = "harvest_bonus"
+value = 5
+
+[sub_resource type="Resource" id="Resource_r1"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "seed_moon_chalice"
+value = 2
+
+[sub_resource type="Resource" id="Resource_r2"]
+script = ExtResource("2_reward")
+type = 5
+target_id = "seed_bonus"
+value = 10
+
+[sub_resource type="Resource" id="Resource_r3"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "seed_blood_rose"
+value = 3
+
+[sub_resource type="Resource" id="Resource_r5"]
+script = ExtResource("2_reward")
+type = 5
+target_id = "harvest_bonus"
+value = 5
+
+[sub_resource type="Resource" id="Resource_r6"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "seed_nightshade"
+value = 3
+
+[sub_resource type="Resource" id="Resource_r7"]
+script = ExtResource("2_reward")
+type = 5
+target_id = "seed_bonus"
+value = 10
+
+[sub_resource type="Resource" id="Resource_r8"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "seed_ghost_fern"
+value = 5
+
+[resource]
+script = ExtResource("1_discipline")
+id = "herbalism"
+xp_curve = Array[int]([30, 80, 150, 240, 350, 480, 630, 800, 1000, 1250])
+xp_small = Dictionary[String, int]({"plant": 2, "harvest": 3})
+xp_first = Dictionary[String, int]({"plant": 8, "harvest": 20})
+level_rewards = Array[ExtResource("2_reward")]([SubResource("Resource_r0"), SubResource("Resource_r1"), SubResource("Resource_r2"), SubResource("Resource_r3"), null, SubResource("Resource_r5"), SubResource("Resource_r6"), SubResource("Resource_r7"), SubResource("Resource_r8"), null])

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="PathData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/path_data.gd" id="1_path"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="Resource_r0"]
+script = ExtResource("2_reward")
+type = 5
+target_id = "seed_bonus"
+value = 30
+
+[resource]
+script = ExtResource("1_path")
+id = "herbalism_seedkeeper"
+discipline_id = "herbalism"
+level = 10
+requires_path_id = "herbalism_wildheart"
+title_key = "PATH_HERBALISM_SEEDKEEPER"
+description_key = "PATH_HERBALISM_SEEDKEEPER_DESC"
+effects = Array[ExtResource("2_reward")]([SubResource("Resource_r0")])
+respec_cost = Dictionary[String, int]({"owl_feather": 3, "moonmoss": 2})

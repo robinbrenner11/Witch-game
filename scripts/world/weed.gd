@@ -36,5 +36,6 @@ func _on_interacted(player: Node2D) -> void:
 	# Weg ist es, wenn sie es herauszieht (Frame 3), wie beim Ernten.
 	await witch.wait_for_action_frame(2)
 	Inventory.add(drop_item_id)
+	Grimoire.report("clear", {"id": drop_item_id})
 	collected.emit()
 	queue_free()

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="PathData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/path_data.gd" id="1_path"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="Resource_r0"]
+script = ExtResource("2_reward")
+type = 5
+target_id = "pathfinder"
+value = 1
+
+[resource]
+script = ExtResource("1_path")
+id = "wildcraft_pathfinder"
+discipline_id = "wildcraft"
+level = 10
+requires_path_id = "wildcraft_seeker"
+title_key = "PATH_WILDCRAFT_PATHFINDER"
+description_key = "PATH_WILDCRAFT_PATHFINDER_DESC"
+effects = Array[ExtResource("2_reward")]([SubResource("Resource_r0")])
+respec_cost = Dictionary[String, int]({"owl_feather": 3, "moonmoss": 2})

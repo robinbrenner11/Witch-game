@@ -77,6 +77,7 @@ func _plant_seed(seed_data: PlantData) -> void:
 		return
 	Garden.plant_seed(cell, seed_data.id)
 	Grimoire.complete_goal("plant")
+	Grimoire.report("plant", {"id": seed_data.id})
 
 
 func _harvest(player: Player) -> void:
@@ -94,6 +95,12 @@ func _harvest(player: Player) -> void:
 	# die Ernte selbst ist wichtiger.
 	if data.seeds_on_harvest > 0:
 		Inventory.add(data.seed_item_id, data.seeds_on_harvest)
+	# Boni aus dem Grimoire (Herbalism-Stufen und Hexenpfade).
+	if Grimoire.roll_stat("harvest_bonus"):
+		Inventory.add(data.harvest_item_id)
+	if Grimoire.roll_stat("seed_bonus"):
+		Inventory.add(data.seed_item_id)
+	Grimoire.report("harvest", {"id": data.id})
 	Garden.remove_plant(cell)
 
 

@@ -139,3 +139,53 @@ RECIPE_POTION_WILL_O_WISP_NOTE,Do not name it. Named lights stay.,Gib ihm keinen
 RECIPE_POTION_MOON_HARVEST_NOTE,Never on the chalice. The moon takes offense.,Nie auf den Kelch. Der Mond nimmt das übel.
 RECIPE_POTION_LIQUID_MOONLIGHT_NOTE,Stir with the left hand. Always the left.,Mit der linken Hand rühren. Immer mit der linken.
 RECIPE_POTION_ENDLESS_NIGHT_NOTE,One bottle a moon. I did not listen to myself.,Eine Flasche pro Mond. Ich habe nicht auf mich gehört.
+PATH_HERBALISM_WILDHEART,Wildheart,Wildherz
+PATH_HERBALISM_WILDHEART_DESC,Your beds give more. +15% chance of an extra harvest.,Deine Beete geben mehr. +15 % Chance auf eine Extra-Ernte.
+PATH_HERBALISM_ROOTWISE,Rootwise,Wurzelweise
+PATH_HERBALISM_ROOTWISE_DESC,"Your plants grow finer. Better quality, once quality matters.","Deine Pflanzen werden edler. Bessere Qualität, sobald es Qualität gibt."
+PATH_HERBALISM_OVERGROWTH,Overgrowth,Wucherung
+PATH_HERBALISM_OVERGROWTH_DESC,Growth spreads. +15% chance of an extra harvest.,Wachstum breitet sich aus. +15 % Chance auf eine Extra-Ernte.
+PATH_HERBALISM_SEEDKEEPER,Seedkeeper,Samenhüterin
+PATH_HERBALISM_SEEDKEEPER_DESC,Every harvest remembers its seed. +30% chance of an extra seed.,Jede Ernte erinnert sich an ihren Samen. +30 % Chance auf einen Extra-Samen.
+PATH_HERBALISM_MOONBLOOD,Moonblood,Mondblut
+PATH_HERBALISM_MOONBLOOD_DESC,Rare variants may bloom.,Seltene Varianten können erblühen.
+PATH_HERBALISM_NIGHTSHADE_TAMER,Nightshade Tamer,Nachtschattenbändigerin
+PATH_HERBALISM_NIGHTSHADE_TAMER_DESC,The nightshade dome no longer hurts your plants.,Die Nachtschatten-Kuppel schadet deinen Pflanzen nicht mehr.
+PATH_BREWING_TWIN_BREW,Twin Brew,Zwillingssud
+PATH_BREWING_TWIN_BREW_DESC,Every brew gives two potions.,Jedes Brauen ergibt zwei Tränke.
+PATH_BREWING_POTENT,Potent,Wirksam
+PATH_BREWING_POTENT_DESC,"Your potions work stronger, once strength matters.","Deine Tränke wirken stärker, sobald es Stärke gibt."
+PATH_BREWING_CAULDRON_CHORUS,Cauldron Chorus,Kesselchor
+PATH_BREWING_CAULDRON_CHORUS_DESC,Every brew gives three potions.,Jedes Brauen ergibt drei Tränke.
+PATH_BREWING_PATIENT_FIRE,Patient Fire,Geduldiges Feuer
+PATH_BREWING_PATIENT_FIRE_DESC,+25% chance of a bonus potion overnight.,+25 % Chance auf einen Bonus-Trank über Nacht.
+PATH_BREWING_LINGERING,Lingering,Nachklang
+PATH_BREWING_LINGERING_DESC,Effects last longer.,Wirkungen halten länger.
+PATH_BREWING_VOLATILE,Volatile,Flüchtig
+PATH_BREWING_VOLATILE_DESC,Thrown potions burst wider.,Wurftränke platzen weiter.
+PATH_WILDCRAFT_FORAGER,Forager,Sammlerin
+PATH_WILDCRAFT_FORAGER_DESC,Find more. +20% chance to pick twice.,"Mehr finden. +20 % Chance, doppelt zu pflücken."
+PATH_WILDCRAFT_SEEKER,Seeker,Sucherin
+PATH_WILDCRAFT_SEEKER_DESC,Pages and hiding places glimmer from further away.,Seiten und Verstecke glimmen von weiter her.
+PATH_WILDCRAFT_BOUNTIFUL,Bountiful,Reiche Ernte
+PATH_WILDCRAFT_BOUNTIFUL_DESC,+20% chance to pick twice.,"+20 % Chance, doppelt zu pflücken."
+PATH_WILDCRAFT_MOONPICKER,Moonpicker,Mondpflückerin
+PATH_WILDCRAFT_MOONPICKER_DESC,"Moonmoss opens for you in any phase, once per moon.","Mondmoos öffnet sich dir in jeder Phase, einmal pro Mond."
+PATH_WILDCRAFT_PATHFINDER,Pathfinder,Pfadfinderin
+PATH_WILDCRAFT_PATHFINDER_DESC,You find shortcuts through the woods.,Du findest Abkürzungen durch den Wald.
+PATH_WILDCRAFT_PAGEFINDER,Pagefinder,Seitenfinderin
+PATH_WILDCRAFT_PAGEFINDER_DESC,Page fragments show on your map.,Seitenfragmente erscheinen auf deiner Karte.
+MSG_LEVEL_UP,%s rose to level %d.,%s ist auf Stufe %d gestiegen.
+BOOK_LEVEL,Level %d,Stufe %d
+BOOK_LEVEL_MAX,"Level %d, mastered","Stufe %d, gemeistert"
+BOOK_PATHS,Witch Paths,Hexenpfade
+BOOK_PATH_LOCKED,Opens at level %d.,Öffnet sich auf Stufe %d.
+BOOK_PATH_CHOOSE,Choose,Wählen
+BOOK_PATH_UNKNOWN,Depends on your first path.,Hängt von deinem ersten Pfad ab.
+BOOK_MILESTONE,A path opens,Ein Pfad öffnet sich
+REWARD_ITEM,%d %s,%d %s
+REWARD_RECIPE,Recipe: %s,Rezept: %s
+STAT_HARVEST_BONUS,+%d%% chance of an extra harvest,+%d %% Chance auf eine Extra-Ernte
+STAT_SEED_BONUS,+%d%% chance of an extra seed,+%d %% Chance auf einen Extra-Samen
+STAT_BREW_BONUS,+%d%% chance of a bonus potion,+%d %% Chance auf einen Bonus-Trank
+STAT_FORAGE_BONUS,+%d%% chance to pick twice,"+%d %% Chance, doppelt zu pflücken"

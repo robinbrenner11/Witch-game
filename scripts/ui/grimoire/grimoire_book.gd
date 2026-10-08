@@ -193,6 +193,8 @@ func _make_spread(chapter: ChapterData) -> GrimoireSpread:
 			return SpreadCover.new(self, chapter)
 		"recipes":
 			return SpreadRecipes.new(self, chapter)
+	if chapter.template == ChapterData.Template.DISCIPLINE and DisciplineData.from_id(chapter.id):
+		return SpreadDiscipline.new(self, chapter)
 	return SpreadBlank.new(self, chapter)
 
 

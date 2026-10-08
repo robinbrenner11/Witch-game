@@ -51,7 +51,9 @@ func is_ripe() -> bool:
 		return true
 	var state := Wilds.item_state(wild_place, wild_id)
 	if full_moon_only:
-		return DayCycle.is_full_moon() and int(state.get("picked_cycle", -1)) != DayCycle.moon_cycle()
+		# Hexenpfad Moonpicker: in jeder Phase, aber weiter nur einmal pro Mond.
+		var moon_ok := DayCycle.is_full_moon() or Grimoire.get_stat("moonpicker") > 0
+		return moon_ok and int(state.get("picked_cycle", -1)) != DayCycle.moon_cycle()
 	return int(state.get("regrow_in", 0)) <= 0
 
 
@@ -67,6 +69,9 @@ func _on_interacted(player: Node2D) -> void:
 	witch.play_action("harvest")
 	await witch.wait_for_action_frame(2)
 	Inventory.add(drop_item_id)
+	if Grimoire.roll_stat("forage_bonus"):
+		Inventory.add(drop_item_id)
+	Grimoire.report("forage", {"id": drop_item_id})
 	if picked_texture == null:
 		collected.emit()
 		queue_free()

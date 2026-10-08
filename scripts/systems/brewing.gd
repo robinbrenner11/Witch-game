@@ -26,8 +26,10 @@ var _known: Dictionary[String, String] = {}
 var _brew_counts: Dictionary[String, int] = {}
 # Zutaten, die gerade über Nacht brauen (leer = Kessel frei).
 var _brewing: Array[String] = []
-# Fertiger Trank, der auf Abholung wartet ("" = keiner).
+# Fertiger Trank, der auf Abholung wartet ("" = keiner), und wie viele davon
+# (Boni aus dem Grimoire können mehr als einen ergeben).
 var _finished: String = ""
+var _finished_count := 1
 
 
 func _ready() -> void:
@@ -58,8 +60,13 @@ func start(ingredients: Array[String]) -> void:
 
 ## Gibt false zurück, wenn nichts fertig ist oder das Inventar voll ist.
 func take_finished() -> bool:
-	if _finished == "" or not Inventory.add(_finished):
+	if _finished == "" or not Inventory.add(_finished, _finished_count):
 		return false
+	# Selbst herausgefunden statt von einer Seite gelesen? Das zählt im
+	# Grimoire extra (Entdecken schlägt Wiederholen).
+	if _finished != RecipeData.FAILED_RESULT and not Grimoire.has_recipe_page(_finished):
+		Grimoire.report("brew_experiment", {"id": _finished})
+	Grimoire.report("brew", {"id": _finished})
 	_finished = ""
 	Grimoire.complete_goal("brew")
 	changed.emit()
@@ -97,7 +104,7 @@ func reset() -> void:
 
 
 func get_save_data() -> Dictionary:
-	return {"capacity": capacity, "known": _known, "brewing": _brewing, "finished": _finished, "counts": _brew_counts}
+	return {"capacity": capacity, "known": _known, "brewing": _brewing, "finished": _finished, "finished_count": _finished_count, "counts": _brew_counts}
 
 
 func load_save_data(data: Dictionary) -> void:
@@ -110,6 +117,7 @@ func load_save_data(data: Dictionary) -> void:
 	for item_id in data.get("brewing", []):
 		_brewing.append(String(item_id))
 	_finished = String(data.get("finished", ""))
+	_finished_count = int(data.get("finished_count", 1))
 	_brew_counts.clear()
 	var counts: Dictionary = data.get("counts", {})
 	for key in counts:
@@ -121,6 +129,7 @@ func _on_day_passed(_day: int) -> void:
 	if not is_brewing():
 		return
 	_finished = RecipeData.result_for(_brewing)
+	_finished_count = 1 + Grimoire.get_stat("brew_count") + (1 if Grimoire.roll_stat("brew_bonus") else 0)
 	learn(_brewing, _finished)
 	_brew_counts[_finished] = brew_count(_finished) + 1
 	_brewing.clear()
