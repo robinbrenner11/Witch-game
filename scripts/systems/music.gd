@@ -35,8 +35,8 @@ func _ready() -> void:
 # Jeden Frame nachsehen ist billig und deckt alles ab: neue Nacht, geladener
 # Spielstand, neues Spiel.
 func _process(_delta: float) -> void:
-	if DayCycle.is_full_moon() != _full_moon_active:
-		_crossfade(DayCycle.is_full_moon())
+	if Moon.is_full() != _full_moon_active:
+		_crossfade(Moon.is_full())
 
 
 func _crossfade(full_moon: bool) -> void:

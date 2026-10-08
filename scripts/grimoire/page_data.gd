@@ -21,7 +21,7 @@ static var _all: Dictionary[String, PageData] = {}
 @export var fragment_count: int = 1
 # Nur bei BLIGHTED: Item-ID -> Anzahl, die am Lesepult geopfert werden.
 @export var offering: Dictionary[String, int] = {}
-# Mondphase, in der das Opfer gelingt (DayCycle.moon_phase()), -1 = egal.
+# Mondphase, in der das Opfer gelingt (Moon.Phase: 0 Neumond … 4 Vollmond), -1 = egal.
 @export var moon_condition: int = -1
 @export var reward: RewardData
 # Schlüssel in data/translations/texts.csv.

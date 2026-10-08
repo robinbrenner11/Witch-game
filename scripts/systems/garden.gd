@@ -151,7 +151,7 @@ func can_grow_tonight(cell: Vector2i) -> bool:
 ## die Mondphase der neuen Nacht.
 func is_waiting_for_full_moon(cell: Vector2i) -> bool:
 	var data := plant_data_at(cell)
-	return data != null and data.ripens_only_at_full_moon 		and stage_at(cell) == data.stage_count - 2 and not DayCycle.is_full_moon()
+	return data != null and data.ripens_only_at_full_moon 		and stage_at(cell) == data.stage_count - 2 and not Moon.is_full()
 
 
 ## Liegt das Beet im Bereich einer hemmenden Aura (Nachtschatten)? Die

@@ -85,6 +85,10 @@ func _build_overview(page: Control) -> void:
 	page.add_child(_overview_row("BOOK_OVERVIEW_PAGES", "%d/%d" % [found, pages], Color.TRANSPARENT))
 	page.add_child(_overview_row("BOOK_OVERVIEW_RECIPES", "%d/%d" % [known, recipes.size()], Color.TRANSPARENT))
 	page.add_child(_overview_row("BOOK_OVERVIEW_HERBARIUM", "%d/%d" % [discovered, entries.size()], Color.TRANSPARENT))
+	page.add_child(BookStyle.rule_plain(text_width))
+	var until_full := Moon.nights_until(Moon.Phase.FULL)
+	var moon_text := tr("BOOK_MOON_FULL_NOW") if until_full == 0 else tr("BOOK_MOON_FULL_IN") % until_full
+	page.add_child(_overview_row(Moon.phase_name(), moon_text, Color.TRANSPARENT))
 
 
 ## Name links, Wert rechts, davor optional ein kleines Farbfeld.

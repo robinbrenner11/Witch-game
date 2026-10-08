@@ -16,12 +16,6 @@ const MORNING := 6 * 60
 const START_TIME := 20 * 60
 # Der Mond durchläuft seine Phasen in 8 Nächten. Nacht 1 beginnt mit der
 # zunehmenden Sichel, der erste Vollmond kommt also in Nacht 4.
-const MOON_PHASE_NAMES: Array[String] = [
-	"MOON_NEW", "MOON_WAXING_CRESCENT", "MOON_WAXING_HALF", "MOON_WAXING_GIBBOUS",
-	"MOON_FULL", "MOON_WANING_GIBBOUS", "MOON_WANING_HALF", "MOON_WANING_CRESCENT",
-]
-const FULL_MOON := 4
-const FIRST_NIGHT_MOON_PHASE := 1
 # Normal vergeht pro echter Sekunde eine Spielminute (eine Nacht ≈ 12 Minuten).
 const GAME_MINUTES_PER_SECOND := 1.0
 # Am Hexenfeuer: eine Spielstunde pro Sekunde.
@@ -111,24 +105,6 @@ func night_factor() -> float:
 
 
 ## 0 = Neumond … 4 = Vollmond … 7 = abnehmende Sichel.
-func moon_phase() -> int:
-	return (day - 1 + FIRST_NIGHT_MOON_PHASE) % MOON_PHASE_NAMES.size()
-
-
-func moon_phase_name() -> String:
-	return tr(MOON_PHASE_NAMES[moon_phase()])
-
-
-## Zählt die Mondzyklen (je 8 Nächte), z. B. damit Mondmoos pro Vollmond
-## nur einmal gepflückt werden kann.
-func moon_cycle() -> int:
-	return (day - 1 + FIRST_NIGHT_MOON_PHASE) / MOON_PHASE_NAMES.size()
-
-
-func is_full_moon() -> bool:
-	return moon_phase() == FULL_MOON
-
-
 func hour() -> int:
 	return floori(minutes / 60.0)
 

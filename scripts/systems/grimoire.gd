@@ -123,7 +123,7 @@ func is_page_readable(page_id: String) -> bool:
 
 ## Gelingt das Opfer jetzt? Mondbedingung der Seite, z. B. nur bei Vollmond.
 func is_moon_right(page: PageData) -> bool:
-	return page.moon_condition < 0 or DayCycle.moon_phase() == page.moon_condition
+	return page.moon_condition < 0 or Moon.phase() == page.moon_condition
 
 
 ## Nach dem Opfer am Lesepult: Die Ranken welken, Vesperas Tinte kehrt zurück.

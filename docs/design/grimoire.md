@@ -304,6 +304,7 @@ Gebaut (G1–G6), alles mit **Platzhalter-Grafiken aus Code** (Farben aus der Pa
   - Innendeckel als Übersicht: Hand (Pixelzeichnung, Fingerspitzen in 5 Stufen), Hexenstärke, alle Disziplinen, Seiten, Rezepte, Herbarium.
   - Rezepte: „×1 Zutat“ mit Häkchen oder „missing“, Randnotiz mit Bordeaux-Linie, „Brew this“ als Knopf.
   - HUD: kleines Buch oben links, glimmt magenta bei Neuem, Klick öffnet das Buch.
+- 💡 **Später (Robin, 08.10.2026):** Kapitel bleiben, aber in Recipes, Herbarium und People bekommt **jeder Eintrag eine eigene Doppelseite** (statt Raster links und Detail rechts auf derselben Doppelseite). Die Übersicht bleibt als erste Doppelseite des Kapitels.
 - **Noch offen:** Umblätter-Animation, Tintenklecks, Ranken-Welken als Animation, Pin im HUD, Träume, People/Bestiary/Digitalis mit Inhalt, Inhalt der ca. 12 Seiten (Frage 4). Werte (Erfahrungskurve, Belohnungen) sind erste Vorschläge zum Austarieren.
 
 ## 6. Grafiken (🔮 später generieren, Liste merken)

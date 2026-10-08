@@ -153,6 +153,8 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 - ✅ Angekündigt werden sie **nur von NPCs**.
 - ✅ Das Kompendium ist ein Anhang im Grimoire.
 
+**Umsetzungsstand (08.10.2026):** Autoload `Moon` (`scripts/systems/moon.gd`), 8 Nächte wie in der Tabelle, Nacht 1 eines neuen Spiels ist Neumond. Abfragen: `Moon.phase()`, `is_new()`, `is_half()`, `is_full()`, `cycle()`, `nights_until()`, Signal `phase_changed`. Schon spürbar: Nachtfärbung je Phase (Neumond tiefer, Vollmond silbriger), Meldung zu Beginn von Neumond, Halbmond und Vollmond, Hexenring leuchtet bei Vollmond stärker (Funktion folgt), Mondkelch und Mondmoos, Vollmond-Musik, Vollmond-Vorschau im Grimoire. Noch offen, weil die Systeme fehlen: Bitterblüte bei Neumond, Halbmondmarkt, Fest, seltene Ereignisse.
+
 ---
 
 ## 6. Items, Tränke und Magie

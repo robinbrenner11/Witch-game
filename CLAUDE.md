@@ -319,6 +319,7 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - **UI**: neue Grafiken in 1× speichern, Fenster mit `scale = 2` anzeigen (wie das Brau-Fenster); Inventar-Plätze über den Baustein `InventoryGrid`
 - **Texte**: Spieltexte nie direkt, sondern als Schlüssel in `data/translations/texts.csv` (en/de). In Labels/Buttons steht der Schlüssel, im Code `tr("SCHLÜSSEL")`. Item-Namen sind Schlüssel (`ITEM_<ID>`)
 - **Fortschritt**: Systeme melden Ereignisse mit `Grimoire.report("aktion", {"id": …})`; Boni fragen sie mit `Grimoire.get_stat()` ab. Nichts direkt in Disziplinen eintragen
+- **Mond**: Mondphasen nur über den Autoload `Moon` abfragen (`Moon.is_full()`, `Moon.phase()`, Signal `phase_changed`), nie selbst aus der Nacht ausrechnen
 - **Umgebung**: Deko als `Decor`-Szenen in `scenes/world/decor/` (Fußpunkt = Ursprung, Schatten, Kollision, Licht als Export-Werte); Sammelbares über `WildGrowth` + Autoload `Wilds`
 
 ---

@@ -20,4 +20,4 @@ func _process(_delta: float) -> void:
 	if DayCycle.fast_forward:
 		text += "  >>"
 	add_theme_color_override("font_color", ENDLESS_NIGHT_COLOR if DayCycle.night_slowdown > 1.0 else NORMAL_COLOR)
-	moon_name.text = DayCycle.moon_phase_name()
+	moon_name.text = Moon.phase_name()

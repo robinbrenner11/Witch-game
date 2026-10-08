@@ -18,13 +18,13 @@ var _phase := -1
 
 
 func _process(_delta: float) -> void:
-	if DayCycle.moon_phase() != _phase:
-		_phase = DayCycle.moon_phase()
+	if Moon.night_in_cycle() != _phase:
+		_phase = Moon.night_in_cycle()
 		queue_redraw()
 
 
 func _draw() -> void:
-	draw_moon(self, Vector2.ZERO, float(_phase) / DayCycle.MOON_PHASE_NAMES.size(), RADIUS, PIXEL, LIT, DARK)
+	draw_moon(self, Vector2.ZERO, Moon.illumination(), RADIUS, PIXEL, LIT, DARK)
 
 
 ## Zeichnet eine Mondscheibe. cycle: 0 = Neumond, 0.5 = Vollmond, gegen 1

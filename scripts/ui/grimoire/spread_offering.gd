@@ -67,7 +67,7 @@ func _build_offering(page_box: Control, page: PageData) -> void:
 	page_box.add_child(slots)
 
 	if page.moon_condition >= 0:
-		var moon_name := tr(DayCycle.MOON_PHASE_NAMES[page.moon_condition])
+		var moon_name := Moon.phase_name(page.moon_condition)
 		page_box.add_child(BookStyle.label(tr("BOOK_MOON_CONDITION") % moon_name,
 				BookStyle.INK if Grimoire.is_moon_right(page) else BookStyle.MISSING, text_width))
 	var missing := _missing(page)

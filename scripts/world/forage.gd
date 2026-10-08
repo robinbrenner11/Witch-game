@@ -52,8 +52,8 @@ func is_ripe() -> bool:
 	var state := Wilds.item_state(wild_place, wild_id)
 	if full_moon_only:
 		# Hexenpfad Moonpicker: in jeder Phase, aber weiter nur einmal pro Mond.
-		var moon_ok := DayCycle.is_full_moon() or Grimoire.get_stat("moonpicker") > 0
-		return moon_ok and int(state.get("picked_cycle", -1)) != DayCycle.moon_cycle()
+		var moon_ok := Moon.is_full() or Grimoire.get_stat("moonpicker") > 0
+		return moon_ok and int(state.get("picked_cycle", -1)) != Moon.cycle()
 	return int(state.get("regrow_in", 0)) <= 0
 
 
@@ -78,7 +78,7 @@ func _on_interacted(player: Node2D) -> void:
 		return
 	var state := Wilds.item_state(wild_place, wild_id)
 	if full_moon_only:
-		state["picked_cycle"] = DayCycle.moon_cycle()
+		state["picked_cycle"] = Moon.cycle()
 	else:
 		state["regrow_in"] = regrow_nights
 	_update_look()

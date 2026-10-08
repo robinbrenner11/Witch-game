@@ -60,6 +60,8 @@ const RUSTLE_DISTANCE := 56.0
 # Lichtmitte relativ zum Fußpunkt.
 @export var light_offset: Vector2 = Vector2.ZERO
 @export var light_flicker: float = 0.0
+# Bei Vollmond leuchtet das Licht so viel stärker (Hexenring). 1 = gleich.
+@export var full_moon_boost: float = 1.0
 
 # Sammelbares (Weed, Forage) setzt das selbst: Es wackelt kurz, wenn die
 # Hexe in die Nähe kommt. So erkennt man es, ohne dass etwas leuchtet.
@@ -189,6 +191,11 @@ func _add_light() -> void:
 	light.flicker = light_flicker
 	light.position = light_offset
 	add_child(light)
+	if full_moon_boost != 1.0:
+		var update := func(_phase: int = 0) -> void:
+			light.base_energy = light_energy * (full_moon_boost if Moon.is_full() else 1.0)
+		update.call()
+		Moon.phase_changed.connect(update)
 
 
 ## Baut SpriteFrames aus einem waagerechten Sprite-Streifen (Loop).

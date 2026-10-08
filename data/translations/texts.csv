@@ -30,14 +30,6 @@ MSG_WELL_ONE,%s sinks into the well.,%s versinkt im Brunnen.
 MSG_WELL_GLITTER,Something glitters far below.,Tief unten glitzert etwas.
 MSG_BERRIES_EMPTY,No berries on this bush right now.,An diesem Strauch hängen gerade keine Beeren.
 MSG_MOSS_SLEEPS,The moss sleeps until the full moon.,Das Moos schläft bis zum vollen Mond.
-MOON_NEW,New Moon,Neumond
-MOON_WAXING_CRESCENT,Waxing Crescent,Zunehmende Sichel
-MOON_WAXING_HALF,Waxing Half Moon,Zunehmender Halbmond
-MOON_WAXING_GIBBOUS,Waxing Gibbous,Zunehmender Mond
-MOON_FULL,Full Moon,Vollmond
-MOON_WANING_GIBBOUS,Waning Gibbous,Abnehmender Mond
-MOON_WANING_HALF,Waning Half Moon,Abnehmender Halbmond
-MOON_WANING_CRESCENT,Waning Crescent,Abnehmende Sichel
 CLOCK_NIGHT,Night %d,Nacht %d
 TITLE_CONTINUE,Continue,Fortsetzen
 TITLE_NEW_GAME,New Game,Neues Spiel
@@ -295,3 +287,13 @@ BOOK_FACTS,%d of %d known,%d von %d bekannt
 BOOK_BLANK_PAGE,More of Vespera's pages are scattered out there.,Weitere Seiten von Vespera liegen irgendwo dort draußen.
 BOOK_TO_HERBARIUM,Look it up in the herbarium,Im Herbarium nachsehen
 BOOK_INDICATOR,Grimoire (B),Grimoire (B)
+MOON_NEW,New Moon,Neumond
+MOON_WAXING,Waxing Moon,Zunehmender Mond
+MOON_HALF,Half Moon,Halbmond
+MOON_GIBBOUS,Gibbous Moon,Dreiviertelmond
+MOON_FULL,Full Moon,Vollmond
+MSG_MOON_NEW_TONIGHT,New moon. The Bitterbloom stirs.,Neumond. Die Bitterblüte regt sich.
+MSG_MOON_HALF_TONIGHT,Half moon tonight.,Heute Nacht ist Halbmond.
+MSG_MOON_FULL_TONIGHT,Full moon. The witch ring hums.,Vollmond. Der Hexenring summt.
+BOOK_MOON_FULL_NOW,full tonight,heute voll
+BOOK_MOON_FULL_IN,full in %d,voll in %d
