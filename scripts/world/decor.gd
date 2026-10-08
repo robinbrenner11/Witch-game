@@ -19,6 +19,9 @@ const SHADOW_Z := -5
 const FLAT_Z := -6
 const SHADOW_ALPHA := 0.5
 const LIGHT_TEXTURE := preload("res://assets/effects/lights/light_round_64.png")
+const FADED_ALPHA := 0.45
+# Wie schnell das Durchsichtig-Werden geht (Alpha pro Sekunde).
+const FADE_SPEED := 4.0
 
 # Waagerechter Streifen mit frame_count gleich breiten Frames.
 @export var texture: Texture2D
@@ -40,6 +43,9 @@ const LIGHT_TEXTURE := preload("res://assets/effects/lights/light_round_64.png")
 # Hängt von oben (Glas am Balken): Der Ursprung ist dann der Aufhängepunkt
 # oben Mitte statt des Fußpunkts.
 @export var hang: bool = false
+# Große Objekte (Bäume): Steht die Hexe dahinter, wird das Bild halb
+# durchsichtig, damit man sie und was dort liegt noch sieht.
+@export var fade_when_behind: bool = false
 # Fester Frame, z. B. Truhe zu (0) statt offen (1). -1 = zufällig.
 # Mit fps = 0 bleibt das Bild stehen.
 @export var start_frame: int = -1
@@ -66,6 +72,27 @@ func _ready() -> void:
 		glow_sprite = _add_sprite(glow_texture, true)
 	_add_collision()
 	_add_light()
+	set_process(fade_when_behind and not Engine.is_editor_hint())
+
+
+func _process(delta: float) -> void:
+	var player := get_tree().get_first_node_in_group("player") as Node2D
+	var target := 1.0
+	if player and player.global_position.y < global_position.y:
+		# Die Körpermitte der Hexe, nicht ihre Füße: Sie zählt als verdeckt,
+		# sobald die Krone über ihr liegt.
+		if cover_rect().has_point(player.global_position + Vector2(0, -24)):
+			target = FADED_ALPHA
+	var alpha := move_toward(sprite.modulate.a, target, FADE_SPEED * delta)
+	sprite.modulate.a = alpha
+	if glow_sprite:
+		glow_sprite.modulate.a = alpha
+
+
+## Die Fläche, die das Bild in der Welt bedeckt (ohne die Fußzeile).
+func cover_rect() -> Rect2:
+	var size := Vector2(texture.get_width() / float(frame_count), texture.get_height())
+	return Rect2(global_position - Vector2(size.x / 2.0, size.y), size - Vector2(0, 8))
 
 
 func _add_sprite(strip: Texture2D, unshaded: bool) -> AnimatedSprite2D:

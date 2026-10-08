@@ -12,3 +12,4 @@ fps = 6.0
 collision_size = Vector2(14, 6)
 shadow_texture = ExtResource("4_shadow")
 shadow_offset = Vector2(4, -2)
+fade_when_behind = true

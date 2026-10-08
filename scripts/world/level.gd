@@ -17,6 +17,10 @@ const SOIL_TERRAINS: Array[int] = [1, 6]
 @export var allows_beds: bool = false
 # Nur in diesem Bereich (Pixel), im Garten innerhalb des Zauns. Leer = überall.
 @export var bed_area: Rect2 = Rect2()
+# So viele Pixel am unteren Kartenrand sieht man, kann sie aber nicht
+# betreten. Dort liegt die Hotbar über dem Bild, also soll dort nichts
+# Wichtiges sein. Die Wand steht entsprechend höher.
+@export var hud_margin_bottom: float = 0.0
 # Für Orte ohne Kachelboden (Innenräume aus einer Raumgrafik): Diese Fläche
 # gilt dann für Kamera und Ränder. Leer = die bemalte Fläche zählt.
 @export var fixed_rect: Rect2 = Rect2()
@@ -86,7 +90,7 @@ func _build_bounds() -> void:
 	add_child(bounds)
 	var sides := [
 		[Vector2(0, 1), Vector2(0, rect.position.y)],
-		[Vector2(0, -1), Vector2(0, rect.end.y)],
+		[Vector2(0, -1), Vector2(0, rect.end.y - hud_margin_bottom)],
 		[Vector2(1, 0), Vector2(rect.position.x, 0)],
 		[Vector2(-1, 0), Vector2(rect.end.x, 0)],
 	]

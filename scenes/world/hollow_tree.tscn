@@ -17,6 +17,7 @@ frame_count = 8
 glow_texture = ExtResource("3_glow")
 shadow_texture = ExtResource("4_shadow")
 shadow_offset = Vector2(8, -8)
+fade_when_behind = true
 
 [node name="Trunk" type="StaticBody2D" parent="."]
 

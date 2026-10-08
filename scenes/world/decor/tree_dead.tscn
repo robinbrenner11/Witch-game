@@ -10,3 +10,4 @@ texture = ExtResource("2_tex")
 collision_size = Vector2(16, 8)
 shadow_texture = ExtResource("4_shadow")
 shadow_offset = Vector2(4, -1)
+fade_when_behind = true

@@ -81,6 +81,7 @@ func _grow_cluster() -> void:
 	var main_kind: PackedScene = kinds.pick_random()
 	var taken := _taken_positions()
 	var wild := _wild_positions()
+	var covers := _cover_rects()
 	var placed := 0
 	for attempt in size * 8:
 		if placed == size:
@@ -90,7 +91,7 @@ func _grow_cluster() -> void:
 		if placed > 0:
 			offset = Vector2(randf_range(-1, 1), randf_range(-1, 1)) * cluster_radius
 		var at := (center + offset).round()
-		if not _point_is_free(at, taken, wild):
+		if not _point_is_free(at, taken, wild) or _is_covered(at, covers):
 			continue
 		var scene: PackedScene = main_kind if randf() < 0.75 else kinds.pick_random()
 		var id := Wilds.add_item(_place, scene.resource_path, at)
@@ -131,14 +132,21 @@ func _spawn(id: String, scene: PackedScene, at: Vector2) -> void:
 func _free_cells() -> Array[Vector2i]:
 	var taken := _taken_positions()
 	taken.append_array(_wild_positions())
+	var covers := _cover_rects()
+	# Nicht in den Streifen unter der Hotbar, dort kommt man nicht hin.
+	var bottom := _level.pixel_rect().end.y - _level.hud_margin_bottom
 	var result: Array[Vector2i] = []
 	for cell in _level.ground.get_used_cells():
 		var center := Vector2(cell * Garden.TILE_SIZE) + Vector2(16, 16)
+		if center.y > bottom - 16:
+			continue
 		if area.has_area() and not area.has_point(center):
 			continue
 		if not _has_allowed_ground(cell):
 			continue
 		if _level.allows_beds and Garden.has_bed(cell):
+			continue
+		if _is_covered(center, covers):
 			continue
 		var blocked := false
 		for p in taken:
@@ -185,3 +193,20 @@ func _wild_positions() -> Array[Vector2]:
 	for node in get_tree().get_nodes_in_group("wild"):
 		result.append((node as Node2D).global_position)
 	return result
+
+
+## Bereiche hinter Baumkronen: Dort würde man Sammelbares nicht sehen.
+func _cover_rects() -> Array[Rect2]:
+	var result: Array[Rect2] = []
+	for node in _level.objects.find_children("*", "Node2D", true, false):
+		if node is Decor and node.fade_when_behind:
+			result.append((node as Decor).cover_rect())
+	return result
+
+
+## Liegt at hinter einer Baumkrone?
+func _is_covered(at: Vector2, covers: Array[Rect2]) -> bool:
+	for rect in covers:
+		if rect.has_point(at):
+			return true
+	return false
