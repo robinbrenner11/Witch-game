@@ -1,0 +1,14 @@
+Aktions-Animationen der Hexe (07.10.2026)
+
+Aufruf aus dem Projektordner (benötigt: pillow):
+  python docs/art/character_generator/witch_actions.py              alle Aktionen
+  python docs/art/character_generator/witch_actions.py snap_side    nur eine
+  python docs/art/character_generator/pour_effect.py                Orb, Regen, Funken + Szenen-Vorschau
+
+witch_actions.py nimmt den passenden Idle-Frame aus assets/characters/witch_idle.png
+als Grundlage und malt Arm, Hand, Fläschchen und Funken als kleine Zeichenraster
+("Stempel") darüber. Zum Nachjustieren einfach die Stempel oder ihre Positionen in
+der jeweiligen Funktion (pour_down, harvest_side ...) ändern und neu ausführen.
+
+Die Prüfung am Ende vergleicht den Fußbereich (Zeilen 56-63) mit Idle. Weicht er ab,
+steht die Hexe nicht mehr genau wie beim Laufen.

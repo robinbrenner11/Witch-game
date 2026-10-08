@@ -1,0 +1,22 @@
+Flora und Fauna für Wald und Garten (08.10.2026)
+
+Aufruf aus dem Projektordner (benötigt: pillow):
+  python docs/art/nature_generator/forest.py               alle Wald-Grafiken
+  python docs/art/nature_generator/forest.py tree_oak      nur eine
+  python docs/art/nature_generator/garden.py               alle Garten-Grafiken + Zaun
+  python docs/art/nature_generator/preview.py              Szenen-Vorschauen (Tag/Nacht, GIF, Übersicht)
+
+nature.py enthält die gemeinsamen Helfer:
+  foliage()  Laubkrone aus vielen kleinen, einzeln beleuchteten Büscheln (Licht oben links)
+  limb()     Stamm/Ast entlang einer Linie, mit Rindenfurchen
+  blobs()    einfache Kugelformen (Steine)
+  glow_mask() erzeugt die _glow.png (nur selbstleuchtende Pixel)
+  check()    prüft Palette, volle/leere Pixel und Fußpunkt
+
+Zum Nachjustieren: In der jeweiligen Funktion (tree_oak, fern_1 ...) Kugeln, Linien
+oder Farben ändern und neu ausführen. Die Bäume sind im kleineren Raster entworfen
+und werden mit S = 1.5 neu gezeichnet (Variable S oben in forest.py/garden.py).
+Wer größere oder kleinere Bäume will, ändert nur S.
+
+Seeds (seed=...) bestimmen das Zufallsmuster. Ein anderer Seed ergibt eine neue
+Variante derselben Form, zum Beispiel für eine zweite Eiche.

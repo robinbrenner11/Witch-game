@@ -53,3 +53,28 @@ Columns: 5
 104  96 140	Kesselrand 2
  24  26  40	Welk dunkel
 124 124 104	Welk oliv
+#
+# --- Ergänzungen 08.10.2026 (Flora: Laub und Weide) ---
+ 22  34  46	Laub Schatten
+ 29  52  54	Laub dunkel
+ 48  98  74	Laub mittel
+ 33  57  68	Weide dunkel
+ 58  96  98	Weide mittel
+104 146 136	Weide hell
+#
+# --- Ergänzungen 08.10.2026 (Rinde je Baumart; dunkelster Ton bleibt Ebenholz 1) ---
+ 52  40  44	Rinde Eiche 2
+ 76  62  62	Rinde Eiche 3
+102  88  82	Rinde Eiche 4
+ 46  50  52	Rinde Weide 2
+ 70  76  72	Rinde Weide 3
+ 98 104  94	Rinde Weide 4
+ 60  30  34	Rinde Tanne 2
+ 88  48  44	Rinde Tanne 3
+116  70  58	Rinde Tanne 4
+ 62  56  70	Rinde tot 2
+ 92  86 100	Rinde tot 3
+130 124 136	Rinde tot 4
+ 66  56  54	Rinde Holunder 2
+ 94  84  76	Rinde Holunder 3
+126 116 102	Rinde Holunder 4

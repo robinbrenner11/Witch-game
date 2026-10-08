@@ -33,6 +33,7 @@ Entscheidungen so zu treffen, dass sie später ohne Rewrite möglich sind.
 ✅ Unterschlupf → Weg in den **Garten** (eigene Szene, hier wird angebaut) → weiter in den **Wald** (nur sammeln, nicht anbauen).
 ✅ Beete können nur im Garten angelegt werden und sind wieder entfernbar.
 **Offen – Unterschlupf:** Hütte oder etwas Moderneres. Ideen: alte Kirche (Buntglas als Lichtquelle, Kerzen, Altar als Brauort), umgebautes Gewächshaus, alter Wasserturm. Das Bett ist so gestaltet, dass es zu Hütte und Kirche passt.
+✅ **Entschieden 08.10.2026 – Unterschlupf ist ein hohler Uraltbaum** am Rand des Gartens: riesiger, knorriger Baum mit Brettwurzeln, gewölbte Tür zwischen den Wurzeln, rundes Fenster, Laterne am tiefen Ast. Innen ein **runder, enger Raum im Stamm** (Boden = Baumquerschnitt mit Jahresringen). Licht: **Mondlicht durch ein Astloch** plus warme Glühwürmchen-Gläser, Kerzen und ein kleiner Ofen. Spuren der alten Hexe: Wurzelregal mit Gläsern, Leseecke (Ohrensessel, Teppich, Bücher), Ofen, Truhe; dazu das vorhandene Rezeptpult. Grafiken: `assets/environment/shelter/` (siehe ASSETS.md).
 
 ## 3. Garten
 

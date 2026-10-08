@@ -42,3 +42,30 @@ Vorschlag für die Regel in CLAUDE.md (ersetzt "begrenzte Farbpalette"):
 > und passende Ergänzungen sind erlaubt, wenn sie Verläufe natürlicher machen (Schatten Richtung
 > Blau/Violett, Lichter Richtung Warm). Keine weichen Gradienten, kein Anti-Aliasing.
 > Richtwert 8–12 Farben pro Grafik. Neue Töne in `docs/art/hexen_palette.gpl` nachtragen.
+
+# Neue Farben vom 08.10.2026 (Flora)
+
+Sechs Zwischentöne für Laub. Die Kronen brauchen eine Stufe zwischen Nachtblau und Giftgrün, damit sie
+sich vom Gras abheben (kühler, Schatten Richtung Blau). Die Weide ist bewusst silbriger als die übrigen
+Bäume. In `hexen_palette.gpl` nachgetragen.
+
+| Farbe | Hex | RGB | Genutzt in | Zweck |
+|---|---|---|---|---|
+| Laub Schatten | `#16222E` | 22, 34, 46 | alle Kronen, Büsche, Farne | tiefster Laubschatten, Richtung Nachtblau |
+| Laub dunkel | `#1D3436` | 29, 52, 54 | alle Kronen, Büsche, Farne | Laub im Schatten |
+| Laub mittel | `#30624A` | 48, 98, 74 | Kronen, Farne, Gras, Moos | Stufe zwischen Giftgrün dunkel und Giftgrün |
+| Weide dunkel | `#213944` | 33, 57, 68 | Weide, Nachtlavendel | silbrig-kühles Laub, Schatten |
+| Weide mittel | `#3A6062` | 58, 96, 98 | Weide, Nachtlavendel | silbriges Laub |
+| Weide hell | `#689288` | 104, 146, 136 | Weide | Zweigspitzen, Licht |
+
+## Rinde je Baumart (08.10.2026)
+
+Vorher hatten alle Bäume dieselbe lila-rosa Ebenholz-Rinde. Jetzt hat jede Art eine eigene Rinde mit 3 Tönen. Der dunkelste Ton bleibt bei allen Ebenholz 1, so passen die Bäume weiter zusammen. Der Uraltbaum (Unterschlupf) behält Ebenholz, weil er der besondere Hexenbaum ist.
+
+| Baum | Töne (2 / 3 / 4) | Charakter |
+|---|---|---|
+| Eiche | `#34282C` `#4C3E3E` `#665852` | graubraun, kräftige Furchen |
+| Weide | `#2E3234` `#464C48` `#62685E` | grünlich-grau, passt zum silbrigen Laub |
+| Tanne | `#3C1E22` `#58302C` `#74463A` | rotbraun, warm im kühlen Nadelgrün |
+| toter Baum | `#3E3846` `#5C5664` `#827C88` | ausgebleicht, silbrig |
+| Holunder | `#423836` `#5E544C` `#7E7466` | hell, mit Korkwarzen |

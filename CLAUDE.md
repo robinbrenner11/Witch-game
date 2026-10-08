@@ -158,6 +158,9 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 **Wichtig für Claude:** Nichts aus dem Bereich 💡/🔮 eigenmächtig bauen. Die Ideen dienen dazu, heutige Entscheidungen so zu treffen, dass diese Features später ohne Rewrite möglich sind.
 
 **Neuere Entscheidungen** stehen in eigenen Dateien und gehen dieser Sammlung bei Widersprüchen vor:
+- `docs/design/grimoire.md` (08.10.2026) – **neueste Quelle zum Grimoire**: Kapitel, Seiten, Opfer, Disziplinen, Hexenpfade, Optik, Technik
+- `docs/design/game_design.md` (08.10.2026) – **neueste Quelle zum Gesamtdesign**: Kern-Loop, Mondphasen, Fortschritt, Digitalis, Kampf, NPCs, Lore, Umsetzungsreihenfolge. Überholt in dieser Sammlung u. a. Hexenpfade, Nahkampf, Altar und die Reihenfolge in Abschnitt 9
+- `docs/auftrag_einbau_grafiken.md` (08.10.2026) – laufender Einbau der neuen Grafiken in Schritten
 - `docs/design/design_entscheidungen_2026-10-07.md` – Tagesrhythmus, Bett, Garten, Nachtschatten, Hexenschlamm, Brauen, 5 Rezepte, Grafikregeln
 - `docs/design/checkliste_basics.md` – was vor den großen Erweiterungen noch fehlt (abhaken, wenn erledigt)
 
