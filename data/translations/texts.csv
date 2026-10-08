@@ -301,3 +301,5 @@ MSG_SAFE_ZONE,This place is safe. Digitalis rests.,Hier bist du sicher. Digitali
 MSG_NO_POWER,Not enough witch power.,Nicht genug Hexenkraft.
 ITEM_BITTERBLOOM_PETAL,Bitterbloom Petal,Bitterblütenblatt
 ITEM_BITTERBLOOM_PETAL_DESC,"It fell from a creature you set free. Still warm, still bitter.","Es fiel von einem Wesen, das du befreit hast. Noch warm, noch bitter."
+MSG_DEFEAT,You wake in your bed. The night is gone.,Du wachst in deinem Bett auf. Die Nacht ist vorbei.
+MSG_DEFEAT_LOST,You wake in your bed. Lost: %s.,Du wachst in deinem Bett auf. Verloren: %s.
