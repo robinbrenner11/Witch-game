@@ -299,3 +299,5 @@ BOOK_MOON_FULL_NOW,full tonight,heute voll
 BOOK_MOON_FULL_IN,full in %d,voll in %d
 MSG_SAFE_ZONE,This place is safe. Digitalis rests.,Hier bist du sicher. Digitalis ruht.
 MSG_NO_POWER,Not enough witch power.,Nicht genug Hexenkraft.
+ITEM_BITTERBLOOM_PETAL,Bitterbloom Petal,Bitterblütenblatt
+ITEM_BITTERBLOOM_PETAL_DESC,"It fell from a creature you set free. Still warm, still bitter.","Es fiel von einem Wesen, das du befreit hast. Noch warm, noch bitter."

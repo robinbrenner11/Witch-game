@@ -32,6 +32,8 @@
 [ext_resource type="PackedScene" path="res://scenes/world/wild/dusk_berry_bush.tscn" id="w_dusk_berry_bush"]
 [ext_resource type="PackedScene" path="res://scenes/world/wild/owl_feather.tscn" id="w_owl_feather"]
 [ext_resource type="PackedScene" path="res://scenes/world/wild/moonmoss.tscn" id="w_moonmoss"]
+[ext_resource type="PackedScene" path="res://scenes/world/blight_beetle.tscn" id="k_beetle"]
+[ext_resource type="Script" path="res://scripts/world/blight_patch.gd" id="k_patch"]
 
 [node name="Forest" type="Node2D"]
 script = ExtResource("1_level")
@@ -599,6 +601,25 @@ clearance = 28.0
 [node name="BlightedPage1" parent="Objects" instance=ExtResource("o10_loose_page")]
 position = Vector2(578, 704)
 page_id = "page_journal_01"
+
+[node name="BlightPatch" type="Node2D" parent="."]
+position = Vector2(400, 560)
+script = ExtResource("k_patch")
+size = Vector2(320, 170)
+seed_value = 7
+
+[node name="WildBeetles" type="Node" parent="."]
+script = ExtResource("w_script")
+group = "beetles"
+kinds = Array[PackedScene]([ExtResource("k_beetle")])
+cluster_size = Vector2i(1, 1)
+start_clusters = 3
+max_count = 3
+regrow = 1
+respawn_nights = 2
+terrains = Array[int]([7, 8])
+area = Rect2(400, 560, 320, 170)
+clearance = 36.0
 
 [node name="ToGarden" parent="." instance=ExtResource("3_exit")]
 position = Vector2(528, 16)

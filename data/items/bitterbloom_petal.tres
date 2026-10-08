@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/item_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/flora/flowers_blood.png" id="2_flower"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icon"]
+atlas = ExtResource("2_flower")
+region = Rect2(8, 8, 16, 16)
+
+[resource]
+script = ExtResource("1_script")
+id = "bitterbloom_petal"
+display_name = "ITEM_BITTERBLOOM_PETAL"
+icon = SubResource("AtlasTexture_icon")
+type = 1
+description = "ITEM_BITTERBLOOM_PETAL_DESC"
