@@ -30,20 +30,26 @@ const INK_PLAYER := MAGENTA            # was die Spielerin selbst entdeckt
 const INK_FAINT := SHEET_SHADOW_DEEP   # Nebeninfos
 
 # --- Maße (1×, Viewport 640×360) ---
-const COVER := Rect2(70, 26, 500, 312)
-const LEFT_PAGE := Rect2(82, 34, 234, 296)
-const RIGHT_PAGE := Rect2(324, 34, 234, 296)
-const FOLD := Rect2(316, 34, 8, 296)
+# Das Buch sitzt etwas links der Mitte: Rechts neben den Lesezeichen stehen
+# ihre Namen, unten eine Zeile mit der Bedienung.
+const COVER := Rect2(44, 22, 500, 312)
+const LEFT_PAGE := Rect2(56, 30, 234, 292)
+const RIGHT_PAGE := Rect2(298, 30, 234, 292)
+const FOLD := Rect2(290, 30, 8, 292)
 # Innenrand der Seiten, dort beginnt der Text.
 const PAGE_MARGIN := 12
-const TAB_X := 558.0
+const TAB_X := 544.0
 const TAB_WIDTH := 13.0
 const TAB_WIDTH_ACTIVE := 18.0
 const TAB_HEIGHT := 18.0
 const TAB_GAP := 2.0
 const TAB_GROUP_GAP := 6.0
+# Die Namen der Lesezeichen beginnen hier (rechts vom Buch).
+const TAB_LABEL_X := 566.0
+const HINT_Y := 338.0
 const SLOT_SIZE := 24.0
-const LINE_WIDTH := 34
+const LABEL_LIGHT := BONE
+const LABEL_DIM := Color("#6E6478")
 
 
 ## Ein Label in Buchtinte. text darf ein Übersetzungsschlüssel sein.
@@ -68,13 +74,61 @@ static func heading(text: String, color: Color, width: float) -> VBoxContainer:
 	return box
 
 
-## Eine Goldlinie (Akzent unter Überschriften).
-static func rule(width: float) -> ColorRect:
-	var line := ColorRect.new()
-	line.color = GOLD_DARK
-	line.custom_minimum_size = Vector2(width, 1)
-	line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+## Eine Goldlinie unter Überschriften, mit einer kleinen Raute in der Mitte.
+static func rule(width: float) -> Control:
+	var line := Rule.new()
+	line.custom_minimum_size = Vector2(width, 5)
 	return line
+
+
+class Rule:
+	extends Control
+
+	func _ready() -> void:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func _draw() -> void:
+		var mid := floorf(size.x / 2.0)
+		draw_rect(Rect2(0, 2, size.x, 1), BookStyle.GOLD_DARK)
+		# Raute: 5 Pixel breit, Licht oben links.
+		draw_rect(Rect2(mid - 2, 2, 5, 1), BookStyle.GOLD)
+		draw_rect(Rect2(mid - 1, 1, 3, 3), BookStyle.GOLD)
+		draw_rect(Rect2(mid, 0, 1, 5), BookStyle.GOLD)
+		draw_rect(Rect2(mid - 1, 1, 1, 1), BookStyle.BONE)
+		# Kleine Punkte an den Enden.
+		draw_rect(Rect2(0, 1, 2, 3), BookStyle.GOLD_DARK)
+		draw_rect(Rect2(size.x - 2, 1, 2, 3), BookStyle.GOLD_DARK)
+
+
+## Kleiner Fingerhut (Digitalis) als Pixelzeichnung: Seitenschmuck und
+## Zeichen für wiederhergestellte Seiten. origin = oben links, 7×11 Pixel.
+static func draw_foxglove(canvas: CanvasItem, origin: Vector2, alpha: float = 1.0) -> void:
+	var rows := [
+		"...g...",
+		"...g...",
+		"..Mm...",
+		"..MMg..",
+		"...g.Mm",
+		"..Mm.MM",
+		"..MMg..",
+		"...gMm.",
+		"...gMM.",
+		"...g...",
+		"..ggg..",
+	]
+	var colors := {"g": Color("#30624A"), "M": MAGENTA, "m": Color("#E458B1")}
+	for y in rows.size():
+		var row: String = rows[y]
+		for x in row.length():
+			var key := row[x]
+			if colors.has(key):
+				canvas.draw_rect(Rect2(origin + Vector2(x, y), Vector2.ONE), Color(colors[key], alpha))
+
+
+## Kleines Häkchen (die Schrift hat keins), 7×5 Pixel.
+static func draw_check(canvas: CanvasItem, origin: Vector2, color: Color) -> void:
+	for p: Vector2 in [Vector2(0, 2), Vector2(1, 3), Vector2(2, 4), Vector2(3, 3), Vector2(4, 2), Vector2(5, 1), Vector2(6, 0)]:
+		canvas.draw_rect(Rect2(origin + p, Vector2(1, 1)), color)
 
 
 static func icon(texture: Texture2D, tint: Color = Color.WHITE) -> TextureRect:
@@ -154,3 +208,87 @@ static func draw_blight(canvas: CanvasItem, rect: Rect2, seed_value: int) -> voi
 				canvas.draw_rect(Rect2((pos + side * 2).floor(), Vector2.ONE), LEAF_DARK)
 			elif rng.randf() < 0.025:
 				canvas.draw_rect(Rect2(pos.floor() + Vector2(1, 0), Vector2(2, 2)), MAGENTA)
+
+
+## Ein richtiger Knopf im Buch (z. B. "Brew this", "Take"): Bordeaux mit
+## Goldrand, beim Überfahren heller. Für wichtige Handlungen; Verweise und
+## Filter bleiben text_button.
+static func button(text: String) -> Button:
+	var result := Button.new()
+	result.text = text
+	result.focus_mode = Control.FOCUS_NONE
+	result.add_theme_color_override("font_color", GOLD)
+	result.add_theme_color_override("font_hover_color", BONE)
+	result.add_theme_color_override("font_pressed_color", BONE)
+	result.add_theme_color_override("font_disabled_color", SHEET_SHADOW_DEEP)
+	result.add_theme_stylebox_override("normal", _box(BORDEAUX, GOLD_DARK))
+	result.add_theme_stylebox_override("hover", _box(Color("#962C48"), GOLD))
+	result.add_theme_stylebox_override("pressed", _box(BORDEAUX_DARK, GOLD))
+	result.add_theme_stylebox_override("disabled", _box(SHEET_SHADOW, SHEET_SHADOW_DEEP))
+	result.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	result.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	return result
+
+
+static func _box(fill: Color, border: Color) -> StyleBoxFlat:
+	var box := StyleBoxFlat.new()
+	box.bg_color = fill
+	box.border_color = border
+	box.set_border_width_all(1)
+	box.anti_aliasing = false
+	box.content_margin_left = 5
+	box.content_margin_right = 5
+	box.content_margin_top = 0
+	box.content_margin_bottom = 1
+	return box
+
+
+## Ein Balken für Fortschritt (Erfahrung bis zur nächsten Stufe).
+static func progress_bar(fraction: float, width: float) -> Control:
+	var bar := Bar.new()
+	bar.fraction = clampf(fraction, 0.0, 1.0)
+	bar.custom_minimum_size = Vector2(width, 6)
+	return bar
+
+
+class Bar:
+	extends Control
+
+	var fraction := 0.0
+
+	func _ready() -> void:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func _draw() -> void:
+		var rect := Rect2(Vector2.ZERO, size)
+		draw_rect(rect, BookStyle.SHEET_SHADOW)
+		var filled := floorf((size.x - 2) * fraction)
+		if filled > 0:
+			draw_rect(Rect2(1, 1, filled, size.y - 2), BookStyle.GOLD)
+			# Licht oben, Schatten unten.
+			draw_rect(Rect2(1, 1, filled, 1), Color("#F4CC78"))
+			draw_rect(Rect2(1, size.y - 2, filled, 1), BookStyle.GOLD_DARK)
+		BookStyle.draw_frame(self, rect, BookStyle.INK_FAINT)
+
+
+## Eine schlichte, dünne Trennlinie (ohne Raute).
+static func rule_plain(width: float) -> ColorRect:
+	var line := ColorRect.new()
+	line.color = SHEET_SHADOW
+	line.custom_minimum_size = Vector2(width, 1)
+	line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return line
+
+
+## Vesperas Randnotiz: eingerückt, mit einer Bordeaux-Linie am Rand, in
+## ihrer Tinte.
+static func margin_note(text: String, width: float) -> Control:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 5)
+	var line := ColorRect.new()
+	line.color = BORDEAUX
+	line.custom_minimum_size = Vector2(1, 1)
+	line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(line)
+	row.add_child(label(text, INK_VESPERA, width - 8))
+	return row

@@ -207,7 +207,7 @@ Bezug: Mockups `grimoire_mockup_A_2x.png` (Pergament, gewählt) und `grimoire_mo
 
 ### Schrift
 - ✅ **Überschriften in derselben Schrift wie der Fließtext** (eine Schrift fürs ganze Buch). Überschriften nur über Farbe und Goldlinie abgesetzt. ❌ Eigene Fraktur-Überschriften (Jacquarda Bastarda 9 / Jacquard 12 getestet).
-- ❓ **Welche Schrift:** m5x7 erinnert Robin an Minecraft. Kandidaten zum Vergleich im Mockup:
+- ✅ (vorläufig, 08.10.2026) **Alkhemikal** für das ganze Spiel. Früher: m5x7 erinnert Robin an Minecraft. Kandidaten zum Vergleich im Mockup:
   - **Alkhemikal** (jeti, CC BY 4.0, Nennung im Abspann): Alchemie-/Fantasy-Charakter;
   - **Silver** (Poppy Works, CC BY 4.0, Nennung; Lizenz nötig ab 100.000 $ Umsatz): weich, für Spiele, viele Sprachen.
   - Bis zur Entscheidung bleibt m5x7. Die Schrift muss im Theme zentral austauschbar sein.
@@ -295,6 +295,15 @@ Gebaut (G1–G6), alles mit **Platzhalter-Grafiken aus Code** (Farben aus der Pa
 - **Kapitel:** Innendeckel, Recipes (Raster, Filter, 3 Zustände, ready to brew, Brew this am Kessel), Disziplinen (Stufen, Ranke, Pfade, Pfadwechsel am Lesepult), Journal (Stummel, befallen, Fragmente, Tinte kehrt zurück), Herbarium (Fakten, volle Seiten). Digitalis und People als Silhouetten, Warding, Bonding und Bestiary versiegelt.
 - **Lesepult:** Opfer-Ansicht mit Drag & Drop aus dem Inventar, Mondbedingung, Pfadwechsel gegen 3 Owl Feather + 2 Moonmoss.
 - **Debug:** F3 +100 Erfahrung je Disziplin, F4 alle Seiten, F5 ganzes Herbarium.
+- **Überarbeitung 08.10.2026 (Abend):**
+  - Schrift im ganzen Spiel: **Alkhemikal** (Frage 1 vorläufig entschieden; zentral in assets/ui/fonts/game_font.tres, Silver lässt sich dort testen).
+  - Stufen-Geschenke (Items) werden im Buch **abgeholt** (Knopf „Take“), damit bei voller Tasche nichts verloren geht und man sieht, was man bekommt. Werte und Rezepte gelten sofort. Meldung: „A gift waits in your grimoire.“
+  - Pfadwahl braucht einen zweiten Klick („Really?“). Pfade als Karten (gewählt magenta mit Fingerhut, wählbar gold, sonst gepunktet).
+  - Disziplin-Seite: Erfahrungsbalken und „Grows by: …“.
+  - Lesezeichen mit Namen rechts neben dem Buch (eigene kurze Texte TAB_*), Hinweiszeile unter dem Buch, Seitenzahlen, Fingerhut-Schmuck, gealtertes Papier, Lesebändchen, dicker werdender Buchblock, kurze Umblätter-Bewegung, Hover-Rahmen.
+  - Innendeckel als Übersicht: Hand (Pixelzeichnung, Fingerspitzen in 5 Stufen), Hexenstärke, alle Disziplinen, Seiten, Rezepte, Herbarium.
+  - Rezepte: „×1 Zutat“ mit Häkchen oder „missing“, Randnotiz mit Bordeaux-Linie, „Brew this“ als Knopf.
+  - HUD: kleines Buch oben links, glimmt magenta bei Neuem, Klick öffnet das Buch.
 - **Noch offen:** Umblätter-Animation, Tintenklecks, Ranken-Welken als Animation, Pin im HUD, Träume, People/Bestiary/Digitalis mit Inhalt, Inhalt der ca. 12 Seiten (Frage 4). Werte (Erfahrungskurve, Belohnungen) sind erste Vorschläge zum Austarieren.
 
 ## 6. Grafiken (🔮 später generieren, Liste merken)

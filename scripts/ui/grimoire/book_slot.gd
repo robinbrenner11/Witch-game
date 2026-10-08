@@ -25,11 +25,19 @@ var marked := false
 var is_new := false
 
 var _time := 0.0
+var _hovered := false
 
 
 func _ready() -> void:
 	custom_minimum_size = Vector2.ONE * BookStyle.SLOT_SIZE
 	mouse_filter = Control.MOUSE_FILTER_STOP if state != State.EMPTY else Control.MOUSE_FILTER_IGNORE
+	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	mouse_entered.connect(func() -> void:
+		_hovered = true
+		queue_redraw())
+	mouse_exited.connect(func() -> void:
+		_hovered = false
+		queue_redraw())
 
 
 func _process(delta: float) -> void:
@@ -49,8 +57,8 @@ func _draw() -> void:
 	if state == State.EMPTY:
 		BookStyle.draw_dotted_rect(self, rect, BookStyle.INK_FAINT)
 		return
-	draw_rect(rect, BookStyle.SHEET_SHADOW)
-	BookStyle.draw_frame(self, rect, BookStyle.GOLD if selected else BookStyle.INK_FAINT)
+	draw_rect(rect, BookStyle.BONE if _hovered and not selected else BookStyle.SHEET_SHADOW)
+	BookStyle.draw_frame(self, rect, BookStyle.GOLD if selected or _hovered else BookStyle.INK_FAINT)
 	if selected:
 		BookStyle.draw_frame(self, rect.grow(-1), BookStyle.GOLD_DARK)
 	var icon_pos := (size - Vector2(16, 16)) / 2.0

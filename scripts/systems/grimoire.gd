@@ -41,6 +41,8 @@ var _repeats: Dictionary = {}
 var _counts: Dictionary = {}
 # Seitengruppen (Herbarium), deren Belohnung es schon gab.
 var _completed_groups: Array[String] = []
+# "Disziplin/Stufe" -> true: Die Item-Belohnung dieser Stufe ist abgeholt.
+var _claimed: Dictionary = {}
 
 
 func _ready() -> void:
@@ -76,6 +78,10 @@ func find_page(page_id: String, fragment: int = 0) -> void:
 	page_found.emit(page_id)
 	_check_readable(page_id)
 	changed.emit()
+
+
+func found_page_count() -> int:
+	return _pages.size()
 
 
 func is_page_found(page_id: String) -> bool:
@@ -241,11 +247,16 @@ func witch_strength() -> int:
 	return total
 
 
+## Neue Stufe. Items holt man im Grimoire ab (so geht bei voller Tasche
+## nichts verloren und man sieht, was man bekommt). Rezepte und Werte gelten
+## sofort.
 func _on_level_reached(discipline: DisciplineData, new_level: int) -> void:
 	var reward := discipline.reward_for_level(new_level)
-	if reward:
+	if reward and reward.type != RewardData.Type.ITEM:
 		_apply_reward(reward)
 	Messages.post(tr("MSG_LEVEL_UP") % [tr("CHAPTER_" + discipline.id.to_upper()), new_level])
+	if reward and reward.type == RewardData.Type.ITEM:
+		Messages.post(tr("MSG_GIFT_WAITS"))
 	level_up.emit(discipline.id, new_level)
 	if new_level in discipline.milestone_levels:
 		milestone_ready.emit(discipline.id, new_level)
@@ -261,6 +272,44 @@ func _apply_reward(reward: RewardData) -> void:
 				_taught.append(reward.target_id)
 		RewardData.Type.XP:
 			add_xp(reward.target_id, reward.value)
+
+
+## Liegt auf dieser Stufe ein Geschenk zum Abholen bereit?
+func is_reward_claimable(discipline_id: String, at_level: int) -> bool:
+	var discipline := DisciplineData.from_id(discipline_id)
+	var reward := discipline.reward_for_level(at_level) if discipline else null
+	return reward != null and reward.type == RewardData.Type.ITEM \
+		and level(discipline_id) >= at_level and not is_reward_claimed(discipline_id, at_level)
+
+
+func is_reward_claimed(discipline_id: String, at_level: int) -> bool:
+	return _claimed.has("%s/%d" % [discipline_id, at_level])
+
+
+## Gibt false zurück, wenn die Tasche voll ist; dann bleibt es liegen.
+func claim_reward(discipline_id: String, at_level: int) -> bool:
+	if not is_reward_claimable(discipline_id, at_level):
+		return false
+	var reward := DisciplineData.from_id(discipline_id).reward_for_level(at_level)
+	if not Inventory.has_room_for(reward.target_id, reward.value):
+		Messages.post(tr("MSG_BAG_FULL"))
+		return false
+	Inventory.add(reward.target_id, reward.value)
+	_claimed["%s/%d" % [discipline_id, at_level]] = true
+	changed.emit()
+	return true
+
+
+## Wie viele Geschenke insgesamt auf Abholung warten.
+func claimable_count(discipline_id: String = "") -> int:
+	var count := 0
+	for discipline: DisciplineData in DisciplineData.all().values():
+		if discipline_id != "" and discipline.id != discipline_id:
+			continue
+		for at_level in range(1, level(discipline.id) + 1):
+			if is_reward_claimable(discipline.id, at_level):
+				count += 1
+	return count
 
 
 ## Gewählter Pfad einer Disziplin auf einer Meilenstein-Stufe, sonst "".
@@ -466,7 +515,7 @@ func get_save_data() -> Dictionary:
 		"has_book": has_book, "goals": _done_goals, "pages": _pages,
 		"hints": _hints, "seen": _seen, "xp": _xp, "paths": _paths,
 		"firsts": _firsts, "taught": _taught, "counts": _counts,
-		"completed_groups": _completed_groups,
+		"completed_groups": _completed_groups, "claimed": _claimed,
 	}
 
 
@@ -482,5 +531,6 @@ func load_save_data(data: Dictionary) -> void:
 	_taught.assign(data.get("taught", []))
 	_counts = data.get("counts", {}).duplicate(true)
 	_completed_groups.assign(data.get("completed_groups", []))
+	_claimed = data.get("claimed", {}).duplicate(true)
 	_repeats.clear()
 	changed.emit()

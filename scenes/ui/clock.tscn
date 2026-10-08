@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/clock.gd" id="1_script"]
-[ext_resource type="FontFile" path="res://assets/ui/fonts/m5x7.ttf" id="2_font"]
+[ext_resource type="FontVariation" path="res://assets/ui/fonts/game_font.tres" id="2_font"]
 [ext_resource type="Script" path="res://scripts/ui/moon_icon.gd" id="3_moon_icon"]
 
 [node name="Clock" type="Label"]

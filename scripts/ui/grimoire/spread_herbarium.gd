@@ -67,6 +67,9 @@ func _build_index(page: Control, entries: Array[EntryData]) -> void:
 	for group in groups:
 		var complete := Grimoire.is_group_complete(chapter.id, group)
 		page.add_child(BookStyle.label("BOOK_GROUP_" + group.to_upper(), BookStyle.GOLD_DARK if complete else BookStyle.INK))
+		var reward := _group_reward(group)
+		if reward and not complete:
+			page.add_child(BookStyle.label(tr("BOOK_PAGE_REWARD") % SpreadDiscipline.reward_text(reward), BookStyle.INK_FAINT, text_width))
 		var grid := GridContainer.new()
 		grid.columns = COLUMNS
 		grid.add_theme_constant_override("h_separation", 4)
@@ -92,6 +95,13 @@ func _slot(entry: EntryData) -> BookSlot:
 	return slot
 
 
+func _group_reward(group: String) -> RewardData:
+	for entry in EntryData.in_chapter(chapter.id):
+		if entry.page_group == group and entry.page_reward:
+			return entry.page_reward
+	return null
+
+
 ## Ohne eigenes Bild nimmt der Eintrag das Icon seines ersten Items.
 func _icon_of(entry: EntryData) -> Texture2D:
 	return entry.icon if entry.icon else Inventory.icon_for(entry.item_ids[0])
@@ -103,6 +113,7 @@ func _build_detail(page: Control, entry: EntryData) -> void:
 	row.add_child(BookStyle.icon(_icon_of(entry)))
 	page.add_child(row)
 	var revealed := Grimoire.revealed_facts(entry)
+	page.add_child(BookStyle.label(tr("BOOK_FACTS") % [revealed, entry.facts.size()], BookStyle.INK_FAINT))
 	for i in entry.facts.size():
 		if i < revealed:
 			page.add_child(BookStyle.label(entry.facts[i], BookStyle.INK_PLAYER, text_width))

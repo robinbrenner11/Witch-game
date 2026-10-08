@@ -1,3 +1,10 @@
 m5x7 von Daniel Linssen – https://managore.itch.io/m5x7
 Lizenz: CC0 1.0 (frei nutzbar, Nennung erwünscht → später in die Credits).
 Gestaltet für 16 px pro Schriftgröße-Einheit: Größe 16 = 1 Pixel, Größe 32 = 2 Pixel (UI-Maßstab).
+
+Alkhemikal von jeti – https://www.dafont.com/alkhemikal.font (FontStruct)
+Seit 08.10.2026 die Schrift fürs ganze Spiel (Theme assets/ui/menu_theme.tres).
+Lizenz laut grimoire.md: CC BY 4.0 → Nennung im Abspann (jeti). DaFont führt sie als frei (Public Domain/GPL/OFL).
+Pixelscharf bei Größe 16 (1 Pixel) und 32 (2 Pixel), wie m5x7.
+Wechsel der Schrift: in assets/ui/fonts/game_font.tres die Base Font austauschen (im Godot-Inspektor
+per Doppelklick auf die Datei). Alle UI-Teile nutzen diese eine Datei.

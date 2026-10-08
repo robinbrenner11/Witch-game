@@ -73,7 +73,7 @@ func _build_offering(page_box: Control, page: PageData) -> void:
 	var missing := _missing(page)
 	if not missing.is_empty():
 		page_box.add_child(BookStyle.label(tr("BOOK_MISSING") % ", ".join(missing), BookStyle.MISSING, text_width))
-	var offer := BookStyle.text_button("BOOK_OFFER", BookStyle.GOLD_DARK)
+	var offer := BookStyle.button("BOOK_OFFER")
 	offer.disabled = not missing.is_empty() or not Grimoire.is_moon_right(page)
 	offer.pressed.connect(_offer)
 	page_box.add_child(offer)

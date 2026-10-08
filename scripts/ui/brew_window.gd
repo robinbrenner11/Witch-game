@@ -56,6 +56,7 @@ func open() -> void:
 	get_tree().paused = true
 	# Das Inventar steckt im Fenster, die Hotbar wäre doppelt.
 	get_tree().call_group("hotbar", "hide")
+	get_tree().call_group("clock", "hide")
 	_refresh()
 
 
@@ -72,6 +73,7 @@ func close() -> void:
 	hide()
 	get_tree().paused = false
 	get_tree().call_group("hotbar", "show")
+	get_tree().call_group("clock", "show")
 
 
 func _unhandled_input(event: InputEvent) -> void:

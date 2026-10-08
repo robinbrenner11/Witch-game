@@ -126,7 +126,7 @@ BOOK_FILTER_ALL,All,Alle
 BOOK_FILTER_POUR,Pour,Gießen
 BOOK_FILTER_DRINK,Drink,Trinken
 BOOK_FILTER_THROW,Throw,Werfen
-BOOK_FILTER_GIFT,Gift,Geschenk
+BOOK_FILTER_GIFT,Gift,Gabe
 BOOK_MISSING,Missing: %s,Fehlt: %s
 BOOK_KIND_DRINK,to drink,zum Trinken
 BOOK_KIND_POUR,to pour,zum Ausgießen
@@ -183,12 +183,12 @@ BOOK_PATH_LOCKED,Opens at level %d.,Öffnet sich auf Stufe %d.
 BOOK_PATH_CHOOSE,Choose,Wählen
 BOOK_PATH_UNKNOWN,Depends on your first path.,Hängt von deinem ersten Pfad ab.
 BOOK_MILESTONE,A path opens,Ein Pfad öffnet sich
-REWARD_ITEM,%d %s,%d %s
+REWARD_ITEM,%d× %s,%d× %s
 REWARD_RECIPE,Recipe: %s,Rezept: %s
-STAT_HARVEST_BONUS,+%d%% chance of an extra harvest,+%d %% Chance auf eine Extra-Ernte
-STAT_SEED_BONUS,+%d%% chance of an extra seed,+%d %% Chance auf einen Extra-Samen
-STAT_BREW_BONUS,+%d%% chance of a bonus potion,+%d %% Chance auf einen Bonus-Trank
-STAT_FORAGE_BONUS,+%d%% chance to pick twice,"+%d %% Chance, doppelt zu pflücken"
+STAT_HARVEST_BONUS,+%d%% extra harvest,+%d %% Extra-Ernte
+STAT_SEED_BONUS,+%d%% extra seed,+%d %% Extra-Samen
+STAT_BREW_BONUS,+%d%% bonus potion,+%d %% Bonus-Trank
+STAT_FORAGE_BONUS,+%d%% pick twice,+%d %% doppelt pflücken
 PAGE_JOURNAL_01_LORE,Today the garden answered before I asked. I have never been so strong. I wonder how long a witch may stay like this.,"Heute hat mir der Garten geantwortet, bevor ich fragte. Ich war nie so stark. Ich frage mich, wie lange eine Hexe so bleiben darf."
 PAGE_JOURNAL_01_STUB,Tod,Heu
 MSG_PAGE_BLIGHTED,"A page, eaten by the Bitterbloom. Perhaps the lectern can help.","Eine Seite, von der Bitterblüte zerfressen. Vielleicht hilft das Lesepult."
@@ -252,3 +252,46 @@ DIGITALIS_ROOTMAUL,Rootmaul,Wurzelhammer
 DIGITALIS_STAFF_HINT,Something in the garden is still waiting for you.,Etwas im Garten wartet noch auf dich.
 DIGITALIS_GNARL_HINT,Gnarl knows more.,Gnarl weiß mehr.
 PEOPLE_NOT_MET,No one has crossed your path yet.,Noch hat niemand deinen Weg gekreuzt.
+TAB_COVER,Note,Notiz
+TAB_RECIPES,Recipes,Rezepte
+TAB_DIGITALIS,Digitalis,Digitalis
+TAB_HERBALISM,Herbalism,Kräuter
+TAB_BREWING,Brewing,Brauen
+TAB_WILDCRAFT,Wildcraft,Wildkunde
+TAB_WARDING,Warding,Bannkunst
+TAB_BONDING,Bonding,Bindung
+TAB_JOURNAL,Journal,Tagebuch
+TAB_PEOPLE,People,Leute
+TAB_HERBARIUM,Herbarium,Herbarium
+TAB_BESTIARY,Bestiary,Bestiarium
+BOOK_HINT,A/D turn  ·  W/S chapter  ·  B close,A/D blättern  ·  W/S Kapitel  ·  B schließen
+BOOK_HINT_LECTERN,Lectern  ·  A/D turn  ·  W/S chapter  ·  B close,Lesepult  ·  A/D blättern  ·  W/S Kapitel  ·  B schließen
+MSG_GIFT_WAITS,A gift waits in your grimoire.,Ein Geschenk wartet in deinem Grimoire.
+BOOK_CLAIM,Take,Nehmen
+BOOK_GROWS_BY,Grows by: %s,Wächst durch: %s
+BOOK_FIRST_TIME,The first time of anything counts most.,Das erste Mal zählt am meisten.
+ACTION_PLANT,planting,Pflanzen
+ACTION_HARVEST,harvesting,Ernten
+ACTION_BREW,brewing,Brauen
+ACTION_BREW_EXPERIMENT,new mixtures,neue Mischungen
+ACTION_FORAGE,foraging,Sammeln
+ACTION_CLEAR,clearing weeds,Wildgras räumen
+ACTION_VISIT,new places,neue Orte
+ACTION_PAGE,found pages,gefundene Seiten
+BOOK_PATH_CONFIRM,Really?,Wirklich?
+BOOK_PATH_CHOSEN,Your path,Dein Pfad
+BOOK_NEED,×%d,×%d
+BOOK_HAVE_MISSING,missing,fehlt
+BOOK_USE_POUR_SHORT,pour on a bed,aufs Beet gießen
+BOOK_USE_DRINK_SHORT,drink it,trinken
+BOOK_STRENGTH_TEXT,The sum of all your disciplines. Some things only answer a strong witch.,Die Summe all deiner Disziplinen. Manches antwortet nur einer starken Hexe.
+BOOK_OVERVIEW_PAGES,Pages found,Seiten gefunden
+BOOK_OVERVIEW_RECIPES,Recipes known,Rezepte bekannt
+BOOK_OVERVIEW_HERBARIUM,Herbarium,Herbarium
+BOOK_SIGNATURE,V.,V.
+BOOK_PAGE_REWARD,A full page brings: %s,Eine volle Seite bringt: %s
+REWARD_XP,+%d %s,+%d %s
+BOOK_FACTS,%d of %d known,%d von %d bekannt
+BOOK_BLANK_PAGE,More of Vespera's pages are scattered out there.,Weitere Seiten von Vespera liegen irgendwo dort draußen.
+BOOK_TO_HERBARIUM,Look it up in the herbarium,Im Herbarium nachsehen
+BOOK_INDICATOR,Grimoire (B),Grimoire (B)

@@ -30,6 +30,12 @@ func flip(_direction: int) -> bool:
 	return false
 
 
+## Wie viele Seiten dieses Kapitel vor der aktuellen Doppelseite schon hat
+## (für die Seitenzahlen, z. B. beim Blättern im Journal).
+func page_offset() -> int:
+	return 0
+
+
 ## Das Buch wird geschlossen oder die Seite verlassen. Hier z. B. Opfergaben
 ## zurück ins Inventar legen.
 func on_close() -> void:

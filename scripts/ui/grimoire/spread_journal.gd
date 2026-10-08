@@ -33,6 +33,10 @@ func has_new() -> bool:
 	return false
 
 
+func page_offset() -> int:
+	return _first
+
+
 func flip(direction: int) -> bool:
 	var next := _first + direction * 2
 	if next < 0 or next >= journal_pages().size():
@@ -49,6 +53,8 @@ func build(left: Control, right: Control) -> void:
 			add_title(box)
 		if _first + i < pages.size():
 			_build_entry(box, pages[_first + i], i == 0)
+		elif i == 1:
+			box.add_child(BookStyle.label("BOOK_BLANK_PAGE", BookStyle.INK_FAINT, text_width))
 
 
 func _build_entry(box: Control, page: PageData, is_left: bool) -> void:

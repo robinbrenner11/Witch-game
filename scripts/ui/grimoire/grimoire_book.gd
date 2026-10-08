@@ -29,9 +29,13 @@ var _refresh_queued := false
 # Eine Ansicht ohne eigenes Lesezeichen (das Opfer am Lesepult). Solange sie
 # gesetzt ist, zeigt das Buch sie statt des Kapitels.
 var _special: GrimoireSpread
+# Richtung des nächsten Umblätterns (-1 zurück, 1 vor, 0 = nur neu aufbauen).
+var _pending_flip := 0
 
-var _frame: Control
+var _frame: BookFrame
 var _pages: Control
+var _turn: PageTurn
+var _hint: Label
 
 
 func _ready() -> void:
@@ -53,8 +57,23 @@ func _ready() -> void:
 	_pages.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_pages.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_pages)
+	_turn = PageTurn.new()
+	_turn.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_turn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_turn)
+	_hint = Label.new()
+	_hint.position = Vector2(BookStyle.COVER.position.x, BookStyle.HINT_Y)
+	_hint.size = Vector2(BookStyle.COVER.size.x, 16)
+	_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_hint.add_theme_color_override("font_color", BookStyle.LABEL_DIM)
+	add_child(_hint)
 	_build_tabs()
 	Grimoire.changed.connect(refresh)
+	# Das kleine Buch im HUD hängt neben dem Buch in der UI, damit es sichtbar
+	# bleibt, während das Buch zu ist.
+	var indicator := BookIndicator.new()
+	indicator.book = self
+	get_parent().add_child.call_deferred(indicator)
 
 
 ## chapter_id leer: dort öffnen, wo es Neues gibt, sonst auf der zuletzt
@@ -81,6 +100,11 @@ func open(chapter_id: String = "", from_cauldron: bool = false, at_lectern: bool
 		get_tree().call_group("hotbar", "hide")
 	# Uhr und Mondphase lägen oben rechts unter den Lesezeichen.
 	get_tree().call_group("clock", "hide")
+	# Am Kessel liegt das Brau-Fenster darunter und schimmert sonst durch.
+	if from_cauldron:
+		get_tree().call_group("brew_window", "hide")
+	_hint.text = "BOOK_HINT_LECTERN" if at_lectern else "BOOK_HINT"
+	_frame.queue_redraw()
 	show()
 	_rebuild()
 
@@ -99,12 +123,18 @@ func close() -> void:
 		get_tree().paused = false
 	if _hid_hotbar:
 		get_tree().call_group("hotbar", "show")
-	get_tree().call_group("clock", "show")
+	else:
+		get_tree().call_group("brew_window", "show")
+	# Die Uhr bleibt aus, solange am Kessel das Brau-Fenster offen ist.
+	if not opened_from_cauldron:
+		get_tree().call_group("clock", "show")
 
 
 func go_to(chapter_id: String) -> void:
 	_leave_special()
-	_index = _find(chapter_id)
+	var target := _find(chapter_id)
+	_pending_flip = signi(target - _index)
+	_index = target
 	refresh()
 
 
@@ -122,6 +152,11 @@ func refresh() -> void:
 	if visible and not _refresh_queued:
 		_refresh_queued = true
 		_rebuild.call_deferred()
+
+
+## Gibt es irgendwo im Buch etwas Neues? (Für das kleine Buch im HUD.)
+func any_news() -> bool:
+	return _first_with_news() >= 0
 
 
 ## "Brew this": Zutaten aus dem Inventar in den Kessel legen.
@@ -164,6 +199,7 @@ func _flip(direction: int) -> void:
 	if not _spread_for(_chapters[_index]).flip(direction):
 		_change_chapter(direction)
 	else:
+		_pending_flip = direction
 		refresh()
 
 
@@ -175,6 +211,7 @@ func _change_chapter(direction: int) -> void:
 		i = wrapi(i + direction, 0, _chapters.size())
 		if Grimoire.is_unlocked(_chapters[i]):
 			_index = i
+			_pending_flip = direction
 			refresh()
 			return
 
@@ -185,8 +222,13 @@ func _rebuild() -> void:
 		child.queue_free()
 	var left := _page_box(BookStyle.LEFT_PAGE)
 	var right := _page_box(BookStyle.RIGHT_PAGE)
-	_current_spread().build(left, right)
+	var spread := _current_spread()
+	spread.build(left, right)
+	_add_page_numbers(spread)
 	_update_tabs()
+	if _pending_flip != 0:
+		_turn.play(_pending_flip)
+		_pending_flip = 0
 
 
 func _current_spread() -> GrimoireSpread:
@@ -207,6 +249,18 @@ func _page_box(page: Rect2) -> VBoxContainer:
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_pages.add_child(box)
 	return box
+
+
+## Seitenzahlen unten in der Mitte jeder Seite, z. B. "· 7 ·".
+func _add_page_numbers(spread: GrimoireSpread) -> void:
+	var first := _index * 2 + 1 + spread.page_offset()
+	for i in 2:
+		var page: Rect2 = BookStyle.LEFT_PAGE if i == 0 else BookStyle.RIGHT_PAGE
+		var number := BookStyle.label("· %d ·" % (first + i), BookStyle.INK_FAINT)
+		number.position = Vector2(page.position.x, page.end.y - 16)
+		number.size = Vector2(page.size.x, 14)
+		number.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_pages.add_child(number)
 
 
 func _spread_for(chapter: ChapterData) -> GrimoireSpread:
@@ -243,7 +297,7 @@ func _make_spread(chapter: ChapterData) -> GrimoireSpread:
 # --- Lesezeichen ---------------------------------------------------------------
 
 func _build_tabs() -> void:
-	var y := BookStyle.COVER.position.y + 10.0
+	var y := BookStyle.COVER.position.y + 8.0
 	var last_group := -1
 	for chapter in _chapters:
 		if last_group != -1 and chapter.group != last_group:
@@ -264,7 +318,7 @@ func _update_tabs() -> void:
 		tab.active = i == _index and _special == null
 		tab.locked = not Grimoire.is_unlocked(tab.chapter)
 		tab.has_new = not tab.locked and _spread_for(tab.chapter).has_new()
-		tab.queue_redraw()
+		tab.refresh()
 
 
 func _find(chapter_id: String) -> int:
@@ -281,10 +335,12 @@ func _first_with_news() -> int:
 	return -1
 
 
-## Einband, Seitenstapel, Papier und Falz. Platzhalter-Zeichnung, bis es die
-## Buchgrafiken gibt (docs/design/grimoire.md, Abschnitt 6).
+## Einband, Buchblock, gealtertes Papier, Falz und Lesebändchen.
+## Platzhalter-Zeichnung, bis es die Buchgrafiken gibt (grimoire.md, Abschnitt 6).
 class BookFrame:
 	extends Control
+
+	const COVER_LIGHT := Color("#962C48")
 
 	func _draw() -> void:
 		var cover := BookStyle.COVER
@@ -292,14 +348,19 @@ class BookFrame:
 		draw_rect(cover.grow(-1), BookStyle.BORDEAUX_DARK)
 		draw_rect(cover.grow(-3), BookStyle.BORDEAUX)
 		draw_rect(cover.grow(-5), BookStyle.BORDEAUX_DARK)
+		# Licht von oben links: helle Kante oben und links am Einband.
+		draw_rect(Rect2(cover.position + Vector2(3, 3), Vector2(cover.size.x - 6, 1)), COVER_LIGHT)
+		draw_rect(Rect2(cover.position + Vector2(3, 3), Vector2(1, cover.size.y - 6)), COVER_LIGHT)
 		_gold_corners(cover.grow(-2))
+		# Der Buchblock wird mit den gefundenen Seiten etwas dicker.
+		var layers := 2 + mini(4, Grimoire.found_page_count() / 2)
 		for page: Rect2 in [BookStyle.LEFT_PAGE, BookStyle.RIGHT_PAGE]:
-			# Seitenkanten als Stapel unten und außen.
-			for i in range(3, 0, -1):
-				var stack: Rect2 = page.grow_individual(i if page == BookStyle.LEFT_PAGE else 0, 0,
-						i if page == BookStyle.RIGHT_PAGE else 0, i)
+			var is_left := page == BookStyle.LEFT_PAGE
+			for i in range(layers, 0, -1):
+				var stack: Rect2 = page.grow_individual(i if is_left else 0, 0, 0 if is_left else i, i)
 				draw_rect(stack, BookStyle.SHEET_SHADOW_DEEP if i % 2 else BookStyle.SHEET_SHADOW)
 			draw_rect(page, BookStyle.BONE)
+			_age(page, 17 if is_left else 31)
 		# Zum Falz hin wird das Papier dunkler (in Stufen, keine Verläufe).
 		var left := BookStyle.LEFT_PAGE
 		var right := BookStyle.RIGHT_PAGE
@@ -308,6 +369,41 @@ class BookFrame:
 		draw_rect(Rect2(right.position.x, right.position.y, 8, right.size.y), BookStyle.SHEET_SHADOW)
 		draw_rect(Rect2(right.position.x, right.position.y, 3, right.size.y), BookStyle.SHEET_SHADOW_DEEP)
 		draw_rect(BookStyle.FOLD, BookStyle.BORDEAUX_DEEP)
+		# Fingerhut-Schmuck in den äußeren unteren Ecken.
+		BookStyle.draw_foxglove(self, Vector2(left.position.x + 5, left.end.y - 15), 0.8)
+		BookStyle.draw_foxglove(self, Vector2(right.end.x - 12, right.end.y - 15), 0.8)
+		_ribbon()
+
+	## Gealtertes Papier: verstreute Flecken und abgegriffene Ecken. Immer
+	## gleich (fester Zufall), damit nichts flackert.
+	func _age(page: Rect2, seed_value: int) -> void:
+		var rng := RandomNumberGenerator.new()
+		rng.seed = seed_value
+		var spot := Color(BookStyle.SHEET_SHADOW, 0.55)
+		for i in 70:
+			var p := Vector2(rng.randi_range(int(page.position.x) + 2, int(page.end.x) - 3),
+					rng.randi_range(int(page.position.y) + 2, int(page.end.y) - 3))
+			draw_rect(Rect2(p, Vector2.ONE * (2 if rng.randf() < 0.15 else 1)), spot)
+		for corner: Vector2 in [page.position, Vector2(page.end.x - 1, page.position.y),
+				Vector2(page.position.x, page.end.y - 1), page.end - Vector2.ONE]:
+			var dx := 1.0 if corner.x == page.position.x else -1.0
+			var dy := 1.0 if corner.y == page.position.y else -1.0
+			for d in 3:
+				draw_rect(Rect2(corner + Vector2(dx * d, 0), Vector2.ONE), BookStyle.SHEET_SHADOW)
+				draw_rect(Rect2(corner + Vector2(0, dy * d), Vector2.ONE), BookStyle.SHEET_SHADOW)
+
+	## Lesebändchen: schaut unten rechts aus dem Buch heraus (über die Seite
+	## gelegt würde es den Text verdecken).
+	func _ribbon() -> void:
+		var x := BookStyle.RIGHT_PAGE.end.x - 44
+		var top := BookStyle.RIGHT_PAGE.end.y - 3
+		var bottom := BookStyle.COVER.end.y + 9
+		draw_rect(Rect2(x, top, 5, bottom - top), BookStyle.BORDEAUX)
+		draw_rect(Rect2(x, top, 1, bottom - top), COVER_LIGHT)
+		draw_rect(Rect2(x + 4, top, 1, bottom - top), BookStyle.BORDEAUX_DEEP)
+		# Schwalbenschwanz am Ende.
+		draw_rect(Rect2(x, bottom, 2, 2), BookStyle.BORDEAUX)
+		draw_rect(Rect2(x + 3, bottom, 2, 2), BookStyle.BORDEAUX)
 
 	func _gold_corners(rect: Rect2) -> void:
 		var length := 10.0
@@ -317,3 +413,38 @@ class BookFrame:
 			var start := corner - Vector2(0 if dx > 0 else 2, 0 if dy > 0 else 2)
 			draw_rect(Rect2(start.x if dx > 0 else start.x - length + 2, start.y, length, 2), BookStyle.GOLD)
 			draw_rect(Rect2(start.x, start.y if dy > 0 else start.y - length + 2, 2, length), BookStyle.GOLD)
+
+
+## Umblättern: Eine Seitenkante mit Schatten läuft über das Buch, darunter
+## erscheint schon die neue Doppelseite. Kurz, damit es beim schnellen
+## Blättern nicht stört. (Später durch 3–4 gezeichnete Frames ersetzbar.)
+class PageTurn:
+	extends Control
+
+	const DURATION := 0.18
+	var _progress := 1.0
+	var _direction := 1
+
+	func play(direction: int) -> void:
+		_direction = direction
+		_progress = 0.0
+		var tween := create_tween()
+		tween.tween_method(_set_progress, 0.0, 1.0, DURATION)
+
+	func _set_progress(value: float) -> void:
+		_progress = value
+		queue_redraw()
+
+	func _draw() -> void:
+		if _progress >= 1.0:
+			return
+		var left := BookStyle.LEFT_PAGE.position.x
+		var right := BookStyle.RIGHT_PAGE.end.x
+		# Vorwärts läuft die Kante von rechts nach links, zurück umgekehrt.
+		var t := _progress if _direction > 0 else 1.0 - _progress
+		var x := roundf(lerpf(right, left, t))
+		var top := BookStyle.LEFT_PAGE.position.y - 2
+		var height := BookStyle.LEFT_PAGE.size.y + 4
+		draw_rect(Rect2(x - 6, top, 12, height), BookStyle.BONE)
+		draw_rect(Rect2(x - 6, top, 1, height), BookStyle.SHEET_SHADOW_DEEP)
+		draw_rect(Rect2(x + 6, top, 3, height), Color(BookStyle.AUBERGINE, 0.35))

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/brew_window.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/ui/brew_panel.png" id="2_panel"]
-[ext_resource type="FontFile" path="res://assets/ui/fonts/m5x7.ttf" id="3_font"]
+[ext_resource type="FontVariation" path="res://assets/ui/fonts/game_font.tres" id="3_font"]
 [ext_resource type="Texture2D" path="res://assets/ui/brew_cauldron.png" id="4_cauldron"]
 [ext_resource type="Texture2D" path="res://assets/ui/brew_arrow.png" id="5_arrow"]
 [ext_resource type="Texture2D" path="res://assets/ui/brew_slot_result.png" id="6_result_slot"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" path="res://assets/ui/brew_button_pressed.png" id="8_button_pressed"]
 [ext_resource type="Texture2D" path="res://assets/ui/brew_button_disabled.png" id="9_button_disabled"]
 [ext_resource type="Script" path="res://scripts/ui/inventory_grid.gd" id="10_grid"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_link"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBox_button"]
 texture = ExtResource("7_button")
@@ -152,20 +154,23 @@ text = "BREW_BUTTON"
 
 [node name="RecipesButton" type="Button" parent="Window"]
 layout_mode = 0
-offset_left = 133.0
-offset_top = 70.0
-offset_right = 179.0
-offset_bottom = 86.0
+offset_left = 112.0
+offset_top = 2.0
+offset_right = 180.0
+offset_bottom = 18.0
 focus_mode = 0
-theme_override_colors/font_color = Color(0.917647, 0.87451, 0.796078, 1)
-theme_override_colors/font_hover_color = Color(0.917647, 0.87451, 0.796078, 1)
-theme_override_colors/font_pressed_color = Color(0.917647, 0.87451, 0.796078, 1)
+tooltip_text = "B"
+theme_override_colors/font_color = Color(0.85098, 0.643137, 0.254902, 1)
+theme_override_colors/font_hover_color = Color(1, 0.709804, 0.4, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.709804, 0.4, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBox_button")
-theme_override_styles/hover = SubResource("StyleBox_button")
-theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_link")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_link")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_link")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_link")
 text = "BREW_RECIPES"
+alignment = 2
 
 [node name="Divider" type="TextureRect" parent="Window"]
 layout_mode = 0

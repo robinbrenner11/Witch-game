@@ -11,7 +11,7 @@ const FILTERS: Array[String] = ["all", "pour", "drink", "throw", "gift"]
 const COLUMNS := 6
 # So viele Plätze zeigt das Raster mindestens; leere bleiben gepunktet
 # sichtbar und verraten, dass es noch mehr zu entdecken gibt.
-const MIN_SLOTS := 18
+const MIN_SLOTS := 12
 
 var filter := "all"
 var selected: RecipeData
@@ -100,11 +100,16 @@ func _build_index(page: Control, recipes: Array[RecipeData]) -> void:
 	page.add_child(header)
 	page.add_child(BookStyle.rule(text_width))
 
+	# Filter: der gewählte unterstrichen; ohne passende Rezepte blass.
 	var filters := HBoxContainer.new()
-	filters.add_theme_constant_override("separation", 6)
+	filters.add_theme_constant_override("separation", 4)
 	for f in FILTERS:
-		var button := BookStyle.text_button("BOOK_FILTER_" + f.to_upper(),
-				BookStyle.INK if f == filter else BookStyle.INK_FAINT)
+		var count := recipes.filter(func(r: RecipeData) -> bool: return f == "all" or category_of(r) == f).size()
+		var color := BookStyle.INK if f == filter else (BookStyle.INK_FAINT if count == 0 else BookStyle.GOLD_DARK)
+		var button := BookStyle.text_button("BOOK_FILTER_" + f.to_upper(), color)
+		button.disabled = count == 0
+		if f == filter:
+			button.add_child(Underline.new())
 		button.pressed.connect(func() -> void:
 			filter = f
 			book.refresh())
@@ -161,43 +166,48 @@ func _build_detail(page: Control, recipe: RecipeData) -> void:
 			missing.append(item_id)
 		page.add_child(_ingredient_row(item_id, have, need))
 
-	if not missing.is_empty():
-		var link := BookStyle.text_button(tr("BOOK_MISSING") % Inventory.display_name_for(missing[0]) + " >", BookStyle.MISSING)
-		link.pressed.connect(func() -> void: book.show_item_entry(missing[0]))
-		page.add_child(link)
-
+	page.add_child(BookStyle.rule_plain(text_width))
 	var result := HBoxContainer.new()
 	result.add_child(BookStyle.label("=", BookStyle.INK))
 	result.add_child(BookStyle.icon(potion.icon))
-	var kind := "BOOK_KIND_DRINK" if category_of(recipe) == "drink" else "BOOK_KIND_POUR"
-	result.add_child(BookStyle.label(kind, BookStyle.INK_FAINT))
-	page.add_child(result)
-	page.add_child(BookStyle.label(potion.description, BookStyle.INK, text_width))
-
+	var kind := "BOOK_USE_DRINK_SHORT" if category_of(recipe) == "drink" else "BOOK_USE_POUR_SHORT"
+	result.add_child(BookStyle.label(kind, BookStyle.INK))
 	var count := Brewing.brew_count(recipe.result_item_id)
 	if count > 0:
-		page.add_child(BookStyle.label(tr("BOOK_BREWED") % count, BookStyle.INK_FAINT))
+		var spacer := Control.new()
+		spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		result.add_child(spacer)
+		result.add_child(BookStyle.label(tr("BOOK_BREWED") % count, BookStyle.INK_FAINT))
+	result.custom_minimum_size.x = text_width
+	page.add_child(result)
+	page.add_child(BookStyle.label(potion.description, BookStyle.INK, text_width))
 	if recipe.margin_note_key != "":
-		page.add_child(BookStyle.label(recipe.margin_note_key, BookStyle.INK_VESPERA, text_width))
+		page.add_child(BookStyle.margin_note(recipe.margin_note_key, text_width))
 	if book.opened_from_cauldron:
-		var brew := BookStyle.text_button("BOOK_BREW_THIS", BookStyle.GOLD_DARK if is_ready(recipe) else BookStyle.INK_FAINT)
-		brew.disabled = not is_ready(recipe)
+		var brew := BookStyle.button("BOOK_BREW_THIS")
+		brew.disabled = not missing.is_empty()
 		brew.pressed.connect(func() -> void: book.brew_this(recipe))
 		page.add_child(brew)
 
 
-## Eine Zutat mit Bestand, z. B. "Mandrake 2/1". Fehlendes in Rot.
-## Klick führt zum Herbarium, wo man erfährt, wo sie wächst.
+## Eine Zutat: wie viele nötig sind, und rechts ein Häkchen, wenn genug in
+## der Tasche ist, sonst "fehlt" in Rot. Ein Klick auf den Namen führt ins
+## Herbarium, wo man erfährt, wo sie wächst.
 func _ingredient_row(item_id: String, have: int, need: int) -> Control:
 	var row := HBoxContainer.new()
 	row.add_child(BookStyle.icon(Inventory.icon_for(item_id)))
+	row.add_child(BookStyle.label(tr("BOOK_NEED") % need, BookStyle.INK_FAINT))
 	var name := BookStyle.text_button(Inventory.display_name_for(item_id), BookStyle.INK)
+	name.tooltip_text = "BOOK_TO_HERBARIUM"
 	name.pressed.connect(func() -> void: book.show_item_entry(item_id))
 	row.add_child(name)
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(spacer)
-	row.add_child(BookStyle.label("%d/%d" % [have, need], BookStyle.INK if have >= need else BookStyle.MISSING))
+	if have >= need:
+		row.add_child(SpreadDiscipline.Check.new())
+	else:
+		row.add_child(BookStyle.label("BOOK_HAVE_MISSING", BookStyle.MISSING))
 	row.custom_minimum_size.x = text_width
 	return row
 
@@ -230,3 +240,17 @@ class CompletionMoon:
 	func _draw() -> void:
 		var stage := floorf(clampf(fraction, 0.0, 1.0) * 7.0) / 7.0
 		MoonIcon.draw_moon(self, Vector2(1, 0), stage * 0.5, 5, 1, BookStyle.GOLD, BookStyle.SHEET_SHADOW_DEEP)
+
+
+## Strich unter dem gewählten Filter.
+class Underline:
+	extends Control
+
+	func _ready() -> void:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+		offset_top = -2
+		offset_bottom = -1
+
+	func _draw() -> void:
+		draw_rect(Rect2(0, 0, size.x, 1), BookStyle.GOLD_DARK)

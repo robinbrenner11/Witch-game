@@ -10,8 +10,9 @@ const GAME_SCENE := "res://scenes/main.tscn"
 const LINES: Array[String] = ["INTRO_LINE_1", "INTRO_LINE_2", "INTRO_LINE_3", "INTRO_LINE_4"]
 const FADE_TIME := 1.4
 # Die Szene ist 2× vergrößert (320 Pixel breit). Längere Zeilen brechen um,
-# statt über den Rand hinauszulaufen.
-const MAX_LINE_WIDTH := 300.0
+# statt über den Rand hinauszulaufen. Etwas schmaler als möglich, damit die
+# Umbrüche ausgewogen sind und kein einzelnes Wort allein in der Zeile steht.
+const MAX_LINE_WIDTH := 232.0
 const PAUSE_TIME := 0.8
 
 var _tween: Tween
