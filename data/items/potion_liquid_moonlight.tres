@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("1_script")
 id = "potion_liquid_moonlight"
-display_name = "Flüssiges Mondlicht"
+display_name = "ITEM_POTION_LIQUID_MOONLIGHT"
 icon = ExtResource("2_icon")
 type = 2
-description = "Was du siehst, hat dich schon lange gesehen."
+description = "ITEM_POTION_LIQUID_MOONLIGHT_DESC"
 use = 1

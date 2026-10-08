@@ -16,6 +16,8 @@ enum Use { NONE, DRINK, POUR }
 const DEFAULT_MAX_STACK := 999
 
 @export var id: String = ""
+# Name und Beschreibung sind Schlüssel in data/translations/texts.csv
+# (ITEM_<ID> und ITEM_<ID>_DESC), damit sie übersetzt werden können.
 @export var display_name: String = ""
 @export var icon: Texture2D
 @export var type: Type = Type.MISC

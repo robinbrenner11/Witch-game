@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_script")
 id = "owl_feather"
-display_name = "Owl Feather"
+display_name = "ITEM_OWL_FEATHER"
 icon = ExtResource("2_icon")
 type = 4
-description = "Black with a violet sheen. The owl does not miss it, or so it seems."
+description = "ITEM_OWL_FEATHER_DESC"

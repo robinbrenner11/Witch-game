@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_script")
 id = "seed_moon_chalice"
-display_name = "Mondkelchsamen"
+display_name = "ITEM_SEED_MOON_CHALICE"
 icon = ExtResource("2_icon")
 type = 0
 plant_id = "moon_chalice"

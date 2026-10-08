@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource("1_script")
 id = "potion_moon_harvest"
-display_name = "Mondernte"
+display_name = "ITEM_POTION_MOON_HARVEST"
 icon = ExtResource("2_icon")
 type = 2
-description = "Der Mond hat es eilig heute Nacht."
+description = "ITEM_POTION_MOON_HARVEST_DESC"
 use = 2
 pour_radius = 1
 pour_stages = 99

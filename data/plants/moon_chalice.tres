@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_script")
 id = "moon_chalice"
-display_name = "Mondkelch"
+display_name = "PLANT_MOON_CHALICE"
 stages_texture = ExtResource("2_stages")
 stage_count = 4
 seed_item_id = "seed_moon_chalice"

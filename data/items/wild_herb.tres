@@ -10,7 +10,7 @@ region = Rect2(0, 0, 16, 16)
 [resource]
 script = ExtResource("1_script")
 id = "wild_herb"
-display_name = "Wildkraut"
+display_name = "ITEM_WILD_HERB"
 icon = SubResource("AtlasTexture_icon")
 type = 1
-description = "Wächst, wo niemand hinsieht. Zäh und ein bisschen bitter."
+description = "ITEM_WILD_HERB_DESC"

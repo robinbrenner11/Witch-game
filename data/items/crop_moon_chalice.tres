@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_script")
 id = "crop_moon_chalice"
-display_name = "Mondkelch"
+display_name = "ITEM_CROP_MOON_CHALICE"
 icon = ExtResource("2_icon")
 type = 1

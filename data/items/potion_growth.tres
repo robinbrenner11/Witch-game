@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource("1_script")
 id = "potion_growth"
-display_name = "Wachstumstrank"
+display_name = "ITEM_POTION_GROWTH"
 icon = ExtResource("2_icon")
 type = 2
-description = "Die Wurzeln flüstern sich gegenseitig Mut zu."
+description = "ITEM_POTION_GROWTH_DESC"
 use = 2
 pour_radius = 1
 pour_color = Color(0.384314, 0.627451, 0.431373, 1)

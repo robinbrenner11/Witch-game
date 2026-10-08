@@ -223,7 +223,8 @@ func icon_for(item_id: String) -> Texture2D:
 
 func display_name_for(item_id: String) -> String:
 	var item := ItemData.from_id(item_id)
-	return item.display_name if item else ""
+	# display_name ist ein Schlüssel in data/translations/texts.csv.
+	return tr(item.display_name) if item else ""
 
 
 func _take(slot: int, amount: int) -> void:

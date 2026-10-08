@@ -193,7 +193,7 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 | `potion_moon_harvest` | Moon Harvest | Pflanzen im 3×3 sofort reif (Mondkelch ausgenommen) | Ausgießen |
 | `potion_liquid_moonlight` | Liquid Moonlight | großes Licht, verborgene Items werden sichtbar | Trinken |
 | `potion_endless_night` | Endless Night | die Nacht dauert länger | Trinken |
-| `potion_sludge` | Witch Sludge (❓ Name) | Dünger, eine Pflanze +1 Stufe | Ausgießen |
+| `potion_sludge` | Witch's Muck (✅ 08.10.) | Dünger, eine Pflanze +1 Stufe | Ausgießen |
 
 - ❓ Wurftränke für den Kampf und Tränke für NPCs sind neu und noch nicht ausgearbeitet.
 
@@ -372,7 +372,7 @@ Kleine, testbare Schritte. Das Spiel soll so früh wie möglich Spaß machen.
 3. Inhalt und Design des Grimoire (eigene Session): Seitenaufbau, Opfer, Belohnungen.
 4. Wurftränke und NPC-Tränke: Rezepte, Wirkungen.
 5. Warum Digitalis gerade diese Hexe gerufen hat.
-6. Englische Namen für Hexenschlamm und die übrigen Pflanzen und UI-Texte.
+6. ~~Englische Namen für Hexenschlamm und die übrigen Pflanzen und UI-Texte.~~ ✅ 08.10.2026: Witch's Muck, Blood Rose, Ghost Fern (Spores), Lantern Berry, Mandrake, Moon Chalice, Nightshade, Wild Herb. Alle Texte stehen in `data/translations/texts.csv`.
 7. Wildgras und Unkraut: Was bringt das Wegräumen, und wächst es nach?
 8. Erste Monster-Designs und das erste Blütenherz.
 9. Was genau die Katze kann (Disziplin Bonding).

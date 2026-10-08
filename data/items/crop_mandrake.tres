@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_script")
 id = "crop_mandrake"
-display_name = "Alraune"
+display_name = "ITEM_CROP_MANDRAKE"
 icon = ExtResource("2_icon")
 type = 1

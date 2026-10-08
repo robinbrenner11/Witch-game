@@ -64,3 +64,43 @@ GOAL_WAKE,Wake the earth with a snap (R).,Weck die Erde mit einem Schnippen (R).
 BOOK_UNDISCOVERED,Not yet discovered.,Noch nicht entdeckt.
 BOOK_USE_DRINK,For drinking.,Zum Trinken.
 BOOK_USE_POUR,For pouring onto a bed.,Zum Ausgießen auf ein Beet.
+ITEM_CROP_BLOOD_ROSE,Blood Rose,Blutrose
+ITEM_CROP_GHOST_FERN,Ghost Fern,Geisterfarn
+ITEM_CROP_LANTERN_BERRY,Lantern Berry,Laternenbeere
+ITEM_CROP_MANDRAKE,Mandrake,Alraune
+ITEM_CROP_MOON_CHALICE,Moon Chalice,Mondkelch
+ITEM_CROP_NIGHTSHADE,Nightshade,Nachtschatten
+ITEM_SEED_BLOOD_ROSE,Blood Rose Seeds,Blutrosensamen
+ITEM_SEED_GHOST_FERN,Ghost Fern Spores,Geisterfarnsporen
+ITEM_SEED_LANTERN_BERRY,Lantern Berry Seeds,Laternenbeerensamen
+ITEM_SEED_MANDRAKE,Mandrake Seeds,Alraunensamen
+ITEM_SEED_MOON_CHALICE,Moon Chalice Seeds,Mondkelchsamen
+ITEM_SEED_NIGHTSHADE,Nightshade Seeds,Nachtschattensamen
+ITEM_POTION_GROWTH,Growth Potion,Wachstumstrank
+ITEM_POTION_GROWTH_DESC,The roots whisper courage to each other.,Die Wurzeln flüstern sich gegenseitig Mut zu.
+ITEM_POTION_WILL_O_WISP,Will-o'-Wisp,Irrlicht
+ITEM_POTION_WILL_O_WISP_DESC,Do not follow it. Or do.,Folge ihm nicht. Oder doch.
+ITEM_POTION_MOON_HARVEST,Moon Harvest,Mondernte
+ITEM_POTION_MOON_HARVEST_DESC,The moon is in a hurry tonight.,Der Mond hat es eilig heute Nacht.
+ITEM_POTION_LIQUID_MOONLIGHT,Liquid Moonlight,Flüssiges Mondlicht
+ITEM_POTION_LIQUID_MOONLIGHT_DESC,What you see has long been watching you.,"Was du siehst, hat dich schon lange gesehen."
+ITEM_POTION_ENDLESS_NIGHT,Endless Night,Ewige Nacht
+ITEM_POTION_ENDLESS_NIGHT_DESC,The sun can wait. You cannot.,Die Sonne kann warten. Du nicht.
+ITEM_POTION_SLUDGE,Witch's Muck,Hexenschlamm
+ITEM_POTION_SLUDGE_DESC,Smells like a cellar. Plants adore it.,Riecht nach Keller. Die Pflanzen lieben es.
+ITEM_WILD_HERB,Wild Herb,Wildkraut
+ITEM_WILD_HERB_DESC,Grows where no one looks. Tough and a little bitter.,"Wächst, wo niemand hinsieht. Zäh und ein bisschen bitter."
+ITEM_EMBER_MOREL,Ember Morel,Glutmorchel
+ITEM_EMBER_MOREL_DESC,A warm cap that smells of smoke. It likes the dark under old trees.,"Ein warmer Hut, der nach Rauch riecht. Er mag das Dunkel unter alten Bäumen."
+ITEM_DUSK_BERRIES,Dusk Berries,Dämmerbeeren
+ITEM_DUSK_BERRIES_DESC,Pale blue and cool as the evening. Someone in the woods surely likes them.,Blassblau und kühl wie der Abend. Irgendwer im Wald mag sie bestimmt.
+ITEM_OWL_FEATHER,Owl Feather,Eulenfeder
+ITEM_OWL_FEATHER_DESC,"Black with a violet sheen. The owl does not miss it, or so it seems.","Schwarz mit violettem Schimmer. Die Eule vermisst sie nicht, so scheint es."
+ITEM_MOONMOSS,Moonmoss,Mondmoos
+ITEM_MOONMOSS_DESC,Silver tips that only open beneath a full moon.,"Silberne Spitzen, die sich nur unter vollem Mond öffnen."
+PLANT_BLOOD_ROSE,Blood Rose,Blutrose
+PLANT_GHOST_FERN,Ghost Fern,Geisterfarn
+PLANT_LANTERN_BERRY,Lantern Berry,Laternenbeere
+PLANT_MANDRAKE,Mandrake,Alraune
+PLANT_MOON_CHALICE,Moon Chalice,Mondkelch
+PLANT_NIGHTSHADE,Nightshade,Nachtschatten

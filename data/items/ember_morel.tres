@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_script")
 id = "ember_morel"
-display_name = "Ember Morel"
+display_name = "ITEM_EMBER_MOREL"
 icon = ExtResource("2_icon")
 type = 1
-description = "A warm cap that smells of smoke. It likes the dark under old trees."
+description = "ITEM_EMBER_MOREL_DESC"

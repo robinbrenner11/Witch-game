@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("1_script")
 id = "potion_endless_night"
-display_name = "Ewige Nacht"
+display_name = "ITEM_POTION_ENDLESS_NIGHT"
 icon = ExtResource("2_icon")
 type = 2
-description = "Die Sonne kann warten. Du nicht."
+description = "ITEM_POTION_ENDLESS_NIGHT_DESC"
 use = 1

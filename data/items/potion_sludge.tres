@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource("1_script")
 id = "potion_sludge"
-display_name = "Hexenschlamm"
+display_name = "ITEM_POTION_SLUDGE"
 icon = ExtResource("2_icon")
 type = 2
-description = "Riecht nach Keller. Die Pflanzen lieben es."
+description = "ITEM_POTION_SLUDGE_DESC"
 use = 2
 pour_radius = 0
 pour_color = Color(0.541176, 0.321569, 0.25098, 1)

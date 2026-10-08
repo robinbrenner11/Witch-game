@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_script")
 id = "ghost_fern"
-display_name = "Geisterfarn"
+display_name = "PLANT_GHOST_FERN"
 stages_texture = ExtResource("2_stages")
 stage_count = 4
 seed_item_id = "seed_ghost_fern"

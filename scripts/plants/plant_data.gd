@@ -6,6 +6,7 @@ extends Resource
 
 # Gemeinsamer Schlüssel für Samen, Pflanze und Ernte (siehe docs/ASSETS.md).
 @export var id: String = ""
+# Schlüssel in data/translations/texts.csv (PLANT_<ID>).
 @export var display_name: String = ""
 # Spritesheet mit allen Wachstumsstufen nebeneinander, letzte = erntereif.
 @export var stages_texture: Texture2D

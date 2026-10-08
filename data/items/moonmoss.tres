@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_script")
 id = "moonmoss"
-display_name = "Moonmoss"
+display_name = "ITEM_MOONMOSS"
 icon = ExtResource("2_icon")
 type = 1
-description = "Silver tips that only open beneath a full moon."
+description = "ITEM_MOONMOSS_DESC"
