@@ -110,6 +110,11 @@ func hinted_ingredients(result_item_id: String) -> Array:
 	return _hints.get(result_item_id, [])
 
 
+## Summe aller Disziplin-Stufen (docs/design/grimoire.md, Abschnitt 3).
+func witch_strength() -> int:
+	return 0
+
+
 # --- Kapitel und Glimmen -----------------------------------------------------
 
 ## Bedingungen aus ChapterData.unlock. Unbekannte Bedingungen bleiben zu, bis

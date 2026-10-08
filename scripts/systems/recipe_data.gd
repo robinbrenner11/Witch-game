@@ -12,6 +12,8 @@ const FAILED_RESULT := "potion_sludge"
 # Item-IDs, z. B. "crop_mandrake". Dieselbe Zutat darf mehrfach vorkommen.
 @export var ingredients: Array[String] = []
 @export var result_item_id: String = ""
+# Vesperas Randnotiz im Grimoire (Schlüssel in data/translations), leer = keine.
+@export var margin_note_key: String = ""
 
 # static: gehört zur Klasse, nicht zu einem einzelnen Rezept. So werden die
 # Dateien nur einmal geladen, egal wie viele Kessel es gibt.

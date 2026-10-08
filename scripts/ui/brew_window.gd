@@ -75,9 +75,43 @@ func close() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if visible and (event.is_action_pressed("interact") or event.is_action_pressed("ui_cancel")):
+	# Liegt das Grimoire darüber, ist das Fenster nicht dran.
+	if not visible or _book_is_open():
+		return
+	if event.is_action_pressed("interact") or event.is_action_pressed("ui_cancel"):
 		close()
 		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("book"):
+		_on_recipes_button_pressed()
+		get_viewport().set_input_as_handled()
+
+
+func _book_is_open() -> bool:
+	var book := get_tree().get_first_node_in_group("grimoire_book") as Control
+	return book != null and book.visible
+
+
+## Das Grimoire bei den Rezepten öffnen, mit "Brew this".
+func _on_recipes_button_pressed() -> void:
+	var book := get_tree().get_first_node_in_group("grimoire_book") as GrimoireBook
+	if book:
+		book.open("recipes", true)
+
+
+## "Brew this" im Grimoire: Was gerade im Kessel liegt, kommt zurück, dann
+## wandern die Zutaten des Rezepts aus dem Inventar hinein.
+func fill_with(ingredients: Array[String]) -> void:
+	if is_locked():
+		return
+	for item_id in _ingredients:
+		Inventory.add(item_id)
+	_ingredients.clear()
+	for item_id in ingredients:
+		for slot in Inventory.SIZE:
+			if Inventory.item_in_slot(slot) == item_id:
+				add_from_inventory(slot)
+				break
+	_refresh()
 
 
 ## Während der Kessel braut, kann man nichts hineinlegen oder herausnehmen.

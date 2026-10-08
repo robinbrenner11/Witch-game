@@ -19,7 +19,7 @@ func _on_interactable_interacted(_player: Node2D) -> void:
 		Grimoire.find_book()
 		Messages.post(tr("MSG_LECTERN_BOOK"))
 	else:
-		get_tree().call_group("recipe_book", "open")
+		get_tree().call_group("grimoire_book", "open")
 
 
 func _update_look() -> void:

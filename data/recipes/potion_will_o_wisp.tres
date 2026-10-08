@@ -6,3 +6,4 @@
 script = ExtResource("1_script")
 ingredients = Array[String](["crop_lantern_berry", "crop_nightshade"])
 result_item_id = "potion_will_o_wisp"
+margin_note_key = "RECIPE_POTION_WILL_O_WISP_NOTE"

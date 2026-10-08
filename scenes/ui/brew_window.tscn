@@ -150,6 +150,23 @@ theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
 theme_override_styles/disabled = SubResource("StyleBox_button_disabled")
 text = "BREW_BUTTON"
 
+[node name="RecipesButton" type="Button" parent="Window"]
+layout_mode = 0
+offset_left = 133.0
+offset_top = 70.0
+offset_right = 179.0
+offset_bottom = 86.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.917647, 0.87451, 0.796078, 1)
+theme_override_colors/font_hover_color = Color(0.917647, 0.87451, 0.796078, 1)
+theme_override_colors/font_pressed_color = Color(0.917647, 0.87451, 0.796078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBox_button")
+theme_override_styles/hover = SubResource("StyleBox_button")
+theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
+text = "BREW_RECIPES"
+
 [node name="Divider" type="TextureRect" parent="Window"]
 layout_mode = 0
 offset_left = 10.0
@@ -173,3 +190,4 @@ slot_count = 24
 slot_size = 20
 
 [connection signal="pressed" from="Window/BrewButton" to="." method="_on_brew_button_pressed"]
+[connection signal="pressed" from="Window/RecipesButton" to="." method="_on_recipes_button_pressed"]

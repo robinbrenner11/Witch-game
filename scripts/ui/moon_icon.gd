@@ -1,3 +1,4 @@
+class_name MoonIcon
 extends Control
 
 ## Die Mondphase als kleines Pixelbild unter der Uhr. Gezeichnet statt als
@@ -23,16 +24,21 @@ func _process(_delta: float) -> void:
 
 
 func _draw() -> void:
-	# 0 = Neumond, 0.5 = Vollmond, gegen 1 wieder Neumond.
-	var cycle := float(_phase) / DayCycle.MOON_PHASE_NAMES.size()
-	var diameter := RADIUS * 2 + 1
+	draw_moon(self, Vector2.ZERO, float(_phase) / DayCycle.MOON_PHASE_NAMES.size(), RADIUS, PIXEL, LIT, DARK)
+
+
+## Zeichnet eine Mondscheibe. cycle: 0 = Neumond, 0.5 = Vollmond, gegen 1
+## wieder Neumond. Auch das Grimoire nutzt das (Vollständigkeit als Mond).
+static func draw_moon(canvas: CanvasItem, origin: Vector2, cycle: float, radius: int,
+		pixel: int, lit_color: Color, dark_color: Color) -> void:
+	var diameter := radius * 2 + 1
 	for py in diameter:
 		for px in diameter:
-			var dx := (px - RADIUS) / (RADIUS + 0.5)
-			var dy := (py - RADIUS) / (RADIUS + 0.5)
+			var dx := (px - radius) / (radius + 0.5)
+			var dy := (py - radius) / (radius + 0.5)
 			if dx * dx + dy * dy > 1.0:
 				continue
 			# Wo auf dieser Zeile die Schattengrenze liegt.
 			var edge := sqrt(1.0 - dy * dy) * cos(TAU * cycle)
 			var lit := dx > edge if cycle <= 0.5 else dx < -edge
-			draw_rect(Rect2(Vector2(px, py) * PIXEL, Vector2.ONE * PIXEL), LIT if lit else DARK)
+			canvas.draw_rect(Rect2(origin + Vector2(px, py) * pixel, Vector2.ONE * pixel), lit_color if lit else dark_color)

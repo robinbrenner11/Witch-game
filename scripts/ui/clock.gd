@@ -10,6 +10,11 @@ const ENDLESS_NIGHT_COLOR := Color("#E458B1")
 @onready var moon_name: Label = %MoonName
 
 
+func _ready() -> void:
+	# Über die Gruppe kann z. B. das Grimoire die Uhr ausblenden.
+	add_to_group("clock")
+
+
 func _process(_delta: float) -> void:
 	text = tr("CLOCK_NIGHT") % DayCycle.day + "   %02d:%02d" % [DayCycle.hour(), DayCycle.minute()]
 	if DayCycle.fast_forward:

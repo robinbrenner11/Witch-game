@@ -22,6 +22,8 @@ var capacity: int = START_CAPACITY
 # "crop_ghost_fern+crop_mandrake") -> Ergebnis. Bekanntes zeigt das
 # Brau-Fenster mit Namen an, alles andere als "???".
 var _known: Dictionary[String, String] = {}
+# Wie oft welcher Trank schon gebraut wurde (Ergebnis-ID -> Anzahl), fürs Grimoire.
+var _brew_counts: Dictionary[String, int] = {}
 # Zutaten, die gerade über Nacht brauen (leer = Kessel frei).
 var _brewing: Array[String] = []
 # Fertiger Trank, der auf Abholung wartet ("" = keiner).
@@ -76,6 +78,10 @@ func known_result(ingredients: Array[String]) -> String:
 	return ""
 
 
+func brew_count(result_item_id: String) -> int:
+	return _brew_counts.get(result_item_id, 0)
+
+
 ## Hat die Hexe diesen Trank schon einmal gebraut?
 func has_brewed(result_item_id: String) -> bool:
 	return _known.values().has(result_item_id)
@@ -91,7 +97,7 @@ func reset() -> void:
 
 
 func get_save_data() -> Dictionary:
-	return {"capacity": capacity, "known": _known, "brewing": _brewing, "finished": _finished}
+	return {"capacity": capacity, "known": _known, "brewing": _brewing, "finished": _finished, "counts": _brew_counts}
 
 
 func load_save_data(data: Dictionary) -> void:
@@ -104,6 +110,10 @@ func load_save_data(data: Dictionary) -> void:
 	for item_id in data.get("brewing", []):
 		_brewing.append(String(item_id))
 	_finished = String(data.get("finished", ""))
+	_brew_counts.clear()
+	var counts: Dictionary = data.get("counts", {})
+	for key in counts:
+		_brew_counts[String(key)] = int(counts[key])
 	changed.emit()
 
 
@@ -112,6 +122,7 @@ func _on_day_passed(_day: int) -> void:
 		return
 	_finished = RecipeData.result_for(_brewing)
 	learn(_brewing, _finished)
+	_brew_counts[_finished] = brew_count(_finished) + 1
 	_brewing.clear()
 	changed.emit()
 

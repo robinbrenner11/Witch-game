@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/inventory_window.tscn" id="6_inventory_window"]
 [ext_resource type="PackedScene" path="res://scenes/ui/brew_window.tscn" id="7_brew_window"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="8_pause_menu"]
-[ext_resource type="PackedScene" path="res://scenes/ui/recipe_book.tscn" id="9_recipe_book"]
+[ext_resource type="PackedScene" path="res://scenes/ui/grimoire_book.tscn" id="9_grimoire_book"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_script")
@@ -30,4 +30,4 @@ script = ExtResource("2_night_tint")
 
 [node name="BrewWindow" parent="UI" instance=ExtResource("7_brew_window")]
 
-[node name="RecipeBook" parent="UI" instance=ExtResource("9_recipe_book")]
+[node name="GrimoireBook" parent="UI" instance=ExtResource("9_grimoire_book")]

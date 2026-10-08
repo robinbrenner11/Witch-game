@@ -118,3 +118,24 @@ CHAPTER_JOURNAL,Journal,Tagebuch
 CHAPTER_PEOPLE,People,Leute
 CHAPTER_HERBARIUM,Herbarium,Herbarium
 CHAPTER_BESTIARY,Bestiary,Bestiarium
+COVER_STRENGTH,Witch Strength,Hexenstärke
+COVER_OWNER,This book is yours now.,Dieses Buch gehört jetzt dir.
+BOOK_SEALED,Overgrown by the Bitterbloom.,Von der Bitterblüte überwuchert.
+BOOK_BLANK,These pages are still blank.,Diese Seiten sind noch leer.
+BOOK_FILTER_ALL,All,Alle
+BOOK_FILTER_POUR,Pour,Gießen
+BOOK_FILTER_DRINK,Drink,Trinken
+BOOK_FILTER_THROW,Throw,Werfen
+BOOK_FILTER_GIFT,Gift,Geschenk
+BOOK_MISSING,Missing: %s,Fehlt: %s
+BOOK_KIND_DRINK,to drink,zum Trinken
+BOOK_KIND_POUR,to pour,zum Ausgießen
+BOOK_BREWED,Brewed %dx,%dx gebraut
+BOOK_BREW_THIS,Brew this,Das brauen
+BOOK_RUMOR,Someone mentioned an ingredient.,Jemand hat eine Zutat erwähnt.
+BREW_RECIPES,Recipes,Rezepte
+RECIPE_POTION_GROWTH_NOTE,Two roots that hate each other make the best of friends in a pot.,"Zwei Wurzeln, die sich hassen, werden im Topf die besten Freunde."
+RECIPE_POTION_WILL_O_WISP_NOTE,Do not name it. Named lights stay.,Gib ihm keinen Namen. Benannte Lichter bleiben.
+RECIPE_POTION_MOON_HARVEST_NOTE,Never on the chalice. The moon takes offense.,Nie auf den Kelch. Der Mond nimmt das übel.
+RECIPE_POTION_LIQUID_MOONLIGHT_NOTE,Stir with the left hand. Always the left.,Mit der linken Hand rühren. Immer mit der linken.
+RECIPE_POTION_ENDLESS_NIGHT_NOTE,One bottle a moon. I did not listen to myself.,Eine Flasche pro Mond. Ich habe nicht auf mich gehört.
