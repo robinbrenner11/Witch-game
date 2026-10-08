@@ -165,10 +165,10 @@ Beschreibungstexte im Spiel (bereits nach den Schriftregeln: keine Gedankenstric
 ## 9. Geschichte: die alte Hexe (Stand 07.10.2026)
 
 ✅ Das Rezeptbuch gehört **nicht einer verstorbenen Hexe**, sondern einer **fremden, sehr mächtigen alten Hexe** (Oma-Hexe), die **noch lebt** und **geflohen** ist. Die Hauptfigur kannte sie nicht und übernimmt ihren verlassenen Garten.
-✅ Hintergrund: Vor etwa **10 Jahren** gab es eine **Plage von Monstern**. Die Dorfbewohner konnten sie **im Schacht halten**, aber es gibt immer noch viele davon. Die alte Hexe ist geflohen, weil sie in ihrem hohen Alter nicht mehr kämpfen kann.
+✅ Hintergrund: Vor etwa **10 Jahren** gab es eine **Plage von Monstern**. Die Dorfbewohner konnten sie **in Schach halten**, aber es gibt immer noch viele davon. *(08.10.2026: „Schacht“ war ein Missverständnis, siehe `game_design.md` Abschnitt 12.)* Die alte Hexe ist geflohen, weil sie in ihrem hohen Alter nicht mehr kämpfen kann.
 💡 Die alte Hexe kann später einmal **auftauchen**.
 💡 Ihre Geschichte ist eine der Geschichten, die die **Dorfbewohner erzählen**.
-🔮 Der Schacht passt als Ort für den ersten Dungeon (Monster, Kampf mit Magie).
+❌ ~~Der Schacht passt als Ort für den ersten Dungeon.~~ Entfällt (08.10.2026), es gibt keinen Schacht.
 Offen: Name der alten Hexe.
 
 ## 10. Nachträge (07.10.2026, später)

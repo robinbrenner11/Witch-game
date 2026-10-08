@@ -8,10 +8,10 @@ const GAME_SCENE := "res://scenes/main.tscn"
 # Spieltexte: keine Gedankenstriche, keine deutschen Anführungszeichen,
 # keine Auslassungspunkte.
 const LINES: Array[String] = [
-	"Vor zehn Jahren kamen sie aus dem Schacht.",
-	"Das Dorf hat sie zurückgedrängt. Nicht alle.",
-	"Die alte Hexe, der dieser Garten gehörte, ist fort.",
-	"Jetzt gehört er dir.",
+	"Ten years ago, the Bitterbloom woke in the deep woods.",
+	"The villagers keep it at bay. Barely.",
+	"The old witch they now call Mother Blight fled and never returned.",
+	"Her garden has been waiting ever since.",
 ]
 const FADE_TIME := 1.4
 const PAUSE_TIME := 0.8
