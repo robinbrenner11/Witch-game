@@ -6,12 +6,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/decor/bush_1.tscn" id="o0_bush_1"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/bush_2.tscn" id="o1_bush_2"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/bush_berries.tscn" id="o2_bush_berries"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/fern_1.tscn" id="o3_fern_1"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/fern_2.tscn" id="o4_fern_2"]
 [ext_resource type="PackedScene" path="res://scenes/world/firefly.tscn" id="o5_firefly"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/grass_tuft_1.tscn" id="o6_grass_tuft_1"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/grass_tuft_2.tscn" id="o7_grass_tuft_2"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/grass_tuft_3.tscn" id="o8_grass_tuft_3"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/log.tscn" id="o9_log"]
 [ext_resource type="PackedScene" path="res://scenes/world/loose_page.tscn" id="o10_loose_page"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/mushroom_ember.tscn" id="o11_mushroom_ember"]
@@ -111,74 +106,6 @@ position = Vector2(1023, 223)
 position = Vector2(664, 746)
 flip = true
 
-[node name="Fern11" parent="Objects/Decor" instance=ExtResource("o3_fern_1")]
-position = Vector2(82, 276)
-
-[node name="Fern12" parent="Objects/Decor" instance=ExtResource("o3_fern_1")]
-position = Vector2(799, 278)
-
-[node name="Fern13" parent="Objects/Decor" instance=ExtResource("o3_fern_1")]
-position = Vector2(258, 475)
-flip = true
-
-[node name="Fern14" parent="Objects/Decor" instance=ExtResource("o3_fern_1")]
-position = Vector2(446, 505)
-flip = true
-
-[node name="Fern15" parent="Objects/Decor" instance=ExtResource("o3_fern_1")]
-position = Vector2(669, 514)
-flip = true
-
-[node name="Fern16" parent="Objects/Decor" instance=ExtResource("o3_fern_1")]
-position = Vector2(963, 527)
-
-[node name="Fern17" parent="Objects/Decor" instance=ExtResource("o3_fern_1")]
-position = Vector2(942, 608)
-flip = true
-
-[node name="Fern21" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(766, 140)
-
-[node name="Fern22" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(214, 314)
-flip = true
-
-[node name="Fern23" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(993, 370)
-flip = true
-
-[node name="Fern24" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(304, 384)
-flip = true
-
-[node name="Fern25" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(111, 394)
-flip = true
-
-[node name="Fern26" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(791, 403)
-flip = true
-
-[node name="Fern27" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(748, 424)
-
-[node name="Fern28" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(554, 561)
-
-[node name="Fern29" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(656, 575)
-flip = true
-
-[node name="Fern210" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(806, 609)
-flip = true
-
-[node name="Fern211" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(924, 647)
-
-[node name="Fern212" parent="Objects/Decor" instance=ExtResource("o4_fern_2")]
-position = Vector2(921, 713)
-
 [node name="Firefly1" parent="Fireflies" instance=ExtResource("o5_firefly")]
 position = Vector2(1004, 104)
 
@@ -220,22 +147,6 @@ position = Vector2(814, 489)
 
 [node name="Firefly14" parent="Fireflies" instance=ExtResource("o5_firefly")]
 position = Vector2(940, 524)
-
-[node name="GrassTuft11" parent="Objects/Decor" instance=ExtResource("o6_grass_tuft_1")]
-position = Vector2(934, 120)
-
-[node name="GrassTuft21" parent="Objects/Decor" instance=ExtResource("o7_grass_tuft_2")]
-position = Vector2(963, 93)
-
-[node name="GrassTuft22" parent="Objects/Decor" instance=ExtResource("o7_grass_tuft_2")]
-position = Vector2(351, 351)
-
-[node name="GrassTuft31" parent="Objects/Decor" instance=ExtResource("o8_grass_tuft_3")]
-position = Vector2(170, 295)
-
-[node name="GrassTuft32" parent="Objects/Decor" instance=ExtResource("o8_grass_tuft_3")]
-position = Vector2(835, 321)
-flip = true
 
 [node name="Log1" parent="Objects/Decor" instance=ExtResource("o9_log")]
 position = Vector2(624, 730)

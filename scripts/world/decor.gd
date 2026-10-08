@@ -22,6 +22,8 @@ const LIGHT_TEXTURE := preload("res://assets/effects/lights/light_round_64.png")
 const FADED_ALPHA := 0.45
 # Wie schnell das Durchsichtig-Werden geht (Alpha pro Sekunde).
 const FADE_SPEED := 4.0
+# Sammelbares raschelt kurz, wenn die Hexe so nah herankommt (Pixel).
+const RUSTLE_DISTANCE := 56.0
 
 # Waagerechter Streifen mit frame_count gleich breiten Frames.
 @export var texture: Texture2D
@@ -59,8 +61,12 @@ const FADE_SPEED := 4.0
 @export var light_offset: Vector2 = Vector2.ZERO
 @export var light_flicker: float = 0.0
 
+# Sammelbares (Weed, Forage) setzt das selbst: Es wackelt kurz, wenn die
+# Hexe in die Nähe kommt. So erkennt man es, ohne dass etwas leuchtet.
+var rustle_when_near := false
 var sprite: AnimatedSprite2D
 var glow_sprite: AnimatedSprite2D
+var _player_was_near := false
 
 
 func _ready() -> void:
@@ -72,13 +78,39 @@ func _ready() -> void:
 		glow_sprite = _add_sprite(glow_texture, true)
 	_add_collision()
 	_add_light()
-	set_process(fade_when_behind and not Engine.is_editor_hint())
+	set_process((fade_when_behind or rustle_when_near) and not Engine.is_editor_hint())
 
 
 func _process(delta: float) -> void:
 	var player := get_tree().get_first_node_in_group("player") as Node2D
+	if player == null:
+		return
+	if fade_when_behind:
+		_update_fade(player, delta)
+	if rustle_when_near:
+		var near := player.global_position.distance_to(global_position) < RUSTLE_DISTANCE
+		if near and not _player_was_near:
+			rustle()
+		_player_was_near = near
+
+
+## Kurzes Wackeln um ein Pixel hin und her, wie ein Tier im Gebüsch.
+func rustle() -> void:
+	var tween := create_tween()
+	for x in [1.0, -1.0, 1.0, -1.0, 0.0]:
+		tween.tween_callback(_shift_sprites.bind(x))
+		tween.tween_interval(0.07)
+
+
+func _shift_sprites(x: float) -> void:
+	sprite.position.x = x
+	if glow_sprite:
+		glow_sprite.position.x = x
+
+
+func _update_fade(player: Node2D, delta: float) -> void:
 	var target := 1.0
-	if player and player.global_position.y < global_position.y:
+	if player.global_position.y < global_position.y:
 		# Die Körpermitte der Hexe, nicht ihre Füße: Sie zählt als verdeckt,
 		# sobald die Krone über ihr liegt.
 		if cover_rect().has_point(player.global_position + Vector2(0, -24)):

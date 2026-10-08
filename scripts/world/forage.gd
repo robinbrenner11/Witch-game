@@ -27,6 +27,7 @@ var wild_id := ""
 
 
 func _ready() -> void:
+	rustle_when_near = not Engine.is_editor_hint()
 	super()
 	if Engine.is_editor_hint():
 		return

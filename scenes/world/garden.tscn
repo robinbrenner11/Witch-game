@@ -25,11 +25,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/decor/log.tscn" id="d8_log"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/rock_1.tscn" id="d9_rock_1"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/rock_2.tscn" id="d10_rock_2"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/fern_1.tscn" id="d11_fern_1"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/fern_2.tscn" id="d12_fern_2"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/grass_tuft_1.tscn" id="d13_grass_tuft_1"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/grass_tuft_2.tscn" id="d14_grass_tuft_2"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/grass_tuft_3.tscn" id="d15_grass_tuft_3"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/flowers_lilac.tscn" id="d16_flowers_lilac"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/flowers_moon.tscn" id="d17_flowers_moon"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/flowers_ember.tscn" id="d18_flowers_ember"]
@@ -170,12 +165,6 @@ flip = true
 [node name="FlowersMoon3" parent="Objects/Decor" instance=ExtResource("d17_flowers_moon")]
 position = Vector2(1100, 330)
 
-[node name="GrassTuft21" parent="Objects/Decor" instance=ExtResource("d14_grass_tuft_2")]
-position = Vector2(700, 470)
-
-[node name="GrassTuft11" parent="Objects/Decor" instance=ExtResource("d13_grass_tuft_1")]
-position = Vector2(980, 430)
-
 [node name="TreeFir1" parent="Objects/Decor" instance=ExtResource("d1_tree_fir")]
 position = Vector2(412, 330)
 
@@ -233,36 +222,6 @@ flip = true
 [node name="Rock21" parent="Objects/Decor" instance=ExtResource("d10_rock_2")]
 position = Vector2(990, 96)
 
-[node name="Fern11" parent="Objects/Decor" instance=ExtResource("d11_fern_1")]
-position = Vector2(460, 660)
-
-[node name="Fern21" parent="Objects/Decor" instance=ExtResource("d12_fern_2")]
-position = Vector2(1180, 660)
-flip = true
-
-[node name="Fern12" parent="Objects/Decor" instance=ExtResource("d11_fern_1")]
-position = Vector2(1190, 180)
-
-[node name="GrassTuft12" parent="Objects/Decor" instance=ExtResource("d13_grass_tuft_1")]
-position = Vector2(470, 460)
-
-[node name="GrassTuft31" parent="Objects/Decor" instance=ExtResource("d15_grass_tuft_3")]
-position = Vector2(1186, 430)
-
-[node name="GrassTuft22" parent="Objects/Decor" instance=ExtResource("d14_grass_tuft_2")]
-position = Vector2(720, 700)
-flip = true
-
-[node name="GrassTuft32" parent="Objects/Decor" instance=ExtResource("d15_grass_tuft_3")]
-position = Vector2(940, 700)
-
-[node name="GrassTuft13" parent="Objects/Decor" instance=ExtResource("d13_grass_tuft_1")]
-position = Vector2(660, 40)
-flip = true
-
-[node name="GrassTuft23" parent="Objects/Decor" instance=ExtResource("d14_grass_tuft_2")]
-position = Vector2(960, 20)
-
 [node name="Fireflies" type="Node2D" parent="."]
 
 [node name="Firefly1" parent="Fireflies" instance=ExtResource("19_firefly")]
@@ -285,9 +244,6 @@ position = Vector2(712, 212)
 
 [node name="FlowersBlood9" parent="Objects/Decor" instance=ExtResource("d19_flowers_blood")]
 position = Vector2(752, 222)
-
-[node name="GrassTuft9" parent="Objects/Decor" instance=ExtResource("d13_grass_tuft_1")]
-position = Vector2(690, 250)
 
 [node name="NightshadeDomes" parent="." instance=ExtResource("7_domes")]
 

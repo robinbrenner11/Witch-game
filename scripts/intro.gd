@@ -14,6 +14,9 @@ const LINES: Array[String] = [
 	"Her garden has been waiting ever since.",
 ]
 const FADE_TIME := 1.4
+# Die Szene ist 2× vergrößert (320 Pixel breit). Längere Zeilen brechen um,
+# statt über den Rand hinauszulaufen.
+const MAX_LINE_WIDTH := 300.0
 const PAUSE_TIME := 0.8
 
 var _tween: Tween
@@ -28,6 +31,8 @@ func _ready() -> void:
 		var label := Label.new()
 		label.text = text
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		label.custom_minimum_size.x = MAX_LINE_WIDTH
 		label.modulate.a = 0.0
 		lines_box.add_child(label)
 	hint.modulate.a = 0.0
