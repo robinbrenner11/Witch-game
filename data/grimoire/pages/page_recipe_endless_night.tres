@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PageData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/page_data.gd" id="1_page"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="Resource_reward"]
+script = ExtResource("2_reward")
+target_id = "potion_endless_night"
+
+[resource]
+script = ExtResource("1_page")
+id = "page_recipe_endless_night"
+reward = SubResource("Resource_reward")
+lore_key = "PAGE_RECIPE_ENDLESS_NIGHT_LORE"

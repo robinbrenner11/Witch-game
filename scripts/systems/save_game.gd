@@ -8,7 +8,7 @@ extends Node
 ## Datei – so muss es nicht wissen, wie Inventar oder Garten innen aussehen,
 ## und neue Systeme (Kessel, NPCs …) kommen mit je einer Zeile dazu.
 ##
-## Muss in der Autoload-Liste nach DayCycle, Inventory, Garden, Brewing, Journal und Wilds stehen,
+## Muss in der Autoload-Liste nach DayCycle, Inventory, Garden, Brewing, Grimoire und Wilds stehen,
 ## damit die beim Laden schon bereit sind.
 
 # user:// ist ein Ordner, den Godot pro Spiel anlegt. Unter Windows:
@@ -29,7 +29,7 @@ func new_game() -> void:
 	Inventory.reset()
 	Garden.reset()
 	Brewing.reset()
-	Journal.reset()
+	Grimoire.reset()
 	Wilds.reset()
 
 
@@ -40,7 +40,7 @@ func save_game() -> void:
 		"inventory": Inventory.get_save_data(),
 		"garden": Garden.get_save_data(),
 		"brewing": Brewing.get_save_data(),
-		"journal": Journal.get_save_data(),
+		"grimoire": Grimoire.get_save_data(),
 		"wilds": Wilds.get_save_data(),
 	}
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -70,7 +70,7 @@ func load_game() -> bool:
 	# Ältere Spielstände haben noch keinen Brau-Teil.
 	if data.has("brewing"):
 		Brewing.load_save_data(data["brewing"])
-	Journal.load_save_data(data.get("journal", {}))
+	Grimoire.load_save_data(data.get("grimoire", {}))
 	Wilds.load_save_data(data.get("wilds", {}))
 	print("Spielstand geladen (Nacht %d)" % DayCycle.day)
 	return true

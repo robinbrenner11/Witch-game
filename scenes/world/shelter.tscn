@@ -64,7 +64,7 @@ position = Vector2(64, 192)
 
 [node name="LoosePage" parent="Objects" instance=ExtResource("9_loose_page")]
 position = Vector2(108, 146)
-recipe_result_id = "potion_endless_night"
+page_id = "page_recipe_endless_night"
 
 [node name="Shelf" parent="Objects" instance=ExtResource("d_shelter_shelf")]
 position = Vector2(74, 104)

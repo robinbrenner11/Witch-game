@@ -153,7 +153,7 @@ position = Vector2(624, 730)
 
 [node name="LoosePage1" parent="Objects" instance=ExtResource("o10_loose_page")]
 position = Vector2(928, 480)
-recipe_result_id = "potion_liquid_moonlight"
+page_id = "page_recipe_liquid_moonlight"
 
 [node name="MushroomEmber1" parent="Objects/Decor" instance=ExtResource("o11_mushroom_ember")]
 position = Vector2(647, 104)

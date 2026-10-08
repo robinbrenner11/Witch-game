@@ -41,7 +41,7 @@ func _ready() -> void:
 
 
 func open() -> void:
-	if not Journal.has_book:
+	if not Grimoire.has_book:
 		return
 	show()
 	get_tree().paused = true
@@ -56,7 +56,7 @@ func close() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
 		# Nur öffnen, wenn kein anderes Fenster offen ist.
-		if event.is_action_pressed("book") and not get_tree().paused and Journal.has_book:
+		if event.is_action_pressed("book") and not get_tree().paused and Grimoire.has_book:
 			open()
 			get_viewport().set_input_as_handled()
 		return
@@ -103,9 +103,9 @@ func _build_note() -> void:
 	# Zusammengesetzter Text, deshalb tr() von Hand: Godot übersetzt nur
 	# Texte automatisch, die genau ein Schlüssel sind.
 	var bbcode := tr(NOTE_START)
-	for goal in Journal.GOALS:
+	for goal in Grimoire.GOALS:
 		var line := tr(GOAL_TEXTS[goal])
-		if Journal.is_goal_done(goal):
+		if Grimoire.is_goal_done(goal):
 			line = "[s][color=#%s]%s[/color][/s]" % [INK_DONE.to_html(false), line]
 		bbcode += "\n" + line
 	text.text = bbcode
@@ -113,7 +113,7 @@ func _build_note() -> void:
 
 
 func _build_recipe(recipe: RecipeData) -> void:
-	var known := Journal.knows_recipe(recipe)
+	var known := Grimoire.knows_recipe(recipe)
 	var potion := ItemData.from_id(recipe.result_item_id)
 
 	var title := Label.new()

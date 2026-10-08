@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ChapterData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/chapter_data.gd" id="1_chapter"]
+
+[resource]
+script = ExtResource("1_chapter")
+id = "herbalism"
+title_key = "CHAPTER_HERBALISM"
+group = 2
+order = 20
+tab_color = Color(0.3843, 0.6275, 0.4314, 1)
+template = 2
+unlock = ""

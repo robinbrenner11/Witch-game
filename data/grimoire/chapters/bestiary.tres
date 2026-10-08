@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ChapterData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/chapter_data.gd" id="1_chapter"]
+
+[resource]
+script = ExtResource("1_chapter")
+id = "bestiary"
+title_key = "CHAPTER_BESTIARY"
+group = 3
+order = 33
+tab_color = Color(0.2902, 0.2706, 0.5882, 1)
+template = 1
+unlock = "first_fight"

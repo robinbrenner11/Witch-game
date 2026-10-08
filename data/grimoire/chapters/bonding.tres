@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ChapterData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/chapter_data.gd" id="1_chapter"]
+
+[resource]
+script = ExtResource("1_chapter")
+id = "bonding"
+title_key = "CHAPTER_BONDING"
+group = 2
+order = 24
+tab_color = Color(0.6627, 0.6078, 0.8784, 1)
+template = 2
+unlock = "cat"

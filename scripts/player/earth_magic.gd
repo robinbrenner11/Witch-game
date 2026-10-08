@@ -34,7 +34,7 @@ func _snap() -> void:
 		Garden.remove_bed(cell)
 	else:
 		Garden.add_bed(cell)
-		Journal.complete_goal("wake")
+		Grimoire.complete_goal("wake")
 	_burst(level, Vector2(cell * Garden.TILE_SIZE) + Vector2.ONE * Garden.TILE_SIZE / 2.0)
 
 

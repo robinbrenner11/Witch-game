@@ -59,7 +59,7 @@ func take_finished() -> bool:
 	if _finished == "" or not Inventory.add(_finished):
 		return false
 	_finished = ""
-	Journal.complete_goal("brew")
+	Grimoire.complete_goal("brew")
 	changed.emit()
 	return true
 
@@ -71,7 +71,7 @@ func known_result(ingredients: Array[String]) -> String:
 	if _known.has(key):
 		return _known[key]
 	for recipe in RecipeData.all():
-		if recipe.matches(ingredients) and Journal.is_page_found(recipe.result_item_id):
+		if recipe.matches(ingredients) and Grimoire.has_recipe_page(recipe.result_item_id):
 			return recipe.result_item_id
 	return ""
 

@@ -76,7 +76,7 @@ func _plant_seed(seed_data: PlantData) -> void:
 		Messages.post(tr("MSG_SOIL_WAITS"))
 		return
 	Garden.plant_seed(cell, seed_data.id)
-	Journal.complete_goal("plant")
+	Grimoire.complete_goal("plant")
 
 
 func _harvest(player: Player) -> void:

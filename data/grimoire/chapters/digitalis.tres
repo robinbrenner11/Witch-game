@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ChapterData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/chapter_data.gd" id="1_chapter"]
+
+[resource]
+script = ExtResource("1_chapter")
+id = "digitalis"
+title_key = "CHAPTER_DIGITALIS"
+group = 1
+order = 11
+tab_color = Color(0.7608, 0.1882, 0.4784, 1)
+template = 1
+unlock = ""

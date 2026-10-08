@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ChapterData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/chapter_data.gd" id="1_chapter"]
+
+[resource]
+script = ExtResource("1_chapter")
+id = "cover"
+title_key = "CHAPTER_COVER"
+group = 0
+order = 0
+tab_color = Color(0.851, 0.6431, 0.2549, 1)
+template = 0
+unlock = ""

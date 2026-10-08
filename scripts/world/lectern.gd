@@ -10,17 +10,17 @@ const EMPTY := preload("res://assets/environment/props/lectern.png")
 
 
 func _ready() -> void:
-	Journal.changed.connect(_update_look)
+	Grimoire.changed.connect(_update_look)
 	_update_look()
 
 
 func _on_interactable_interacted(_player: Node2D) -> void:
-	if not Journal.has_book:
-		Journal.find_book()
+	if not Grimoire.has_book:
+		Grimoire.find_book()
 		Messages.post(tr("MSG_LECTERN_BOOK"))
 	else:
 		get_tree().call_group("recipe_book", "open")
 
 
 func _update_look() -> void:
-	sprite.texture = EMPTY if Journal.has_book else WITH_BOOK
+	sprite.texture = EMPTY if Grimoire.has_book else WITH_BOOK
