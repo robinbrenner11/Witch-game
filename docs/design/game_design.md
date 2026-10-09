@@ -199,6 +199,12 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 
 - ❓ Wurftränke für den Kampf und Tränke für NPCs sind neu und noch nicht ausgearbeitet.
 
+### Kreuzungen im Garten (💡 09.10.)
+- 💡 **Kreuzblumen** wie bei Animal Crossing: Stehen zwei passende Pflanzen nebeneinander, kann über Nacht auf einem freien Nachbarbeet eine **Kreuzung** entstehen (neue Farbe oder neue Sorte).
+- 🔮 Passt zu „Was passiert wohl, wenn ich das mache?“ und zum Nachbar-Prinzip, das der Nachtschatten schon hat (er hemmt seine Nachbarn, Kreuzungen wären das positive Gegenstück).
+- 🔮 Technisch: Prüfung beim Nachtwechsel im Autoload `Garden`, Kreuzungsregeln als Daten (Elternpaar → Ergebnis, Chance). Mondphasen könnten die Chance beeinflussen (z. B. Vollmond höher, über `Moon`).
+- 🔮 Zeitpunkt: wenn es mehr Pflanzenarten gibt (siehe Rezepte entdecken, 🔮 mehr Zutaten später).
+
 ### Sammelobjekte im Wald (Grafiken fertig)
 
 | Grafik | Name | Wofür | Wächst nach |
@@ -232,6 +238,8 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 - ✅ **Blütenherz:** Jedes befallene Gebiet hat einen Boss. Ist er gereinigt, heilt das Gebiet.
 - ✅ **Niederlage:** Die Nacht endet, man wacht im Garten auf, und **ein paar Dinge aus dem Inventar gehen verloren** (keine Ausrüstung).
 - ✅ **Der Garten ist eine sichere Zone.**
+- 💡 **Irrlicht greift mit an (09.10.):** Das Licht aus dem Will-o'-Wisp-Trank folgt der Hexe nicht nur, sondern macht im Kampf einen **Zusatzangriff** (z. B. kleiner Funke auf nahe Gegner).
+  - 🔮 Ein schöner erster Schritt Richtung Begleiter im Kampf, bevor die Katze kommt. Erst sinnvoll, wenn der Kampf-Prototyp steht.
 
 ---
 
