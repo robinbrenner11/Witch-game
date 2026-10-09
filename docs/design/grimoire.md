@@ -340,6 +340,44 @@ Gilt vor Abschnitt 1 und 4, wo sie sich widersprechen. Die Grafiken entstehen pe
   - Disziplinen: Übersicht = Stufe und Ranke, danach eine Doppelseite pro Hexenpfad.
   - Umblätter-Animation zwischen den Einträgen wie zwischen Kapiteln.
 
+### Seitengestaltung (09.10., Feinschliff)
+- ✅ **Grundlage ist der zweite Entwurf** (Randnotizen, Leerraum darf bleiben). Ein Grimoire darf leere Stellen haben, die später mit Lore und Notizen gefüllt werden.
+- ✅ **Tinten dunkler** (Kontrast auf Knochen, Ziel mindestens 4,5):
+  - Fließtext Aubergine `#2B1633` (12,6);
+  - Vespera Bordeaux tief `#360E24`, Überschriften Bordeaux `#6E1830` (8,7);
+  - Nebeninfos **Sepia dunkel `#4E3446`** (8,4) statt `#9688A0` (2,5);
+  - magischer Text und Spielerin **Magenta tief `#8A1C55`** (6,7); helles Magenta `#C2307A` nur noch für Grafik-Akzente;
+  - Zahlen **Gold tief `#7A4E22`** (5,4).
+- ✅ **Abbildungen ohne Kasten:** frei auf dem Papier, mit skizzierten Foto-Ecken in Tusche, ggf. Klebestreifen oder gepresstes Blatt.
+- ✅ **Raster-Plätze als Tuschekreise** (normal Sepia, ausgewählt Gold mit Glanzpunkt).
+- ✅ **Unentdecktes als schraffierte Silhouette** des echten Icons (Tuschekontur, Schraffur-Muster), statt gepunkteter Kästen.
+- ✅ **Zähler eindeutig:** „Forms 3/4“ (Kategorie + Anzahl) neben dem Mond.
+- ✅ Lesezeichen größer (20 px hoch), Icons mit Kontur; **das aktive ragt deutlich über den Seitenrand ins Buch.**
+
+### Kapitel-Vorlagen und Decals (statt Einzelseiten zeichnen)
+- ✅ Es gibt **ein leeres Basis-Pergament**. Jedes Kapitel hat eine **Vorlage**, die festlegt, welche Decals (und später ggf. Eck-Skizzen) auf seinen Seiten erscheinen. ❌ Claudes Entwurf der botanischen Eck-Skizzen ist verworfen; ob und wie es Eck-Skizzen gibt, ist offen.
+
+| Kapitel | Eck-Skizze (❓ offen) | Decal-Pool |
+|---|---|---|
+| Innendeckel | – | Tintenklecks, Klebestreifen |
+| Recipes, Brewing | – | Trankring, Tropfen, Spritzer, Kessel-Kritzel |
+| Digitalis | ❓ | gepresstes Blatt, Sterne |
+| Herbalism, Herbarium | ❓ | gepresstes Blatt, Pilz-Kritzel |
+| Wildcraft | ❓ | Pilz-Kritzel, Pfeil, gepresstes Blatt |
+| Journal | – | Tintenklecks, verschlüsselte Zeile, Mond-Kritzel |
+| People | – | Klebestreifen, Sterne, Unterstreichung |
+| Warding, Bonding, Bestiary | später (Bitterblüten-Session) | – |
+
+- ✅ **Decal-System:** Pro Seite setzt der Code 2–3 Decals aus dem Pool des Kapitels auf freie Stellen.
+  - 🔮 Vorschlag: **fester Zufall pro Eintrag** (Seed aus der Eintrags-ID), damit eine Seite bei jedem Öffnen gleich aussieht wie ein echtes Buch und nicht jedes Mal neu würfelt.
+  - Nur auf freie Flächen (Ränder, unter dem Text), nie über Text, Bilder oder Raster.
+- ✅ Feste Randnotizen (Lore, Hinweise) kommen aus den Daten des Eintrags, nicht aus dem Decal-System.
+
+### Kapitelwechsel (W/S) – Feedback
+- 🔮 A/D blättert eine Seite um, **W/S blättert schnell mehrere Seiten** (man spürt den Sprung).
+- 🔮 Das neue Lesezeichen gleitet heraus, das alte zurück; der Kapitelname erscheint kurz in Gold neben dem Lesezeichen; die Überschrift schreibt sich wie Tinte hinein.
+- 🔮 Leises Papier-Rascheln; versiegelte Kapitel: kurzes Ranken-Knistern, das Buch bleibt dort nicht stehen.
+
 ### Bekannte Fehler (beim Umbau beheben)
 - ❗ Manche Inhalte **ragen über das Buch hinaus**, vor allem die Pfadwahl. Beim Umbau auf das Vollbild alle Inhalte auf die Seitenfläche begrenzen (feste Breiten aus `BookStyle`, ggf. `clip_contents`) und jede Doppelseite einmal mit langen Texten prüfen.
 
