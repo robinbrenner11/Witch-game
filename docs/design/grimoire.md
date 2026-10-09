@@ -327,6 +327,7 @@ Gilt vor Abschnitt 1 und 4, wo sie sich widersprechen. Die Grafiken entstehen pe
 - ✅ **Leseband** aus Magenta-Seide (Farbe der Spielerin) hängt unten aus dem Buch.
 
 ### Hand (Hexenstärke)
+- ✅ **Grafik zeichnet Robin selbst.**
 - ✅ **6 Stufen** statt 5: Nägel → erstes Glied → zwei Glieder → ganze Finger schwarz → Dunkelheit frisst sich in die Handfläche → ganze Hand schwarz mit **leuchtenden Magenta-Adern** und glühenden Fingerspitzen. Goldring, Goldpunkte an den Knöcheln, Armreif, Ärmel der Robe.
 - `SpreadCover.HAND_STEPS` braucht dafür einen sechsten Wert (🔮 Vorschlag: `[0, 5, 12, 20, 30, 45]`).
 
@@ -354,7 +355,7 @@ Gilt vor Abschnitt 1 und 4, wo sie sich widersprechen. Die Grafiken entstehen pe
 - Ranken-Überwucherung (Lesezeichen und ganze Seite)
 - Fingerhut-Verzierung
 - ausgerissener Stummel (Journal)
-- ✅ (09.10.) Hand mit 6 Stufen bis zu leuchtenden Magenta-Adern
+- Hand mit 6 Stufen bis zu leuchtenden Magenta-Adern (✅ Robin zeichnet selbst)
 - Lesepult mit Buch: weitere Stufe(n), weniger überwuchert
 - Animations-Frames: Umblättern (3–4), Ranken welken (ca. 6), Tintenklecks, Glimmen
 
