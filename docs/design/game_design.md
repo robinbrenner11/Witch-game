@@ -381,7 +381,7 @@ Kleine, testbare Schritte. Das Spiel soll so früh wie möglich Spaß machen.
 2. Crafting über den Kessel: wie genau.
 3. Inhalt und Design des Grimoire (eigene Session): Seitenaufbau, Opfer, Belohnungen.
 4. Wurftränke und NPC-Tränke: Rezepte, Wirkungen.
-5. **Design der Bitterblüte (09.10.):** einheitlich festlegen, wie verdorbene und befallene Dinge aussehen: Gegenstände und Zutaten, Umgebung und Pflanzen, Tiere und Gegner. Gemeinsame Formensprache, Farben und Effekte, damit man Befall überall sofort erkennt. Eigene Session.
+5. ✅ (erledigt 09.10., siehe `docs/design/bitterbloom.md`) **Design der Bitterblüte:** einheitlich festlegen, wie verdorbene und befallene Dinge aussehen: Gegenstände und Zutaten, Umgebung und Pflanzen, Tiere und Gegner. Gemeinsame Formensprache, Farben und Effekte, damit man Befall überall sofort erkennt. Eigene Session.
 5. Warum Digitalis gerade diese Hexe gerufen hat.
 6. ~~Englische Namen für Hexenschlamm und die übrigen Pflanzen und UI-Texte.~~ ✅ 08.10.2026: Witch's Muck, Blood Rose, Ghost Fern (Spores), Lantern Berry, Mandrake, Moon Chalice, Nightshade, Wild Herb. Alle Texte stehen in `data/translations/texts.csv`.
 7. Wildgras und Unkraut: Was bringt das Wegräumen, und wächst es nach?
