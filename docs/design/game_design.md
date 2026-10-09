@@ -214,7 +214,7 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 | Feder | Owl Feather | Grimoire-Opfer und Tausch, selten | zufällig, unter dem Eulenbaum |
 | Mondmoos | Moonmoss | Zutat, nur bei Vollmond voll | jeden Vollmond |
 
-- ✅ **Verdorbene Zutaten** von gereinigten Wesen sind wertvoll. Sie ergeben die stärksten Tränke.
+- ✅ ~~Verdorbene Zutaten~~ → (09.10.) **Blüten-Zutaten** (Knospe, Rankenstück, Sporen) von gereinigten Wesen sind wertvoll und ergeben die stärksten Tränke. Normale Items können nicht befallen sein (siehe `bitterbloom.md`).
 - ✅ **Nachtschatten** findet man später auch im tiefen Wald und kann ihn zum eigenen Vorteil nutzen.
 - ✅ Die **Truhe** im Unterschlupf ist das Lager.
 

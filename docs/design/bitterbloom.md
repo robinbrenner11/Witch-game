@@ -34,14 +34,21 @@ Legende: ✅ entschieden · 💡 Idee, gefällt, noch nicht fest · 🔮 später
 
 ## 3. Gegenstände und Zutaten
 
-- ✅ Ein verdorbenes Item verliert seine gesunde Farbe: ca. **70 % entsättigt** zu Fahlgrau oder kränklichem Oliv.
-- ✅ Dazu **genau ein unnatürlicher Eingriff**, der den Umriss leicht bricht:
-  - ein Magenta-Riss;
-  - eine kleine pulsierende Knospe;
-  - ein feines tiefschwarzes Adernetz.
-- 💡 Beispiele: Eine verdorbene Alraune blutet Magenta; ein befallener Pilz hat eine aschfahle Kappe mit leuchtendem Sporen-Riss.
-- ✅ (bestehend) **Verdorbene Zutaten** von gereinigten Wesen sind wertvoll und ergeben die stärksten Tränke.
-- 💡 Im Grimoire: gleiche Regel für befallene Seiten (welke Ranken, Magenta-Knospen).
+- ✅ (09.10.) **Normale Items können nicht befallen sein.** Es gibt keine befallenen Varianten von Alraune, Pilz & Co., und Befall springt nie auf Inventar oder Garten über. Die Bitterblüte ist eine Sache der **Welt**: Umgebung und Wesen.
+- 💡 Stattdessen werden **Teile der Blüte selbst zu Zutaten**: z. B. Blütenknospe (Magenta), Rankenstück (oliv), Sporen. Wesen lassen sie beim Reinigen fallen. Das ersetzt die frühere Regel „verdorbene Zutaten von gereinigten Wesen“ (`game_design.md`, Abschnitt 6) und bleibt die Quelle der stärksten Tränke.
+- ✅ Diese Blüten-Zutaten folgen der DNA aus Abschnitt 2 und haben immer **mindestens einen Magenta-Punkt**.
+- ❌ Entsättigte „befallene“ Versionen normaler Items (Test vom 09.10.).
+
+## 3b. Referenzbild
+
+`docs/art/referenz/bitterbloom_concept.jpg` (09.10.): befallener Baum im tiefen Wald (Phase 2–3). Was es festlegt:
+- ✅ **Holz des Wirts wird knochenbleich bis aschgrau**, mit **tiefen schwarzen Rissen** in der Rinde.
+- ✅ **Dicke, seilartige olive Ranken** winden sich spiralförmig um Stamm und Äste (Korsett); dünne Ausläufer hängen herab wie Flechten.
+- ✅ **Magenta-Knospen sind glänzend, prall und fleischig**, mit Glanzlicht; sie quellen **aus den Rissen** hervor. Um sie herum ein Magenta-Schein, im Schatten des Stamms glimmen Magenta-Adern.
+- ✅ Feine **Magenta-Partikel** schweben in der Luft.
+- ✅ Am Boden: Bodennebel, **schwarze Dornenranken als Silhouetten**, tote Wurzeln. Im Hintergrund kahle Bäume mit olivem Moos und Ruinen.
+- ✅ **Jedes befallene Objekt hat mindestens einen Magenta-Punkt** (Lesbarkeit, auch klein).
+- Hinweis: Das Bild ist Konzeptkunst in hoher Auflösung. Im Spiel gilt der Pixel-Stil aus `CLAUDE.md` (32er-Raster, harte Kanten, keine Verläufe; Schein über Licht-Nodes).
 
 ## 4. Umgebung: der Wald wird ausgetrunken
 
@@ -93,7 +100,7 @@ Der Wald wird nicht durch neue, aggressive Bäume ersetzt, sondern **ausgetrunke
 
 ## 9. Reihenfolge der Grafiken
 
-1. **Verdorbene Zutaten** (Farbregeln festlegen; gesund und befallen nebeneinander).
+1. **Blüten-Zutaten** (Knospe, Rankenstück, Sporen) als Icons.
 2. Ranken-Ebene für vorhandene Objekte (Baum, Fels), Ranken auf dem Boden, Rankenwand.
 3. Boden und Vegetation in Phase 2 und 3; Knospen und offene Blüten.
 4. Effekte: Atmen, olive Tropfen, Partikel, Nebel.
