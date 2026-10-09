@@ -307,11 +307,46 @@ Gebaut (G1–G6), alles mit **Platzhalter-Grafiken aus Code** (Farben aus der Pa
 - 💡 **Später (Robin, 08.10.2026):** Kapitel bleiben, aber in Recipes, Herbarium und People bekommt **jeder Eintrag eine eigene Doppelseite** (statt Raster links und Detail rechts auf derselben Doppelseite). Die Übersicht bleibt als erste Doppelseite des Kapitels.
 - **Noch offen:** Umblätter-Animation, Tintenklecks, Ranken-Welken als Animation, Pin im HUD, Träume, People/Bestiary/Digitalis mit Inhalt, Inhalt der ca. 12 Seiten (Frage 4). Werte (Erfahrungskurve, Belohnungen) sind erste Vorschläge zum Austarieren.
 
+## 5c. Überarbeitung 09.10.2026 (Grafiken und Aufbau)
+
+Gilt vor Abschnitt 1 und 4, wo sie sich widersprechen. Die Grafiken entstehen per Generator (`docs/art/ui_generator/grimoire_*.py`); Robin sammelt sie und gibt sie Claude Code zum Einbauen.
+
+### Vollbild
+- ✅ Das Buch bedeckt **den ganzen Bildschirm** wie ein Menü. Maße (1×, 640×360):
+  - Einband 640×360;
+  - linke Seite 296×326 bei (14, 12), rechte Seite 296×326 bei (318, 12), Falz 8 px;
+  - rechts 26 px Leder für die Lesezeichen, unten 22 px Leder für die Bedienzeile (in Gold, links und rechts vom Buchrücken).
+- ✅ **Eckbeschläge aus Gold** (mit Magenta-Stein) greifen über das Papier; eigene Ebene über den Seiten.
+- ✅ Papier mit blassem **Doppelrahmen** wie von Hand gezogen.
+- ✅ Seitenblock in 3 Dicken (wächst mit gefundenen Seiten).
+- ✅ **Schrift:** Alkhemikal bleibt bei Größe 16 (1 Pixel). Durch das größere Buch passen ca. 42 Zeichen in eine Zeile. Zeilenabstand etwas luftiger als bisher. ❌ Schrift in doppelter Auflösung (zu klein, bricht das Pixelraster).
+
+### Lesezeichen
+- ✅ Stoffbänder mit **Icon** auf dem Lederrand rechts; der Kapitelname erscheint beim Drüberfahren (und als Überschrift auf der Seite). Zustände: normal, aktiv (ragt weiter heraus), versiegelt (dunkel, welke Ranke, Magenta-Knospe).
+- ✅ Icons: Hand (Innendeckel), Fläschchen (Recipes), Krummstab (Digitalis, Lila), Blatt (Herbalism), Kessel (Brewing), Pilz (Wildcraft), Schild (Warding), Pfote (Bonding), Feder (Journal), Figur (People), gepresste Blüte (Herbarium), Auge (Bestiary).
+- ✅ **Leseband** aus Magenta-Seide (Farbe der Spielerin) hängt unten aus dem Buch.
+
+### Hand (Hexenstärke)
+- ✅ **6 Stufen** statt 5: Nägel → erstes Glied → zwei Glieder → ganze Finger schwarz → Dunkelheit frisst sich in die Handfläche → ganze Hand schwarz mit **leuchtenden Magenta-Adern** und glühenden Fingerspitzen. Goldring, Goldpunkte an den Knöcheln, Armreif, Ärmel der Robe.
+- `SpreadCover.HAND_STEPS` braucht dafür einen sechsten Wert (🔮 Vorschlag: `[0, 5, 12, 20, 30, 45]`).
+
+### Eine Doppelseite pro Eintrag
+- ✅ (Wunsch Robin) Nicht mehr ein Kapitel = eine Doppelseite, sondern **jeder Eintrag bekommt eine eigene Doppelseite** mit Bild und Infos: jedes Rezept, jede Zutat und Pflanze, jeder Gegner, jede Person, jede Digitalis-Form.
+- 🔮 Vorschlag für den Aufbau:
+  - Erste Doppelseite eines Kapitels = **Übersicht** (Raster bzw. Liste, Mond-Fortschritt). Klick auf einen Eintrag springt zu seiner Doppelseite; das Lesezeichen führt zurück zur Übersicht.
+  - **Eintrag:** links groß das Bild (Item, Pflanze, Wesen, Porträt) mit Name und Kurzinfos (Fundort, Mondphase, Wert), rechts die Details (Zutaten oder Verwendung, Notizen in beiden Handschriften, verknüpfte Einträge als Links).
+  - **A/D** blättert durch die Einträge des Kapitels, **W/S** wechselt das Kapitel. Unentdeckte Einträge werden beim Blättern übersprungen (in der Übersicht bleiben sie als gepunktete Plätze sichtbar).
+  - Disziplinen: Übersicht = Stufe und Ranke, danach eine Doppelseite pro Hexenpfad.
+  - Umblätter-Animation zwischen den Einträgen wie zwischen Kapiteln.
+
+### Bekannte Fehler (beim Umbau beheben)
+- ❗ Manche Inhalte **ragen über das Buch hinaus**, vor allem die Pfadwahl. Beim Umbau auf das Vollbild alle Inhalte auf die Seitenfläche begrenzen (feste Breiten aus `BookStyle`, ggf. `clip_contents`) und jede Doppelseite einmal mit langen Texten prüfen.
+
 ## 6. Grafiken (🔮 später generieren, Liste merken)
 
-- Einband als 9-Slice (Bordeaux-Leder, Gold-Ecken)
-- Papier links und rechts, Falz-Schatten, Seitenstapel-Kanten (mehrere Dicken)
-- 11 Lesezeichen-Bänder (🔮 mit Icons)
+- ✅ (09.10.) Einband Vollbild (Bordeaux-Leder), Eckbeschläge, Buchrücken
+- ✅ (09.10.) Papier links und rechts, Falz-Schatten, Doppelrahmen, Seitenstapel-Kanten (3 Dicken)
+- ✅ (09.10.) 12 Lesezeichen-Bänder mit Icons, 3 Zustände, Leseband
 - Raster-Platz-Rahmen in drei Zuständen (normal, ausgewählt, leer)
 - Markierung „ready to brew“, Gerücht-`~`, Pin
 - Mond-Anzeige in 8 Phasen
@@ -319,7 +354,7 @@ Gebaut (G1–G6), alles mit **Platzhalter-Grafiken aus Code** (Farben aus der Pa
 - Ranken-Überwucherung (Lesezeichen und ganze Seite)
 - Fingerhut-Verzierung
 - ausgerissener Stummel (Journal)
-- Hand mit 5 Stufen dunkler Fingerspitzen
+- ✅ (09.10.) Hand mit 6 Stufen bis zu leuchtenden Magenta-Adern
 - Lesepult mit Buch: weitere Stufe(n), weniger überwuchert
 - Animations-Frames: Umblättern (3–4), Ranken welken (ca. 6), Tintenklecks, Glimmen
 
