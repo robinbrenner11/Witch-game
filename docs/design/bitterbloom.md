@@ -106,3 +106,19 @@ Der Wald wird nicht durch neue, aggressive Bäume ersetzt, sondern **ausgetrunke
 4. Effekte: Atmen, olive Tropfen, Partikel, Nebel.
 5. Wesen (erst klein, dann groß).
 6. Gebändigte Varianten.
+
+## 10. Aufteilung der Grafiken (09.10.)
+
+- ✅ **Große Welt-Sprites** (befallene Bäume, Felsen, Rankenwand, Blütenherz, Wurzelboden) erzeugt Robin mit seinem Bild-KI-Workflow nach `docs/prompts/grafik_auftrag_bitterbloom.md`.
+- ✅ **Kleine Teile** macht Claude per Generator (`docs/art/item_generators/bitterbloom_small.py`):
+  - Blüten-Zutaten als Icons 16×16: `blight_bud` (Knospe), `blight_vine` (Rankenstück), `blight_spores` (Sporen);
+  - `blight_bud_overlay` (6 Frames à 16×16, „Atmen“) + `_glow`: glatte, glänzende Knospe, die aus einem schwarzen Riss quillt; zum Draufsetzen auf vorhandene Objekte;
+  - `blight_drop` (4 Frames à 5×8): dicker oliver Tropfen, hängt, fällt träge, klatscht platt (beim Schneiden und Reinigen);
+  - `blight_spore` (2 Frames à 3×3): schwebende Magenta-Spore (Partikel in stark befallenen Zonen).
+
+## 11. Technik-Hinweise für Claude Code
+
+- **Atmen:** Glow-Ebenen (`*_glow.png`) per `modulate.a` langsam zwischen ca. 0,55 und 1,0 pendeln lassen (Periode ca. 3 s, Startphase zufällig), dazu ein schwaches `PointLight2D` in Magenta mit derselben Kurve. Bei Neumond etwas schneller und heller.
+- **Nebel:** ein `ColorRect` über dem Boden des befallenen Gebiets (unter Figuren und Objekten) mit einem einfachen Shader: zwei Lagen Noise, die langsam gegeneinander wandern; Farbe Fahlgrau-Violett, Deckkraft nach oben auslaufend. Pixelig halten: Noise auf das 1-px-Raster runden (z. B. `floor(UV * Größe) / Größe`) und die Deckkraft in wenigen harten Stufen ausgeben, damit es zu „keine weichen Verläufe“ passt. Parameter `height` und `density`; bei Neumond beide höher.
+- **Sättigung:** In befallenen Gebieten die Hintergrund-Ebenen über einen `CanvasModulate` bzw. Shader leicht entsättigen; Glow-Ebenen davon ausnehmen.
+- **Partikel:** `CPUParticles2D` mit den Texturen `blight_spore` (langsam aufsteigend, wenige) und `blight_drop` (beim Schneiden, mit Schwerkraft, träge).
