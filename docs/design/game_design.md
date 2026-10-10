@@ -243,9 +243,9 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 - 💡 **Irrlicht greift mit an (09.10.):** Das Licht aus dem Will-o'-Wisp-Trank folgt der Hexe nicht nur, sondern macht im Kampf einen **Zusatzangriff** (z. B. kleiner Funke auf nahe Gegner).
   - 🔮 Ein schöner erster Schritt Richtung Begleiter im Kampf, bevor die Katze kommt. Erst sinnvoll, wenn der Kampf-Prototyp steht.
 - 💡 **Kampfstil wie LoL (10.10.):** Im Kampf wird möglichst *alles* mit der Maus gezielt, nicht nur der normale Zauber. Noch nicht umsetzen.
-  - Stand heute: Linksklick und Rechtsklick fliegen schon zur Maus, der Dash geht aber in Laufrichtung (nur ohne Bewegung zur Maus).
-  - 🔮 Mögliche Schritte: Dash immer zur Maus; Flächenzauber direkt an der Mausposition statt als Geschoss; später Fähigkeiten auf Tasten (z. B. Q/E/R), die beim Drücken zur Maus wirken, mit kurzer Zielanzeige (Linie, Kreis) beim Gedrückthalten.
-  - Offen: Laufen bleibt WASD, oder wie in LoL per Klick? Klick-Laufen würde mit Linksklick-Angriff und dem Rest der Steuerung kollidieren, WASD + Maus-Zielen passt besser zum übrigen Spiel.
+  - ✅ (10.10.) **Laufen bleibt WASD**, kein Klick-Laufen wie in LoL.
+  - ✅ (10.10.) **Der Dash geht in Laufrichtung**, nicht zur Maus (wie heute; nur im Stehen zur Maus).
+  - 🔮 Mögliche Schritte: Flächenzauber direkt an der Mausposition statt als Geschoss; später Fähigkeiten auf Tasten (z. B. Q/E/R), die beim Drücken zur Maus wirken, mit kurzer Zielanzeige (Linie, Kreis) beim Gedrückthalten.
 
 ---
 
