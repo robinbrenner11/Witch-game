@@ -69,3 +69,18 @@ Vorher hatten alle Bäume dieselbe lila-rosa Ebenholz-Rinde. Jetzt hat jede Art 
 | Tanne | `#3C1E22` `#58302C` `#74463A` | rotbraun, warm im kühlen Nadelgrün |
 | toter Baum | `#3E3846` `#5C5664` `#827C88` | ausgebleicht, silbrig |
 | Holunder | `#423836` `#5E544C` `#7E7466` | hell, mit Korkwarzen |
+
+# Neue Farben vom 10.10.2026 (Digitalis)
+
+Der Fingerhut braucht ein eigenes, kräftiges Lila (Entscheidung 09.10.: „Blüten in kräftigem Lila“). Es liegt
+zwischen Magenta (Magie) und Indigo (Nacht), damit die Blüten weder wie Magie-Effekte noch wie Nachtschatten wirken.
+Magenta bleibt der leuchtenden Spitze vorbehalten. In `hexen_palette.gpl` nachgetragen.
+
+| Farbe | Hex | RGB | Genutzt in | Zweck |
+|---|---|---|---|---|
+| Gold sehr dunkel | `#6E4628` | 110, 70, 40 | Digitalis | Schattenseite der Golddraht-Wicklung |
+| Lila tief | `#3A1650` | 58, 22, 80 | Digitalis | Öffnung der Glocke, hintere Glocken |
+| Lila dunkel | `#6A2494` | 106, 36, 148 | Digitalis | Glocke Schattenseite |
+| Lila | `#9A3CC8` | 154, 60, 200 | Digitalis | Glocke Grundton |
+| Lila hell | `#C77BE8` | 199, 123, 232 | Digitalis | Glocke Licht oben links |
+| Lila glühend | `#ECC8FF` | 236, 200, 255 | Digitalis | nur beim Angriff, aufglühende Blüten |

@@ -1,3 +1,9 @@
 Aufruf: python potions.py <ausgabeordner> [vorschauordner]
         z. B. python potions.py assets/items docs/art/vorschau
 Benötigt: pillow.
+
+Digitalis (Waffe der Hexe, 10.10.2026):
+Aufruf: python digitalis.py assets/items/digitalis
+Ausgabe: digitalis_idle(.png/_glow) 4 Frames, digitalis_attack(.png/_glow) 4 Frames,
+         je 24x60 pro Frame waagerecht; digitalis_icon(.png/_glow) 16x16.
+Details zum Einbau: docs/ASSETS.md, Abschnitt "Digitalis".

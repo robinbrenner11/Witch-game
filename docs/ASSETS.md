@@ -505,3 +505,23 @@ Ohne Schatten schweben alle Objekte leicht über dem Boden. Die Schatten sind sc
 - `referenz/witch_base_32x64.png`: Rohfassung (Basis des Pixeleditors)
 - `vorschau/`: Testkarten und Lauf-GIF
 - `ground_generator/`: Python-Script, mit dem die Bodentiles erzeugt wurden (nur zum Nachjustieren)
+
+## Digitalis – `assets/items/digitalis/` (10.10.2026)
+
+Generator: `docs/art/item_generators/digitalis.py` · Vorschauen: `vorschau/vorschau_digitalis_uebersicht.png` (Tag, Nacht, Icon), `vorschau/vorschau_digitalis_nacht_4x.gif` (Idle, Angriff, Idle)
+
+Der Stab ist ein Fingerhut: Goldgriff mit Golddraht-Wicklung und Magenta-Stein am Kragen, dunkler Stängel (Ebenholz), grüne Blätter, einseitige Traube aus lila Glocken, oben eingerollt wie ein Hirtenstab. An der Spitze hängt eine Magenta-Knospe, die immer leicht glimmt.
+
+| Datei | Größe | Frames | FPS | Abspielen | Inhalt |
+|---|---|---|---|---|---|
+| `digitalis_idle.png` (+`_glow`) | 96×60 | 4 à 24×60 | 4 | Loop | Spitze pulsiert leicht (0-1-2-1) |
+| `digitalis_attack.png` (+`_glow`) | 96×60 | 4 à 24×60 | 12 | einmal | Blüten glühen auf, im 2. Frame Funken an der Spitze; danach zurück zu `idle` |
+| `digitalis_icon.png` (+`_glow`) | 16×16 | 1 | – | – | Hotbar, Inventar, Grimoire-Raster (schräg, wie ein Werkzeug) |
+
+- **Fußpunkt:** unten Mitte des Schafts, zwischen Pixelspalte 10 und 11, Unterkante des Frames. Mit `centered = true` also `offset = Vector2(1, -30)`, dann steht der Fuß auf dem Ursprung (wie bei der Hexe).
+- **Spitze** (für Licht und Schuss-Startpunkt): Pixel (16, 10) im Frame, also `(5, -50)` relativ zum Fußpunkt.
+- **Glow-Ebene** wie bei Pilzen und Trank-Effekten: zweites `AnimatedSprite2D` darüber, `CanvasItemMaterial` mit `light_mode = Unshaded`, gleiche FPS und gleicher Startframe. Idle: nur die Spitze leuchtet. Angriff: die ganze Traube.
+- 🔮 Vorschlag Licht: `PointLight2D` an der Spitze, Farbe `Color(0.89, 0.35, 0.69)`, `texture_scale` klein (Radius ca. 24 px), `energy` im Idle 0.5–0.65 mit der Pulsfolge, beim Angriff kurz 1.2.
+- Größe: 60 px, also fast so hoch wie die Hexe (64 px). Entscheidung vom 10.10.: dunkler Stängel, Stab fast so hoch wie die Hexe.
+- Noch nicht gebaut: Halten in der Hand / Richtungen (hängt am Kampf-Prototyp), Garten-Version („wartet im Garten“), Grimoire-Abbildung groß, weitere Formen (Sickle, Thornwhip, Rootmaul).
+
