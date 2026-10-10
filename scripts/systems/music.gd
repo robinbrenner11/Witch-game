@@ -62,5 +62,7 @@ func _make_player(path: String) -> AudioStreamPlayer:
 	stream.loop = true
 	var player := AudioStreamPlayer.new()
 	player.stream = stream
+	# Eigener Bus, damit Musik getrennt von Effekten leiser gestellt werden kann.
+	player.bus = &"Music"
 	add_child(player)
 	return player
