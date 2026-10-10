@@ -9,7 +9,7 @@ extends Node2D
 ## Im Garten und im Unterschlupf (sichere Zonen) bleibt Digitalis ruhig.
 ## Eigener Node unter dem Player, damit player.gd klein bleibt.
 ## Design: docs/design/game_design.md, Abschnitt 7.
-## (Stab und Zauber sind Platzhalter-Zeichnungen, bis es Grafiken gibt.)
+## (Die Zauber sind noch Platzhalter-Zeichnungen, bis es Grafiken gibt.)
 
 signal mode_changed(active: bool)
 
@@ -23,25 +23,23 @@ const DASH_SPEED := 420.0
 const DASH_TIME := 0.14
 # Nach dem Dash so lange unverwundbar (etwas länger als der Dash selbst).
 const DASH_INVULNERABLE := 0.25
-# Wo Digitalis gehalten wird, relativ zu den Füßen.
-const HAND := {
-	Vector2.DOWN: Vector2(9, -27),
-	Vector2.UP: Vector2(-8, -30),
-	Vector2.RIGHT: Vector2(7, -28),
-	Vector2.LEFT: Vector2(-7, -28),
+# Wo der Fuß von Digitalis steht, relativ zu den Füßen der Hexe. Der große
+# Stab steht neben ihr (nie vor dem Gesicht) und schwebt 2 px über dem Boden,
+# so enden Stab und Kopf auf gleicher Höhe. Werte aus docs/ASSETS.md.
+const STAFF_FOOT := {
+	Vector2.DOWN: Vector2(14, -2),
+	Vector2.UP: Vector2(-12, -2),
+	Vector2.RIGHT: Vector2(12, -2),
+	Vector2.LEFT: Vector2(-12, -2),
 }
-const STAFF_LENGTH := 20
-const WOOD := Color("#3C1E22")
-const WOOD_LIGHT := Color("#74463A")
 
 var active := false
 
 var _cooldown := 0.0
 var _dash_cooldown := 0.0
-# Leuchten der Stabspitze nach einem Zauber.
-var _flash := 0.0
 
 var reticle: Reticle
+var staff: Digitalis
 
 @onready var player: Player = get_parent()
 @onready var vitals: Vitals = $"../Vitals"
@@ -53,6 +51,9 @@ func _ready() -> void:
 	reticle.z_index = 10
 	reticle.visible = false
 	add_child(reticle)
+	staff = Digitalis.new()
+	staff.visible = false
+	add_child(staff)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -85,14 +86,14 @@ func set_active(value: bool) -> void:
 	active = value
 	player.combat_mode = active
 	reticle.visible = active
-	queue_redraw()
+	staff.visible = active
+	_place_staff()
 	mode_changed.emit(active)
 
 
 func _process(delta: float) -> void:
 	_cooldown = maxf(_cooldown - delta, 0.0)
 	_dash_cooldown = maxf(_dash_cooldown - delta, 0.0)
-	_flash = maxf(_flash - delta, 0.0)
 	if not active:
 		return
 	# Wer den Garten betritt, steckt Digitalis weg.
@@ -103,13 +104,15 @@ func _process(delta: float) -> void:
 	player.face_towards(_aim())
 	reticle.global_position = get_global_mouse_position().round()
 	reticle.queue_redraw()
+	_place_staff()
+
+
+## Stellt Digitalis je nach Blickrichtung neben die Hexe.
+func _place_staff() -> void:
+	staff.position = STAFF_FOOT[player.facing]
+	staff.set_flipped(player.facing == Vector2.LEFT)
 	# Den Stab hinter der Hexe zeichnen, wenn sie nach oben schaut.
 	z_index = -1 if player.facing == Vector2.UP else 1
-	queue_redraw()
-
-
-func hand_position() -> Vector2:
-	return player.global_position + HAND[player.facing]
 
 
 func _aim() -> Vector2:
@@ -124,7 +127,7 @@ func _cast(special: bool) -> void:
 		Messages.post(tr("MSG_NO_POWER"))
 		return
 	_cooldown = SPECIAL_COOLDOWN if special else SPELL_COOLDOWN
-	_flash = 0.15
+	staff.attack()
 	var spell := Spell.new()
 	spell.direction = (get_global_mouse_position() - _tip_position()).normalized()
 	if special:
@@ -156,20 +159,7 @@ func _in_safe_zone() -> bool:
 
 
 func _tip_position() -> Vector2:
-	return hand_position() + Vector2(0, -STAFF_LENGTH + 2)
-
-
-## Digitalis: ein dunkler Stab mit einer Fingerhut-Blüte an der Spitze.
-func _draw() -> void:
-	if not active:
-		return
-	var hand := HAND[player.facing] as Vector2
-	var top := hand + Vector2(0, -STAFF_LENGTH)
-	draw_rect(Rect2(top.x, top.y, 2, STAFF_LENGTH + 6), WOOD)
-	draw_rect(Rect2(top.x, top.y, 1, STAFF_LENGTH + 6), WOOD_LIGHT)
-	BookStyle.draw_foxglove(self, top + Vector2(-3, -9))
-	if _flash > 0.0:
-		draw_circle(top + Vector2(1, -3), 4.0, Color(Spell.COLOR, _flash / 0.15))
+	return staff.tip_position()
 
 
 ## Kleines Fadenkreuz an der Maus, solange Digitalis gezogen ist.
