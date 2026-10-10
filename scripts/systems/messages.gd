@@ -13,3 +13,10 @@ signal posted(text: String)
 
 func post(text: String) -> void:
 	posted.emit(text)
+
+
+## Wie post(), aber für "geht nicht" (Tasche voll, Erde schläft zu tief): mit
+## einem weichen, tiefen Ton, damit man es auch ohne Hinsehen merkt.
+func deny(text: String) -> void:
+	Sfx.play("ui/denied")
+	post(text)

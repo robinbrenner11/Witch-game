@@ -39,6 +39,7 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 	var holder := Control.new()
 	holder.add_child(preview)
 	set_drag_preview(holder)
+	Sfx.play("ui/item_pick")
 	# Siehe InventorySlot: Das Ziel ruft das hier auf, um die Zutat zurückzulegen.
 	return {"return_item": window.return_ingredient.bind(index)}
 

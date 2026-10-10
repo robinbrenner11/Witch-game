@@ -20,6 +20,8 @@ var _time := 0.0
 func _ready() -> void:
 	Brewing.changed.connect(_update_look)
 	_update_look()
+	# Der Kessel blubbert immer leise vor sich hin, nah lauter als fern.
+	add_child(Sfx.make_loop_player("brewing/cauldron_loop", -4.0, 260.0))
 
 
 func _process(delta: float) -> void:
@@ -35,8 +37,10 @@ func _process(delta: float) -> void:
 
 func _on_interactable_interacted(_player: Node2D) -> void:
 	if Brewing.finished_potion() != "":
-		if not Brewing.take_finished():
-			Messages.post(tr("MSG_BAG_FULL"))
+		if Brewing.take_finished():
+			Sfx.play("brewing/potion_take")
+		else:
+			Messages.deny(tr("MSG_BAG_FULL"))
 		return
 	# Über die Gruppe statt über einen festen Pfad: Der Kessel muss nicht
 	# wissen, wo in der Szene das Fenster hängt.

@@ -19,6 +19,7 @@ func _ready() -> void:
 func _on_interactable_interacted(_player: Node2D) -> void:
 	if not Grimoire.has_book:
 		Grimoire.find_book()
+		Sfx.play("world/book_pickup")
 		Messages.post(tr("MSG_LECTERN_BOOK"))
 	else:
 		var book := get_tree().get_first_node_in_group("grimoire_book") as GrimoireBook

@@ -25,6 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _set_open(open: bool) -> void:
+	Sfx.play("ui/open" if open else "ui/close")
 	visible = open
 	# Pausiert alle Nodes, deren process_mode nicht "Always" ist.
 	get_tree().paused = open

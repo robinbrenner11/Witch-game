@@ -76,6 +76,7 @@ func _plant_seed(seed_data: PlantData) -> void:
 		Messages.post(tr("MSG_SOIL_WAITS"))
 		return
 	Garden.plant_seed(cell, seed_data.id)
+	Sfx.play_at("garden/plant_seed", global_position)
 	Grimoire.complete_goal("plant")
 	Grimoire.report("plant", {"id": seed_data.id})
 
@@ -84,13 +85,15 @@ func _harvest(player: Player) -> void:
 	var data := Garden.plant_data_at(cell)
 	# Bei vollem Inventar bleibt die Pflanze einfach stehen statt zu verschwinden.
 	if not Inventory.has_room_for(data.harvest_item_id):
-		Messages.post(tr("MSG_BAG_FULL"))
+		Messages.deny(tr("MSG_BAG_FULL"))
 		return
 	player.play_action("harvest")
 	# Die Pflanze verschwindet erst, wenn die Hexe sie herauszieht (Frame 3).
 	await player.wait_for_action_frame(2)
 	if not Garden.is_ripe(cell) or not Inventory.add(data.harvest_item_id):
 		return
+	# Das Herausziehen selbst klingt über PlayerSounds, das hier ist die Tasche.
+	Sfx.play("ui/item_get")
 	# Ist das Inventar genau jetzt voll geworden, gehen die Samen verloren –
 	# die Ernte selbst ist wichtiger.
 	if data.seeds_on_harvest > 0:

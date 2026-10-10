@@ -11,6 +11,10 @@ var _frame_timer := 0.0
 @onready var sprite: Sprite2D = $Sprite2D
 
 
+func _ready() -> void:
+	add_child(Sfx.make_loop_player("world/campfire_loop", -2.0, 280.0))
+
+
 func _process(delta: float) -> void:
 	# Die Flammen flackern schneller, solange die Zeit rast.
 	_frame_timer += delta * (4.0 if DayCycle.fast_forward else 1.0)
@@ -21,6 +25,8 @@ func _process(delta: float) -> void:
 
 func _on_interactable_interacted(_player: Node2D) -> void:
 	DayCycle.fast_forward = not DayCycle.fast_forward
+	if DayCycle.fast_forward:
+		Sfx.play("world/fast_forward")
 
 
 func _unhandled_input(event: InputEvent) -> void:

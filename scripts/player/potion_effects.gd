@@ -60,12 +60,15 @@ func _drink_selected() -> void:
 		"potion_will_o_wisp":
 			_wisp_position = global_position + WISP_OFFSET
 			wisp.show()
+			Sfx.play("brewing/wisp_appear")
 			Messages.post(tr("MSG_WISP_JOINS"))
 		"potion_liquid_moonlight":
 			moonlight.enabled = true
+			Sfx.play("brewing/moonlight")
 			Messages.post(tr("MSG_NIGHT_CLEAR"))
 		"potion_endless_night":
 			DayCycle.lengthen_night(ENDLESS_NIGHT_FACTOR)
+			Sfx.play("brewing/endless_night")
 			Messages.post(tr("MSG_NIGHT_STRETCHES"))
 
 

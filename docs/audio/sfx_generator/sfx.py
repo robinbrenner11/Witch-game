@@ -6,7 +6,8 @@ Aufruf (aus dem Projektordner):
     python docs/audio/sfx_generator/sfx.py --preview    # alle + docs/audio/sfx_vorschau.ogg (braucht ffmpeg)
 
 Regeln aus docs/prompts/sound_auftrag_effekte.md: weich, gläsern, nah,
-tonale Effekte in D-dorisch (D E F G A H C), WAV 44,1 kHz / 16 Bit / mono,
+tonale Effekte in D-dorisch (D E F G A H C), WAV 44,1 kHz / 16 Bit / mono
+(Atmos stereo),
 Spitze höchstens -3 dBFS, Loops nahtlos (Rauschen, Filter und Hall werden
 dafür zirkulär berechnet).
 
@@ -224,16 +225,19 @@ def short_term_rms(x, win=0.1):
 
 
 def finish(x, level=0.0, loop=False, max_sec=None, peak_db=-3.0, fade_ms=10):
-    x = x - np.mean(x)
+    """Gleiche Lautheit für alle, Spitze begrenzen. x ist mono (n,) oder stereo (n, 2)."""
+    x = x - np.mean(x, axis=0)
+    mono = x if x.ndim == 1 else x.mean(axis=1)
     if not loop:
         # Start sofort beim ersten Sample (keine Stille vorne)
-        idx = np.argmax(np.abs(x) > 1e-4 * np.max(np.abs(x)))
-        x = x[idx:]
+        idx = np.argmax(np.abs(mono) > 1e-4 * np.max(np.abs(mono)))
+        x, mono = x[idx:], mono[idx:]
         if max_sec:
-            x = x[: int(max_sec * SR)]
+            x, mono = x[: int(max_sec * SR)], mono[: int(max_sec * SR)]
         f = int(SR * fade_ms / 1000)
-        x[-f:] *= np.linspace(1, 0, f) ** 2
-    gain_loud = 10 ** ((TARGET_DB + level) / 20) / (short_term_rms(x) + 1e-9)
+        ramp = np.linspace(1, 0, f) ** 2
+        x[-f:] *= ramp if x.ndim == 1 else ramp[:, None]
+    gain_loud = 10 ** ((TARGET_DB + level) / 20) / (short_term_rms(mono) + 1e-9)
     gain_peak = 10 ** (peak_db / 20) / (np.max(np.abs(x)) + 1e-9)
     return x * min(gain_loud, gain_peak)
 
@@ -681,6 +685,232 @@ def ui_denied(rng):
     return lp(out, 1500)
 
 
+# ---------- Welt: world/ ----------
+def grains_circular(n, rng, count, lo, hi, dur=(0.003, 0.008), amp=(0.1, 0.3)):
+    """Wie grains(), aber über die Loop-Naht hinweg verteilt."""
+    out = np.zeros(n)
+    for _ in range(count):
+        m = int(SR * rng.uniform(*dur))
+        g = bp(rng.normal(size=m + 64), lo, hi)[64:] * np.hanning(m)
+        place_circular(out, g, rng.uniform(0, n / SR), rng.uniform(*amp))
+    return out
+
+
+def pan(x, position):
+    """Mono -> Stereo mit gleicher Lautstärke: -1 links, 0 Mitte, +1 rechts."""
+    angle = (position + 1) * np.pi / 4
+    return np.stack([x * np.cos(angle), x * np.sin(angle)], axis=1)
+
+
+def stereo_bed(n, rng, tilt, lo, hi, width=0.5):
+    """Breites, nahtloses Rauschen: ein gemeinsamer Anteil + je Seite ein eigener."""
+    common = periodic_noise(n, rng, tilt, lo, hi)
+    left = periodic_noise(n, rng, tilt, lo, hi)
+    right = periodic_noise(n, rng, tilt, lo, hi)
+    return np.stack([(1 - width) * common + width * left, (1 - width) * common + width * right], axis=1)
+
+
+def gusts(n, rng, depth=0.6):
+    """Langsame Windböen, exakt periodisch über die Loop-Länge."""
+    t = np.arange(n) / n
+    g = sum(rng.uniform(0.3, 1.0) * np.sin(2 * np.pi * k * t + rng.uniform(0, 6)) for k in (1, 2, 3, 5))
+    g = (g - g.min()) / (g.max() - g.min())
+    return (1 - depth) + depth * g
+
+
+def cricket(n, rng, interval, carrier, pulses=3):
+    """Grille: kurze Zirp-Gruppen in festem Takt, weich gefiltert (keine schrillen Höhen)."""
+    out = np.zeros(n)
+    m = int(SR * 0.018)
+    tb = np.arange(m) / SR
+    pulse = np.sin(2 * np.pi * carrier * tb) * np.hanning(m)
+    phrase = np.zeros(int(SR * 0.03) * pulses + m)
+    for k in range(pulses):
+        phrase[int(SR * 0.03) * k:int(SR * 0.03) * k + m] += pulse
+    for k in range(int(n / SR / interval)):
+        place_circular(out, phrase, k * interval + rng.uniform(-0.03, 0.03), rng.uniform(0.6, 1.0))
+    # Grillen machen Pausen: langsames, periodisches Ein- und Ausblenden
+    t = np.arange(n) / n
+    swell = np.clip(1.4 * (0.5 + 0.5 * np.sin(2 * np.pi * 2 * t + rng.uniform(0, 6))), 0, 1)
+    return lp_circular(out * swell, 5500)
+
+
+def owl_call(rng, pitch=1.0):
+    """Ferner Waldkauz: „huu ... hu-huuu“, tief und weich."""
+    out = np.zeros(int(SR * 2.0))
+    for at, dur, f0 in ((0.0, 0.45, 410), (0.95, 0.12, 380), (1.15, 0.6, 400)):
+        m = int(SR * dur)
+        tb = np.arange(m) / SR
+        f = f0 * pitch * (1 + 0.04 * np.sin(np.pi * tb / dur)) * (1 + 0.006 * np.sin(2 * np.pi * 6 * tb))
+        note = osc(f) * np.sin(np.pi * np.clip(tb / dur, 0, 1)) ** 0.7
+        place(out, note, at)
+    return lp(out, 1200)
+
+
+def creak(rng, dur):
+    """Ast knarzt: langsamer werdende Pulsfolge, mittig gefiltert."""
+    m = int(SR * dur)
+    rate = np.linspace(rng.uniform(30, 45), rng.uniform(18, 26), m)
+    phase = np.cumsum(rate) / SR
+    pulses = (np.diff(np.floor(phase), prepend=0) > 0).astype(float)
+    body = bp(pulses + 0.05 * rng.normal(size=m), 300, 1200)
+    return body * np.sin(np.pi * np.arange(m) / m)
+
+
+def night_ambience_loop(rng):
+    """Nacht im Garten: leiser Wind, Grillen, ab und zu ein fernes Käuzchen. 32 s, stereo, nahtlos."""
+    sec = 32.0
+    n = int(SR * sec)
+    out = 0.35 * stereo_bed(n, rng, -1.0, 60, 900) * gusts(n, rng)[:, None]
+    for interval, carrier, side in ((1.1, 3900, -0.6), (0.85, 4300, 0.55), (1.35, 3700, 0.1)):
+        out += 0.05 * pan(cricket(n, rng, interval, carrier), side)
+    for at, side, pitch in ((9.0, -0.45, 1.0), (23.5, 0.5, 0.96)):
+        call = np.zeros(n)
+        place_circular(call, owl_call(rng, pitch), at)
+        out += 0.12 * pan(call, side)
+    for ch in range(2):
+        out[:, ch] = add_reverb(lp_circular(out[:, ch], 6000), rng, wet=0.25, sec=1.5, decay=0.5,
+                                bright=3000, circular=True)
+    return out
+
+
+def forest_ambience_loop(rng):
+    """Nacht im Wald: dichter, Blätter, knarzende Äste, mehr Tiere, etwas unheimlicher. 32 s, stereo."""
+    sec = 32.0
+    n = int(SR * sec)
+    g = gusts(n, rng, 0.75)[:, None]
+    out = 0.3 * stereo_bed(n, rng, -1.0, 60, 800) * g
+    out += 0.16 * stereo_bed(n, rng, -0.5, 900, 5000, width=0.8) * g ** 2
+    out += 0.04 * pan(cricket(n, rng, 1.25, 3600), 0.4)
+    for at, side, pitch in ((4.0, 0.6, 1.02), (15.5, -0.5, 0.95), (27.0, 0.2, 1.0)):
+        call = np.zeros(n)
+        place_circular(call, owl_call(rng, pitch), at)
+        out += 0.1 * pan(call, side)
+    for at in rng.uniform(0, sec, 3):
+        c = np.zeros(n)
+        place_circular(c, creak(rng, rng.uniform(0.4, 0.8)), at)
+        out += 0.08 * pan(c, rng.uniform(-0.8, 0.8))
+    for at in rng.uniform(0, sec, 6):  # kleine Tiere im Laub
+        m = int(SR * rng.uniform(0.15, 0.4))
+        r = bp(rng.normal(size=m), 2000, 6000) * wobble(m, rng, 40, 0.8) * np.hanning(m)
+        c = np.zeros(n)
+        place_circular(c, r, at)
+        out += 0.08 * pan(c, rng.uniform(-0.9, 0.9))
+    t = np.arange(n) / SR
+    drone = (np.sin(2 * np.pi * round(D2 * sec) / sec * t) + 0.6 * np.sin(2 * np.pi * round(A2 * sec) / sec * t))
+    drone *= 0.5 + 0.5 * np.sin(2 * np.pi * t / sec)
+    out += 0.04 * pan(drone, 0.0)
+    for ch in range(2):
+        out[:, ch] = add_reverb(lp_circular(out[:, ch], 6000), rng, wet=0.3, sec=1.8, decay=0.6,
+                                bright=3000, circular=True)
+    return out
+
+
+def shelter_ambience_loop(rng):
+    """Im hohlen Baum: gedämpftes Ofen-Knistern, Raumklang, Wind draußen. 24 s, stereo."""
+    sec = 24.0
+    n = int(SR * sec)
+    out = 0.22 * stereo_bed(n, rng, -1.0, 30, 250, width=0.3)
+    out += 0.15 * stereo_bed(n, rng, -1.0, 60, 300) * gusts(n, rng, 0.8)[:, None]
+    fire = 0.2 * periodic_noise(n, rng, -1.0, 40, 350) * norm(lp_circular(np.abs(rng.normal(size=n)), 6)) \
+        + grains_circular(n, rng, int(sec * 3), 900, 3500, amp=(0.08, 0.22)) \
+        + grains_circular(n, rng, 6, 300, 1500, dur=(0.01, 0.02), amp=(0.2, 0.35))
+    out += pan(lp_circular(fire, 3000), -0.35)
+    c = np.zeros(n)
+    place_circular(c, creak(rng, 0.6), rng.uniform(0, sec))
+    out += 0.06 * pan(c, 0.5)
+    for ch in range(2):
+        out[:, ch] = add_reverb(out[:, ch], rng, wet=0.2, sec=0.6, decay=0.15, bright=2500, circular=True)
+    return out
+
+
+def campfire_loop(rng):
+    """Hexenfeuer: knisternd, warm. 6 s, mono, nahtlos."""
+    sec = 6.0
+    n = int(SR * sec)
+    flicker = 0.5 + 0.5 * norm(lp_circular(np.abs(rng.normal(size=n)), 8))
+    out = 0.5 * periodic_noise(n, rng, -1.0, 40, 350) * flicker
+    out += grains_circular(n, rng, 30, 1000, 4500, amp=(0.1, 0.4))
+    out += grains_circular(n, rng, 4, 300, 1800, dur=(0.012, 0.025), amp=(0.4, 0.6))
+    return add_reverb(lp_circular(out, 6000), rng, wet=0.12, sec=0.4, decay=0.1, circular=True)
+
+
+def fast_forward(rng):
+    """Zeitraffer am Feuer beginnt: schneller werdendes Ticken in warmem Rauschen."""
+    sec = 1.0
+    n = int(SR * sec)
+    out = 0.35 * bp(rng.normal(size=n), 300, 2000) * env_swell(n, 0.6, 0.25)
+    at, rate = 0.0, 6.0
+    while at < 0.85:
+        m = int(SR * 0.03)
+        tb = np.arange(m) / SR
+        tick = np.sin(2 * np.pi * 1800 * tb) * np.exp(-tb / 0.004) + 0.3 * bp(rng.normal(size=m), 1500, 4000) * np.exp(-tb / 0.002)
+        place(out, tick, at, 0.25 * min(1.0, 0.4 + at))
+        at += 1 / rate
+        rate *= 1.18
+    out += 0.12 * osc(glide(D3, A3, sec, glide_sec=0.8)) * env_swell(n, 0.5, 0.3)
+    return add_reverb(lp(out, 5000), rng, wet=0.15, sec=0.5, decay=0.15)
+
+
+def sleep_sound(rng):
+    """Einschlafen: Stoff raschelt, langes Ausatmen, sanfter tiefer Ton."""
+    sec = 2.0
+    n = int(SR * sec)
+    out = 0.25 * bp(rng.normal(size=n), 800, 4000) * wobble(n, rng, 30, 0.6) * env_swell(n, 0.25, 0.25)
+    m = int(SR * 1.2)
+    place(out, bp(rng.normal(size=m), 300, 1800) * env_swell(m, 0.35, 0.45), 0.6, 0.3)
+    m = int(SR * 1.6)
+    place(out, pad((D3, A3), 1.6, rng, attack=0.8, tau=0.6), 0.4, 0.25)
+    return add_reverb(lp(out, 4500), rng, wet=0.2, sec=1.0, decay=0.35)
+
+
+def well_splash(rng):
+    """Etwas fällt in den Brunnen: tiefes Platschen, Echo von unten."""
+    sec = 1.2
+    n = int(SR * sec)
+    hit = np.zeros(n)
+    place(hit, osc(glide(140, 420, 0.25, glide_sec=0.03)) * env_exp(int(SR * 0.25), 0.06, 0.003), 0.0, 0.7)
+    place(hit, burst(int(SR * 0.15), rng, None, 1500, 0.04), 0.0, 0.5)
+    out = hit.copy()
+    for delay, gain in ((0.14, 0.35), (0.28, 0.15)):
+        out += gain * np.roll(lp(hit, 900), int(SR * delay))
+    return add_reverb(out, rng, wet=0.35, sec=1.0, decay=0.35, bright=1500)
+
+
+def page_pickup(rng):
+    """Lose Buchseite aufheben: Papierrascheln und ein leiser Glockenton."""
+    sec = 0.8
+    n = int(SR * sec)
+    out = 0.4 * bp(rng.normal(size=n), 1200, 7000) * wobble(n, rng, 300, 0.8) * env_swell(n, 0.12, 0.1)
+    place(out, bell(D6, 0.6, rng, tau=0.3), 0.15, 0.25)
+    place(out, bell(A6, 0.5, rng, tau=0.25), 0.22, 0.1)
+    return add_reverb(lp(out, 7000), rng, wet=0.2, sec=0.6, decay=0.2)
+
+
+def book_pickup(rng):
+    """Das Buch der alten Hexe nehmen: schweres Buch, Staub, ein geheimnisvoller Akkord."""
+    sec = 1.6
+    n = int(SR * sec)
+    out = np.zeros(n)
+    place(out, thump(90, 60, 0.3, 0.08), 0.0, 0.6)
+    place(out, burst(int(SR * 0.2), rng, None, 400, 0.05), 0.0, 0.4)
+    out += 0.04 * hp(rng.normal(size=n), 3000) * env_swell(n, 0.1, 0.3)
+    out += 0.4 * pad((D4, F4, A4, 523.25, E5), sec, rng, attack=0.3, tau=0.6)
+    place(out, bell(A5, 1.0, rng, tau=0.45), 0.25, 0.15)
+    return add_reverb(lp(out, 6500), rng, wet=0.3, sec=1.5, decay=0.6)
+
+
+def travel(rng):
+    """Ortswechsel beim Abblenden: weicher Luftzug."""
+    sec = 1.0
+    n = int(SR * sec)
+    t = t_axis(sec)
+    noise = rng.normal(size=n)
+    bright = np.sin(np.pi * np.clip(t / 0.8, 0, 1))
+    out = (lp(noise, 500) + 0.4 * bp(noise, 800, 3000) * bright) * env_swell(n, 0.45, 0.25)
+    return add_reverb(out, rng, wet=0.15, sec=0.6, decay=0.2)
+
+
 # ID -> (Funktion, Loop?, Lautheit relativ in dB, max. Länge in s)
 EFFECTS = {}
 
@@ -732,6 +962,17 @@ _add("ui/item_drop", ui_item_drop, level=-6)
 _add("ui/item_get", ui_item_get, level=-2, max_sec=0.55)
 _add("ui/denied", ui_denied, level=-4)
 
+_add("world/night_ambience_loop", night_ambience_loop, loop=True, level=-6)
+_add("world/forest_ambience_loop", forest_ambience_loop, loop=True, level=-6)
+_add("world/shelter_ambience_loop", shelter_ambience_loop, loop=True, level=-7)
+_add("world/campfire_loop", campfire_loop, loop=True, level=-6)
+_add("world/fast_forward", fast_forward, level=-2, max_sec=1.4)
+_add("world/sleep", sleep_sound, max_sec=2.6)
+_add("world/well_splash", well_splash, max_sec=1.4)
+_add("world/page_pickup", page_pickup, max_sec=1.0)
+_add("world/book_pickup", book_pickup, level=1, max_sec=2.2)
+_add("world/travel", travel, level=-4, max_sec=1.3)
+
 
 def build(name):
     fn, loop, level, max_sec = EFFECTS[name]
@@ -745,11 +986,18 @@ def build(name):
 
 
 def write_preview(clips):
-    """Alle Effekte nacheinander mit kurzer Pause; Loops laufen zweimal."""
-    gap = np.zeros(int(SR * 0.45))
+    """Alle Effekte nacheinander mit kurzer Pause. Kurze Loops laufen zweimal,
+    lange Atmos nur 12 s lang (ausgeblendet). Die Vorschau ist stereo."""
+    gap = np.zeros((int(SR * 0.45), 2))
     parts = []
     for x, loop in clips:
-        parts += [np.tile(x, 2) if loop else x, gap]
+        x = np.stack([x, x], axis=1) if x.ndim == 1 else x
+        if loop and len(x) < 8 * SR:
+            x = np.concatenate([x, x])
+        elif loop:
+            x = x[: 12 * SR].copy()
+            x[-SR:] *= np.linspace(1, 0, SR)[:, None]
+        parts += [x, gap]
     tmp = PREVIEW.with_suffix(".wav")
     wavfile.write(tmp, SR, (np.concatenate(parts) * 32767).astype(np.int16))
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(tmp), "-c:a", "libvorbis", "-q:a", "5", str(PREVIEW)],

@@ -32,6 +32,7 @@ func travel(scene_path: String, exit_name: String) -> void:
 		return
 	_travelling = true
 	player.set_controls_enabled(false)
+	Sfx.play("world/travel")
 	await ScreenFade.fade_out()
 	_load_level(scene_path)
 	var exit := level.find_exit(exit_name)

@@ -11,6 +11,9 @@ extends Node
 ##
 ## Busse (default_bus_layout.tres): Music, SFX, Ambience. Alle laufen in Master,
 ## dessen Lautstärke die Einstellungen steuern.
+##
+## Außerdem: Jeder Knopf im Spiel (Button, CheckBox …) klickt und raschelt beim
+## Drüberfahren von selbst, und die Atmo des Orts läuft hier (set_ambience).
 
 const BASE_PATH := "res://assets/audio/sfx/"
 const MAX_VARIANTS := 8
@@ -18,6 +21,9 @@ const MAX_VARIANTS := 8
 const PITCH_SPREAD := 0.04
 # Wie viele nicht-räumliche Effekte gleichzeitig klingen dürfen.
 const POOL_SIZE := 12
+# Stumm in Dezibel. -80 dB ist für das Ohr nichts mehr.
+const SILENT_DB := -80.0
+const AMBIENCE_FADE := 2.5
 
 # ID -> Array[AudioStream] (die gefundenen Varianten). Wird beim ersten
 # Abspielen gefüllt, danach kommt alles aus dem Speicher.
@@ -25,6 +31,11 @@ var _cache: Dictionary = {}
 # ID -> zuletzt gespielte Variante, damit sie sich nicht direkt wiederholt.
 var _last_variant: Dictionary = {}
 var _pool: Array[AudioStreamPlayer] = []
+# Zwei Player für die Atmo: Beim Ortswechsel blendet der eine aus, der andere ein.
+var _ambience_players: Array[AudioStreamPlayer] = []
+var _ambience_index := 0
+var _ambience_id := ""
+var _ambience_tween: Tween
 
 
 func _ready() -> void:
@@ -35,6 +46,15 @@ func _ready() -> void:
 		player.bus = &"SFX"
 		add_child(player)
 		_pool.append(player)
+	for i in 2:
+		var player := AudioStreamPlayer.new()
+		player.bus = &"Ambience"
+		player.volume_db = SILENT_DB
+		add_child(player)
+		_ambience_players.append(player)
+	# node_added meldet jeden Node, der irgendwo im Spiel dazukommt. So bekommen
+	# alle Knöpfe ihren Klang, ohne dass jedes Menü daran denken muss.
+	get_tree().node_added.connect(_on_node_added)
 
 
 ## Spielt einen Effekt ohne Position (UI, Hexe selbst, Meldungen).
@@ -83,6 +103,69 @@ func get_loop(id: String) -> AudioStream:
 		wav.loop_end = int(wav.get_length() * wav.mix_rate)
 		return wav
 	return stream
+
+
+## Ein Loop, der an einer Stelle in der Welt läuft (Kessel, Feuer). Als Kind
+## des Objekts anhängen: add_child(Sfx.make_loop_player("brewing/cauldron_loop")).
+## Er startet von selbst und pausiert mit dem Spiel.
+func make_loop_player(id: String, volume_db: float = 0.0, max_distance: float = 300.0) -> AudioStreamPlayer2D:
+	var player := AudioStreamPlayer2D.new()
+	player.bus = &"SFX"
+	player.stream = get_loop(id)
+	player.volume_db = volume_db
+	player.max_distance = max_distance
+	player.attenuation = 1.6
+	# autoplay startet ihn, sobald er im Szenenbaum ist.
+	player.autoplay = true
+	return player
+
+
+## Wechselt die Atmo (Wind, Grillen, Ofen …) weich zu einem anderen Loop.
+## "" blendet sie aus (z. B. im Titelbild). Jeder Ort ruft das beim Laden auf.
+func set_ambience(id: String) -> void:
+	if id == _ambience_id:
+		return
+	_ambience_id = id
+	if _ambience_tween:
+		_ambience_tween.kill()
+	var old_player := _ambience_players[_ambience_index]
+	_ambience_index = 1 - _ambience_index
+	var new_player := _ambience_players[_ambience_index]
+	_ambience_tween = create_tween().set_parallel()
+	_fade(old_player, 0.0)
+	if id != "":
+		new_player.stream = get_loop(id)
+		if new_player.stream:
+			new_player.volume_db = SILENT_DB
+			# Irgendwo im Loop anfangen, damit nicht jeder Ortswechsel gleich klingt.
+			new_player.play(randf() * new_player.stream.get_length())
+			_fade(new_player, 1.0)
+	_ambience_tween.chain().tween_callback(old_player.stop)
+
+
+# Blendet in linearer Lautstärke statt in Dezibel: Das klingt gleichmäßig,
+# ein Tween direkt auf volume_db wäre lange still und dann plötzlich laut.
+func _fade(player: AudioStreamPlayer, to: float) -> void:
+	var from := db_to_linear(player.volume_db)
+	_ambience_tween.tween_method(func(v: float) -> void:
+		player.volume_db = linear_to_db(maxf(v, 0.0001)), from, to, AMBIENCE_FADE)
+
+
+func _on_node_added(node: Node) -> void:
+	if node is BaseButton:
+		var button := node as BaseButton
+		button.pressed.connect(play.bind("ui/click", 0.0, PITCH_SPREAD))
+		button.mouse_entered.connect(func() -> void:
+			if not button.disabled:
+				play("ui/hover"))
+
+
+# Beim Beenden die Wiedergabe stoppen, sonst meldet Godot die Streams als
+# noch in Gebrauch (harmlos, aber so bleibt die Ausgabe sauber).
+func _exit_tree() -> void:
+	for player in _pool + _ambience_players:
+		player.stop()
+		player.stream = null
 
 
 func _pick(id: String) -> AudioStream:

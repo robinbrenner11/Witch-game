@@ -30,12 +30,13 @@ func _ready() -> void:
 func _on_interacted(player: Node2D) -> void:
 	var witch := player as Player
 	if not Inventory.has_room_for(drop_item_id):
-		Messages.post(tr("MSG_BAG_FULL"))
+		Messages.deny(tr("MSG_BAG_FULL"))
 		return
 	witch.play_action("harvest")
 	# Weg ist es, wenn sie es herauszieht (Frame 3), wie beim Ernten.
 	await witch.wait_for_action_frame(2)
 	Inventory.add(drop_item_id)
+	Sfx.play("ui/item_get")
 	Grimoire.report("clear", {"id": drop_item_id})
 	collected.emit()
 	queue_free()

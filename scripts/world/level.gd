@@ -12,6 +12,12 @@ extends Node2D
 # Terrain-Nummern der Erde im TileSet, auf der Beete gehen: die alte Erde
 # (soil 1) und die Gartenerde (earth 6, Böden v2).
 const SOIL_TERRAINS: Array[int] = [1, 6]
+# Welcher Schritt-Sound (assets/audio/sfx/player/step_<name>) zu welchem
+# Terrain im TileSet gehört. Waldboden mit Laub raschelt wie Gras.
+const STEP_SURFACES := {
+	0: "grass", 1: "soil", 2: "path", 3: "stone", 4: "stone",
+	5: "grass", 6: "soil", 7: "grass", 8: "grass",
+}
 
 # Darf man hier mit einem Schnippen Beete anlegen? Nur im Garten.
 @export var allows_beds: bool = false
@@ -24,6 +30,10 @@ const SOIL_TERRAINS: Array[int] = [1, 6]
 # Für Orte ohne Kachelboden (Innenräume aus einer Raumgrafik): Diese Fläche
 # gilt dann für Kamera und Ränder. Leer = die bemalte Fläche zählt.
 @export var fixed_rect: Rect2 = Rect2()
+# Atmo-Loop dieses Orts (ID unter assets/audio/sfx/), z. B. "world/night_ambience_loop".
+@export var ambience: String = ""
+# Schritt-Sound, wo kein Kachelboden liegt (Innenräume aus einer Raumgrafik).
+@export var step_surface_fallback: String = "stone"
 
 @onready var ground: TileMapLayer = $Ground
 @onready var objects: Node2D = $Objects
@@ -33,6 +43,7 @@ func _ready() -> void:
 	# Über die Gruppe finden z. B. die Zauber der Hexe den aktuellen Ort.
 	add_to_group("level")
 	_build_bounds()
+	Sfx.set_ambience(ambience)
 
 
 ## Darf hier ein Beet entstehen? Nur wo der Ort es erlaubt, im Beet-Bereich
@@ -55,6 +66,28 @@ func is_soil(cell: Vector2i) -> bool:
 		if data.get_terrain_peering_bit(corner) not in SOIL_TERRAINS:
 			return false
 	return true
+
+
+## Worauf die Hexe hier gerade tritt: "grass", "soil", "path" oder "stone".
+## Bei Übergangs-Tiles zählt die Ecke des Tiles, die dem Fuß am nächsten ist.
+func step_surface_at(world_position: Vector2) -> String:
+	var local := ground.to_local(world_position)
+	var cell := ground.local_to_map(local)
+	var data := ground.get_cell_tile_data(cell)
+	if data == null or data.terrain_set != 0:
+		return step_surface_fallback
+	# map_to_local liefert die Mitte des Tiles, also sagt das Vorzeichen, in
+	# welchem Viertel der Fuß steht.
+	var offset := local - ground.map_to_local(cell)
+	var corner: TileSet.CellNeighbor
+	if offset.y < 0:
+		corner = TileSet.CELL_NEIGHBOR_TOP_LEFT_CORNER if offset.x < 0 else TileSet.CELL_NEIGHBOR_TOP_RIGHT_CORNER
+	else:
+		corner = TileSet.CELL_NEIGHBOR_BOTTOM_LEFT_CORNER if offset.x < 0 else TileSet.CELL_NEIGHBOR_BOTTOM_RIGHT_CORNER
+	var terrain := data.get_terrain_peering_bit(corner)
+	if terrain < 0:
+		terrain = data.terrain
+	return STEP_SURFACES.get(terrain, step_surface_fallback)
 
 
 ## Die bemalte Fläche in Pixeln. Daraus folgen Kameragrenzen und Wände, so

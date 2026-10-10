@@ -292,9 +292,10 @@ func claim_reward(discipline_id: String, at_level: int) -> bool:
 		return false
 	var reward := DisciplineData.from_id(discipline_id).reward_for_level(at_level)
 	if not Inventory.has_room_for(reward.target_id, reward.value):
-		Messages.post(tr("MSG_BAG_FULL"))
+		Messages.deny(tr("MSG_BAG_FULL"))
 		return false
 	Inventory.add(reward.target_id, reward.value)
+	Sfx.play("ui/item_get")
 	_claimed["%s/%d" % [discipline_id, at_level]] = true
 	changed.emit()
 	return true

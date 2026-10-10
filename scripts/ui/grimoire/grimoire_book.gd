@@ -106,6 +106,7 @@ func open(chapter_id: String = "", from_cauldron: bool = false, at_lectern: bool
 	_hint.text = "BOOK_HINT_LECTERN" if at_lectern else "BOOK_HINT"
 	_frame.queue_redraw()
 	show()
+	Sfx.play("ui/open")
 	_rebuild()
 
 
@@ -118,6 +119,7 @@ func open_offering() -> void:
 
 func close() -> void:
 	_current_spread().on_close()
+	Sfx.play("ui/close")
 	hide()
 	if not _paused_before:
 		get_tree().paused = false
@@ -228,6 +230,7 @@ func _rebuild() -> void:
 	_update_tabs()
 	if _pending_flip != 0:
 		_turn.play(_pending_flip)
+		Sfx.play("ui/page_turn")
 		_pending_flip = 0
 
 

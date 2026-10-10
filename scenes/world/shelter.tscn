@@ -24,6 +24,7 @@
 
 [node name="Shelter" type="Node2D"]
 script = ExtResource("1_level")
+ambience = "world/shelter_ambience_loop"
 fixed_rect = Rect2(-160, -52, 640, 360)
 
 [node name="Darkness" type="Polygon2D" parent="."]

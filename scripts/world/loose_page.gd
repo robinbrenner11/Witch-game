@@ -25,6 +25,7 @@ func _ready() -> void:
 
 func _on_interactable_interacted(_player: Node2D) -> void:
 	Grimoire.find_page(page_id, fragment)
+	Sfx.play("world/page_pickup")
 	var page := PageData.from_id(page_id)
 	if page and page.state == PageData.State.BLIGHTED:
 		Messages.post(tr("MSG_PAGE_BLIGHTED"))

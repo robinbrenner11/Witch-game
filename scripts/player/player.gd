@@ -4,6 +4,8 @@ extends CharacterBody2D
 ## Kommt, wenn eine Aktion (Ausgießen, Ernten, Trinken, Schnippen) zu Ende
 ## gespielt ist. Wer auf das Ende warten will, nutzt await action_finished.
 signal action_finished(action: String)
+## Kommt, wenn sie zu schweben beginnt oder wieder landet (für den Klang).
+signal float_changed(floating: bool)
 
 # Pixel pro Sekunde. Mit @export lässt sich der Wert im Inspector anpassen,
 # ohne das Script zu öffnen.
@@ -31,6 +33,7 @@ var selected_seed: PlantData:
 var _float_time := 0.0
 # Läuft gerade eine Aktion, steht hier ihr Name ("pour", "harvest" …), sonst "".
 var _action := ""
+var _floating := false
 
 @onready var body_shape: CollisionShape2D = $CollisionShape2D
 @onready var interaction_area: Area2D = $InteractionArea
@@ -44,6 +47,10 @@ func _ready() -> void:
 	# Damit z. B. das Pausemenü die Hexe findet, ohne ihren Pfad zu kennen.
 	add_to_group("player")
 	animated_sprite.animation_finished.connect(_on_animation_finished)
+	# Die Geräusche der Hexe (Schritte, Schweben, Aktionen) in einem eigenen
+	# Node, damit player.gd klein bleibt. Er wird hier im Code angehängt statt
+	# in player.tscn, weil er nichts zum Einstellen im Editor hat.
+	add_child(PlayerSounds.new())
 
 
 func _physics_process(delta: float) -> void:
@@ -143,6 +150,9 @@ func _on_animation_finished() -> void:
 ## magentafarbene Funken (Magenta = Magie).
 func _update_float(delta: float, floating: bool) -> void:
 	float_sparkles.emitting = floating
+	if floating != _floating:
+		_floating = floating
+		float_changed.emit(floating)
 	if floating:
 		_float_time += delta
 		animated_sprite.offset.y = SPRITE_OFFSET_Y - FLOAT_HEIGHT + round(sin(_float_time * 6.0))
