@@ -245,6 +245,7 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 - 💡 **Kampfstil wie LoL (10.10.):** Im Kampf wird möglichst *alles* mit der Maus gezielt, nicht nur der normale Zauber. Noch nicht umsetzen.
   - ✅ (10.10.) **Laufen bleibt WASD**, kein Klick-Laufen wie in LoL.
   - ✅ (10.10.) **Der Dash geht in Laufrichtung**, nicht zur Maus (wie heute; nur im Stehen zur Maus).
+  - ✅ (10.10.) **Wurftränke werden mit der Maus gezielt**: Der Trank fliegt zur Mausposition und zerplatzt dort.
   - 🔮 Mögliche Schritte: Flächenzauber direkt an der Mausposition statt als Geschoss; später Fähigkeiten auf Tasten (z. B. Q/E/R), die beim Drücken zur Maus wirken, mit kurzer Zielanzeige (Linie, Kreis) beim Gedrückthalten.
 
 ---
