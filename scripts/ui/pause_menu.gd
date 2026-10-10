@@ -31,6 +31,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _set_open(open: bool) -> void:
+	Sfx.play("ui/open" if open else "ui/close")
 	visible = open
 	get_tree().paused = open
 	if open:

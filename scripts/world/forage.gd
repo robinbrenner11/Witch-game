@@ -63,12 +63,13 @@ func _on_interacted(player: Node2D) -> void:
 			Messages.post(tr(not_ready_message))
 		return
 	if not Inventory.has_room_for(drop_item_id):
-		Messages.post(tr("MSG_BAG_FULL"))
+		Messages.deny(tr("MSG_BAG_FULL"))
 		return
 	var witch := player as Player
 	witch.play_action("harvest")
 	await witch.wait_for_action_frame(2)
 	Inventory.add(drop_item_id)
+	Sfx.play("ui/item_get")
 	if Grimoire.roll_stat("forage_bonus"):
 		Inventory.add(drop_item_id)
 	Grimoire.report("forage", {"id": drop_item_id})

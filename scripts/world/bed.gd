@@ -34,6 +34,7 @@ func _sleep(player: Player) -> void:
 	player.set_controls_enabled(false)
 	player.hide()
 	sprite.texture = SLEEPING_TEXTURE
+	Sfx.play("world/sleep")
 	await get_tree().create_timer(FALL_ASLEEP_TIME).timeout
 	await ScreenFade.fade_out()
 

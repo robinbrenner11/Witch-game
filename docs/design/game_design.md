@@ -199,6 +199,12 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 
 - ❓ Wurftränke für den Kampf und Tränke für NPCs sind neu und noch nicht ausgearbeitet.
 
+### Kreuzungen im Garten (💡 09.10.)
+- 💡 **Kreuzblumen** wie bei Animal Crossing: Stehen zwei passende Pflanzen nebeneinander, kann über Nacht auf einem freien Nachbarbeet eine **Kreuzung** entstehen (neue Farbe oder neue Sorte).
+- 🔮 Passt zu „Was passiert wohl, wenn ich das mache?“ und zum Nachbar-Prinzip, das der Nachtschatten schon hat (er hemmt seine Nachbarn, Kreuzungen wären das positive Gegenstück).
+- 🔮 Technisch: Prüfung beim Nachtwechsel im Autoload `Garden`, Kreuzungsregeln als Daten (Elternpaar → Ergebnis, Chance). Mondphasen könnten die Chance beeinflussen (z. B. Vollmond höher, über `Moon`).
+- 🔮 Zeitpunkt: wenn es mehr Pflanzenarten gibt (siehe Rezepte entdecken, 🔮 mehr Zutaten später).
+
 ### Sammelobjekte im Wald (Grafiken fertig)
 
 | Grafik | Name | Wofür | Wächst nach |
@@ -208,7 +214,7 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 | Feder | Owl Feather | Grimoire-Opfer und Tausch, selten | zufällig, unter dem Eulenbaum |
 | Mondmoos | Moonmoss | Zutat, nur bei Vollmond voll | jeden Vollmond |
 
-- ✅ **Verdorbene Zutaten** von gereinigten Wesen sind wertvoll. Sie ergeben die stärksten Tränke.
+- ✅ ~~Verdorbene Zutaten~~ → (09.10.) **Blüten-Zutaten** (Knospe, Rankenstück, Sporen) von gereinigten Wesen sind wertvoll und ergeben die stärksten Tränke. Normale Items können nicht befallen sein (siehe `bitterbloom.md`).
 - ✅ **Nachtschatten** findet man später auch im tiefen Wald und kann ihn zum eigenen Vorteil nutzen.
 - ✅ Die **Truhe** im Unterschlupf ist das Lager.
 
@@ -233,6 +239,8 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 - ✅ **Blütenherz:** Jedes befallene Gebiet hat einen Boss. Ist er gereinigt, heilt das Gebiet.
 - ✅ **Niederlage:** Die Nacht endet, man wacht im Garten auf, und **ein paar Dinge aus dem Inventar gehen verloren** (keine Ausrüstung).
 - ✅ **Der Garten ist eine sichere Zone.**
+- 💡 **Irrlicht greift mit an (09.10.):** Das Licht aus dem Will-o'-Wisp-Trank folgt der Hexe nicht nur, sondern macht im Kampf einen **Zusatzangriff** (z. B. kleiner Funke auf nahe Gegner).
+  - 🔮 Ein schöner erster Schritt Richtung Begleiter im Kampf, bevor die Katze kommt. Erst sinnvoll, wenn der Kampf-Prototyp steht.
 
 ---
 
@@ -374,6 +382,7 @@ Kleine, testbare Schritte. Das Spiel soll so früh wie möglich Spaß machen.
 2. Crafting über den Kessel: wie genau.
 3. Inhalt und Design des Grimoire (eigene Session): Seitenaufbau, Opfer, Belohnungen.
 4. Wurftränke und NPC-Tränke: Rezepte, Wirkungen.
+5. ✅ (erledigt 09.10., siehe `docs/design/bitterbloom.md`) **Design der Bitterblüte:** einheitlich festlegen, wie verdorbene und befallene Dinge aussehen: Gegenstände und Zutaten, Umgebung und Pflanzen, Tiere und Gegner. Gemeinsame Formensprache, Farben und Effekte, damit man Befall überall sofort erkennt. Eigene Session.
 5. Warum Digitalis gerade diese Hexe gerufen hat.
 6. ~~Englische Namen für Hexenschlamm und die übrigen Pflanzen und UI-Texte.~~ ✅ 08.10.2026: Witch's Muck, Blood Rose, Ghost Fern (Spores), Lantern Berry, Mandrake, Moon Chalice, Nightshade, Wild Herb. Alle Texte stehen in `data/translations/texts.csv`.
 7. Wildgras und Unkraut: Was bringt das Wegräumen, und wächst es nach?

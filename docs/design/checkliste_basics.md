@@ -26,7 +26,7 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 - [x] **Hauptmenü** – Neues Spiel, Fortsetzen, Einstellungen, Beenden (bisher startet das Spiel direkt in der Welt)
 - [x] **Pausemenü (Esc)** – Fortsetzen, Einstellungen, Speichern & Beenden
 - [x] **Einstellungen** – Lautstärke, Vollbild/Fenster, später Tastenbelegung (Tastenbelegung fehlt noch)
-- [ ] **Sound** – bisher keine einzige Audiodatei. Minimum: Musik (SZA-Stimmung), Nachtatmosphäre, Schritte, Ernten, Pflanzen, Kessel-Blubbern, UI-Klicks
+- [x] **Sound** – 56 Effekte per Synthese (10.10.2026), alle Aktionen vertont, Atmo je Ort, Schritte je Boden; siehe `docs/audio/sfx_generator/LIESMICH.md`. Offen: getrennte Lautstärke-Regler im Menü, Musik-Ebenen je Ort
 - [x] **Bett + Morgen-Moment** *(Auftrag 07.10.)* – Bett fertig, Morgen-Moment bewusst weggelassen (selbst entdecken)
 
 ## 4. Einstieg – damit jemand außer dir das Spiel versteht

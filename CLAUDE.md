@@ -320,6 +320,7 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - **Texte**: Spieltexte nie direkt, sondern als Schlüssel in `data/translations/texts.csv` (en/de). In Labels/Buttons steht der Schlüssel, im Code `tr("SCHLÜSSEL")`. Item-Namen sind Schlüssel (`ITEM_<ID>`)
 - **Fortschritt**: Systeme melden Ereignisse mit `Grimoire.report("aktion", {"id": …})`; Boni fragen sie mit `Grimoire.get_stat()` ab. Nichts direkt in Disziplinen eintragen
 - **Mond**: Mondphasen nur über den Autoload `Moon` abfragen (`Moon.is_full()`, `Moon.phase()`, Signal `phase_changed`), nie selbst aus der Nacht ausrechnen
+- **Sound**: Effekte nur über den Autoload `Sfx` (`Sfx.play(id)`, `Sfx.play_at(id, position)`, Loops an Objekten mit `Sfx.make_loop_player(id)`). IDs sind Pfade unter `assets/audio/sfx/` ohne Endung, Varianten `_1.._n` wählt `Sfx` selbst. Atmo je Ort über den Export `ambience` am Level. Meldungen, bei denen etwas nicht geht, über `Messages.deny()`. Neue Effekte im Generator `docs/audio/sfx_generator/sfx.py` anlegen
 - **Umgebung**: Deko als `Decor`-Szenen in `scenes/world/decor/` (Fußpunkt = Ursprung, Schatten, Kollision, Licht als Export-Werte); Sammelbares über `WildGrowth` + Autoload `Wilds`
 
 ---

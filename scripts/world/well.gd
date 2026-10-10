@@ -22,6 +22,7 @@ func _on_interactable_interacted(_player: Node2D) -> void:
 		Messages.post(tr("MSG_WELL_STACK") % item_name)
 	else:
 		Messages.post(tr("MSG_WELL_ONE") % item_name)
+	Sfx.play_at("world/well_splash", global_position)
 	_splash()
 
 

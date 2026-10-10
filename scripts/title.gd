@@ -19,6 +19,7 @@ var _confirm_new_game := false
 func _ready() -> void:
 	# Falls man aus dem Pausemenü kommt, steht die Pause evtl. noch.
 	get_tree().paused = false
+	Sfx.set_ambience("")
 	continue_button.disabled = not SaveGame.has_save()
 	_focus_first_button()
 

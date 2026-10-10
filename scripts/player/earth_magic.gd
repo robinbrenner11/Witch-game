@@ -25,17 +25,20 @@ func _snap() -> void:
 	# Die Zelle direkt vor der Hexe, dort wo auch E wirkt.
 	var cell := Garden.cell_at(player.interaction_area.global_position)
 	if level == null or not level.allows_bed_at(cell):
-		Messages.post(tr("MSG_EARTH_TOO_DEEP"))
+		Messages.deny(tr("MSG_EARTH_TOO_DEEP"))
 		return
 	if Garden.has_plant(cell) or _has_wild_growth(cell):
-		Messages.post(tr("MSG_ALREADY_GROWING"))
+		Messages.deny(tr("MSG_ALREADY_GROWING"))
 		return
+	var center := Vector2(cell * Garden.TILE_SIZE) + Vector2.ONE * Garden.TILE_SIZE / 2.0
 	if Garden.has_bed(cell):
 		Garden.remove_bed(cell)
+		Sfx.play_at("garden/bed_sleep", center)
 	else:
 		Garden.add_bed(cell)
 		Grimoire.complete_goal("wake")
-	_burst(level, Vector2(cell * Garden.TILE_SIZE) + Vector2.ONE * Garden.TILE_SIZE / 2.0)
+		Sfx.play_at("garden/bed_wake", center)
+	_burst(level, center)
 
 
 ## Wildgras und Unkraut müssen erst weggeräumt werden (siehe WildGrowth).

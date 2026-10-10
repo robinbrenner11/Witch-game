@@ -36,6 +36,8 @@ const RAIN_ROOT := Vector2(0, 6)
 const RAIN_OFFSET := Vector2(0, -14)
 # Platzpunkt (16, 6) im 32×48-Frame, umgerechnet auf die Tile-Mitte.
 const LANDING_POINT := Vector2(0, -26)
+# Hexenschlamm gluckst zäh statt zu plätschern und wächst ohne Glitzern.
+const SLUDGE_ID := "potion_sludge"
 
 @onready var player: Player = get_parent()
 
@@ -56,6 +58,8 @@ func pour(item: ItemData, center: Vector2i) -> void:
 	# Gewartet wird über Timer statt über die Effekt-Nodes: Die Wirkung soll
 	# auch dann eintreten, wenn der Ort währenddessen verschwindet.
 	await get_tree().create_timer(ORB_FLIGHT_TIME, false).timeout
+	var is_sludge := item.id == SLUDGE_ID
+	Sfx.play_at("garden/pour_sludge" if is_sludge else "garden/pour", target)
 
 	if level and is_instance_valid(level):
 		var radius := item.pour_radius
@@ -66,7 +70,8 @@ func pour(item: ItemData, center: Vector2i) -> void:
 				_splash(level, _tile_center(center + offset), item.pour_color, delay)
 	await get_tree().create_timer(RAIN_FRAMES / RAIN_FPS, false).timeout
 
-	Garden.grow_area(center, item.pour_radius, item.pour_stages)
+	if Garden.grow_area(center, item.pour_radius, item.pour_stages) and not is_sludge:
+		Sfx.play_at("garden/grow_magic", target)
 
 
 func _tile_center(cell: Vector2i) -> Vector2:

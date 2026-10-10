@@ -38,6 +38,7 @@ func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 
 
 func _drop_data(_at_position: Vector2, data: Variant) -> void:
+	Sfx.play("ui/item_drop")
 	offering.give(item_id, data["inventory_slot"])
 
 

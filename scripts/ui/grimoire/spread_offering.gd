@@ -122,7 +122,7 @@ func on_close() -> void:
 		if Inventory.add(item_id, _given[item_id]):
 			_given.erase(item_id)
 	if not _given.is_empty():
-		Messages.post(tr("MSG_BAG_FULL"))
+		Messages.deny(tr("MSG_BAG_FULL"))
 
 
 func _offer() -> void:

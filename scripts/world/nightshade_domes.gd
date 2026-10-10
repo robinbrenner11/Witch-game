@@ -22,9 +22,15 @@ const PULSE_TIMES: Array[float] = [0.7, 0.18, 0.26, 0.18]
 var _area := Rect2()
 var _phase := 0
 var _phase_time := 0.0
+# Leises Wabern, solange irgendwo eine Kuppel steht. Ein Player für alle,
+# in der Mitte der Kuppeln.
+var _hum: AudioStreamPlayer2D
 
 
 func _ready() -> void:
+	_hum = Sfx.make_loop_player("garden/nightshade_loop", 0.0, 240.0)
+	_hum.autoplay = false
+	add_child(_hum)
 	Garden.plant_changed.connect(_on_garden_plant_changed)
 	_update_domes()
 
@@ -50,7 +56,14 @@ func _update_domes() -> void:
 		centers.append(Vector2(cell * Garden.TILE_SIZE) + Vector2.ONE * Garden.TILE_SIZE / 2.0)
 	visible = not centers.is_empty()
 	if not visible:
+		_hum.stop()
 		return
+	var middle := Vector2.ZERO
+	for center in centers:
+		middle += center
+	_hum.global_position = middle / centers.size()
+	if not _hum.playing:
+		_hum.play()
 
 	# Gezeichnet wird nur ein Rechteck um alle Kuppeln, nicht die ganze Welt.
 	var top_left := centers[0]

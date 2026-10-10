@@ -57,6 +57,7 @@ func open() -> void:
 	# Das Inventar steckt im Fenster, die Hotbar wäre doppelt.
 	get_tree().call_group("hotbar", "hide")
 	get_tree().call_group("clock", "hide")
+	Sfx.play("ui/open")
 	_refresh()
 
 
@@ -69,7 +70,8 @@ func close() -> void:
 			kept.append(item_id)
 	_ingredients = kept
 	if not kept.is_empty():
-		Messages.post(tr("MSG_BAG_FULL"))
+		Messages.deny(tr("MSG_BAG_FULL"))
+	Sfx.play("ui/close")
 	hide()
 	get_tree().paused = false
 	get_tree().call_group("hotbar", "show")
@@ -131,6 +133,8 @@ func add_from_inventory(inventory_slot: int) -> void:
 	var item_id := Inventory.item_in_slot(inventory_slot)
 	if can_add(item_id) and Inventory.remove_from_slot(inventory_slot):
 		_ingredients.append(item_id)
+		# "Plopp": Die Zutat fällt in den Sud.
+		Sfx.play("brewing/ingredient_drop")
 		_refresh()
 
 
@@ -139,7 +143,7 @@ func return_ingredient(index: int) -> void:
 		return
 	# Bei vollem Inventar bleibt die Zutat lieber im Kessel.
 	if not Inventory.add(_ingredients[index]):
-		Messages.post(tr("MSG_BAG_FULL"))
+		Messages.deny(tr("MSG_BAG_FULL"))
 		return
 	_ingredients.remove_at(index)
 	_refresh()
@@ -150,6 +154,7 @@ func _on_brew_button_pressed() -> void:
 	if _ingredients.size() < Brewing.MIN_INGREDIENTS or not Brewing.can_start():
 		return
 	Brewing.start(_ingredients)
+	Sfx.play("brewing/brew_start")
 	_ingredients.clear()
 	_refresh()
 
