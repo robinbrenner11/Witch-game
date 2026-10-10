@@ -248,6 +248,21 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
   - ✅ (10.10.) **Wurftränke werden mit der Maus gezielt**: Der Trank fliegt zur Mausposition und zerplatzt dort.
     - ✅ Er **landet genau an der Mausposition** (nicht am ersten Gegner) und wirkt dort auf einer **bestimmten Fläche**. Größe der Fläche je Trank als Datenwert, damit sich Tränke darin unterscheiden können.
     - 🔮 Flug im Bogen, damit klar ist, dass er über Gegner hinwegfliegt; beim Zielen ein Kreis in Flächengröße an der Maus.
+- ✅ **Entscheidungen zum Kampf (10.10.)**, nach dem ersten Test von K1–K3 (Tempo, Käfer und Dash fühlen sich gut an):
+  - **Schwierigkeit:** Gegner in der Overworld mittelschwer, **Bosse (Blütenherzen) dürfen sehr fordernd sein**.
+  - **Kampfmodus schaltet sich automatisch ein**, wenn ein Gegner angreift (vorher 💡).
+  - **Im Kampfmodus ändern sich die Tasten**, z. B. ist Q dann nicht mehr Trinken. Genaue Belegung folgt mit den Wurftränken.
+  - **Zielen:** schnelle Zauber gehen sofort zur Maus; Würfe: Taste halten zeigt Kreis, Loslassen wirft.
+  - **Alles, was Zauberei ist, kostet Hexenkraft**, auch der normale Angriff. **Tränke werfen kostet keine Hexenkraft** (der Trank selbst ist der Preis).
+  - **Zweite Form: eine magische Sichel** (Nahkampf).
+  - **Jede Form hat einen eigenen Rechtsklick-Spezialangriff.**
+  - **Formwechsel sofort**, ohne Wartezeit, damit Kombos möglich sind.
+  - **Wurftränke haben eigene Rezepte** (nicht einfach bestehende Tränke werfen). Noch nicht endgültig. Erste Kandidaten: Giftwolke, Verlangsamen, Reinigungsnebel.
+  - **Wirkfläche:** Schadenstränke treffen die Hexe nicht, Effekte (Nebel, Verlangsamen …) schon.
+  - **Reinigen:** Schaden bis 0, dann fällt die Blüte ab (wie gebaut).
+  - **Gegner zeigen kein Leben an** (vorerst).
+  - **Neumond:** mehr Gegner, und sie sind aggressiver.
+  - **Heilen im Kampf über Tränke** (Trinktrank). Leben regeneriert nicht von selbst.
   - 🔮 Mögliche Schritte: Flächenzauber direkt an der Mausposition statt als Geschoss; später Fähigkeiten auf Tasten (z. B. Q/E/R), die beim Drücken zur Maus wirken, mit kurzer Zielanzeige (Linie, Kreis) beim Gedrückthalten.
 
 ---

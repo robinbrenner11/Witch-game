@@ -35,6 +35,7 @@ func _ready() -> void:
 	shape.shape = circle
 	add_child(shape)
 	body_entered.connect(_on_body_entered)
+	area_entered.connect(_on_area_entered)
 	z_index = 3
 	var material_unshaded := CanvasItemMaterial.new()
 	material_unshaded.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
@@ -80,6 +81,14 @@ func _on_body_entered(body: Node2D) -> void:
 	if burst_radius <= 0.0 and body.has_method("take_hit"):
 		body.take_hit(damage, direction * knockback)
 	_burst()
+
+
+## Wesen haben eine eigene Trefferzone (Area2D) in Größe ihres Sprites;
+## getroffen wird dann das Wesen, dem die Zone gehört. Andere Zonen
+## (Ausgänge, Interaktion …) liegen auf anderen Ebenen und zählen nicht.
+func _on_area_entered(area: Area2D) -> void:
+	if area.collision_layer & ENEMY_LAYER:
+		_on_body_entered(area.get_parent())
 
 
 ## Zerplatzen: Funken, und beim großen Zauber alles im Umkreis treffen.

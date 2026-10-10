@@ -59,6 +59,20 @@ func _ready() -> void:
 	shape.shape = rect
 	shape.position = Vector2(0, -3)
 	add_child(shape)
+	# Trefferzone für Zauber: so groß wie der sichtbare Panzer. Die Körperform
+	# oben ist nur ein flacher Streifen an den Füßen (fürs Laufen), Zauber auf
+	# Panzerhöhe würden darüber hinwegfliegen.
+	var hitbox := Area2D.new()
+	hitbox.name = "Hitbox"
+	hitbox.collision_layer = ENEMY_LAYER
+	hitbox.collision_mask = 0
+	var hitbox_shape := CollisionShape2D.new()
+	var hitbox_rect := RectangleShape2D.new()
+	hitbox_rect.size = Vector2(16, 18)
+	hitbox_shape.shape = hitbox_rect
+	hitbox_shape.position = Vector2(0, -9)
+	hitbox.add_child(hitbox_shape)
+	add_child(hitbox)
 	# Berührung tut der Hexe weh.
 	var hurt := Area2D.new()
 	hurt.collision_layer = 0
@@ -178,6 +192,8 @@ func _on_touch(body: Node2D) -> void:
 func _cleanse() -> void:
 	_set_state(State.CLEANSED, 1.6)
 	collision_layer = 0
+	# Gereinigte Käfer fangen keine Zauber mehr ab.
+	$Hitbox.set_deferred("collision_layer", 0)
 	_light.enabled = false
 	remove_from_group("blighted")
 	var petals := CPUParticles2D.new()
