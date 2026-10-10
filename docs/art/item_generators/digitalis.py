@@ -29,6 +29,10 @@ from PIL import Image
 
 W, H = 24, 60
 SX = 10  # linke Spalte des Schafts; Fußpunkt x = SX + 1
+# Golddraht-Wicklung = Stelle der Hand. Der Stab endet oben auf Kopfhöhe der
+# Hexe (62 px über dem Boden, er schwebt also 2 px), dann liegt ihre Hand
+# (ca. 24 bis 28 px über dem Boden) genau auf diesen Zeilen.
+GRIP_TOP, GRIP_BOTTOM = 36, 43
 
 BASE = {
     "o": (43, 22, 51),       # Aubergine (Kontur)
@@ -237,16 +241,16 @@ def draw_staff(tip=0, bloom=0, sparks=False):
     cv.stamp(["hggd",
               "gnmD",
               "dddD"], SX - 1, 32)
-    # Griff aus Gold, in der Mitte mit Golddraht umwickelt
+    # Griff aus Gold; oben, wo die Hand ihn hält, mit Golddraht umwickelt
     for y in range(35, 57):
-        if 40 <= y <= 48:
+        if GRIP_TOP <= y <= GRIP_BOTTOM:
             cv.put(SX, y, "h" if y % 2 == 0 else "g")
             cv.put(SX + 1, y, "g" if y % 2 == 0 else "D")
         else:
             cv.put(SX, y, "g")
             cv.put(SX + 1, y, "d")
-    cv.put(SX, 36, "h"); cv.put(SX, 37, "w"); cv.put(SX, 51, "h")
-    for y in (39, 49):
+    cv.put(SX, GRIP_BOTTOM + 3, "h"); cv.put(SX, GRIP_BOTTOM + 4, "w"); cv.put(SX, 53, "h")
+    for y in (GRIP_TOP - 1, GRIP_BOTTOM + 1):
         cv.put(SX - 1, y, "d"); cv.put(SX, y, "h"); cv.put(SX + 1, y, "g"); cv.put(SX + 2, y, "D")
     # Fuß mit kleinen goldenen Wurzeln
     cv.put(SX, 57, "d"); cv.put(SX + 1, 57, "D")
