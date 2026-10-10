@@ -523,5 +523,10 @@ Der Stab ist ein Fingerhut: Goldgriff mit Golddraht-Wicklung und Magenta-Stein a
 - **Glow-Ebene** wie bei Pilzen und Trank-Effekten: zweites `AnimatedSprite2D` darüber, `CanvasItemMaterial` mit `light_mode = Unshaded`, gleiche FPS und gleicher Startframe. Idle: nur die Spitze leuchtet. Angriff: die ganze Traube.
 - 🔮 Vorschlag Licht: `PointLight2D` an der Spitze, Farbe `Color(0.89, 0.35, 0.69)`, `texture_scale` klein (Radius ca. 24 px), `energy` im Idle 0.5–0.65 mit der Pulsfolge, beim Angriff kurz 1.2.
 - Größe: 60 px, also fast so hoch wie die Hexe (64 px). Entscheidung vom 10.10.: dunkler Stängel, Stab fast so hoch wie die Hexe.
-- Noch nicht gebaut: Halten in der Hand / Richtungen (hängt am Kampf-Prototyp), Garten-Version („wartet im Garten“), Grimoire-Abbildung groß, weitere Formen (Sickle, Thornwhip, Rootmaul).
+- ✅ **Halten (Entscheidung 10.10.):** Die Hexe führt den großen Stab neben sich, Griff in der Hand, Spitze über dem Kopf, damit man sieht, wie bedeutend Digitalis ist. Keine eigene kurze Fassung. Mockup: `vorschau/vorschau_digitalis_halten_4x.png`.
+  - Griff-Punkt im Frame: Mitte der Golddraht-Wicklung, Pixel (10.5, 44). Er liegt auf der Hand.
+  - Hand relativ zum Fußpunkt der Hexe (ersetzt die Werte für den dünnen Platzhalter in `combat.gd`): unten `(14, -27)`, oben `(-12, -30)`, rechts `(12, -28)`, links `(-12, -28)`. So steht der Stab neben ihr und verdeckt nie das Gesicht; die Spitze ragt ca. 7 px über den Kopf.
+  - Blick nach links: Stab mit `flip_h = true` (Glocken zeigen nach vorne). Blick nach oben: Stab hinter der Hexe zeichnen (`z_index` bzw. `show_behind_parent`), sonst davor.
+  - 🔮 Später: ein kleines Hand-Overlay (schwarze Finger, goldener Armreif) über dem Griff, damit man das Halten auch ohne Arm-Animation sieht.
+- Noch nicht gebaut: Garten-Version („wartet im Garten“), Grimoire-Abbildung groß, weitere Formen (Sickle, Thornwhip, Rootmaul).
 

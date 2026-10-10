@@ -176,6 +176,7 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 | Thornwhip | Reichweite, Gegner heranziehen | Dinge greifen, über Lücken schwingen |
 | Rootmaul | langsam, wuchtig | Steine und Holz zerschlagen |
 
+- ✅ (10.10.) **Grafik und Halten:** Fingerhut-Stab, fast so hoch wie die Hexe (60 px), dunkler Stängel, Goldgriff, lila Traube, Magenta-Spitze (`assets/items/digitalis/`). Die Hexe führt ihn **groß neben sich** (Spitze über dem Kopf), damit man sieht, wie bedeutend er ist. Details: `docs/ASSETS.md`, Abschnitt Digitalis.
 - 💡 Neue Formen gibt es über Grimoire-Seiten oder beim Heilen eines Gebiets.
 - 💡 Upgrades macht Gnarl (siehe NPCs).
 
