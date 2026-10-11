@@ -140,10 +140,10 @@ func _text_of(note: Dictionary) -> String:
 ## bei der es nicht mehr Zeilen werden als bei voller Breite.
 func _balanced_width(text: String) -> float:
 	var font := item_name_label.get_theme_font("font")
-	var size := item_name_label.get_theme_font_size("font_size")
+	var font_size := item_name_label.get_theme_font_size("font_size")
 	var lines := func(width: float) -> int:
-		var height := font.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, width, size).y
-		return roundi(height / font.get_height(size))
+		var height := font.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, width, font_size).y
+		return roundi(height / font.get_height(font_size))
 	var target: int = lines.call(TEXT_WIDTH)
 	if target <= 1:
 		return TEXT_WIDTH

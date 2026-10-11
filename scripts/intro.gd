@@ -52,13 +52,13 @@ func _ready() -> void:
 ## voller Breite. So werden die Zeilen eines Satzes etwa gleich lang.
 func _balanced_width(label: Label, text: String) -> float:
 	var font := label.get_theme_font("font")
-	var size := label.get_theme_font_size("font_size")
+	var font_size := label.get_theme_font_size("font_size")
 	var lines := func(width: float) -> int:
-		var height := font.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, width, size).y
-		return roundi(height / font.get_height(size))
+		var height := font.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, width, font_size).y
+		return roundi(height / font.get_height(font_size))
 	var target: int = lines.call(MAX_LINE_WIDTH)
 	if target <= 1:
-		return minf(font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x, MAX_LINE_WIDTH)
+		return minf(font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x, MAX_LINE_WIDTH)
 	var low := MAX_LINE_WIDTH / target
 	var high := MAX_LINE_WIDTH
 	while high - low > 2.0:
