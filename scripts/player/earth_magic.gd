@@ -41,6 +41,14 @@ func _snap() -> void:
 	_burst(level, center)
 
 
+## Ließe sich hier ein neues Beet wecken? Für den Hinweis "R Erde wecken",
+## den die Hexe sieht, bevor sie das zum ersten Mal getan hat.
+func can_wake_at(cell: Vector2i) -> bool:
+	var level := get_tree().get_first_node_in_group("level") as Level
+	return level != null and level.allows_bed_at(cell) and not Garden.has_bed(cell) \
+		and not _has_wild_growth(cell)
+
+
 ## Wildgras und Unkraut müssen erst weggeräumt werden (siehe WildGrowth).
 func _has_wild_growth(cell: Vector2i) -> bool:
 	for node in get_tree().get_nodes_in_group("wild"):

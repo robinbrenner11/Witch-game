@@ -21,7 +21,15 @@ func _ready() -> void:
 	get_tree().paused = false
 	Sfx.set_ambience("")
 	continue_button.disabled = not SaveGame.has_save()
+	# Die Rückfrage "Wirklich neu beginnen?" gilt nur für den direkt folgenden
+	# Klick. Wandert der Fokus weg, ist sie wieder zurückgenommen.
+	new_game_button.focus_exited.connect(_reset_new_game_confirm)
 	_focus_first_button()
+
+
+func _reset_new_game_confirm() -> void:
+	_confirm_new_game = false
+	new_game_button.text = "TITLE_NEW_GAME"
 
 
 func _on_continue_button_pressed() -> void:

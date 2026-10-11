@@ -32,12 +32,15 @@ const FADE_IN := 0.12
 
 var _rect := Rect2()
 var _time := 0.0
-var _target: Interactable
+# Worauf der Hinweis gerade zeigt (ein Interactable oder eine Beet-Zelle).
+# Wechselt es, blendet die Plakette neu ein.
+var _target_id: Variant = null
 var _prompt := ""
 var _key := ""
 var _prompt_alpha := 0.0
 
 @onready var player: Player = get_parent()
+@onready var earth_magic: Node = player.get_node("EarthMagic")
 
 
 # Bei offenen Fenstern (Spiel pausiert) läuft _process nicht weiter; ohne das
@@ -45,30 +48,58 @@ var _prompt_alpha := 0.0
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PAUSED:
 		hide()
-		_target = null
+		_target_id = null
 
 
 func _process(delta: float) -> void:
-	var target := player.find_closest_interactable()
 	# Beim Schlafen ist die Steuerung und damit auch der Hinweis aus.
-	visible = target != null and player.can_act() and not player.combat_mode
+	var active := player.can_act() and not player.combat_mode
+	var target := player.find_closest_interactable() if active else null
+	var target_id: Variant = null
+	var rect := Rect2()
+	var prompt_key := ""
+	var key_action := "interact"
+	if target:
+		target_id = target
+		rect = _target_rect(target)
+		# Jeden Frame neu, weil der Text vom Zustand abhängt (Item in der
+		# Hand, Pflanze reif geworden …).
+		prompt_key = target.prompt_key()
+	elif active and _wants_wake_hint():
+		var cell := Garden.cell_at(player.interaction_area.global_position)
+		target_id = cell
+		rect = Rect2(Vector2(cell * Garden.TILE_SIZE), Vector2.ONE * Garden.TILE_SIZE)
+		prompt_key = "PROMPT_WAKE"
+		key_action = "snap"
+	visible = target_id != null
 	if not visible:
-		_target = null
+		_target_id = null
 		return
-	if target != _target:
-		_target = target
+	# Erst den Typ vergleichen: Interactable und Zelle lassen sich nicht
+	# direkt miteinander vergleichen.
+	if typeof(target_id) != typeof(_target_id) or target_id != _target_id:
+		_target_id = target_id
 		_prompt_alpha = 0.0
-		_key = InputHints.key_for("interact")
+		_key = InputHints.key_for(key_action)
 	_time += delta
 	_prompt_alpha = minf(_prompt_alpha + delta / FADE_IN, 1.0)
-	# Jeden Frame neu, weil der Text vom Zustand abhängt (Item in der Hand,
-	# Pflanze reif geworden …).
-	var key := target.prompt_key()
-	_prompt = tr(key) if key != "" else ""
+	_prompt = tr(prompt_key) if prompt_key != "" else ""
 	# Ein Pixel Atmen: Die Klammern gehen langsam etwas auseinander.
 	var grow := 1.0 if sin(_time * 4.0) > 0.0 else 0.0
-	_rect = _target_rect(target).grow(grow)
+	_rect = rect.grow(grow)
 	queue_redraw()
+
+
+## Einmal-Hinweis fürs Beete-Anlegen: Samen in der Hand, vor der Hexe freie
+## Gartenerde, und sie hat noch nie ein Beet geweckt. Nach dem ersten Mal
+## (Grimoire-Ziel "wake") weiß man es und der Garten bleibt ruhig.
+func _wants_wake_hint() -> bool:
+	if Grimoire.is_goal_done("wake"):
+		return false
+	var item := ItemData.from_id(Inventory.selected_item_id())
+	if item == null or item.type != ItemData.Type.SEED:
+		return false
+	return earth_magic.can_wake_at(Garden.cell_at(player.interaction_area.global_position))
 
 
 func _draw() -> void:
