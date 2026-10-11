@@ -276,6 +276,7 @@ BOOK_NEED,×%d,×%d
 BOOK_HAVE_MISSING,missing,fehlt
 BOOK_USE_POUR_SHORT,pour on a bed,aufs Beet gießen
 BOOK_USE_DRINK_SHORT,drink it,trinken
+BOOK_USE_THROW_SHORT,throw in a fight,im Kampf werfen
 BOOK_STRENGTH_TEXT,The sum of all your disciplines. Some things only answer a strong witch.,Die Summe all deiner Disziplinen. Manches antwortet nur einer starken Hexe.
 BOOK_OVERVIEW_PAGES,Pages found,Seiten gefunden
 BOOK_OVERVIEW_RECIPES,Recipes known,Rezepte bekannt
@@ -336,10 +337,13 @@ CONTROLS_INVENTORY,Bag,Tasche
 CONTROLS_BOOK,Grimoire,Grimoire
 CONTROLS_MENU,Menu,Menü
 CONTROLS_COMBAT,Draw Digitalis,Digitalis ziehen
-CONTROLS_CAST,Spell,Zauber
-CONTROLS_SPECIAL,Big spell,Großer Zauber
+CONTROLS_ATTACK_LIGHT,Light attack,Leichter Angriff
+CONTROLS_ATTACK_HEAVY,Strong attack,Starker Angriff
 CONTROLS_DASH,Dash,Ausweichen
 CONTROLS_COMBAT_HEADER,In combat,Im Kampf
+CONTROLS_FORM,Change form,Form wechseln
+CONTROLS_POTION,Potion,Trank
+CONTROLS_POTION_NEXT,Next potion,Nächster Trank
 MSG_DAWN_NEAR,The sky pales. Soon the sun will burn.,Der Himmel wird blass. Bald brennt die Sonne.
 PROMPT_WAKE,Wake the earth,Erde wecken
 MSG_SUN_BURNS,The sun burns. Get inside.,Die Sonne brennt. Schnell hinein.
@@ -348,3 +352,13 @@ CHEST_TITLE,Chest,Truhe
 PROMPT_OPEN,Open,Öffnen
 DIGITALIS_STAFF,Staff,Stab
 DIGITALIS_SICKLE,Sickle,Sichel
+ITEM_POTION_MENDING,Mending Draught,Heiltrank
+ITEM_POTION_MENDING_DESC,Tastes of iron and lanterns. Wounds close a little.,Schmeckt nach Eisen und Laternen. Wunden schließen sich ein wenig.
+ITEM_POTION_EMBER_BOMB,Ember Bomb,Glutbombe
+ITEM_POTION_EMBER_BOMB_DESC,Warm in the hand. Do not keep it there.,Warm in der Hand. Behalte sie nicht dort.
+ITEM_POTION_THORN_MIST,Thorn Mist,Dornennebel
+ITEM_POTION_THORN_MIST_DESC,The bloom's own thorns turned against it.,Die eigenen Dornen der Blüte gegen sie gewendet.
+BOOK_USE_THROW,For throwing in a fight.,Zum Werfen im Kampf.
+HINT_USE_THROW,Throw with %s in combat,Im Kampf mit %s werfen
+MSG_HEALED,Warmth spreads through you.,Wärme breitet sich in dir aus.
+MSG_NO_COMBAT_POTION,No potion for the fight.,Kein Trank für den Kampf.

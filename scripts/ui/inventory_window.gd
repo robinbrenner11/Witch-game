@@ -69,6 +69,8 @@ func _use_text(item: ItemData) -> String:
 			return "%s  ·  %s" % [tr("BOOK_USE_DRINK"), InputHints.key_for("use_item")]
 		ItemData.Use.POUR:
 			return "%s  ·  %s" % [tr("BOOK_USE_POUR"), InputHints.key_for("interact")]
+		ItemData.Use.THROW:
+			return "%s  ·  %s" % [tr("BOOK_USE_THROW"), InputHints.key_for("potion_quick")]
 	match item.type:
 		ItemData.Type.SEED:
 			return tr("ITEM_USE_SEED")

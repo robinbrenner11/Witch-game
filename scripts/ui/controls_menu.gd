@@ -4,8 +4,8 @@ extends Control
 ## Einstellungsmenü: open() zeigt es, beim Schließen kommt das Signal closed.
 ##
 ## Die Tasten kommen aus der Tastenbelegung (InputHints), stehen also nie
-## doppelt im Text. Zwei Spalten: links der Alltag, rechts Buch, Menü und
-## alles, was mit gezogenem Digitalis anders ist.
+## doppelt im Text. Zwei Spalten: links der Alltag, rechts alles, was mit
+## gezogenem Digitalis anders ist.
 
 signal closed
 
@@ -20,15 +20,18 @@ const LEFT_ROWS := [
 	["CONTROLS_SNAP", "snap"],
 	["CONTROLS_HOTBAR", "1-8"],
 	["CONTROLS_INVENTORY", "inventory"],
-]
-const RIGHT_ROWS := [
 	["CONTROLS_BOOK", "book"],
 	["CONTROLS_MENU", "ui_cancel"],
+]
+const RIGHT_ROWS := [
 	["CONTROLS_COMBAT", "combat"],
 	["CONTROLS_COMBAT_HEADER", ""],
-	["CONTROLS_CAST", "[KEY_MOUSE_LEFT]"],
-	["CONTROLS_SPECIAL", "[KEY_MOUSE_RIGHT]"],
+	["CONTROLS_ATTACK_LIGHT", "attack_light"],
+	["CONTROLS_ATTACK_HEAVY", "attack_heavy"],
 	["CONTROLS_DASH", "float"],
+	["CONTROLS_FORM", "hotbar_next"],
+	["CONTROLS_POTION", "potion_quick"],
+	["CONTROLS_POTION_NEXT", "potion_next"],
 ]
 const KEY_COLOR := Color("#D9A441")
 const DIM_COLOR := Color("#9688A0")

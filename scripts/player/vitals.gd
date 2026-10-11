@@ -57,6 +57,14 @@ func restore_power(amount: float) -> void:
 	changed.emit()
 
 
+## Heiltrank: Leben zurück, höchstens bis zum Maximum.
+func heal(amount: int) -> void:
+	if health <= 0:
+		return
+	health = mini(health + amount, max_health)
+	changed.emit()
+
+
 func make_invulnerable(seconds: float) -> void:
 	_invulnerable = maxf(_invulnerable, seconds)
 

@@ -1,3 +1,4 @@
+class_name PotionEffects
 extends Node2D
 
 ## Getrunkene Tränke und ihre Wirkung auf die Hexe. Eigener Node unter dem
@@ -62,7 +63,12 @@ func _drink_selected() -> void:
 	# Die Wirkung setzt ein, wenn sie das Fläschchen absetzt (Frame 4).
 	await player.wait_for_action_frame(3)
 	# Jeder Trank gibt etwas Hexenkraft zurück (game_design.md, Magie).
-	($"../Vitals" as Vitals).restore_power(POTION_POWER)
+	var vitals: Vitals = $"../Vitals"
+	vitals.restore_power(POTION_POWER)
+	# Heilen ist nur eine Zahl in den Item-Daten (Heiltrank).
+	if item.heal > 0:
+		vitals.heal(item.heal)
+		Messages.post(tr("MSG_HEALED"))
 	# Jede Trinkwirkung ist eigenes Verhalten, deshalb hier im Code statt
 	# als Zahlen in den Item-Daten.
 	match item.id:

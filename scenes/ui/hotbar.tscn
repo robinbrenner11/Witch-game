@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" path="res://assets/ui/hotbar_panel.png" id="2_panel"]
 [ext_resource type="FontVariation" path="res://assets/ui/fonts/game_font.tres" id="3_font"]
 [ext_resource type="Script" path="res://scripts/ui/inventory_grid.gd" id="4_grid"]
+[ext_resource type="Script" path="res://scripts/ui/combat_bar.gd" id="5_combat_bar"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
 content_margin_left = 4.0
@@ -56,3 +57,10 @@ theme_override_constants/h_separation = 2
 theme_override_constants/v_separation = 2
 columns = 8
 script = ExtResource("4_grid")
+
+[node name="CombatBar" type="Control" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+script = ExtResource("5_combat_bar")

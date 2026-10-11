@@ -7,3 +7,12 @@ Aufruf: python digitalis.py assets/items/digitalis
 Ausgabe: digitalis_idle(.png/_glow) 4 Frames, digitalis_attack(.png/_glow) 4 Frames,
          je 24x60 pro Frame waagerecht; digitalis_icon(.png/_glow) 16x16.
 Details zum Einbau: docs/ASSETS.md, Abschnitt "Digitalis".
+
+Platzhalter für den Kampf (11.10.2026), bis Robin eigene Grafiken zeichnet:
+Aufruf aus dem Projektordner:
+  python docs/art/item_generators/combat_potions_platzhalter.py
+    -> assets/items/potion_mending.png, potion_ember_bomb.png, potion_thorn_mist.png
+       (Wachstumstrank umgefärbt)
+  python docs/art/item_generators/sickle_icon_platzhalter.py
+    -> assets/items/digitalis/digitalis_sickle_icon.png (16x16, Kampfleiste)
+Eigene Grafiken einfach unter demselben Namen speichern.

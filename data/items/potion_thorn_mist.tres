@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/item_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/items/potion_thorn_mist.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_script")
+id = "potion_thorn_mist"
+display_name = "ITEM_POTION_THORN_MIST"
+icon = ExtResource("2_icon")
+type = 2
+description = "ITEM_POTION_THORN_MIST_DESC"
+use = 3
+throw_effect = 1
+throw_radius = 36.0
+throw_damage = 1
+zone_time = 4.0
+zone_slow = 0.45
+zone_tick = 1.0
+throw_color = Color(0.615686, 0.690196, 0.290196, 1)

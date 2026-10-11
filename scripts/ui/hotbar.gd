@@ -54,7 +54,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	# Im Kampf zeigt die Kampfleiste (CombatBar) Formen und Tränke an der
 	# Stelle der Plätze; die Meldungszeile darüber bleibt.
-	$Panel.visible = not _in_combat()
+	var in_combat := _in_combat()
+	$Panel.visible = not in_combat
+	$CombatBar.visible = in_combat
 	# Während ein Fenster die Hotbar verdeckt oder das Bild schwarz ist, läuft
 	# die Zeit für Meldungen nicht: Sonst wären sie vorbei, bevor man sie sieht
 	# (z. B. die Mondmeldung, die beim Schlafen im Dunkeln kommt).
@@ -174,6 +176,8 @@ func _with_use_hint(item_id: String) -> String:
 	var item := ItemData.from_id(item_id)
 	if item and item.use == ItemData.Use.DRINK:
 		return "%s  ·  %s" % [item_name, tr("HINT_USE_DRINK") % InputHints.key_for("use_item")]
+	if item and item.use == ItemData.Use.THROW:
+		return "%s  ·  %s" % [item_name, tr("HINT_USE_THROW") % InputHints.key_for("potion_quick")]
 	return item_name
 
 

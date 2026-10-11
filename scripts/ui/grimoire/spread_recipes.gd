@@ -39,12 +39,13 @@ static func state_of(recipe: RecipeData) -> BookSlot.State:
 	return BookSlot.State.UNKNOWN
 
 
-## Wofür der Trank ist; bestimmt den Filter. Werfen und Geschenk kommen mit
-## den Wurf- und NPC-Tränken.
+## Wofür der Trank ist; bestimmt den Filter. Geschenk kommt mit den NPC-Tränken.
 static func category_of(recipe: RecipeData) -> String:
 	var item := ItemData.from_id(recipe.result_item_id)
 	if item and item.use == ItemData.Use.DRINK:
 		return "drink"
+	if item and item.use == ItemData.Use.THROW:
+		return "throw"
 	return "pour"
 
 
@@ -170,7 +171,7 @@ func _build_detail(page: Control, recipe: RecipeData) -> void:
 	var result := HBoxContainer.new()
 	result.add_child(BookStyle.label("=", BookStyle.INK))
 	result.add_child(BookStyle.icon(potion.icon))
-	var kind := "BOOK_USE_DRINK_SHORT" if category_of(recipe) == "drink" else "BOOK_USE_POUR_SHORT"
+	var kind: String = {"drink": "BOOK_USE_DRINK_SHORT", "throw": "BOOK_USE_THROW_SHORT"}.get(category_of(recipe), "BOOK_USE_POUR_SHORT")
 	result.add_child(BookStyle.label(kind, BookStyle.INK))
 	var count := Brewing.brew_count(recipe.result_item_id)
 	if count > 0:

@@ -172,7 +172,8 @@ func select_form(index: int, wrap: bool = true) -> void:
 ## gepuffert; beim Ausholen ist schon einer unterwegs.
 func request_attack(heavy: bool) -> void:
 	var form := current_form()
-	if form == null or state == State.WINDUP:
+	# Beim Trinken (Heiltrank) steht sie kurz still und greift nicht an.
+	if form == null or state == State.WINDUP or player.is_busy():
 		return
 	if _cooldown > 0.0:
 		if _cooldown <= BUFFER_TIME:
@@ -292,7 +293,7 @@ func _aim() -> Vector2:
 
 
 func _dash() -> void:
-	if _dash_cooldown > 0.0 or not vitals.spend_power(DASH_COST):
+	if _dash_cooldown > 0.0 or player.is_busy() or not vitals.spend_power(DASH_COST):
 		return
 	# Ausweichen geht immer vor: ein laufendes Ausholen bricht ab.
 	_cancel_windup()

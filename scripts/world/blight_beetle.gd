@@ -44,6 +44,9 @@ var _walk_time := 0.0
 var _player: Player
 var _glow: Glow
 var _light: NightLight
+# Verlangsamt (Dornennebel): Faktor aufs Tempo und wie lange noch.
+var _slow := 1.0
+var _slow_left := 0.0
 
 
 func _ready() -> void:
@@ -106,13 +109,16 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_flash = maxf(_flash - delta, 0.0)
+	_slow_left = maxf(_slow_left - delta, 0.0)
+	if _slow_left <= 0.0:
+		_slow = 1.0
 	_timer -= delta
 	if _player == null:
 		_player = get_tree().get_first_node_in_group("player") as Player
 	var to_player := _player.global_position - global_position if _player else Vector2.INF
 	match state:
 		State.WANDER:
-			velocity = (_target - position).limit_length(wander_speed)
+			velocity = (_target - position).limit_length(wander_speed * _slow)
 			if position.distance_to(_target) < 3.0 or _timer <= 0.0:
 				_pick_wander_target()
 			if to_player.length() < notice_distance:
@@ -123,7 +129,7 @@ func _physics_process(delta: float) -> void:
 				_charge_direction = to_player.normalized()
 				_set_state(State.CHARGE, charge_time)
 		State.CHARGE:
-			velocity = _charge_direction * charge_speed
+			velocity = _charge_direction * charge_speed * _slow
 			if _timer <= 0.0 or get_slide_collision_count() > 0:
 				_set_state(State.RECOVER, recover_time)
 		State.RECOVER:
@@ -161,8 +167,9 @@ func _pick_wander_target() -> void:
 	_timer = 3.0
 
 
-## Von einem Zauber getroffen (Spell ruft das auf).
-func take_hit(damage: int, knockback: Vector2) -> void:
+## Getroffen (Zauber, Sichel, Glutbombe …). stagger = false für Schaden über
+## Zeit (Dornennebel): Dann zuckt er nur, ohne aus dem Tritt zu kommen.
+func take_hit(damage: int, knockback: Vector2, stagger: bool = true) -> void:
 	if state == State.CLEANSED:
 		return
 	health -= damage
@@ -170,8 +177,16 @@ func take_hit(damage: int, knockback: Vector2) -> void:
 	if health <= 0:
 		_cleanse()
 		return
+	if not stagger:
+		return
 	_knockback = knockback * 2.0
 	_set_state(State.STAGGER, 0.2)
+
+
+## Langsamer für eine Weile (Dornennebel). Der stärkste Effekt zählt.
+func apply_slow(factor: float, seconds: float) -> void:
+	_slow = minf(_slow, factor) if _slow_left > 0.0 else factor
+	_slow_left = maxf(_slow_left, seconds)
 
 
 func _on_touch(body: Node2D) -> void:
@@ -234,6 +249,10 @@ func _draw() -> void:
 	var shell := Color("#30624A") if cleansed else Color("#3A1840")
 	var shell_light := Color("#62A06E") if cleansed else Color("#6E2A5E")
 	var outline := Color("#0E0A14")
+	# Getroffen: Panzer blitzt kurz hell auf (statt eines Kastens darüber).
+	if _flash > 0.0:
+		shell = Color("#C6B8BE")
+		shell_light = Color("#EADFCB")
 	var step := 1.0 if fmod(_walk_time * 10.0, 2.0) < 1.0 else -1.0
 	# Beine, drei je Seite, wackeln beim Laufen gegeneinander.
 	for side: float in [-1.0, 1.0]:
@@ -249,8 +268,6 @@ func _draw() -> void:
 	# Kopf.
 	draw_rect(Rect2(-4, -19, 8, 4), outline)
 	draw_rect(Rect2(-3, -18, 6, 2), shell)
-	if _flash > 0.0:
-		draw_rect(Rect2(-8, -19, 16, 18), Color(1, 1, 1, 0.75))
 
 
 

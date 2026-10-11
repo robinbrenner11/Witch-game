@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/player/digitalis_form.gd" id="1_form"]
 [ext_resource type="Script" path="res://scripts/player/attack_data.gd" id="2_attack"]
+[ext_resource type="Texture2D" path="res://assets/items/digitalis/digitalis_sickle_icon.png" id="3_icon"]
 
 [sub_resource type="Resource" id="Attack_light"]
 script = ExtResource("2_attack")
@@ -35,5 +36,6 @@ cuts_wild = true
 script = ExtResource("1_form")
 id = "sickle"
 display_name = "DIGITALIS_SICKLE"
+icon = ExtResource("3_icon")
 light = SubResource("Attack_light")
 heavy = SubResource("Attack_heavy")
