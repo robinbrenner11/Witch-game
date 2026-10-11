@@ -1,19 +1,41 @@
 extends Node2D
 
 ## Goldene Eckklammern um das, womit E gerade interagieren würde (bei einem
-## Beet genau um das Tile). So sieht man, was gemeint ist, bevor man drückt –
-## auch wenn die Hexe davor steht.
+## Beet genau um das Tile), und darüber eine kleine Plakette mit Taste und
+## Tätigkeit, z. B. [E] Ernten. So sieht man, was gemeint ist und was passiert,
+## bevor man drückt – und niemand legt sich aus Versehen schlafen.
 ##
-## Die Größe kommt aus der Form des Interactables, deshalb braucht kein Objekt
-## eine eigene Einstellung. Hängt unter dem Player, ist aber "top_level": Er
-## bewegt sich nicht mit der Hexe, sondern wird jeden Frame aufs Ziel gesetzt.
+## Die Größe kommt aus der Form des Interactables, der Text aus
+## Interactable.prompt_key(), deshalb braucht kein Objekt eine eigene
+## Einstellung für die Anzeige. Hängt unter dem Player, ist aber "top_level":
+## Er bewegt sich nicht mit der Hexe, sondern wird jeden Frame aufs Ziel gesetzt.
 
 const COLOR := Color("#D9A441")
+# Plakette: Tiefschwarz, leicht durchscheinend, Text in Knochenweiß.
+const PLATE_COLOR := Color(0.0549, 0.0392, 0.0784, 0.82)
+const PLATE_EDGE := Color("#2B1633")
+const TEXT_COLOR := Color("#EADFCB")
+const FONT := preload("res://assets/ui/fonts/game_font.tres")
+# Normale Pixelgröße der Schrift (wie im Grimoire), in Welt-Pixeln.
+const FONT_SIZE := 16
+const PLATE_HEIGHT := 13
+const BASELINE := 10
+const PADDING := 3
+const KEY_GAP := 4
 # Länge der Klammer-Arme in Pixeln.
 const ARM := 4
+# Abstand der Plakette über den Klammern.
+const PROMPT_GAP := 3
+# So schnell blendet die Plakette ein (Sekunden), damit sie beim Vorbeilaufen
+# nicht hart aufblitzt.
+const FADE_IN := 0.12
 
 var _rect := Rect2()
 var _time := 0.0
+var _target: Interactable
+var _prompt := ""
+var _key := ""
+var _prompt_alpha := 0.0
 
 @onready var player: Player = get_parent()
 
@@ -23,8 +45,18 @@ func _process(delta: float) -> void:
 	# Beim Schlafen ist die Steuerung und damit auch der Hinweis aus.
 	visible = target != null and player.can_act() and not player.combat_mode
 	if not visible:
+		_target = null
 		return
+	if target != _target:
+		_target = target
+		_prompt_alpha = 0.0
+		_key = InputHints.key_for("interact")
 	_time += delta
+	_prompt_alpha = minf(_prompt_alpha + delta / FADE_IN, 1.0)
+	# Jeden Frame neu, weil der Text vom Zustand abhängt (Item in der Hand,
+	# Pflanze reif geworden …).
+	var key := target.prompt_key()
+	_prompt = tr(key) if key != "" else ""
 	# Ein Pixel Atmen: Die Klammern gehen langsam etwas auseinander.
 	var grow := 1.0 if sin(_time * 4.0) > 0.0 else 0.0
 	_rect = _target_rect(target).grow(grow)
@@ -43,6 +75,37 @@ func _draw() -> void:
 		var arm_y := corner.y if corner.y == top else corner.y - ARM + 1
 		draw_rect(Rect2(arm_x, corner.y, ARM, 1), COLOR)
 		draw_rect(Rect2(corner.x, arm_y, 1, ARM), COLOR)
+	if _prompt != "":
+		_draw_prompt()
+
+
+## "E  Ernten": Taste in Gold (wie in der Bedienzeile des Grimoire), daneben
+## die Tätigkeit in Knochenweiß, auf einer dunklen Plakette, damit es auch
+## über hellen Lichtinseln lesbar bleibt. Steht über den Klammern, ganz oben
+## am Bildrand stattdessen darunter.
+func _draw_prompt() -> void:
+	var key_width := FONT.get_string_size(_key, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE).x
+	var text_width := FONT.get_string_size(_prompt, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE).x
+	var size := Vector2(PADDING + key_width + KEY_GAP + text_width + PADDING, PLATE_HEIGHT)
+	var origin := Vector2(roundf(_rect.get_center().x - size.x / 2.0), _rect.position.y - PROMPT_GAP - size.y)
+	if origin.y < _view_top() + 2:
+		origin.y = _rect.end.y + PROMPT_GAP
+	var alpha := _prompt_alpha
+	var plate_color := Color(PLATE_COLOR, PLATE_COLOR.a * alpha)
+	# Plakette mit abgeschnittenen Ecken (ein Pixel), wie die Fensterrahmen.
+	var plate := Rect2(origin, size)
+	draw_rect(Rect2(plate.position.x + 1, plate.position.y, plate.size.x - 2, plate.size.y), plate_color)
+	draw_rect(Rect2(plate.position.x, plate.position.y + 1, 1, plate.size.y - 2), plate_color)
+	draw_rect(Rect2(plate.end.x - 1, plate.position.y + 1, 1, plate.size.y - 2), plate_color)
+	draw_rect(Rect2(plate.position.x + 1, plate.end.y - 1, plate.size.x - 2, 1), Color(PLATE_EDGE, alpha))
+	var baseline := origin.y + BASELINE
+	draw_string(FONT, Vector2(origin.x + PADDING, baseline), _key, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE, Color(COLOR, alpha))
+	draw_string(FONT, Vector2(origin.x + PADDING + key_width + KEY_GAP, baseline), _prompt, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE, Color(TEXT_COLOR, alpha))
+
+
+## Oberkante des sichtbaren Bildausschnitts in Weltkoordinaten.
+func _view_top() -> float:
+	return (get_viewport().get_canvas_transform().affine_inverse() * Vector2.ZERO).y
 
 
 ## Rechteck der ersten rechteckigen Kollisionsform des Interactables, in

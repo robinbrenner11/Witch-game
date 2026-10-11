@@ -23,6 +23,11 @@ func _ready() -> void:
 		$Sprite2D.modulate = BLIGHTED_TINT
 
 
+## Text für den Interaktions-Hinweis (siehe Interactable).
+func interaction_prompt() -> String:
+	return "PROMPT_PICK_UP"
+
+
 func _on_interactable_interacted(_player: Node2D) -> void:
 	Grimoire.find_page(page_id, fragment)
 	Sfx.play("world/page_pickup")

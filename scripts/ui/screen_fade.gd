@@ -25,6 +25,12 @@ func _ready() -> void:
 	add_child(_rect)
 
 
+## Ist das Bild gerade (fast) schwarz? Dann wartet z. B. die Meldungszeile,
+## bis man wieder etwas sieht.
+func is_covering() -> bool:
+	return _rect.modulate.a > 0.5
+
+
 func fade_out() -> void:
 	await _fade_to(1.0)
 

@@ -57,6 +57,13 @@ func is_ripe() -> bool:
 	return int(state.get("regrow_in", 0)) <= 0
 
 
+## Text für den Interaktions-Hinweis (siehe Interactable).
+func interaction_prompt() -> String:
+	if is_ripe():
+		return "PROMPT_PICK"
+	return "PROMPT_LOOK" if not_ready_message != "" else ""
+
+
 func _on_interacted(player: Node2D) -> void:
 	if not is_ripe():
 		if not_ready_message != "":

@@ -24,6 +24,11 @@ func _ready() -> void:
 	add_to_group("bed")
 
 
+## Text für den Interaktions-Hinweis (siehe Interactable).
+func interaction_prompt() -> String:
+	return "" if _sleeping else "PROMPT_SLEEP"
+
+
 func _on_interactable_interacted(player: Node2D) -> void:
 	if not _sleeping:
 		_sleep(player as Player)

@@ -303,3 +303,41 @@ ITEM_BITTERBLOOM_PETAL,Bitterbloom Petal,Bitterblütenblatt
 ITEM_BITTERBLOOM_PETAL_DESC,"It fell from a creature you set free. Still warm, still bitter.","Es fiel von einem Wesen, das du befreit hast. Noch warm, noch bitter."
 MSG_DEFEAT,You wake in your bed. The night is gone.,Du wachst in deinem Bett auf. Die Nacht ist vorbei.
 MSG_DEFEAT_LOST,You wake in your bed. Lost: %s.,Du wachst in deinem Bett auf. Verloren: %s.
+TITLE_SAVE_BROKEN,Save could not be read,Spielstand nicht lesbar
+PROMPT_SLEEP,Sleep,Schlafen
+PROMPT_REST,Rest,Rasten
+PROMPT_REST_STOP,Get up,Aufstehen
+PROMPT_BREW,Brew,Brauen
+PROMPT_TAKE,Take,Nehmen
+PROMPT_LOOK,Look,Ansehen
+PROMPT_TOSS,Toss in,Hineinwerfen
+PROMPT_READ,Read,Lesen
+PROMPT_PICK_UP,Pick up,Aufheben
+PROMPT_PLANT,Plant,Pflanzen
+PROMPT_HARVEST,Harvest,Ernten
+PROMPT_POUR,Pour,Ausgießen
+PROMPT_PICK,Pick,Pflücken
+PROMPT_PULL,Pull,Ausreißen
+KEY_MOUSE_LEFT,Left click,Linksklick
+KEY_MOUSE_RIGHT,Right click,Rechtsklick
+KEY_MOUSE_MIDDLE,Middle click,Mittelklick
+KEY_MOUSE_WHEEL,Mouse wheel,Mausrad
+HINT_USE_DRINK,%s to drink,%s trinken
+ITEM_USE_SEED,Plant it in a bed.,In ein Beet pflanzen.
+ITEM_USE_INGREDIENT,An ingredient for the cauldron.,Eine Zutat für den Kessel.
+CONTROLS_TITLE,Controls,Steuerung
+CONTROLS_MOVE,Walk,Laufen
+CONTROLS_FLOAT,Float,Schweben
+CONTROLS_INTERACT,Interact,Benutzen
+CONTROLS_USE,Drink,Trinken
+CONTROLS_SNAP,Wake the earth,Erde wecken
+CONTROLS_HOTBAR,Choose item,Item wählen
+CONTROLS_INVENTORY,Bag,Tasche
+CONTROLS_BOOK,Grimoire,Grimoire
+CONTROLS_MENU,Menu,Menü
+CONTROLS_COMBAT,Draw Digitalis,Digitalis ziehen
+CONTROLS_CAST,Spell,Zauber
+CONTROLS_SPECIAL,Big spell,Großer Zauber
+CONTROLS_DASH,Dash,Ausweichen
+CONTROLS_COMBAT_HEADER,With Digitalis drawn,Mit gezogenem Digitalis
+MSG_DAWN_NEAR,The sky pales. Your bed is waiting.,Der Himmel wird blass. Dein Bett wartet.

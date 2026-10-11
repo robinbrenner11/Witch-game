@@ -8,9 +8,21 @@ extends StaticBody2D
 const SPLASH_COLOR := Color("#788CB9")
 
 
+## Text für den Interaktions-Hinweis (siehe Interactable).
+func interaction_prompt() -> String:
+	return "PROMPT_LOOK" if _held_item_id() == "" else "PROMPT_TOSS"
+
+
+## Was in der Hand ist und hineindarf. Werkzeuge (später z. B. Digitalis-Formen)
+## gehören nicht in den Brunnen, die wären sonst für immer weg.
+func _held_item_id() -> String:
+	var item := ItemData.from_id(Inventory.selected_item_id())
+	return item.id if item and item.type != ItemData.Type.TOOL else ""
+
+
 func _on_interactable_interacted(_player: Node2D) -> void:
 	var slot := Inventory.selected_slot
-	var item_id := Inventory.item_in_slot(slot)
+	var item_id := _held_item_id()
 	if item_id == "":
 		Messages.post(tr("MSG_WELL_GLITTER"))
 		return

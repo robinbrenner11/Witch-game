@@ -41,8 +41,9 @@ func _draw() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if not body is Player:
 		return
+	# "+1 …" meldet das Inventar selbst (Hotbar), hier nur der Klang.
 	if Inventory.add(item_id, amount):
-		Messages.post("+%d %s" % [amount, Inventory.display_name_for(item_id)])
+		Sfx.play("ui/item_get")
 		queue_free()
 	else:
-		Messages.post(tr("MSG_BAG_FULL"))
+		Messages.deny(tr("MSG_BAG_FULL"))

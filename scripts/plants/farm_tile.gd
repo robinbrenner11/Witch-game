@@ -45,6 +45,21 @@ func _ready() -> void:
 	_sync_plant()
 
 
+## Text für den Interaktions-Hinweis (siehe Interactable). Folgt genau der
+## Reihenfolge in _on_interactable_interacted, damit der Hinweis nie etwas
+## anderes verspricht, als E dann tut.
+func interaction_prompt() -> String:
+	var item := ItemData.from_id(Inventory.selected_item_id())
+	if item and item.use == ItemData.Use.POUR and Garden.can_grow_area(cell, item.pour_radius):
+		return "PROMPT_POUR"
+	if not Garden.has_plant(cell):
+		var seed_data := item.plant() if item else null
+		return "PROMPT_PLANT" if seed_data else ""
+	if Garden.is_ripe(cell):
+		return "PROMPT_HARVEST"
+	return "PROMPT_LOOK"
+
+
 func _on_interactable_interacted(player: Player) -> void:
 	if _pour_held_item(player):
 		return

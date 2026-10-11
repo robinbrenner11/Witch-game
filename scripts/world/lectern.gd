@@ -16,6 +16,11 @@ func _ready() -> void:
 	_update_look()
 
 
+## Text für den Interaktions-Hinweis (siehe Interactable).
+func interaction_prompt() -> String:
+	return "PROMPT_READ" if Grimoire.has_book else "PROMPT_TAKE"
+
+
 func _on_interactable_interacted(_player: Node2D) -> void:
 	if not Grimoire.has_book:
 		Grimoire.find_book()

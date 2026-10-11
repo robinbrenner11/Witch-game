@@ -23,6 +23,11 @@ func _process(delta: float) -> void:
 		sprite.frame = (sprite.frame + 1) % sprite.hframes
 
 
+## Text für den Interaktions-Hinweis (siehe Interactable).
+func interaction_prompt() -> String:
+	return "PROMPT_REST_STOP" if DayCycle.fast_forward else "PROMPT_REST"
+
+
 func _on_interactable_interacted(_player: Node2D) -> void:
 	DayCycle.fast_forward = not DayCycle.fast_forward
 	if DayCycle.fast_forward:

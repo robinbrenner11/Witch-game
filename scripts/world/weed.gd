@@ -27,6 +27,11 @@ func _ready() -> void:
 	add_child(interactable)
 
 
+## Text für den Interaktions-Hinweis (siehe Interactable).
+func interaction_prompt() -> String:
+	return "PROMPT_PULL"
+
+
 func _on_interacted(player: Node2D) -> void:
 	var witch := player as Player
 	if not Inventory.has_room_for(drop_item_id):

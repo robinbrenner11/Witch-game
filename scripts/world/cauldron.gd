@@ -35,6 +35,13 @@ func _process(delta: float) -> void:
 	potion_icon.position.y = -38 + round(sin(_time * 3.0) * 1.5)
 
 
+## Text für den Interaktions-Hinweis (siehe Interactable).
+func interaction_prompt() -> String:
+	if Brewing.finished_potion() != "":
+		return "PROMPT_TAKE"
+	return "PROMPT_LOOK" if Brewing.is_brewing() else "PROMPT_BREW"
+
+
 func _on_interactable_interacted(_player: Node2D) -> void:
 	if Brewing.finished_potion() != "":
 		if Brewing.take_finished():
