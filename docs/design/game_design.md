@@ -264,6 +264,8 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
   - **Neumond:** mehr Gegner, und sie sind aggressiver.
   - **Heilen im Kampf über Tränke** (Trinktrank). Leben regeneriert nicht von selbst.
   - 🔮 Mögliche Schritte: Flächenzauber direkt an der Mausposition statt als Geschoss; später Fähigkeiten auf Tasten (z. B. Q/E/R), die beim Drücken zur Maus wirken, mit kurzer Zielanzeige (Linie, Kreis) beim Gedrückthalten.
+- **Umsetzungsstand (11.10.2026, Kampf-Überarbeitung K1–K6):** Formen Stab und Sichel als Daten, leichter und starker Angriff, Ausholen, Ausweichen, Kampfleiste, Trank-Schnellzugriff (Q/R) mit Heiltrank, Glutbombe und Dornennebel, Telegraph der Käfer, Neumond-Flut, Treffer-Rückmeldung, Kampfklänge. Alles Weitere in `docs/COMBAT_SYSTEM.md`.
+  - 🔮 Noch zu bestätigen: Neumond-Flut erst ab der zweiten Mondrunde (Schonfrist für Nacht 1); Dornkäfer (zwei Anläufe) als erste Gegner-Variante, vorerst nur bei der Flut; vorläufige Rezepte der Kampftränke.
 
 ---
 
