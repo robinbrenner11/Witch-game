@@ -17,7 +17,7 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 - [x] **Rückmeldungen auf dem Bildschirm statt in der Konsole** – "Inventar voll", "Keine Samen in der Hand" usw. laufen über `print()` und sind im Spiel unsichtbar
 - [x] **Interaktions-Hinweis** – hervorheben, womit E gerade interagiert (Umriss oder kleines "E")
 - [x] **Inventar-Fenster** – 24 Plätze existieren, sichtbar sind nur 8; Fenster mit Drag & Drop (gleiche Bausteine wie das Brau-Fenster) → Tab
-- [ ] **Items benutzen** – eine einheitliche Aktion "ausgewähltes Item benutzen" (trinken, ausgießen, pflanzen) – teilweise: Q/Rechtsklick trinkt, E gießt aus und pflanzt
+- [ ] **Items benutzen** – eine einheitliche Aktion "ausgewähltes Item benutzen" (trinken, ausgießen, pflanzen) – teilweise: Q/Rechtsklick trinkt, E gießt aus und pflanzt. Seit 11.10. zeigt der Interaktions-Hinweis, was E gerade tut, und die Item-Auswahl nennt bei Tränken die Trink-Taste (siehe `docs/QUALITY_OVERHAUL.md`)
 - [x] **Items wegwerfen/entsorgen** – Brunnen im Garten: E wirft eins, Shift + E den ganzen Stapel
 - [x] **Beete anlegen und entfernen** ("Erde wecken") – Beete sind bisher fest in die Karte gesetzt
 
@@ -25,7 +25,7 @@ Erst wenn diese Punkte stehen, lohnen sich Wald, NPCs, Kampf, Dungeons usw.
 
 - [x] **Hauptmenü** – Neues Spiel, Fortsetzen, Einstellungen, Beenden (bisher startet das Spiel direkt in der Welt)
 - [x] **Pausemenü (Esc)** – Fortsetzen, Einstellungen, Speichern & Beenden
-- [x] **Einstellungen** – Lautstärke, Vollbild/Fenster, später Tastenbelegung (Tastenbelegung fehlt noch)
+- [x] **Einstellungen** – Lautstärke, Vollbild/Fenster, Steuerungsübersicht (11.10.); Tastenbelegung ändern fehlt noch
 - [x] **Sound** – 56 Effekte per Synthese (10.10.2026), alle Aktionen vertont, Atmo je Ort, Schritte je Boden; siehe `docs/audio/sfx_generator/LIESMICH.md`. Offen: getrennte Lautstärke-Regler im Menü, Musik-Ebenen je Ort
 - [x] **Bett + Morgen-Moment** *(Auftrag 07.10.)* – Bett fertig, Morgen-Moment bewusst weggelassen (selbst entdecken)
 

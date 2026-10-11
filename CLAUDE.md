@@ -322,6 +322,9 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - **Mond**: Mondphasen nur über den Autoload `Moon` abfragen (`Moon.is_full()`, `Moon.phase()`, Signal `phase_changed`), nie selbst aus der Nacht ausrechnen
 - **Sound**: Effekte nur über den Autoload `Sfx` (`Sfx.play(id)`, `Sfx.play_at(id, position)`, Loops an Objekten mit `Sfx.make_loop_player(id)`). IDs sind Pfade unter `assets/audio/sfx/` ohne Endung, Varianten `_1.._n` wählt `Sfx` selbst. Atmo je Ort über den Export `ambience` am Level. Meldungen, bei denen etwas nicht geht, über `Messages.deny()`. Neue Effekte im Generator `docs/audio/sfx_generator/sfx.py` anlegen
 - **Umgebung**: Deko als `Decor`-Szenen in `scenes/world/decor/` (Fußpunkt = Ursprung, Schatten, Kollision, Licht als Export-Werte); Sammelbares über `WildGrowth` + Autoload `Wilds`
+- **Interaktion**: Was E an einem Objekt tut, liefert die Szene selbst über `func interaction_prompt() -> String` (Schlüssel `PROMPT_…`, leer = nur Klammern); der Interaktions-Hinweis zeigt es als „E Ernten“ an. Neue Interactables bekommen diese Methode. Siehe `docs/QUALITY_OVERHAUL.md`
+- **Tasten in Texten**: nie fest hineinschreiben, sondern `%s` im Text und `InputHints.key_for("aktion")` einsetzen (stimmt dann auch nach Umbelegen)
+- **Spielstand robust laden**: `load_save_data()` liest mit `data.get(…, Standard)` und sortiert Unbekanntes aus (umbenannte Items, entfernte Pflanzen). `SaveGame` schreibt über eine Zwischendatei und hält den vorletzten Stand als `.bak`
 
 ---
 
