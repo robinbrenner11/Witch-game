@@ -240,6 +240,15 @@ Was das Spiel braucht, damit es als zusammenhängendes Erlebnis trägt (nicht nu
 
 ---
 
+### Rückmeldung von Robin (11.10.2026)
+
+- ✅ **Nachtschatten bleibt Lategame** (passt dazu, dass man der Bitterblüte näher kommt). Die Rezepte werden ohnehin noch logisch überarbeitet; gewünscht sind weitere Rezepte, neue Pflanzen und Kreuzungen. N3 entfällt damit in dieser Form.
+- ✅ **Plakette und Silhouettenlicht passen** so.
+- 💡 **Sonnenaufgang:** Idee, dass die Hexe ab Sonnenaufgang langsam Schaden nimmt, sodass sie gegen 8 Uhr zusammenbrechen würde. Noch nicht gebaut.
+- ❓ **Truhe:** Noch offen; Idee, dass man sie im Lauf des Spiels aufrüsten kann.
+
+---
+
 ## 9. Woran du die Verbesserung in Godot erkennst
 
 1. **Neues Spiel starten.** Das Intro ist ruhig gegliedert, keine einzelnen Wörter am Zeilenende.
