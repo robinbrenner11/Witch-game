@@ -22,6 +22,8 @@ var health: int = 10
 var power: float = 0.0
 # Sekunden, die die Hexe noch unverwundbar ist (nach Dash oder Treffer).
 var _invulnerable := 0.0
+# Woher der letzte Schaden kam ("" = Kampf, "sun" = Sonne).
+var last_damage_source := ""
 
 
 func _ready() -> void:
@@ -64,9 +66,12 @@ func is_invulnerable() -> bool:
 
 
 ## Gibt false zurück, wenn der Treffer nicht zählte (unverwundbar).
-func take_damage(amount: int) -> bool:
+## source sagt, woher er kam ("sun" …); Main entscheidet danach, wie eine
+## Niederlage ausgeht.
+func take_damage(amount: int, source: String = "") -> bool:
 	if health <= 0 or is_invulnerable():
 		return false
+	last_damage_source = source
 	health = maxi(health - amount, 0)
 	changed.emit()
 	if health == 0:

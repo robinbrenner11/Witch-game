@@ -11,6 +11,9 @@ extends Node
 const START_LEVEL := "res://scenes/world/shelter.tscn"
 # Niederlage: von so vielen zufälligen Stapeln geht je die Hälfte verloren.
 const LOST_STACKS := 3
+# Zusammenbruch in der Sonne: kein Itemverlust, aber die nächste Nacht
+# beginnt erst um 20 statt um 18 Uhr (Entscheidung 11.10.).
+const SUN_WAKE_TIME := 20 * 60
 
 var level: Level
 var _travelling := false
@@ -70,28 +73,35 @@ func _load_level(scene_path: String) -> void:
 ## und ein paar Dinge aus der Tasche sind weg, Werkzeuge und Ausrüstung nie.
 ## Wie beim Schlafen wird danach gespeichert, damit man die Niederlage nicht
 ## durch Neuladen umgehen kann. Design: game_design.md, Abschnitt 7.
+## Hat die Sonne sie umgeworfen (SunExposure), geht nichts verloren, dafür
+## wacht sie erst spät am Abend auf.
 func _on_witch_defeated() -> void:
 	if _travelling:
 		return
 	_travelling = true
+	var by_sun := (player.get_node("Vitals") as Vitals).last_damage_source == "sun"
 	player.set_controls_enabled(false)
 	(player.get_node("Combat") as Combat).set_active(false)
 	await get_tree().create_timer(0.4).timeout
 	await ScreenFade.fade_out()
-	var lost := _lose_some_items()
+	var lost: Array[String] = []
+	if not by_sun:
+		lost = _lose_some_items()
 	_load_level(START_LEVEL)
 	var bed := get_tree().get_first_node_in_group("bed")
 	if bed:
 		player.global_position = bed.wake_spot.global_position
 	player.facing = Vector2.DOWN
 	player.camera.reset_smoothing()
-	DayCycle.sleep_until_night()
+	DayCycle.sleep_until_night(SUN_WAKE_TIME if by_sun else DayCycle.NIGHT_START)
 	SaveGame.save_game()
 	await get_tree().create_timer(1.0).timeout
 	await ScreenFade.fade_in()
 	player.set_controls_enabled(true)
 	_travelling = false
-	if lost.is_empty():
+	if by_sun:
+		Messages.post(tr("MSG_SUN_COLLAPSE"))
+	elif lost.is_empty():
 		Messages.post(tr("MSG_DEFEAT"))
 	else:
 		Messages.post(tr("MSG_DEFEAT_LOST") % ", ".join(lost))

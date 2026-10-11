@@ -57,6 +57,8 @@ func _ready() -> void:
 	# Node, damit player.gd klein bleibt. Er wird hier im Code angehängt statt
 	# in player.tscn, weil er nichts zum Einstellen im Editor hat.
 	add_child(PlayerSounds.new())
+	# Die Sonne brennt ab 6 Uhr draußen (eigener Node aus demselben Grund).
+	add_child(SunExposure.new())
 
 
 func _physics_process(delta: float) -> void:

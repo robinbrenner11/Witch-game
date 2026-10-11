@@ -324,6 +324,8 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - **Umgebung**: Deko als `Decor`-Szenen in `scenes/world/decor/` (Fußpunkt = Ursprung, Schatten, Kollision, Licht als Export-Werte); Sammelbares über `WildGrowth` + Autoload `Wilds`
 - **Interaktion**: Was E an einem Objekt tut, liefert die Szene selbst über `func interaction_prompt() -> String` (Schlüssel `PROMPT_…`, leer = nur Klammern); der Interaktions-Hinweis zeigt es als „E Ernten“ an. Neue Interactables bekommen diese Methode. Siehe `docs/QUALITY_OVERHAUL.md`
 - **Tasten in Texten**: nie fest hineinschreiben, sondern `%s` im Text und `InputHints.key_for("aktion")` einsetzen (stimmt dann auch nach Umbelegen)
+- **Truhe**: Truhenplätze liegen im `Inventory` hinter der Tasche (`CHEST_START`, `chest_capacity`). `add`/`remove`/`count`/`has_room_for` sehen nur die Tasche; zwischen beiden Bereichen bewegt `move()` bzw. `transfer()`
+- **Sonne**: draußen ab 6 Uhr Schaden (`SunExposure`), drinnen sicher über `Level.indoors`. Neue Innenräume brauchen `indoors = true`
 - **Spielstand robust laden**: `load_save_data()` liest mit `data.get(…, Standard)` und sortiert Unbekanntes aus (umbenannte Items, entfernte Pflanzen). `SaveGame` schreibt über eine Zwischendatei und hält den vorletzten Stand als `.bak`
 
 ---

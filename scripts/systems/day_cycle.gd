@@ -13,9 +13,8 @@ const MINUTES_PER_DAY := 24 * 60
 const NIGHT_START := 18 * 60
 # Ab hier ist die Nacht vorbei (siehe DARKNESS_CURVE).
 const MORNING := 6 * 60
-# Eine Stunde vor dem Morgen: leiser Hinweis, dass das Bett wartet. Was
-# passiert, wenn die Hexe draußen bleibt, ist noch offen
-# (design_entscheidungen_2026-10-07.md, "Sonnenaufgang").
+# Eine Stunde vor dem Morgen: Hinweis, dass bald die Sonne brennt. Was
+# draußen in der Sonne passiert, regelt SunExposure (Entscheidung 11.10.).
 const DAWN_WARNING := 5 * 60
 const START_TIME := 20 * 60
 # Normal vergeht pro echter Sekunde eine Spielminute (eine Nacht ≈ 12 Minuten).
@@ -54,6 +53,9 @@ func _process(delta: float) -> void:
 		Messages.post(tr("MSG_DAWN_NEAR"))
 	if before < MORNING and minutes >= MORNING:
 		night_slowdown = 1.0
+		# Der Zeitraffer am Hexenfeuer endet mit dem Sonnenaufgang, sonst rast
+		# man im Zeitraffer in die brennende Sonne (SunExposure).
+		fast_forward = false
 	if before < NIGHT_START and minutes >= NIGHT_START:
 		fast_forward = false
 		advance_day()
@@ -61,11 +63,17 @@ func _process(delta: float) -> void:
 
 ## Schlafen im Bett: Der Tag wird übersprungen, es geht direkt mit dem
 ## Beginn der nächsten Nacht weiter. Egal wann sie schlafen geht, es
-## vergeht immer genau ein Tag.
-func sleep_until_night() -> void:
+## vergeht immer genau ein Tag. wake_at: Uhrzeit beim Aufwachen in Minuten,
+## später als 18:00 z. B. nach einem Zusammenbruch in der Sonne.
+func sleep_until_night(wake_at: float = NIGHT_START) -> void:
 	fast_forward = false
-	minutes = NIGHT_START
+	minutes = wake_at
 	advance_day()
+
+
+## Ist gerade Tag (zwischen Sonnenaufgang und Beginn der Nacht)?
+func is_daytime() -> bool:
+	return minutes >= MORNING and minutes < NIGHT_START
 
 
 ## Die laufende Nacht dauert länger (bis zum Morgen). Mehrfach trinken

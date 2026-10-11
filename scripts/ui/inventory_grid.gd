@@ -15,17 +15,33 @@ var _slots: Array[InventorySlot] = []
 
 
 func _ready() -> void:
-	# Plätze per Code statt von Hand in der Szene, damit die Anzahl nur an
-	# einer Stelle steht.
+	_build()
+	Inventory.changed.connect(_refresh)
+	Inventory.selection_changed.connect(_refresh)
+	_refresh()
+
+
+## Andere Anzahl Plätze, z. B. wenn die Truhe größer wird.
+func set_slot_count(count: int) -> void:
+	if count == slot_count:
+		return
+	slot_count = count
+	_build()
+	_refresh()
+
+
+# Plätze per Code statt von Hand in der Szene, damit die Anzahl nur an
+# einer Stelle steht.
+func _build() -> void:
+	for slot in _slots:
+		slot.queue_free()
+	_slots.clear()
 	for i in slot_count:
 		var slot: InventorySlot = SLOT_SCENE.instantiate()
 		slot.slot_index = first_slot + i
 		slot.slot_size = slot_size
 		add_child(slot)
 		_slots.append(slot)
-	Inventory.changed.connect(_refresh)
-	Inventory.selection_changed.connect(_refresh)
-	_refresh()
 
 
 func _refresh() -> void:

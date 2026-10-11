@@ -32,7 +32,7 @@ Legende: ✅ solide · 🟡 funktioniert, Prototyp oder Platzhalter · ⚪ vorbe
 | Audio | 🟡 | 56 Effekte, Atmo je Ort, Musik-Loop + Vollmond-Variante | Keine getrennten Lautstärken, eine Musik für alle Orte |
 | NPCs, Dialog, Tausch | ⚪ | Dialog-Grafiken liegen in `assets/ui/dialog_*`, Ordner `scenes/npcs`, `data/npcs`, `data/dialogue` leer | |
 | Begleiterin Katze | ⚪ | Grafiken in `assets/characters/familiar/` | Laut Plan später |
-| Lager (Truhe) | ❌ | | Entschieden: Truhe ist das Lager |
+| Lager (Truhe) | ✅ | 16 Plätze, aufrüstbar bis 24 (seit 11.10.) | Weg zum Aufrüsten offen |
 
 **Technische Qualität:** klare Szenen, kleine Scripts, Zustand in Autoloads, Inhalte als Daten (`data/`). Keine doppelten Implementierungen gefunden. Alle 263 Skripte, Szenen und Ressourcen laden ohne Fehler.
 
@@ -244,8 +244,8 @@ Was das Spiel braucht, damit es als zusammenhängendes Erlebnis trägt (nicht nu
 
 - ✅ **Nachtschatten bleibt Lategame** (passt dazu, dass man der Bitterblüte näher kommt). Die Rezepte werden ohnehin noch logisch überarbeitet; gewünscht sind weitere Rezepte, neue Pflanzen und Kreuzungen. N3 entfällt damit in dieser Form.
 - ✅ **Plakette und Silhouettenlicht passen** so.
-- 💡 **Sonnenaufgang:** Idee, dass die Hexe ab Sonnenaufgang langsam Schaden nimmt, sodass sie gegen 8 Uhr zusammenbrechen würde. Noch nicht gebaut.
-- ❓ **Truhe:** Noch offen; Idee, dass man sie im Lauf des Spiels aufrüsten kann.
+- ✅ **Sonnenaufgang (gebaut):** Ab 6 Uhr brennt die Sonne die Hexe draußen, 1 Schaden alle 12 Spielminuten, mit vollem Leben bricht sie um 8 Uhr zusammen. Im Unterschlupf (`Level.indoors`) ist sie sicher. Zusammenbruch: kein Itemverlust, sie wacht im Bett auf, die nächste Nacht beginnt erst um 20 Uhr, danach wird gespeichert. Um 5 Uhr warnt „Der Himmel wird blass. Bald brennt die Sonne.“, beim ersten Treffer „Die Sonne brennt. Schnell hinein.“ Der Zeitraffer am Hexenfeuer endet bei Sonnenaufgang. Dateien: `scripts/player/sun_exposure.gd` (neu), `main.gd`, `vitals.gd` (`last_damage_source`), `day_cycle.gd`, `level.gd`, `shelter.tscn`.
+- ✅ **Truhe (gebaut):** Die Truhe im Unterschlupf ist das Lager (E Öffnen, Deckel klappt auf). Start mit 16 Plätzen, aufrüstbar bis 24 über `Inventory.upgrade_chest()`; *woher* die Upgrades kommen (Gnarl, Tausch, Belohnung), ist noch offen. Die Truhenplätze hängen hinter den 24 Taschenplätzen im `Inventory`, deshalb funktionieren Ziehen, Stapeln, Teilen und Speichern ohne eigenen Code; Rezepte, Kessel und Niederlage sehen nur die Tasche (die Truhe ist also bei einer Niederlage sicher). Doppelklick legt einen ganzen Stapel auf die andere Seite. Weitere Truhen könnten sich denselben Inhalt teilen. Dateien: `scripts/world/chest.gd`, `scripts/ui/chest_window.gd` + `scenes/ui/chest_window.tscn` (neu), `inventory.gd`, `inventory_grid.gd`, `inventory_slot.gd`, `main.tscn`, `shelter_chest.tscn`.
 
 ---
 

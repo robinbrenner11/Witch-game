@@ -1,0 +1,89 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/chest_window.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/hotbar_panel.png" id="2_panel"]
+[ext_resource type="FontVariation" path="res://assets/ui/fonts/game_font.tres" id="3_font"]
+[ext_resource type="Script" path="res://scripts/ui/inventory_grid.gd" id="4_grid"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+texture = ExtResource("2_panel")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[node name="ChestWindow" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="Box" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -56.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.917647, 0.87451, 0.796078, 1)
+theme_override_colors/font_shadow_color = Color(0.054902, 0.0392157, 0.0784314, 0.85)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="ChestPanel" type="PanelContainer" parent="Box"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="ChestGrid" type="GridContainer" parent="Box/ChestPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+columns = 8
+script = ExtResource("4_grid")
+first_slot = 24
+slot_count = 16
+
+[node name="Gap" type="Control" parent="Box"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BagPanel" type="PanelContainer" parent="Box"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="BagGrid" type="GridContainer" parent="Box/BagPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+columns = 8
+script = ExtResource("4_grid")
+first_slot = 8
+slot_count = 16

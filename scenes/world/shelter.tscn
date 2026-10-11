@@ -25,6 +25,7 @@
 [node name="Shelter" type="Node2D"]
 script = ExtResource("1_level")
 safe_zone = true
+indoors = true
 ambience = "world/shelter_ambience_loop"
 fixed_rect = Rect2(-160, -52, 640, 360)
 
