@@ -63,6 +63,8 @@ func _ready() -> void:
 	add_child(PlayerSounds.new())
 	# Die Sonne brennt ab 6 Uhr draußen (eigener Node aus demselben Grund).
 	add_child(SunExposure.new())
+	# Treffer und Heilen sichtbar machen (Aufblitzen, Wackeln, Funken).
+	add_child(VitalsFeedback.new())
 	# Trank-Schnellzugriff im Kampf (Q, R). Braucht Combat und Vitals, die als
 	# Kinder aus player.tscn hier schon bereit sind.
 	var potions := CombatPotions.new()

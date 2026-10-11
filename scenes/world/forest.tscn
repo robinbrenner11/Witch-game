@@ -33,6 +33,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/wild/owl_feather.tscn" id="w_owl_feather"]
 [ext_resource type="PackedScene" path="res://scenes/world/wild/moonmoss.tscn" id="w_moonmoss"]
 [ext_resource type="PackedScene" path="res://scenes/world/blight_beetle.tscn" id="k_beetle"]
+[ext_resource type="PackedScene" path="res://scenes/world/blight_beetle_horned.tscn" id="k_beetle_horned"]
 [ext_resource type="Script" path="res://scripts/world/blight_patch.gd" id="k_patch"]
 
 [node name="Forest" type="Node2D"]
@@ -621,6 +622,8 @@ respawn_nights = 2
 terrains = Array[int]([7, 8])
 area = Rect2(400, 560, 320, 170)
 clearance = 36.0
+surge_extra = 2
+surge_kinds = Array[PackedScene]([ExtResource("k_beetle"), ExtResource("k_beetle_horned")])
 
 [node name="ToGarden" parent="." instance=ExtResource("3_exit")]
 position = Vector2(528, 16)

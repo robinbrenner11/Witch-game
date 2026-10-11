@@ -26,6 +26,8 @@ enum Kind { BOLT, SLASH }
 @export var knockback: float = 90.0
 # Farbe von Geschoss bzw. Hieb (Magenta = Magie).
 @export var color: Color = Color("#E458B1")
+# Klang beim Auslösen (Sfx-ID, leer = keiner).
+@export var sound: String = ""
 
 @export_group("Bolt")
 @export var speed: float = 220.0

@@ -4,6 +4,12 @@ extends CharacterBody2D
 ## Ein Käfer, den die Bitterblüte befallen hat. Er krabbelt um seinen Platz,
 ## bemerkt die Hexe, hält kurz inne und rammt sie dann mit Anlauf. Danach
 ## braucht er einen Moment: die Gelegenheit, zurückzuschlagen.
+## Telegraph: Beim Innehalten zeigt eine Spur am Boden, wohin er rennen wird.
+## Erst folgt sie der Hexe, kurz vor dem Anlauf steht sie fest und leuchtet
+## auf; wer dann zur Seite ausweicht, ist sicher.
+## Der Dornkäfer (blight_beetle_horned.tscn) ist dasselbe Script mit mehr
+## Leben, Hörnern und zwei Anläufen hintereinander.
+## Bei Neumond (Moon.blight_surges) sind alle Käfer aggressiver.
 ## Reinigen statt töten: Bei null Leben fällt die Blüte ab, der geheilte
 ## Käfer krabbelt davon und lässt ein Bitterblütenblatt zurück.
 ## Wo Käfer leben und wann neue kommen, regelt WildGrowth (wie bei Pilzen).
@@ -19,7 +25,18 @@ const ENEMY_LAYER := 4
 const WORLD_LAYER := 1
 const DROP_ITEM := "bitterbloom_petal"
 const SHADOW := preload("res://assets/effects/shadows/shadow_22x6.png")
+# So lange vor dem Anlauf steht die Richtung fest (die Spur leuchtet auf).
+const LOCK_TIME := 0.2
+# Zweiter und weiterer Anlauf: kürzeres Innehalten (Anteil von notice_time).
+const FOLLOW_UP_NOTICE := 0.75
+# Neumond: Faktoren auf Innehalten, Anlauf-Tempo, Verschnaufen und Sichtweite.
+const SURGE_NOTICE := 0.7
+const SURGE_SPEED := 1.2
+const SURGE_RECOVER := 0.75
+const SURGE_SIGHT := 1.25
 
+## Unter dieser ID meldet er sich beim Grimoire, wenn er gereinigt ist.
+@export var enemy_id: String = "blight_beetle"
 @export var max_health: int = 4
 @export var wander_speed: float = 22.0
 @export var wander_radius: float = 50.0
@@ -30,6 +47,10 @@ const SHADOW := preload("res://assets/effects/shadows/shadow_22x6.png")
 @export var notice_time: float = 0.45
 @export var recover_time: float = 0.8
 @export var contact_damage: int = 1
+## So viele Anläufe hintereinander, bevor er verschnauft (Dornkäfer: 2).
+@export var charges: int = 1
+## Hörner und Dornen am Panzer (Dornkäfer), damit man ihn an der Form erkennt.
+@export var horned: bool = false
 
 var health := 4
 var state := State.WANDER
@@ -47,6 +68,10 @@ var _light: NightLight
 # Verlangsamt (Dornennebel): Faktor aufs Tempo und wie lange noch.
 var _slow := 1.0
 var _slow_left := 0.0
+# Telegraph: wohin er gleich rennt und wie lang das Innehalten insgesamt ist.
+var _lane_direction := Vector2.ZERO
+var _notice_total := 0.0
+var _charges_left := 0
 
 
 func _ready() -> void:
@@ -104,6 +129,9 @@ func _ready() -> void:
 	_light.base_energy = 0.6
 	_light.position = Vector2(0, -10)
 	add_child(_light)
+	var lane := ChargeLane.new()
+	lane.beetle = self
+	add_child(lane)
 	_pick_wander_target()
 
 
@@ -121,22 +149,29 @@ func _physics_process(delta: float) -> void:
 			velocity = (_target - position).limit_length(wander_speed * _slow)
 			if position.distance_to(_target) < 3.0 or _timer <= 0.0:
 				_pick_wander_target()
-			if to_player.length() < notice_distance:
-				_set_state(State.NOTICE, notice_time)
+			if to_player.length() < notice_distance * _surge(SURGE_SIGHT):
+				_begin_attack(to_player)
 		State.NOTICE:
 			velocity = Vector2.ZERO
+			# Bis kurz vor dem Anlauf folgt die Spur der Hexe, dann steht sie.
+			if _timer > LOCK_TIME and to_player != Vector2.INF:
+				_lane_direction = to_player.normalized()
 			if _timer <= 0.0:
-				_charge_direction = to_player.normalized()
+				_charge_direction = _lane_direction
+				_charges_left -= 1
 				_set_state(State.CHARGE, charge_time)
 		State.CHARGE:
-			velocity = _charge_direction * charge_speed * _slow
+			velocity = _charge_direction * _charge_speed() * _slow
 			if _timer <= 0.0 or get_slide_collision_count() > 0:
-				_set_state(State.RECOVER, recover_time)
+				if _charges_left > 0:
+					_notice(notice_time * FOLLOW_UP_NOTICE, to_player)
+				else:
+					_set_state(State.RECOVER, recover_time * _surge(SURGE_RECOVER))
 		State.RECOVER:
 			velocity = Vector2.ZERO
 			if _timer <= 0.0:
 				if to_player.length() < give_up_distance:
-					_set_state(State.NOTICE, notice_time)
+					_begin_attack(to_player)
 				else:
 					_set_state(State.WANDER, 3.0)
 		State.STAGGER:
@@ -162,6 +197,34 @@ func _set_state(new_state: State, seconds: float) -> void:
 	_timer = seconds
 
 
+## Ein neuer Angriff: so viele Anläufe, wie er hat, der erste mit vollem
+## Innehalten.
+func _begin_attack(to_player: Vector2) -> void:
+	_charges_left = charges
+	_notice(notice_time * _surge(SURGE_NOTICE), to_player)
+
+
+func _notice(seconds: float, to_player: Vector2) -> void:
+	_set_state(State.NOTICE, seconds)
+	_notice_total = seconds
+	_lane_direction = to_player.normalized() if to_player != Vector2.INF else Vector2.DOWN
+	Sfx.play_at("combat/beetle_warn", global_position)
+
+
+func _charge_speed() -> float:
+	return charge_speed * _surge(SURGE_SPEED)
+
+
+## So weit trägt ihn ein Anlauf (für die Spur am Boden).
+func charge_distance() -> float:
+	return _charge_speed() * charge_time
+
+
+## Faktor bei Neumond, sonst 1.
+func _surge(factor: float) -> float:
+	return factor if Moon.blight_surges() else 1.0
+
+
 func _pick_wander_target() -> void:
 	_target = _home + Vector2(randf_range(-1, 1), randf_range(-1, 1)) * wander_radius
 	_timer = 3.0
@@ -174,6 +237,7 @@ func take_hit(damage: int, knockback: Vector2, stagger: bool = true) -> void:
 		return
 	health -= damage
 	_flash = 0.12
+	Sfx.play_at("combat/hit", global_position)
 	if health <= 0:
 		_cleanse()
 		return
@@ -199,8 +263,10 @@ func _on_touch(body: Node2D) -> void:
 		witch.start_dash((witch.global_position - global_position).normalized() * 220.0, 0.12)
 		# Wer angegriffen wird, zieht Digitalis.
 		(witch.get_node("Combat") as Combat).set_active(true)
+	# Getroffen hat er: Die Anlauf-Kette endet, er verschnauft.
 	if state == State.CHARGE:
-		_set_state(State.RECOVER, recover_time)
+		_charges_left = 0
+		_set_state(State.RECOVER, recover_time * _surge(SURGE_RECOVER))
 
 
 ## Reinigen statt töten: Die Blüte fällt ab, ein Blatt bleibt liegen.
@@ -229,7 +295,8 @@ func _cleanse() -> void:
 	drop.item_id = DROP_ITEM
 	get_parent().add_child(drop)
 	drop.global_position = global_position
-	Grimoire.report("cleanse", {"id": "blight_beetle"})
+	Sfx.play_at("combat/cleanse", global_position)
+	Grimoire.report("cleanse", {"id": enemy_id})
 	collected.emit()
 
 
@@ -248,6 +315,10 @@ func _draw() -> void:
 	var cleansed := state == State.CLEANSED
 	var shell := Color("#30624A") if cleansed else Color("#3A1840")
 	var shell_light := Color("#62A06E") if cleansed else Color("#6E2A5E")
+	if horned and not cleansed:
+		# Dornkäfer: Panzer in Bordeaux statt Aubergine.
+		shell = Color("#4D1230")
+		shell_light = Color("#6E1830")
 	var outline := Color("#0E0A14")
 	# Getroffen: Panzer blitzt kurz hell auf (statt eines Kastens darüber).
 	if _flash > 0.0:
@@ -268,6 +339,11 @@ func _draw() -> void:
 	# Kopf.
 	draw_rect(Rect2(-4, -19, 8, 4), outline)
 	draw_rect(Rect2(-3, -18, 6, 2), shell)
+	if horned:
+		# Dornkäfer: zwei Hörner, die nach außen gebogen nach oben stehen.
+		for side: float in [-1.0, 1.0]:
+			draw_rect(Rect2(side * 4.0 - (2.0 if side < 0 else 0.0), -22, 2, 3), outline)
+			draw_rect(Rect2(side * 6.0 - (1.0 if side < 0 else 0.0), -24, 1, 3), outline)
 
 
 
@@ -294,7 +370,60 @@ class Glow:
 		draw_rect(Rect2(-2, -13, 4, 8), Color("#C2307A"))
 		draw_rect(Rect2(-2, -12, 2, 2), Color("#E458B1"))
 		draw_rect(Rect2(-1, -10, 2, 2), Color("#D9A441"))
+		if beetle.horned:
+			# Hornspitzen glimmen wie die Blüte.
+			draw_rect(Rect2(-7, -25, 1, 1), Color("#E458B1"))
+			draw_rect(Rect2(6, -25, 1, 1), Color("#E458B1"))
 		if beetle.state == State.NOTICE:
 			# Ausrufezeichen: gleich greift er an.
-			draw_rect(Rect2(-1, -30, 2, 6), Color("#E458B1"))
-			draw_rect(Rect2(-1, -23, 2, 2), Color("#E458B1"))
+			var top := -33 if beetle.horned else -30
+			draw_rect(Rect2(-1, top, 2, 6), Color("#E458B1"))
+			draw_rect(Rect2(-1, top + 7, 2, 2), Color("#E458B1"))
+
+
+## Die Spur am Boden beim Innehalten: zwei gepunktete Linien so breit wie der
+## Käfer, so lang wie sein Anlauf, vorne ein Pfeil. Erst blass und locker
+## gepunktet, mit der Zeit kräftiger; steht die Richtung fest, dicht und hell.
+## Liegt flach unter allem (wie Dornennebel und Befall).
+class ChargeLane:
+	extends Node2D
+
+	const HALF_WIDTH := 6.0
+	# Anfang der Spur vor den Füßen, damit sie nicht unter dem Käfer beginnt.
+	const START := 8.0
+
+	var beetle: BlightBeetle
+
+	func _ready() -> void:
+		z_index = Decor.FLAT_Z
+		var unshaded := CanvasItemMaterial.new()
+		unshaded.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+		material = unshaded
+
+	func _process(_delta: float) -> void:
+		visible = beetle.state == State.NOTICE
+		if visible:
+			queue_redraw()
+
+	func _draw() -> void:
+		var direction := beetle._lane_direction
+		if direction == Vector2.ZERO:
+			return
+		var locked := beetle._timer <= LOCK_TIME
+		var progress := 1.0 - clampf(beetle._timer / maxf(beetle._notice_total, 0.01), 0.0, 1.0)
+		var color := Color("#E458B1", 0.9) if locked else Color("#C2307A", 0.35 + 0.4 * progress)
+		var step := 2.0 if locked else 4.0
+		var side := direction.orthogonal() * HALF_WIDTH
+		var origin := Vector2(0, -3) + direction * START
+		var length := beetle.charge_distance()
+		var along := 0.0
+		while along <= length:
+			for edge: float in [-1.0, 1.0]:
+				draw_rect(Rect2((origin + direction * along + side * edge).round(), Vector2.ONE), color)
+			along += step
+		# Pfeilspitze am Ende: wohin es geht, auf einen Blick.
+		var tip := origin + direction * (length + 4.0)
+		var back := direction.orthogonal()
+		for i in 5:
+			for edge: float in [-1.0, 1.0]:
+				draw_rect(Rect2((tip - direction * i + back * edge * i).round(), Vector2.ONE), color)

@@ -9,6 +9,9 @@ extends Node
 signal changed
 ## Leben auf null: Die Nacht endet (siehe Combat).
 signal died
+## Ein Treffer hat gezählt (für Rückmeldung wie Aufblitzen, siehe VitalsFeedback).
+signal damaged(amount: int, source: String)
+signal healed(amount: int)
 
 const BASE_MAX_POWER := 8
 # Pro so viel Hexenstärke ein Punkt mehr Hexenkraft.
@@ -63,6 +66,7 @@ func heal(amount: int) -> void:
 		return
 	health = mini(health + amount, max_health)
 	changed.emit()
+	healed.emit(amount)
 
 
 func make_invulnerable(seconds: float) -> void:
@@ -82,6 +86,7 @@ func take_damage(amount: int, source: String = "") -> bool:
 	last_damage_source = source
 	health = maxi(health - amount, 0)
 	changed.emit()
+	damaged.emit(amount, source)
 	if health == 0:
 		died.emit()
 	return true

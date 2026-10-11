@@ -83,3 +83,15 @@ python docs/audio/sfx_generator/sfx.py --preview    # alle + docs/audio/sfx_vors
 | `world/sleep` | 2.49 s | – | mono |
 | `world/travel` | 1.30 s | – | mono |
 | `world/well_splash` | 1.40 s | – | mono |
+| `combat/beetle_warn` | 0.35 s | – | mono |
+| `combat/bolt` | 0.55 s | – | mono |
+| `combat/bolt_heavy` | 0.90 s | – | mono |
+| `combat/burst` | 1.10 s | – | mono |
+| `combat/cleanse` | 1.60 s | – | mono |
+| `combat/draw` | 0.70 s | – | mono |
+| `combat/hit` | 0.25 s | – | mono |
+| `combat/hurt` | 0.70 s | – | mono |
+| `combat/slash` | 0.30 s | – | mono |
+| `combat/slash_heavy` | 0.70 s | – | mono |
+
+Kampf (11.10.2026): Angriffs-Klänge stehen als `sound` in den Angriffsdaten (`data/digitalis/*.tres`), Treffer, Reinigen und das Innehalten des Käfers in `blight_beetle.gd`, Getroffen-werden in `VitalsFeedback`, Glutbombe in `CombatPotions`, Digitalis ziehen in `Combat`.

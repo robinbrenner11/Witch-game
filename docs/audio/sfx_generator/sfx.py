@@ -911,6 +911,131 @@ def travel(rng):
     return add_reverb(out, rng, wet=0.15, sec=0.6, decay=0.2)
 
 
+# ---------- Kampf: combat/ (11.10.2026) ----------
+def combat_bolt(rng):
+    """Leichter Zauber aus dem Stab: kurzer gläserner Funke, der wegzischt."""
+    sec = 0.35
+    n = int(SR * sec)
+    out = np.zeros(n)
+    place(out, chirp(A5, 1.6, 0.16, tau_mul=0.35), 0.0, 0.35)
+    place(out, bell(D6, 0.3, rng, tau=0.08), 0.0, 0.25)
+    out += 0.3 * bp(rng.normal(size=n), 3500, 9000) * env_exp(n, 0.05, attack=0.004)
+    return add_reverb(lp(out, 9000), rng, wet=0.15, sec=0.4, decay=0.12)
+
+
+def combat_bolt_heavy(rng):
+    """Starker Stab-Zauber: tiefer Druck, dann ein Glockenzweiklang mit Zischen."""
+    sec = 0.8
+    n = int(SR * sec)
+    out = np.zeros(n)
+    place(out, thump(150, 70, 0.4, 0.12), 0.0, 0.7)
+    place(out, chirp(D5, 1.5, 0.3, tau_mul=0.4), 0.0, 0.3)
+    place(out, bell(A5, 0.6, rng, tau=0.2), 0.02, 0.25)
+    place(out, bell(D6, 0.5, rng, tau=0.15), 0.05, 0.2)
+    out += 0.3 * bp(rng.normal(size=n), 2500, 8000) * env_swell(n, 0.03, 0.12)
+    return add_reverb(lp(out, 8000), rng, wet=0.22, sec=0.7, decay=0.25)
+
+
+def _swish(rng, sec, lo, hi, tau, peak):
+    """Luftzug einer Klinge: Rauschen, dessen Band nach oben wandert."""
+    n = int(SR * sec)
+    noise = rng.normal(size=n)
+    low = bp(noise, lo, lo * 3)
+    high = bp(noise, hi / 3, hi)
+    t = t_axis(sec)
+    sweep = np.clip(t / peak, 0, 1)
+    return (low * (1 - sweep) + high * sweep) * env_swell(n, peak, tau)
+
+
+def combat_slash(rng):
+    """Sichel leicht: kurzer, heller Luftzug mit einem Hauch Klinge."""
+    sec = 0.3
+    out = _swish(rng, sec, 600, 7000, 0.05, 0.05)
+    place(out, glass_hit(E6, rng, tau=0.04, sec=0.2), 0.04, 0.12)
+    return lp(out, 8000)
+
+
+def combat_slash_heavy(rng):
+    """Sichel stark: weiter Bogen, tiefer und länger, die Klinge singt nach."""
+    sec = 0.6
+    out = _swish(rng, sec, 300, 5000, 0.12, 0.12)
+    place(out, bell(D5, 0.45, rng, tau=0.18), 0.1, 0.15)
+    place(out, glass_hit(A5, rng, tau=0.06, sec=0.3), 0.1, 0.12)
+    return add_reverb(lp(out, 7000), rng, wet=0.15, sec=0.5, decay=0.18)
+
+
+def combat_hit(rng):
+    """Treffer am befallenen Käfer: dumpfer Schlag auf Panzer, kurzes Knacken."""
+    sec = 0.25
+    n = int(SR * sec)
+    out = np.zeros(n)
+    place(out, thump(220, 110, 0.15, 0.04), 0.0, 0.8)
+    place(out, burst(int(SR * 0.05), rng, 1200, 4500, 0.012), 0.0, 0.5)
+    out += grains(n, rng, 5, 0.005, 0.05, 2000, 6000, amp=(0.1, 0.25))
+    return lp(out, 6000)
+
+
+def combat_hurt(rng):
+    """Die Hexe wird getroffen: tiefer Stoß und ein dunkler, schräger Zweiklang."""
+    sec = 0.55
+    n = int(SR * sec)
+    out = np.zeros(n)
+    place(out, thump(120, 55, 0.35, 0.1), 0.0, 0.9)
+    t = t_axis(0.45)
+    tone = np.sin(2 * np.pi * D3 * t) + 0.6 * np.sin(2 * np.pi * (D3 * 1.06) * t)
+    place(out, tone * env_exp(len(t), 0.12, attack=0.01), 0.01, 0.35)
+    place(out, burst(int(SR * 0.08), rng, None, 1500, 0.025), 0.0, 0.4)
+    return add_reverb(lp(out, 3000), rng, wet=0.18, sec=0.5, decay=0.2)
+
+
+def combat_burst(rng):
+    """Glutbombe zerplatzt: Glas bricht, dann ein warmes Auffauchen der Glut."""
+    sec = 1.0
+    n = int(SR * sec)
+    out = np.zeros(n)
+    place(out, glass_hit(F6, rng, tau=0.05, sec=0.25), 0.0, 0.45)
+    place(out, glass_hit(C7, rng, tau=0.04, sec=0.2), 0.012, 0.3)
+    out += grains(n, rng, 18, 0.0, 0.12, 3000, 9000, amp=(0.08, 0.25))
+    roar = lp(rng.normal(size=n), 900) * env_swell(n, 0.06, 0.25) * wobble(n, rng, 25, 0.5)
+    out += 0.8 * roar
+    place(out, thump(110, 60, 0.4, 0.1), 0.02, 0.6)
+    return add_reverb(lp(out, 7000), rng, wet=0.2, sec=0.8, decay=0.3)
+
+
+def combat_beetle_warn(rng):
+    """Käfer hält inne und zielt: schnelles, trockenes Klicken der Beine."""
+    sec = 0.35
+    n = int(SR * sec)
+    out = np.zeros(n)
+    for i in range(7):
+        k = int(SR * 0.012)
+        click = bp(rng.normal(size=k + 64), 2500, 6500)[64:] * np.hanning(k)
+        place(out, click, 0.03 * i + rng.uniform(-0.004, 0.004), rng.uniform(0.25, 0.45) * (1 - 0.06 * i))
+    place(out, chirp(F5, 0.85, 0.2, tau_mul=0.5), 0.0, 0.08)
+    return lp(out, 7500)
+
+
+def combat_cleanse(rng):
+    """Gereinigt: die Blüte fällt ab, ein aufsteigender heller Dreiklang."""
+    sec = 1.4
+    n = int(SR * sec)
+    out = np.zeros(n)
+    for f, at, g in ((D5, 0.0, 0.35), (F5, 0.07, 0.3), (A5, 0.14, 0.3), (D6, 0.22, 0.25)):
+        place(out, bell(f, 1.0, rng, tau=0.35), at, g)
+    out += 0.05 * hp(rng.normal(size=n), 4000) * env_swell(n, 0.2, 0.3)
+    return add_reverb(lp(out, 8000), rng, wet=0.3, sec=1.2, decay=0.45)
+
+
+def combat_draw(rng):
+    """Digitalis ziehen: weiches Aufschimmern mit kurzem Luftzug."""
+    sec = 0.6
+    n = int(SR * sec)
+    out = 0.5 * _swish(rng, sec, 400, 5000, 0.12, 0.1)
+    place(out, bell(A5, 0.5, rng, tau=0.2), 0.05, 0.2)
+    place(out, bell(E6, 0.45, rng, tau=0.15), 0.09, 0.12)
+    return add_reverb(lp(out, 7500), rng, wet=0.2, sec=0.6, decay=0.2)
+
+
 # ID -> (Funktion, Loop?, Lautheit relativ in dB, max. Länge in s)
 EFFECTS = {}
 
@@ -972,6 +1097,17 @@ _add("world/well_splash", well_splash, max_sec=1.4)
 _add("world/page_pickup", page_pickup, max_sec=1.0)
 _add("world/book_pickup", book_pickup, level=1, max_sec=2.2)
 _add("world/travel", travel, level=-4, max_sec=1.3)
+
+_add("combat/bolt", combat_bolt, level=-5)
+_add("combat/bolt_heavy", combat_bolt_heavy, level=-2, max_sec=0.9)
+_add("combat/slash", combat_slash, level=-5)
+_add("combat/slash_heavy", combat_slash_heavy, level=-2, max_sec=0.7)
+_add("combat/hit", combat_hit, level=-3)
+_add("combat/hurt", combat_hurt, level=-1, max_sec=0.7)
+_add("combat/burst", combat_burst, max_sec=1.1)
+_add("combat/beetle_warn", combat_beetle_warn, level=-7)
+_add("combat/cleanse", combat_cleanse, level=-1, max_sec=1.6)
+_add("combat/draw", combat_draw, level=-6, max_sec=0.7)
 
 
 def build(name):

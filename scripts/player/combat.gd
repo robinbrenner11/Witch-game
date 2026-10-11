@@ -134,6 +134,7 @@ func set_active(value: bool) -> void:
 	if active:
 		_refresh_forms()
 		staff.set_form(current_form().id if current_form() else "staff")
+		Sfx.play("combat/draw")
 	_place_staff()
 	mode_changed.emit(active)
 
@@ -239,6 +240,8 @@ func _fire(attack: AttackData) -> void:
 		return
 	_cooldown = attack.cooldown
 	staff.attack()
+	if attack.sound != "":
+		Sfx.play(attack.sound)
 	var level := get_tree().get_first_node_in_group("level") as Level
 	if level == null:
 		return

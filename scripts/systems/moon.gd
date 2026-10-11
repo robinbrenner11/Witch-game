@@ -71,6 +71,13 @@ func is_full() -> bool:
 	return phase() == Phase.FULL
 
 
+## Neumond, an dem die Bitterblüte aufflammt: mehr Gegner, und sie sind
+## aggressiver (Entscheidung 10.10.). Die erste Mondrunde ist ausgenommen,
+## damit ein neues Spiel ruhig beginnt (Nacht 1 ist schon Neumond).
+func blight_surges() -> bool:
+	return is_new() and cycle() >= 1
+
+
 func phase_name(of_phase: Phase = phase()) -> String:
 	return tr(NAME_KEYS[of_phase])
 

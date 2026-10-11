@@ -43,6 +43,17 @@ enum Regrow { STEADY, RESPAWN, CHANCE, NONE }
 # Abstand der Stücke innerhalb eines Büschels und wie weit es sich ausbreitet.
 @export var spacing: float = 11.0
 @export var cluster_radius: Vector2 = Vector2(26, 16)
+# Neumond, an dem die Bitterblüte aufflammt (Moon.blight_surges): so viele
+# Stücke kommen für diese eine Nacht dazu, aus surge_kinds (leer = kinds).
+# Sie stehen nicht im Spielstand und sind am nächsten Abend wieder weg.
+@export var surge_extra: int = 0
+@export var surge_kinds: Array[PackedScene] = []
+
+# Wie viele Neumond-Stücke pro Ort in dieser Nacht schon eingesammelt bzw.
+# gereinigt sind ({Ort: {"day": Nacht, "count": n}}), damit sie beim
+# erneuten Betreten nicht wiederkommen. "static": gilt für alle Orte, ohne
+# Autoload; muss nicht gespeichert werden, weil Schlafen die Nacht beendet.
+static var _surge_taken: Dictionary = {}
 
 var _place := ""
 var _level: Level
@@ -73,6 +84,34 @@ func _ready() -> void:
 	var clusters := start_clusters if first_visit else Wilds.take_pending(_place)
 	for i in clusters:
 		_grow_cluster()
+	if surge_extra > 0 and Moon.blight_surges():
+		_grow_surge()
+
+
+## Neumond-Stücke einzeln an freien Stellen, nur für heute Nacht.
+func _grow_surge() -> void:
+	var taken: Dictionary = _surge_taken.get(_place, {})
+	var gone := int(taken.get("count", 0)) if taken.get("day", -1) == DayCycle.day else 0
+	var scenes := surge_kinds if not surge_kinds.is_empty() else kinds
+	for i in surge_extra - gone:
+		var cells := _free_cells()
+		if cells.is_empty() or scenes.is_empty():
+			return
+		var cell: Vector2i = cells.pick_random()
+		# Der Reihe nach aus der Liste, damit jede Sorte vorkommt.
+		var node: Node2D = scenes[(gone + i) % scenes.size()].instantiate()
+		node.position = Vector2(cell * Garden.TILE_SIZE) + Vector2(16, 20)
+		node.add_to_group("wild")
+		node.collected.connect(_on_surge_taken)
+		_level.objects.add_child(node)
+
+
+func _on_surge_taken() -> void:
+	var taken: Dictionary = _surge_taken.get(_place, {})
+	if taken.get("day", -1) != DayCycle.day:
+		taken = {"day": DayCycle.day, "count": 0}
+	taken["count"] += 1
+	_surge_taken[_place] = taken
 
 
 ## Ein neues Büschel an einer freien Stelle: meist eine Sorte, ab und zu eine

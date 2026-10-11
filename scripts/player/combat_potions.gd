@@ -124,10 +124,10 @@ func _drink(item: ItemData) -> void:
 	Sfx.play("brewing/drink")
 	# Die Wirkung setzt ein, wenn sie das Fläschchen absetzt (Frame 4).
 	await player.wait_for_action_frame(3)
+	# Funken beim Heilen kommen von VitalsFeedback.
 	vitals.heal(item.heal)
 	# Wie jeder getrunkene Trank gibt er auch etwas Hexenkraft zurück.
 	vitals.restore_power(PotionEffects.POTION_POWER)
-	CombatFx.sparks(player.get_parent(), player.global_position + Vector2(0, -24), Color("#D4475E"), 14, 25.0, -30.0)
 	Messages.post(tr("MSG_HEALED"))
 
 
@@ -240,7 +240,7 @@ class ThrownPotion:
 				ring.global_position = to
 				CombatFx.sparks(parent, to + Vector2(0, -4), item.throw_color, 30, item.throw_radius * 2.5)
 				_flash(parent)
-				Sfx.play_at("garden/pour", to)
+				Sfx.play_at("combat/burst", to)
 			ItemData.ThrowEffect.ZONE:
 				var zone := ThornZone.new()
 				zone.item = item

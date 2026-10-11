@@ -327,6 +327,7 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - **Truhe**: Truhenplätze liegen im `Inventory` hinter der Tasche (`CHEST_START`, `chest_capacity`). `add`/`remove`/`count`/`has_room_for` sehen nur die Tasche; zwischen beiden Bereichen bewegt `move()` bzw. `transfer()`
 - **Sonne**: draußen ab 6 Uhr Schaden (`SunExposure`), drinnen sicher über `Level.indoors`. Neue Innenräume brauchen `indoors = true`
 - **Spielstand robust laden**: `load_save_data()` liest mit `data.get(…, Standard)` und sortiert Unbekanntes aus (umbenannte Items, entfernte Pflanzen). `SaveGame` schreibt über eine Zwischendatei und hält den vorletzten Stand als `.bak`
+- **Kampf**: Digitalis-Formen und ihre Angriffe sind Daten (`data/digitalis/<form>.tres`, `DigitalisForm` + `AttackData`); eine neue Form ist eine neue Datei plus `Grimoire.learn_form()`. Kampftränke sind Items mit `use = THROW` oder `heal > 0`. Gegner gehören in die Gruppe `blighted` und haben `take_hit(damage, knockback, stagger)`; Angriffe kündigen sich sichtbar an (Telegraph). Neumond-Stärke nur über `Moon.blight_surges()`. Treffer an der Hexe über `Vitals.take_damage()`, die Rückmeldung macht `VitalsFeedback`. Details: `docs/COMBAT_SYSTEM.md`
 
 ---
 
