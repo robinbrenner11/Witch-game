@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="DigitalisForm" format=3]
+
+[ext_resource type="Script" path="res://scripts/player/digitalis_form.gd" id="1_form"]
+[ext_resource type="Script" path="res://scripts/player/attack_data.gd" id="2_attack"]
+
+[sub_resource type="Resource" id="Attack_light"]
+script = ExtResource("2_attack")
+kind = 1
+damage = 1
+power_cost = 0.4
+cooldown = 0.26
+knockback = 40.0
+color = Color(0.941176, 0.713726, 0.854902, 1)
+reach = 30.0
+arc_degrees = 110.0
+active_time = 0.13
+cuts_wild = true
+
+[sub_resource type="Resource" id="Attack_heavy"]
+script = ExtResource("2_attack")
+kind = 1
+damage = 2
+power_cost = 2.0
+cooldown = 0.6
+windup = 0.26
+windup_move_factor = 0.5
+knockback = 140.0
+color = Color(0.894118, 0.345098, 0.694118, 1)
+reach = 44.0
+arc_degrees = 200.0
+active_time = 0.2
+cuts_wild = true
+
+[resource]
+script = ExtResource("1_form")
+id = "sickle"
+display_name = "DIGITALIS_SICKLE"
+light = SubResource("Attack_light")
+heavy = SubResource("Attack_heavy")

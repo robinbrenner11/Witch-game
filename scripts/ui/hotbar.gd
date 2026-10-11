@@ -52,6 +52,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	# Im Kampf zeigt die Kampfleiste (CombatBar) Formen und Tränke an der
+	# Stelle der Plätze; die Meldungszeile darüber bleibt.
+	$Panel.visible = not _in_combat()
 	# Während ein Fenster die Hotbar verdeckt oder das Bild schwarz ist, läuft
 	# die Zeit für Meldungen nicht: Sonst wären sie vorbei, bevor man sie sieht
 	# (z. B. die Mondmeldung, die beim Schlafen im Dunkeln kommt).
@@ -175,6 +178,9 @@ func _with_use_hint(item_id: String) -> String:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Im Kampfmodus gehören 1–4 und das Mausrad den Digitalis-Formen (Combat).
+	if _in_combat():
+		return
 	if event.is_action_pressed("hotbar_next"):
 		Inventory.selected_slot += 1
 	elif event.is_action_pressed("hotbar_previous"):
@@ -186,6 +192,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		Inventory.selected_slot = slot
 	# Verhindert, dass dieselbe Eingabe noch woanders etwas auslöst.
 	get_viewport().set_input_as_handled()
+
+
+func _in_combat() -> bool:
+	var player := get_tree().get_first_node_in_group("player") as Player
+	return player != null and player.combat_mode
 
 
 ## Welche der Tasten 1–8 gedrückt wurde (als Platz 0–7), sonst -1.

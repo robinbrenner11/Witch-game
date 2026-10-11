@@ -32,8 +32,9 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	# Beim Schlafen oder Ortswechsel ist die Steuerung aus.
 	var player := get_parent() as Player
-	# Im Kampf ist Rechtsklick der große Zauber; getrunken wird dann mit Q.
-	if player.combat_mode and event is InputEventMouseButton:
+	# Im Kampf gelten andere Tasten (game_design.md, Abschnitt 7): Rechtsklick
+	# ist der starke Angriff, Q der Trank-Schnellzugriff (CombatPotions).
+	if player.combat_mode:
 		return
 	if event.is_action_pressed("use_item") and player.can_act():
 		_drink_selected()

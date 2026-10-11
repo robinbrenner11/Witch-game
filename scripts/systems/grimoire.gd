@@ -16,6 +16,10 @@ signal milestone_ready(discipline_id: String, level: int)
 
 # Die ersten Ziele auf dem Innendeckel, in der Reihenfolge von Vesperas Notiz.
 const GOALS: Array[String] = ["plant", "brew", "sleep", "wake"]
+# Digitalis-Formen, die die Hexe von Anfang an kennt (IDs in data/digitalis/).
+# VORLÄUFIG beide: Laut game_design.md kommt die Sichel später über Gnarl. Bis
+# es diesen Weg gibt, ist sie zum Testen gleich da. Später nur ["staff"].
+const START_FORMS: Array[String] = ["staff", "sickle"]
 
 var has_book := false
 var _done_goals: Array[String] = []
@@ -43,6 +47,8 @@ var _counts: Dictionary = {}
 var _completed_groups: Array[String] = []
 # "Disziplin/Stufe" -> true: Die Item-Belohnung dieser Stufe ist abgeholt.
 var _claimed: Dictionary = {}
+# Bekannte Digitalis-Formen in der Reihenfolge, in der man sie bekommen hat.
+var _forms: Array[String] = []
 
 
 func _ready() -> void:
@@ -272,6 +278,8 @@ func _apply_reward(reward: RewardData) -> void:
 				_taught.append(reward.target_id)
 		RewardData.Type.XP:
 			add_xp(reward.target_id, reward.value)
+		RewardData.Type.DIGITALIS_FORM:
+			learn_form(reward.target_id)
 
 
 ## Liegt auf dieser Stufe ein Geschenk zum Abholen bereit?
@@ -448,6 +456,19 @@ func roll_stat(stat: String) -> bool:
 	return randf() * 100.0 < get_stat(stat)
 
 
+# --- Digitalis-Formen -----------------------------------------------------------
+
+## Formen, zwischen denen die Hexe im Kampf wechseln kann (Combat).
+func known_forms() -> Array[String]:
+	return _forms.duplicate()
+
+
+func learn_form(form_id: String) -> void:
+	if not _forms.has(form_id) and DigitalisForm.from_id(form_id) != null:
+		_forms.append(form_id)
+		changed.emit()
+
+
 # --- Kapitel und Glimmen -----------------------------------------------------
 
 ## Bedingungen aus ChapterData.unlock. Unbekannte Bedingungen bleiben zu, bis
@@ -516,7 +537,7 @@ func get_save_data() -> Dictionary:
 		"has_book": has_book, "goals": _done_goals, "pages": _pages,
 		"hints": _hints, "seen": _seen, "xp": _xp, "paths": _paths,
 		"firsts": _firsts, "taught": _taught, "counts": _counts,
-		"completed_groups": _completed_groups, "claimed": _claimed,
+		"completed_groups": _completed_groups, "claimed": _claimed, "forms": _forms,
 	}
 
 
@@ -533,5 +554,12 @@ func load_save_data(data: Dictionary) -> void:
 	_counts = data.get("counts", {}).duplicate(true)
 	_completed_groups.assign(data.get("completed_groups", []))
 	_claimed = data.get("claimed", {}).duplicate(true)
+	# Ältere Spielstände kennen noch keine Formen: dann die Startformen.
+	_forms.clear()
+	for form_id in data.get("forms", START_FORMS):
+		if DigitalisForm.from_id(String(form_id)) != null and not _forms.has(String(form_id)):
+			_forms.append(String(form_id))
+	if _forms.is_empty():
+		_forms.assign(START_FORMS)
 	_repeats.clear()
 	changed.emit()

@@ -2,8 +2,9 @@ class_name Spell
 extends Area2D
 
 ## Ein Zauber aus Digitalis: fliegt gerade zur Maus, trifft Wände und
-## befallene Wesen und zerplatzt dort in Funken. Der große Spezialzauber
-## platzt in einem Kreis und trifft alles darin.
+## befallene Wesen und zerplatzt dort in Funken. Der große Zauber platzt in
+## einem Kreis und trifft alles darin; ein Ring zeigt, wie weit.
+## Werte kommen aus AttackData (setup), siehe data/digitalis/staff.tres.
 ## (Platzhalter-Zeichnung, bis es eine Grafik gibt.)
 
 const COLOR := Color("#E458B1")
@@ -22,8 +23,23 @@ var radius := 3.0
 # Wie stark Getroffenes weggestoßen wird.
 var knockback := 90.0
 
+# Farbe dieses Zaubers (aus den Angriffsdaten).
+var color := COLOR
+
 var _travelled := 0.0
 var _done := false
+
+
+## Übernimmt die Werte eines Angriffs (Combat ruft das vor add_child auf).
+func setup(attack: AttackData, aim: Vector2) -> void:
+	direction = aim
+	speed = attack.speed
+	max_distance = attack.max_distance
+	radius = attack.radius
+	damage = attack.damage
+	burst_radius = attack.burst_radius
+	knockback = attack.knockback
+	color = attack.color
 
 
 func _ready() -> void:
@@ -43,7 +59,7 @@ func _ready() -> void:
 	# Ein kleines Licht, damit der Zauber nachts die Umgebung erhellt.
 	var light := PointLight2D.new()
 	light.texture = preload("res://assets/effects/lights/light_round_32.png")
-	light.color = COLOR
+	light.color = color
 	light.energy = 0.9
 	add_child(light)
 	var trail := CPUParticles2D.new()
@@ -54,7 +70,7 @@ func _ready() -> void:
 	trail.initial_velocity_min = 2.0
 	trail.initial_velocity_max = 8.0
 	trail.spread = 180.0
-	trail.color = COLOR
+	trail.color = color
 	trail.use_parent_material = true
 	add_child(trail)
 
@@ -70,8 +86,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius + 1, Color(COLOR, 0.5))
-	draw_circle(Vector2.ZERO, radius, COLOR)
+	draw_circle(Vector2.ZERO, radius + 1, Color(color, 0.5))
+	draw_circle(Vector2.ZERO, radius, color)
 	draw_circle(Vector2(-1, -1), radius * 0.4, CORE)
 
 
@@ -108,11 +124,15 @@ func _burst() -> void:
 	sparks.gravity = Vector2(0, 40)
 	sparks.initial_velocity_min = 20.0
 	sparks.initial_velocity_max = 50.0 if burst_radius <= 0.0 else burst_radius * 2.5
-	sparks.color = COLOR
+	sparks.color = color
 	sparks.material = material
 	sparks.z_index = 3
 	get_parent().add_child(sparks)
 	sparks.global_position = global_position
 	sparks.emitting = true
 	sparks.finished.connect(sparks.queue_free)
+	if burst_radius > 0.0:
+		var ring := CombatFx.Ring.new(burst_radius, color)
+		get_parent().add_child(ring)
+		ring.global_position = global_position
 	queue_free()

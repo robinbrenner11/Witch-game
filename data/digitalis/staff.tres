@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="DigitalisForm" format=3]
+
+[ext_resource type="Script" path="res://scripts/player/digitalis_form.gd" id="1_form"]
+[ext_resource type="Script" path="res://scripts/player/attack_data.gd" id="2_attack"]
+[ext_resource type="Texture2D" path="res://assets/items/digitalis/digitalis_icon.png" id="3_icon"]
+
+[sub_resource type="Resource" id="Attack_light"]
+script = ExtResource("2_attack")
+kind = 0
+damage = 1
+power_cost = 0.5
+cooldown = 0.28
+knockback = 90.0
+color = Color(0.894118, 0.345098, 0.694118, 1)
+speed = 240.0
+max_distance = 190.0
+radius = 3.0
+
+[sub_resource type="Resource" id="Attack_heavy"]
+script = ExtResource("2_attack")
+kind = 0
+damage = 2
+power_cost = 2.5
+cooldown = 0.7
+windup = 0.32
+windup_move_factor = 0.45
+knockback = 150.0
+color = Color(0.760784, 0.188235, 0.478431, 1)
+speed = 170.0
+max_distance = 150.0
+radius = 5.0
+burst_radius = 34.0
+
+[resource]
+script = ExtResource("1_form")
+id = "staff"
+display_name = "DIGITALIS_STAFF"
+icon = ExtResource("3_icon")
+light = SubResource("Attack_light")
+heavy = SubResource("Attack_heavy")

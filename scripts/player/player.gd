@@ -40,6 +40,10 @@ var _dash_time := 0.0
 # Läuft gerade eine Aktion, steht hier ihr Name ("pour", "harvest" …), sonst "".
 var _action := ""
 var _floating := false
+# Bremsen auf das Lauftempo, je Quelle ein Faktor (z. B. "windup" beim
+# Ausholen, "thorns" im Dornennebel). Alle werden multipliziert; so stören
+# sich verschiedene Effekte nicht gegenseitig beim Zurücksetzen.
+var _speed_modifiers: Dictionary = {}
 
 @onready var body_shape: CollisionShape2D = $CollisionShape2D
 @onready var interaction_area: Area2D = $InteractionArea
@@ -76,7 +80,7 @@ func _physics_process(delta: float) -> void:
 	# diagonal nicht schneller läuft als gerade.
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var floating := Input.is_action_pressed("float") and direction != Vector2.ZERO and not combat_mode
-	velocity = direction * speed * (float_speed_factor if floating else 1.0)
+	velocity = direction * speed * (float_speed_factor if floating else 1.0) * speed_factor()
 	# move_and_slide rechnet delta selbst ein und berücksichtigt Kollisionen.
 	move_and_slide()
 
@@ -93,6 +97,22 @@ func _physics_process(delta: float) -> void:
 func face_towards(direction: Vector2) -> void:
 	facing = _to_four_directions(direction)
 	interaction_area.position = body_shape.position + facing * interaction_distance
+
+
+## Setzt eine Tempo-Bremse (1.0 oder remove_speed_modifier = keine).
+func set_speed_modifier(source: String, factor: float) -> void:
+	_speed_modifiers[source] = factor
+
+
+func remove_speed_modifier(source: String) -> void:
+	_speed_modifiers.erase(source)
+
+
+func speed_factor() -> float:
+	var factor := 1.0
+	for value: float in _speed_modifiers.values():
+		factor *= value
+	return factor
 
 
 ## Ein kurzer Stoß in eine Richtung (Ausweichen im Kampf).
