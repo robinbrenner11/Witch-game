@@ -151,7 +151,8 @@ func can_grow_tonight(cell: Vector2i) -> bool:
 ## die Mondphase der neuen Nacht.
 func is_waiting_for_full_moon(cell: Vector2i) -> bool:
 	var data := plant_data_at(cell)
-	return data != null and data.ripens_only_at_full_moon 		and stage_at(cell) == data.stage_count - 2 and not Moon.is_full()
+	return data != null and data.ripens_only_at_full_moon \
+		and stage_at(cell) == data.stage_count - 2 and not Moon.is_full()
 
 
 ## Liegt das Beet im Bereich einer hemmenden Aura (Nachtschatten)? Die
@@ -218,7 +219,14 @@ func load_save_data(data: Variant) -> void:
 	_beds.clear()
 	for entry in data.get("plants", []):
 		var cell := Vector2i(int(entry["x"]), int(entry["y"]))
-		_plants[cell] = {"plant_id": String(entry["plant_id"]), "stage": int(entry["stage"])}
+		var plant := PlantData.from_id(String(entry.get("plant_id", "")))
+		# Arten, die es nicht mehr gibt, würden später jede Aura-Abfrage
+		# stolpern lassen. Lieber das Beet leer lassen.
+		if plant == null:
+			push_warning("Spielstand: unbekannte Pflanze %s entfernt" % entry.get("plant_id", ""))
+			continue
+		var stage := clampi(int(entry.get("stage", 0)), 0, plant.stage_count - 1)
+		_plants[cell] = {"plant_id": plant.id, "stage": stage}
 	for entry in data.get("beds", []):
 		_beds[Vector2i(int(entry["x"]), int(entry["y"]))] = true
 	beds_initialized = bool(data.get("beds_initialized", false))

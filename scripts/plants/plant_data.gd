@@ -50,6 +50,7 @@ enum AuraEffect { NONE, BLOCK_GROWTH }
 
 ## Lädt eine Pflanzenart über ihre ID. Funktioniert, weil jede Art unter
 ## data/plants/<id>.tres liegt – load() merkt sich geladene Dateien, das
-## ist also auch bei häufigem Aufruf billig.
+## ist also auch bei häufigem Aufruf billig. null, wenn es die Art nicht gibt.
 static func from_id(plant_id: String) -> PlantData:
-	return load("res://data/plants/%s.tres" % plant_id)
+	var path := "res://data/plants/%s.tres" % plant_id
+	return load(path) if plant_id != "" and ResourceLoader.exists(path) else null

@@ -115,8 +115,15 @@ func load_save_data(data: Dictionary) -> void:
 		_known[key] = String(known[key])
 	_brewing.clear()
 	for item_id in data.get("brewing", []):
-		_brewing.append(String(item_id))
+		if ItemData.from_id(String(item_id)):
+			_brewing.append(String(item_id))
+	# Ein Rest von unbekannten Zutaten braut nichts Sinnvolles mehr.
+	if _brewing.size() < MIN_INGREDIENTS:
+		_brewing.clear()
 	_finished = String(data.get("finished", ""))
+	if _finished != "" and ItemData.from_id(_finished) == null:
+		push_warning("Spielstand: unbekannter Trank %s im Kessel entfernt" % _finished)
+		_finished = ""
 	_finished_count = int(data.get("finished_count", 1))
 	_brew_counts.clear()
 	var counts: Dictionary = data.get("counts", {})

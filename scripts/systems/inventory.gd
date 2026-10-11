@@ -143,14 +143,25 @@ func get_save_data() -> Dictionary:
 func load_save_data(data: Dictionary) -> void:
 	_slot_items.fill("")
 	_slot_counts.fill(0)
-	var saved_items: Array = data["slots"]
+	var saved_items: Array = data.get("slots", [])
+	var saved_counts: Array = data.get("slot_counts", [])
+	var old_counts: Dictionary = data.get("counts", {})
 	for slot in mini(saved_items.size(), SIZE):
-		_slot_items[slot] = saved_items[slot]
-		if data.has("slot_counts"):
-			_slot_counts[slot] = int(data["slot_counts"][slot])
-		elif _slot_items[slot] != "":
+		var item_id := String(saved_items[slot])
+		var amount := 0
+		if slot < saved_counts.size():
+			amount = int(saved_counts[slot])
+		elif item_id != "":
 			# Älterer Spielstand: Anzahl stand pro Item statt pro Platz.
-			_slot_counts[slot] = int(data["counts"][_slot_items[slot]])
+			amount = int(old_counts.get(item_id, 1))
+		# Items, die es nicht mehr gibt (umbenannt, entfernt), fallen weg,
+		# statt als leeres Icon ohne Namen in der Tasche zu liegen.
+		if item_id == "" or amount <= 0 or ItemData.from_id(item_id) == null:
+			if item_id != "" and amount > 0:
+				push_warning("Spielstand: unbekanntes Item %s entfernt" % item_id)
+			continue
+		_slot_items[slot] = item_id
+		_slot_counts[slot] = mini(amount, max_stack(item_id))
 	selected_slot = int(data.get("selected_slot", 0))
 	changed.emit()
 

@@ -14,8 +14,6 @@ const NIGHT_START := 18 * 60
 # Ab hier ist die Nacht vorbei (siehe DARKNESS_CURVE).
 const MORNING := 6 * 60
 const START_TIME := 20 * 60
-# Der Mond durchläuft seine Phasen in 8 Nächten. Nacht 1 beginnt mit der
-# zunehmenden Sichel, der erste Vollmond kommt also in Nacht 4.
 # Normal vergeht pro echter Sekunde eine Spielminute (eine Nacht ≈ 12 Minuten).
 const GAME_MINUTES_PER_SECOND := 1.0
 # Am Hexenfeuer: eine Spielstunde pro Sekunde.
@@ -89,9 +87,10 @@ func get_save_data() -> Dictionary:
 
 
 func load_save_data(data: Dictionary) -> void:
-	day = int(data["day"])
-	minutes = float(data["minutes"])
+	day = maxi(int(data.get("day", 1)), 1)
+	minutes = fposmod(float(data.get("minutes", START_TIME)), MINUTES_PER_DAY)
 	fast_forward = false
+	night_slowdown = 1.0
 
 
 ## 0 am Tag, 1 in tiefer Nacht. Licht und Farbstimmung richten sich danach.
@@ -104,7 +103,7 @@ func night_factor() -> float:
 	return 1.0
 
 
-## 0 = Neumond … 4 = Vollmond … 7 = abnehmende Sichel.
+## Volle Stunde der Spielzeit (0–23), z. B. für die Uhr.
 func hour() -> int:
 	return floori(minutes / 60.0)
 

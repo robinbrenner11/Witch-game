@@ -60,9 +60,16 @@ func _ready() -> void:
 	# freien Plätze noch nicht bekannt.
 	await get_tree().process_frame
 	var items := Wilds.items(_place)
-	for id: String in items:
+	for id: String in items.keys():
 		var item: Dictionary = items[id]
-		_spawn(id, load(item["scene"]), Vector2(item["x"], item["y"]))
+		var scene_path := String(item.get("scene", ""))
+		# Szene inzwischen umbenannt oder entfernt: Das Stück verschwindet still,
+		# statt den ganzen Ort am Laden zu hindern.
+		if not ResourceLoader.exists(scene_path):
+			push_warning("Wilds: %s gibt es nicht mehr" % scene_path)
+			items.erase(id)
+			continue
+		_spawn(id, load(scene_path), Vector2(item["x"], item["y"]))
 	var clusters := start_clusters if first_visit else Wilds.take_pending(_place)
 	for i in clusters:
 		_grow_cluster()

@@ -27,6 +27,13 @@ func _ready() -> void:
 func _on_continue_button_pressed() -> void:
 	if SaveGame.load_game():
 		_start()
+		return
+	# Weder der letzte noch der vorletzte Stand ließ sich lesen. Sagen, statt
+	# den Klick still zu schlucken, und gleich zu "Neues Spiel" springen.
+	continue_button.text = "TITLE_SAVE_BROKEN"
+	continue_button.disabled = true
+	Sfx.play("ui/denied")
+	new_game_button.grab_focus()
 
 
 func _on_new_game_button_pressed() -> void:
