@@ -133,6 +133,17 @@ func can_add(item_id: String) -> bool:
 	return not is_locked() and item != null and item.type == ItemData.Type.INGREDIENT 		and _ingredients.size() < Brewing.capacity
 
 
+## Doppelklick auf einen Inventar-Platz (siehe InventorySlot). Passt die
+## Zutat nicht (keine Zutat, Kessel voll oder braut), nur ein leiser Ton.
+func quick_add(inventory_slot: int) -> void:
+	if not visible or Inventory.item_in_slot(inventory_slot) == "":
+		return
+	if can_add(Inventory.item_in_slot(inventory_slot)):
+		add_from_inventory(inventory_slot)
+	else:
+		Sfx.play("ui/denied")
+
+
 func add_from_inventory(inventory_slot: int) -> void:
 	var item_id := Inventory.item_in_slot(inventory_slot)
 	if can_add(item_id) and Inventory.remove_from_slot(inventory_slot):

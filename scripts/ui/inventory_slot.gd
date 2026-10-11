@@ -81,7 +81,13 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 
 
 # Rechtsklick teilt den Stapel: Die Hälfte kommt auf den nächsten freien Platz.
+# Doppelklick ist die Abkürzung zum Ziehen: Am Kessel wandert die Zutat
+# direkt hinein (wer sonst damit etwas anfangen kann, hört auf die Gruppe).
 func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.double_click and event.button_index == MOUSE_BUTTON_LEFT:
+		get_tree().call_group("brew_window", "quick_add", slot_index)
+		accept_event()
+		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 		if Inventory.count_in_slot(slot_index) > 1 and not Inventory.split_stack(slot_index):
 			Messages.deny(tr("MSG_BAG_FULL"))
