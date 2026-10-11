@@ -10,6 +10,8 @@ const VOLUME_STEP := 0.1
 @onready var volume_value: Label = %VolumeValue
 @onready var fullscreen_button: Button = %FullscreenButton
 @onready var back_button: Button = %BackButton
+@onready var panel_holder: Control = $Scaled
+@onready var controls_menu: Control = $ControlsMenu
 
 
 func _ready() -> void:
@@ -53,6 +55,15 @@ func _on_language_button_pressed() -> void:
 
 func _on_back_button_pressed() -> void:
 	_close()
+
+
+## Die Steuerungsübersicht liegt über den Einstellungen; zurück geht es hierher.
+func _on_controls_button_pressed() -> void:
+	panel_holder.hide()
+	controls_menu.open()
+	await controls_menu.closed
+	panel_holder.show()
+	back_button.grab_focus()
 
 
 func _close() -> void:

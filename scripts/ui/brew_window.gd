@@ -107,9 +107,13 @@ func _on_recipes_button_pressed() -> void:
 func fill_with(ingredients: Array[String]) -> void:
 	if is_locked():
 		return
+	# Was nicht zurück in die Tasche passt, bleibt im Kessel, statt zu
+	# verschwinden. Dann wird das Rezept eben nur so weit gefüllt, wie Platz ist.
+	var kept: Array[String] = []
 	for item_id in _ingredients:
-		Inventory.add(item_id)
-	_ingredients.clear()
+		if not Inventory.add(item_id):
+			kept.append(item_id)
+	_ingredients = kept
 	for item_id in ingredients:
 		for slot in Inventory.SIZE:
 			if Inventory.item_in_slot(slot) == item_id:

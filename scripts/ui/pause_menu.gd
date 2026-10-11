@@ -5,7 +5,8 @@ extends Control
 ## (nicht beim Schlafen oder Ortswechsel).
 ##
 ## Steht in der UI vor den anderen Fenstern, damit diese Esc zuerst bekommen
-## und sich selbst schließen können.
+## und sich selbst schließen können. Gezeichnet wird es trotzdem über Hotbar
+## und Uhr (z_index in der Szene), damit die Abdunklung auch sie abdeckt.
 
 const TITLE_SCENE := "res://scenes/title.tscn"
 

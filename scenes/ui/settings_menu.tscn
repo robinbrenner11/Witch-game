@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/settings_menu.gd" id="1_script"]
 [ext_resource type="Theme" path="res://assets/ui/menu_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" path="res://scenes/ui/controls_menu.tscn" id="3_controls"]
 
 [node name="SettingsMenu" type="Control"]
 process_mode = 3
@@ -73,6 +74,10 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "SETTINGS_LANGUAGE"
 
+[node name="ControlsButton" type="Button" parent="Scaled/Center/Panel/Box"]
+layout_mode = 2
+text = "CONTROLS_TITLE"
+
 [node name="BackButton" type="Button" parent="Scaled/Center/Panel/Box"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -82,4 +87,8 @@ text = "UI_BACK"
 [connection signal="pressed" from="Scaled/Center/Panel/Box/Volume/VolumeUp" to="." method="_on_volume_up_pressed"]
 [connection signal="pressed" from="Scaled/Center/Panel/Box/FullscreenButton" to="." method="_on_fullscreen_button_pressed"]
 [connection signal="pressed" from="Scaled/Center/Panel/Box/LanguageButton" to="." method="_on_language_button_pressed"]
+[node name="ControlsMenu" parent="." instance=ExtResource("3_controls")]
+layout_mode = 1
+
 [connection signal="pressed" from="Scaled/Center/Panel/Box/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Scaled/Center/Panel/Box/ControlsButton" to="." method="_on_controls_button_pressed"]

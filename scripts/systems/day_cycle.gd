@@ -13,6 +13,10 @@ const MINUTES_PER_DAY := 24 * 60
 const NIGHT_START := 18 * 60
 # Ab hier ist die Nacht vorbei (siehe DARKNESS_CURVE).
 const MORNING := 6 * 60
+# Eine Stunde vor dem Morgen: leiser Hinweis, dass das Bett wartet. Was
+# passiert, wenn die Hexe draußen bleibt, ist noch offen
+# (design_entscheidungen_2026-10-07.md, "Sonnenaufgang").
+const DAWN_WARNING := 5 * 60
 const START_TIME := 20 * 60
 # Normal vergeht pro echter Sekunde eine Spielminute (eine Nacht ≈ 12 Minuten).
 const GAME_MINUTES_PER_SECOND := 1.0
@@ -46,6 +50,8 @@ func _process(delta: float) -> void:
 	speed /= night_slowdown
 	var before := minutes
 	minutes = fmod(minutes + delta * speed, MINUTES_PER_DAY)
+	if before < DAWN_WARNING and minutes >= DAWN_WARNING:
+		Messages.post(tr("MSG_DAWN_NEAR"))
 	if before < MORNING and minutes >= MORNING:
 		night_slowdown = 1.0
 	if before < NIGHT_START and minutes >= NIGHT_START:

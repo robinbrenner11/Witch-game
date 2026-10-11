@@ -10,10 +10,15 @@ const GAME_SCENE := "res://scenes/main.tscn"
 const LINES: Array[String] = ["INTRO_LINE_1", "INTRO_LINE_2", "INTRO_LINE_3", "INTRO_LINE_4"]
 const FADE_TIME := 1.4
 # Die Szene ist 2× vergrößert (320 Pixel breit). Längere Zeilen brechen um,
-# statt über den Rand hinauszulaufen. Etwas schmaler als möglich, damit die
-# Umbrüche ausgewogen sind und kein einzelnes Wort allein in der Zeile steht.
-const MAX_LINE_WIDTH := 232.0
+# statt über den Rand hinauszulaufen. Wie breit jede Zeile wirklich wird,
+# rechnet _balanced_width aus, damit kein einzelnes Wort allein in der
+# letzten Zeile steht – in jeder Sprache, ohne Handarbeit pro Text.
+const MAX_LINE_WIDTH := 290.0
 const PAUSE_TIME := 0.8
+# Umgebrochene Zeilen eines Satzes rücken enger zusammen als die Sätze
+# untereinander (Abstand der Sätze: separation von Lines in der Szene), so
+# erkennt man, was zusammengehört.
+const LINE_SPACING := -1
 
 var _tween: Tween
 var _finished := false
@@ -28,9 +33,10 @@ func _ready() -> void:
 		label.text = text
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		label.custom_minimum_size.x = MAX_LINE_WIDTH
+		label.add_theme_constant_override("line_spacing", LINE_SPACING)
 		label.modulate.a = 0.0
 		lines_box.add_child(label)
+		label.custom_minimum_size.x = _balanced_width(label, tr(text))
 	hint.modulate.a = 0.0
 	# Die letzte Zeile in Gold: Ab hier beginnt die Geschichte der Spielerin.
 	lines_box.get_child(LINES.size() - 1).add_theme_color_override("font_color", Color("#D9A441"))
@@ -40,6 +46,28 @@ func _ready() -> void:
 		_tween.tween_interval(PAUSE_TIME)
 	_tween.tween_property(hint, "modulate:a", 1.0, FADE_TIME)
 	_tween.tween_callback(func() -> void: _finished = true)
+
+
+## Schmalste Breite, bei der der Text nicht mehr Zeilen braucht als bei
+## voller Breite. So werden die Zeilen eines Satzes etwa gleich lang.
+func _balanced_width(label: Label, text: String) -> float:
+	var font := label.get_theme_font("font")
+	var size := label.get_theme_font_size("font_size")
+	var lines := func(width: float) -> int:
+		var height := font.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, width, size).y
+		return roundi(height / font.get_height(size))
+	var target: int = lines.call(MAX_LINE_WIDTH)
+	if target <= 1:
+		return minf(font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x, MAX_LINE_WIDTH)
+	var low := MAX_LINE_WIDTH / target
+	var high := MAX_LINE_WIDTH
+	while high - low > 2.0:
+		var middle := (low + high) / 2.0
+		if lines.call(middle) > target:
+			low = middle
+		else:
+			high = middle
+	return ceilf(high)
 
 
 func _unhandled_input(event: InputEvent) -> void:

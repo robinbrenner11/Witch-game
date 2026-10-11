@@ -16,6 +16,17 @@ texture_margin_top = 6.0
 texture_margin_right = 6.0
 texture_margin_bottom = 6.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_info"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+texture = ExtResource("2_panel")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
 [node name="InventoryWindow" type="Control"]
 process_mode = 3
 layout_mode = 3
@@ -41,11 +52,37 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 2
 
-[node name="Name" type="Label" parent="Box"]
+[node name="Info" type="PanelContainer" parent="Box"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_info")
+
+[node name="InfoBox" type="VBoxContainer" parent="Box/Info"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="Box/Info/InfoBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.917647, 0.87451, 0.796078, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Box/Info/InfoBox"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.776471, 0.721569, 0.745098, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Use" type="Label" parent="Box/Info/InfoBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.643137, 0.254902, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 
 [node name="Panel" type="PanelContainer" parent="Box"]

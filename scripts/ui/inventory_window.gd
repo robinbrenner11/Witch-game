@@ -2,17 +2,22 @@ extends Control
 
 ## Inventar-Fenster (Tab): zeigt die Plätze 9–24 direkt über der Hotbar. Die
 ## Hotbar bleibt sichtbar und ist die unterste Reihe; Items lassen sich
-## zwischen allen Plätzen ziehen. Fährt die Maus über ein Item, steht oben
-## sein Name. (Die Beschreibungen kommen später ins Rezeptbuch.)
+## zwischen allen Plätzen ziehen. Fährt die Maus über ein Item, stehen oben
+## sein Name, seine Beschreibung und wofür es gut ist (pflanzen, trinken,
+## ausgießen, Zutat).
 ##
 ## Solange das Fenster offen ist, ist das Spiel pausiert: Zeit, Hexe und
 ## Pflanzen stehen. Das Fenster selbst läuft weiter (process_mode = Always).
 
-@onready var name_label: Label = $Box/Name
+@onready var info: Control = $Box/Info
+@onready var name_label: Label = $Box/Info/InfoBox/Name
+@onready var description_label: Label = $Box/Info/InfoBox/Description
+@onready var use_label: Label = $Box/Info/InfoBox/Use
 
 
 func _ready() -> void:
 	hide()
+	_show_item("")
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -29,7 +34,7 @@ func _set_open(open: bool) -> void:
 	visible = open
 	# Pausiert alle Nodes, deren process_mode nicht "Always" ist.
 	get_tree().paused = open
-	name_label.text = ""
+	_show_item("")
 	if open:
 		# Die Plätze werden zur Laufzeit erzeugt (auch die der Hotbar), deshalb
 		# erst beim Öffnen verbinden statt in _ready.
@@ -40,4 +45,33 @@ func _set_open(open: bool) -> void:
 
 func _on_slot_hovered(slot_index: int) -> void:
 	if visible:
-		name_label.text = Inventory.display_name_for(Inventory.item_in_slot(slot_index))
+		_show_item(Inventory.item_in_slot(slot_index))
+
+
+## Name groß, darunter die Beschreibung (Stimmung) und in Gold, wofür das
+## Item gut ist, auf einer eigenen Tafel über den Plätzen. Ohne Item unter
+## der Maus ist die Tafel weg, damit das Fenster ruhig bleibt.
+func _show_item(item_id: String) -> void:
+	var item := ItemData.from_id(item_id)
+	info.visible = item != null
+	name_label.text = Inventory.display_name_for(item_id)
+	description_label.text = tr(item.description) if item and item.description != "" else ""
+	use_label.text = _use_text(item)
+	description_label.visible = description_label.text != ""
+	use_label.visible = use_label.text != ""
+
+
+func _use_text(item: ItemData) -> String:
+	if item == null:
+		return ""
+	match item.use:
+		ItemData.Use.DRINK:
+			return "%s  ·  %s" % [tr("BOOK_USE_DRINK"), InputHints.key_for("use_item")]
+		ItemData.Use.POUR:
+			return "%s  ·  %s" % [tr("BOOK_USE_POUR"), InputHints.key_for("interact")]
+	match item.type:
+		ItemData.Type.SEED:
+			return tr("ITEM_USE_SEED")
+		ItemData.Type.INGREDIENT:
+			return tr("ITEM_USE_INGREDIENT")
+	return ""

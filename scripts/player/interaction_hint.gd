@@ -40,6 +40,14 @@ var _prompt_alpha := 0.0
 @onready var player: Player = get_parent()
 
 
+# Bei offenen Fenstern (Spiel pausiert) läuft _process nicht weiter; ohne das
+# hier blieben Klammern und Plakette über dem Fenster stehen.
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PAUSED:
+		hide()
+		_target = null
+
+
 func _process(delta: float) -> void:
 	var target := player.find_closest_interactable()
 	# Beim Schlafen ist die Steuerung und damit auch der Hinweis aus.
