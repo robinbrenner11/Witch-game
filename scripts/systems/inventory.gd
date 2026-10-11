@@ -39,6 +39,7 @@ const DEBUG_SEEDS := [
 	"seed_mandrake", "seed_ghost_fern", "seed_lantern_berry",
 	"seed_nightshade", "seed_moon_chalice", "seed_blood_rose",
 ]
+const DEBUG_COMBAT_POTIONS := ["potion_mending", "potion_ember_bomb", "potion_thorn_mist"]
 
 # Jeder Platz hat ein Item ("" = leer) und eine Anzahl. Ein Item kann auf
 # mehreren Plätzen liegen, wenn ein Stapel voll ist (max_stack in ItemData,
@@ -79,7 +80,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if OS.is_debug_build() and event.is_action_pressed("debug_all_seeds"):
 		for item_id in DEBUG_SEEDS:
 			add(item_id, 3)
-		print("Debug: je 3 Samen aller Sorten")
+		# Zum Testen des Kampfs, ohne erst brauen zu müssen.
+		for item_id in DEBUG_COMBAT_POTIONS:
+			add(item_id, 3)
+		print("Debug: je 3 Samen aller Sorten und 3 von jedem Kampftrank")
 
 
 ## Füllt erst angefangene Stapel desselben Items auf, dann freie Plätze.

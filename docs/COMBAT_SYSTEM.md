@@ -174,6 +174,7 @@ Nicht automatisch geprüft: wie sich der Kampf anfühlt (Tempo, Schwierigkeit) u
 - **Platzhalter-Grafiken**: Sichel-Form (Zeichnung in `digitalis.gd`), Sichel-Icon (`docs/art/item_generators/sickle_icon_platzhalter.py`), Trank-Icons (umgefärbter Wachstumstrank, `combat_potions_platzhalter.py`), Käfer und Dornkäfer, Telegraph-Spur, Geschosse und Hiebe. Eigene Grafiken einfach unter denselben Dateinamen speichern.
 - **Keine Angriffs-Animation der Hexe**: Nur Digitalis animiert; die Hexe dreht sich zur Maus.
 - **Rezepte vorläufig**, wie besprochen (Rezepte werden noch logisch überarbeitet).
+- **Zum Testen**: F1 gibt (nur in Debug-Builds) je 3 Samen und 3 von jedem Kampftrank; N springt zur nächsten Nacht (Neumond-Flut ab Nacht 9).
 - **Beide Formen von Anfang an** (`Grimoire.START_FORMS`), damit sie testbar sind. Wie die Sichel freigeschaltet wird, ist offen.
 - **Dornennebel bremst auch die Hexe** (Entscheidung: Effekte treffen sie). Kann sich zäh anfühlen, im Spiel prüfen.
 - **Klänge ungehört**: synthetisch erzeugt und auf Lautheit gebracht, aber noch nicht im Spiel angehört.
