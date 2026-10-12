@@ -366,3 +366,9 @@ NOTICE_BOARD,Notice Board,Anschlagbrett
 NOTICE_VILLAGE_1,"By order of the council: The lanterns are lit at dusk. After dark, keep to the light.",Auf Beschluss des Rates: Die Laternen brennen ab der Dämmerung. Nach Einbruch der Nacht bleibt im Licht.
 NOTICE_VILLAGE_2,The gate to the old witch's garden stays bolted. Keep away from it.,Die Pforte zum Garten der alten Hexe bleibt verriegelt. Haltet euch fern.
 NOTICE_VILLAGE_3,Someone has scratched a small crescent moon into the corner of the paper.,Jemand hat eine kleine Mondsichel in die Ecke des Zettels geritzt.
+PROMPT_TALK,Talk,Sprechen
+NPC_WATCHMAN,Night Watchman,Nachtwächter
+NPC_WATCHMAN_ROLE,Walks the village at night.,Geht nachts durchs Dorf.
+DLG_WATCHMAN_SMALLTALK_1,Quiet night. I like them quiet.,Ruhige Nacht. Ich mag sie ruhig.
+DLG_WATCHMAN_SMALLTALK_2,"Mind the lanterns. Past the last one, the woods start listening.",Achte auf die Laternen. Hinter der letzten fängt der Wald an zuzuhören.
+DLG_WATCHMAN_SMALLTALK_3,Every night the same round. Every night the same creaking gate.,Jede Nacht dieselbe Runde. Jede Nacht dasselbe knarrende Tor.

@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/firefly.tscn" id="10_firefly"]
 [ext_resource type="PackedScene" path="res://scenes/world/moth.tscn" id="11_moth"]
 [ext_resource type="PackedScene" path="res://scenes/world/notice_board.tscn" id="12_notice_board"]
+[ext_resource type="PackedScene" path="res://scenes/npcs/watchman.tscn" id="13_watchman"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/tree_fir.tscn" id="t_fir"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/tree_oak.tscn" id="t_oak"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/tree_elder.tscn" id="t_elder"]
@@ -88,6 +89,9 @@ lit = false
 
 [node name="Well" parent="Objects" instance=ExtResource("6_well")]
 position = Vector2(576, 444)
+
+[node name="Watchman" parent="Objects" instance=ExtResource("13_watchman")]
+position = Vector2(240, 368)
 
 [node name="NoticeBoard" parent="Objects" instance=ExtResource("12_notice_board")]
 position = Vector2(688, 348)

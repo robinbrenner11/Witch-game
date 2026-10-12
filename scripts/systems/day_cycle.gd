@@ -42,13 +42,17 @@ var fast_forward: bool = false
 # Trank "Ewige Nacht": Bis zum Morgen läuft die Zeit um diesen Faktor
 # langsamer. 1.5 = die Nacht dauert 50 % länger.
 var night_slowdown: float = 1.0
+# Nur zum Testen (F6): so viele Minuten springt die Uhr im nächsten Frame vor.
+# Über _process, damit Morgen, Warnung und neue Nacht wie sonst auslösen.
+var _debug_skip := 0.0
 
 
 func _process(delta: float) -> void:
 	var speed := GAME_MINUTES_PER_SECOND * (FAST_FORWARD_FACTOR if fast_forward else 1.0)
 	speed /= night_slowdown
 	var before := minutes
-	minutes = fmod(minutes + delta * speed, MINUTES_PER_DAY)
+	minutes = fmod(minutes + delta * speed + _debug_skip, MINUTES_PER_DAY)
+	_debug_skip = 0.0
 	if before < DAWN_WARNING and minutes >= DAWN_WARNING:
 		Messages.post(tr("MSG_DAWN_NEAR"))
 	if before < MORNING and minutes >= MORNING:
@@ -133,3 +137,5 @@ func _unhandled_input(event: InputEvent) -> void:
 	if OS.is_debug_build() and event.is_action_pressed("debug_next_day"):
 		advance_day()
 		print("Nacht %d beginnt" % day)
+	elif OS.is_debug_build() and event.is_action_pressed("debug_next_hour"):
+		_debug_skip += 60.0

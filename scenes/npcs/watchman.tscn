@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/npcs/npc.tscn" id="1_npc"]
+[ext_resource type="Resource" path="res://data/npcs/watchman.tres" id="2_data"]
+[ext_resource type="Script" path="res://scripts/systems/night_light.gd" id="3_light"]
+[ext_resource type="Texture2D" path="res://assets/effects/lights/light_round_64.png" id="4_light_texture"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_unshaded"]
+light_mode = 1
+
+[node name="Watchman" instance=ExtResource("1_npc")]
+data = ExtResource("2_data")
+
+[node name="Coat" parent="Figure" index="1"]
+color = Color(0.431373, 0.0941176, 0.188235, 1)
+
+[node name="Lantern" type="ColorRect" parent="Figure" index="4"]
+material = SubResource("CanvasItemMaterial_unshaded")
+offset_left = 7.0
+offset_top = -24.0
+offset_right = 11.0
+offset_bottom = -18.0
+mouse_filter = 2
+color = Color(1, 0.709804, 0.4, 1)
+
+[node name="LanternLight" type="PointLight2D" parent="." index="5"]
+position = Vector2(9, -21)
+color = Color(1, 0.709804, 0.4, 1)
+texture = ExtResource("4_light_texture")
+texture_scale = 1.4
+script = ExtResource("3_light")
+base_energy = 1.0
+flicker = 0.12

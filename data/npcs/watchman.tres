@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="NpcData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/npc_data.gd" id="1_npc"]
+[ext_resource type="Script" path="res://scripts/npcs/schedule_entry.gd" id="2_entry"]
+
+[sub_resource type="Resource" id="Resource_shift"]
+script = ExtResource("2_entry")
+start_hour = 18
+spot = "WatchHouse"
+
+[sub_resource type="Resource" id="Resource_well"]
+script = ExtResource("2_entry")
+start_hour = 20
+spot = "Well"
+topic = "rumor"
+
+[sub_resource type="Resource" id="Resource_patrol"]
+script = ExtResource("2_entry")
+start_hour = 23
+spot = "Well"
+patrol = Array[String](["Well", "Market", "Chapel"])
+
+[sub_resource type="Resource" id="Resource_gate"]
+script = ExtResource("2_entry")
+start_hour = 2
+spot = "ForestGate"
+topic = "forest_gate"
+
+[sub_resource type="Resource" id="Resource_dawn"]
+script = ExtResource("2_entry")
+start_hour = 5
+spot = "WatchHouse"
+topic = "dawn"
+
+[sub_resource type="Resource" id="Resource_inside"]
+script = ExtResource("2_entry")
+start_hour = 5
+start_minute = 40
+
+[resource]
+script = ExtResource("1_npc")
+id = "watchman"
+name_key = "NPC_WATCHMAN"
+role_key = "NPC_WATCHMAN_ROLE"
+schedule = Array[ExtResource("2_entry")]([SubResource("Resource_shift"), SubResource("Resource_well"), SubResource("Resource_patrol"), SubResource("Resource_gate"), SubResource("Resource_dawn"), SubResource("Resource_inside")])
