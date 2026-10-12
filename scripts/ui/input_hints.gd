@@ -49,7 +49,8 @@ static func _label_of(event: InputEvent) -> String:
 			# Ohne Bildschirm (Headless-Tests) gibt es kein Tastaturlayout.
 			if DisplayServer.get_name() != "headless":
 				keycode = DisplayServer.keyboard_get_keycode_from_physical(key.physical_keycode)
-		var text := OS.get_keycode_string(keycode)
+		# Mit Zusatztaste, z. B. "Alt+Enter".
+		var text := OS.get_keycode_string(keycode | key.get_modifiers_mask())
 		return SHORT_NAMES.get(text, text)
 	if event is InputEventMouseButton:
 		var button := (event as InputEventMouseButton).button_index

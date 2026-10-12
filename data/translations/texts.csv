@@ -391,3 +391,4 @@ MSG_RUMOR,A rumor. The grimoire takes note.,Ein Gerücht. Das Grimoire merkt es 
 MSG_GATE_LOCKED,Bolted from the other side.,Von der anderen Seite verriegelt.
 MSG_PATH_LOCKED,The path ends at a bolted gate.,Der Weg endet an einer verriegelten Pforte.
 MSG_WITCH_GATE_OPEN,The old gate behind your garden is open now.,Die alte Pforte hinter deinem Garten ist jetzt offen.
+CONTROLS_FULLSCREEN,Fullscreen,Vollbild

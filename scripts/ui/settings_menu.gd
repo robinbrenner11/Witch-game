@@ -16,6 +16,8 @@ const VOLUME_STEP := 0.1
 
 func _ready() -> void:
 	hide()
+	# Vollbild lässt sich auch per Taste umschalten, während das Menü offen ist.
+	Settings.changed.connect(_refresh)
 
 
 func open() -> void:

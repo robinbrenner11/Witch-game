@@ -24,6 +24,7 @@ const LEFT_ROWS := [
 	["CONTROLS_MENU", "ui_cancel"],
 ]
 const RIGHT_ROWS := [
+	["CONTROLS_FULLSCREEN", "toggle_fullscreen"],
 	["CONTROLS_COMBAT", "combat"],
 	["CONTROLS_COMBAT_HEADER", ""],
 	["CONTROLS_ATTACK_LIGHT", "attack_light"],

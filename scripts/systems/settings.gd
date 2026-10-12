@@ -8,6 +8,10 @@ const PATH := "user://settings.cfg"
 # Reihenfolge beim Durchschalten im Menü.
 const LANGUAGES: Array[String] = ["en", "de"]
 
+## Etwas hat sich geändert (z. B. Vollbild per Taste), damit offene Menüs
+## ihre Anzeige anpassen.
+signal changed
+
 # 0 = stumm, 1 = volle Lautstärke.
 var volume: float = 0.8
 var fullscreen: bool = false
@@ -17,26 +21,40 @@ var language: String = "en"
 
 
 func _ready() -> void:
+	# Die Vollbild-Taste soll auch in Menüs gehen, die das Spiel pausieren.
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_load()
 	apply()
+
+
+## Vollbild per Taste (F11 oder Alt+Enter), überall im Spiel. _input statt
+## _unhandled_input: So kommt die Taste vor allen Menüs an, und Alt+Enter
+## drückt nicht nebenbei auch noch einen Knopf (Enter = Bestätigen).
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("toggle_fullscreen"):
+		set_fullscreen(not fullscreen)
+		get_viewport().set_input_as_handled()
 
 
 func set_volume(value: float) -> void:
 	volume = clampf(value, 0.0, 1.0)
 	apply()
 	save()
+	changed.emit()
 
 
 func set_fullscreen(value: bool) -> void:
 	fullscreen = value
 	apply()
 	save()
+	changed.emit()
 
 
 func set_language(value: String) -> void:
 	language = value if value in LANGUAGES else "en"
 	apply()
 	save()
+	changed.emit()
 
 
 func apply() -> void:
