@@ -322,6 +322,8 @@ Nicht angefasst: `player.gd`, `grimoire.gd`, `combat.gd`, Inventar, Garten-Logik
 | M7 | ✅ Hexenpforte | Das Tor steht im Garten (Ostrand, senkrechter Zaun mit Glutlaternen), im Dorf endet der Pfad oben am gesperrten Ausgang |
 | M8 | offen (optional) | – |
 
+**Umbau nach Robins erstem Test (12.10.):** Seewald zwischen Garten und tiefem Wald, Dorf nur über den Seewald (Waldweg SO, Pforte NO), Dorf organisch statt Rechteck, Digitalis auch in Garten und Dorf. Das Layout in Abschnitt 2 ist damit überholt; aktuell gilt `docs/VILLAGE_HUB.md`, Abschnitt 0.
+
 Systembeschreibung und Tests: `docs/VILLAGE_HUB.md`.
 
 ## 9. Entscheidungen (Robin, 12.10.2026)

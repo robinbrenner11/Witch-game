@@ -1,9 +1,26 @@
 # Dorf-Hub
 
-Stand: 12.10.2026, Branch `village-hub` (Meilensteine M1 bis M7).
+Stand: 12.10.2026, Branch `village-hub` (Meilensteine M1 bis M7, danach Umbau nach Robins Feedback: Seewald, organisches Dorf).
 Plan und Entscheidungen: `docs/design/dorf_hub_plan.md`.
 
-Kurz: Östlich vom Wald liegt das Dorf (Graybox). Dort geht der **Nachtwächter** jede Nacht seine Runde. Wer ihn zum ersten Mal anspricht, bekommt die **Hexenpforte** geöffnet, eine Abkürzung vom Garten-Ostrand ins Dorf. Danach erzählt er Gerüchte, die im Grimoire eine Zutat verraten.
+Kurz: Ins Dorf (Graybox) kommt man nur über den **Seewald**, einen friedlichen, offenen Wald mit See zwischen Garten und tiefem Wald. Im Dorf geht der **Nachtwächter** jede Nacht seine Runde. Wer ihn zum ersten Mal anspricht, bekommt die **Hexenpforte** geöffnet, eine Abkürzung oben am See (nahe beim Garten) ins Dorf. Danach erzählt er Gerüchte, die im Grimoire eine Zutat verraten.
+
+## 0. Welt (Entscheidung 12.10.2026)
+
+```text
+        [Unterschlupf]
+              |
+          [Garten]
+              | Süd
+        [Seewald] --Pforte (NO, verriegelt bis zum Kennenlernen)--> [Dorf] von Westen, oben
+         See, friedlich --Waldweg (SO, offen)---------------------> [Dorf] von Westen, unten
+              | Süd
+        [Tiefer Wald]  Befall, Käfer
+```
+
+- **Seewald** (`scenes/world/lakewood.tscn`, Node `Lakewood`): offener Wald, Wiese, See als Graybox (`Lake`, Pixelblöcke, Mondspiegelung je nach Mondphase), Trauerweiden, Kröten, Glühwürmchen. Keine Gegner, keine NPCs (vorerst).
+- **Dorf**: unregelmäßiger Waldrand, geschwungene Pflasterstraße vom Waldweg zum unregelmäßigen Platz, Gassen aus Trampelpfad, gemauerter Markt im Osten, Häuser versetzt. Beide Eingänge im Westen, passend zur Richtung, aus der man kommt.
+- Erzeugt wurden Boden und Deko beider Orte mit einem Hilfsskript (nicht im Repo). Von Hand weiterbauen im Editor geht ganz normal.
 
 ---
 
@@ -79,7 +96,8 @@ Alle 310 Szenen, Scripts und Ressourcen laden ohne Fehler; die neuen Scripts erz
 ## 6. Platzhalter und bekannte Grenzen
 
 - **Graybox:** Häuser, Laternen, Anschlagbrett und der Wächter selbst sind Farbflächen. Eine Grafik kann jeweils an dieselbe Stelle treten (Häuser als `Decor`-Szene, der Wächter als `AnimatedSprite2D` in `watchman.tscn` statt `Figure`).
-- **Hexenpforte im Garten:** Die senkrechte Zaungrafik ist von oben sehr schmal; als Pforte ist sie nur über die Glutlaternen daneben zu erkennen. Eine eigene Torgrafik würde helfen.
+- **Hexenpforte im Seewald:** Die senkrechte Zaungrafik ist von oben sehr schmal; als Pforte ist sie nur über die Glutlaternen daneben zu erkennen. Eine eigene Torgrafik würde helfen.
+- **See:** Platzhalter aus Farbflächen, bis es Wasser-Tiles gibt.
 - Der Wächter dreht sich nicht zur Hexe und hat außer einem Wippen keine Laufanimation.
 - Lädt man mitten in einer Streife, beginnt sie am ersten Spot.
 - Der Nacht-Merker wird nicht gespeichert: Speichert man mitten in der Nacht über das Pausemenü und lädt, kann eine Mond-Zeile einmal doppelt kommen.
@@ -90,4 +108,5 @@ Alle 310 Szenen, Scripts und Ressourcen laden ohne Fehler; die neuen Scripts erz
 - **M8 (optional, laut Plan):** Baustein `Unlockable` für Gebäude/Dienste, Marktstände bei Halbmond, Motten an den Dorflaternen.
 - Kapitel **People** im Grimoire mit dem Wächter füllen (`NpcData.role_key` ist dafür schon da).
 - Zweiter NPC mit Tausch und Antwort-Auswahl in der Dialogbox (Grafiken `dialog_choice_bg`, `dialog_cursor` liegen bereit).
-- 💡 Dorf später erst über eine Quest erreichbar: `required_flag` am Ausgang `ToVillage` im Wald.
+- 💡 Dorf später erst über eine Quest erreichbar: `required_flag` am Ausgang `ToVillage` im Seewald.
+- Seewald beleben: Mother Moss (Samen-Tausch) und Ugo bei Halbmond wären Kandidaten aus dem Game Design (noch nicht entschieden).

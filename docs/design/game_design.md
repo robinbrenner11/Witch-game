@@ -290,8 +290,11 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 - ✅ **Beziehungen:** zuerst nur Freundschaft (Herzen, Geschenke, persönliche Geschichten).
 - 🔮 Romanzen vielleicht später als Update.
 - 💡 Die Katze ist die erste Begleiterin, als Belohnung am Ende von Zyklus 1 oder 2.
-- ✅ (12.10.) **Das Dorf ist vorerst ab Nacht 1 über den Wald erreichbar** (Ostrand). 💡 Später vielleicht erst über eine Quest. Das Dorf ist eine sichere Zone.
-- **Umsetzungsstand (12.10.2026, Dorf-Hub M1–M7):** Dorf als Graybox östlich vom Wald, Nachtwächter mit Tagesroutine und Streife, Dialogbox, Gespräche als Daten (Kennenlernen, Gerüchte mit Zutat im Grimoire, Bruder, Mond), Welt-Merker (`WorldState`), Hexenpforte als erste Freischaltung (Abkürzung Garten-Ostrand ↔ Dorf, öffnet nach dem ersten Gespräch). Details: `docs/VILLAGE_HUB.md`, Plan: `dorf_hub_plan.md`.
+- ✅ (12.10.) **Das Dorf ist vorerst ab Nacht 1 erreichbar.** 💡 Später vielleicht erst über eine Quest. Das Dorf ist eine sichere Zone.
+- ✅ (12.10., nach dem ersten Test) **Weltaufbau:** Garten → Süd: **Seewald** (offener Wald mit See, friedlich, als sanfter Übergang) → Süd: tiefer Wald (Befall). Ins Dorf kommt man nur über den Seewald: Waldweg im Südosten, Hexenpforte als Abkürzung im Nordosten. NPCs im Seewald kommen später.
+- ✅ (12.10.) **Das Dorf soll organisch wirken**, nicht wie ein Rechteck: unregelmäßiger Rand, geschwungene Wege, versetzte Häuser.
+- ✅ (12.10.) **Digitalis ist auch im Garten und im Dorf ziehbar**, nur drinnen nicht.
+- **Umsetzungsstand (12.10.2026, Dorf-Hub M1–M7):** Dorf als Graybox östlich vom Wald, Nachtwächter mit Tagesroutine und Streife, Dialogbox, Gespräche als Daten (Kennenlernen, Gerüchte mit Zutat im Grimoire, Bruder, Mond), Welt-Merker (`WorldState`), Hexenpforte als erste Freischaltung (Abkürzung Seewald ↔ Dorf, öffnet nach dem ersten Gespräch). Danach Umbau: Seewald, organisches Dorf. Details: `docs/VILLAGE_HUB.md`, Plan: `dorf_hub_plan.md`.
 
 ---
 
