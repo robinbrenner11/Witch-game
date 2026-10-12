@@ -8,7 +8,7 @@ extends Node
 ## Datei – so muss es nicht wissen, wie Inventar oder Garten innen aussehen,
 ## und neue Systeme (Kessel, NPCs …) kommen mit je einer Zeile dazu.
 ##
-## Muss in der Autoload-Liste nach DayCycle, Inventory, Garden, Brewing, Grimoire und Wilds stehen,
+## Muss in der Autoload-Liste nach DayCycle, Inventory, Garden, Brewing, Grimoire, Wilds und WorldState stehen,
 ## damit die beim Laden schon bereit sind.
 
 # user:// ist ein Ordner, den Godot pro Spiel anlegt. Unter Windows:
@@ -36,6 +36,7 @@ func new_game() -> void:
 	Brewing.reset()
 	Grimoire.reset()
 	Wilds.reset()
+	WorldState.reset()
 
 
 func save_game() -> void:
@@ -47,6 +48,7 @@ func save_game() -> void:
 		"brewing": Brewing.get_save_data(),
 		"grimoire": Grimoire.get_save_data(),
 		"wilds": Wilds.get_save_data(),
+		"world": WorldState.get_save_data(),
 	}
 	# JSON statt Binärformat: Man kann die Datei beim Testen einfach lesen.
 	var text := JSON.stringify(data, "\t")
@@ -123,6 +125,8 @@ func _apply(data: Dictionary) -> void:
 	Brewing.load_save_data(data.get("brewing", {}))
 	Grimoire.load_save_data(data.get("grimoire", {}))
 	Wilds.load_save_data(data.get("wilds", {}))
+	# Ältere Spielstände haben noch keine Welt-Merker: dann keine Flags.
+	WorldState.load_save_data(data.get("world", {}))
 
 
 ## Benennt from in to um und ersetzt dabei eine vorhandene Datei.
