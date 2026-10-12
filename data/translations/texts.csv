@@ -362,3 +362,7 @@ BOOK_USE_THROW,For throwing in a fight.,Zum Werfen im Kampf.
 HINT_USE_THROW,Throw with %s in combat,Im Kampf mit %s werfen
 MSG_HEALED,Warmth spreads through you.,Wärme breitet sich in dir aus.
 MSG_NO_COMBAT_POTION,No potion for the fight.,Kein Trank für den Kampf.
+NOTICE_BOARD,Notice Board,Anschlagbrett
+NOTICE_VILLAGE_1,"By order of the council: The lanterns are lit at dusk. After dark, keep to the light.",Auf Beschluss des Rates: Die Laternen brennen ab der Dämmerung. Nach Einbruch der Nacht bleibt im Licht.
+NOTICE_VILLAGE_2,The gate to the old witch's garden stays bolted. Keep away from it.,Die Pforte zum Garten der alten Hexe bleibt verriegelt. Haltet euch fern.
+NOTICE_VILLAGE_3,Someone has scratched a small crescent moon into the corner of the paper.,Jemand hat eine kleine Mondsichel in die Ecke des Zettels geritzt.

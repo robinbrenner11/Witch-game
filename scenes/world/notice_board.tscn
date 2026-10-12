@@ -1,0 +1,65 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/notice_board.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/systems/interactable.gd" id="2_interactable"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(26, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_interact"]
+size = Vector2(32, 30)
+
+[node name="NoticeBoard" type="StaticBody2D"]
+script = ExtResource("1_script")
+lines = Array[String](["NOTICE_VILLAGE_1", "NOTICE_VILLAGE_2", "NOTICE_VILLAGE_3"])
+
+[node name="PostLeft" type="ColorRect" parent="."]
+offset_left = -12.0
+offset_top = -30.0
+offset_right = -9.0
+mouse_filter = 2
+color = Color(0.168627, 0.0862745, 0.2, 1)
+
+[node name="PostRight" type="ColorRect" parent="."]
+offset_left = 9.0
+offset_top = -30.0
+offset_right = 12.0
+mouse_filter = 2
+color = Color(0.168627, 0.0862745, 0.2, 1)
+
+[node name="Board" type="ColorRect" parent="."]
+offset_left = -15.0
+offset_top = -34.0
+offset_right = 15.0
+offset_bottom = -14.0
+mouse_filter = 2
+color = Color(0.352941, 0.231373, 0.25098, 1)
+
+[node name="Paper1" type="ColorRect" parent="."]
+offset_left = -11.0
+offset_top = -31.0
+offset_right = -2.0
+offset_bottom = -19.0
+mouse_filter = 2
+color = Color(0.917647, 0.87451, 0.796078, 1)
+
+[node name="Paper2" type="ColorRect" parent="."]
+offset_left = 1.0
+offset_top = -30.0
+offset_right = 11.0
+offset_bottom = -22.0
+mouse_filter = 2
+color = Color(0.85098, 0.643137, 0.254902, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Interactable" type="Area2D" parent="."]
+position = Vector2(0, -16)
+script = ExtResource("2_interactable")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("RectangleShape2D_interact")
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]

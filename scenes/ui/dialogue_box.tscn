@@ -1,0 +1,154 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/dialogue_box.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/dialog_panel.png" id="2_panel"]
+[ext_resource type="Texture2D" path="res://assets/ui/dialog_ornament.png" id="3_ornament"]
+[ext_resource type="Texture2D" path="res://assets/ui/dialog_nameplate.png" id="4_nameplate"]
+[ext_resource type="Texture2D" path="res://assets/ui/dialog_portrait_frame.png" id="5_portrait_frame"]
+[ext_resource type="Texture2D" path="res://assets/ui/dialog_portrait_bg.png" id="6_portrait_bg"]
+[ext_resource type="Texture2D" path="res://assets/ui/dialog_next.png" id="7_next"]
+[ext_resource type="FontVariation" path="res://assets/ui/fonts/game_font.tres" id="8_font"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nameplate"]
+content_margin_left = 6.0
+content_margin_top = 0.0
+content_margin_right = 6.0
+content_margin_bottom = 0.0
+texture = ExtResource("4_nameplate")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_next"]
+atlas = ExtResource("7_next")
+region = Rect2(0, 0, 8, 8)
+
+[node name="DialogueBox" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Window" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -304.0
+offset_top = -152.0
+offset_right = 0.0
+offset_bottom = -82.0
+scale = Vector2(2, 2)
+mouse_filter = 2
+
+[node name="Panel" type="NinePatchRect" parent="Window"]
+layout_mode = 0
+offset_right = 304.0
+offset_bottom = 70.0
+mouse_filter = 2
+texture = ExtResource("2_panel")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Ornament" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 142.0
+offset_top = -4.0
+offset_right = 162.0
+offset_bottom = 5.0
+mouse_filter = 2
+texture = ExtResource("3_ornament")
+
+[node name="PortraitFrame" type="Control" parent="Window"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_filter = 2
+
+[node name="PortraitBg" type="TextureRect" parent="Window/PortraitFrame"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+texture = ExtResource("6_portrait_bg")
+stretch_mode = 1
+
+[node name="Portrait" type="TextureRect" parent="Window/PortraitFrame"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Frame" type="NinePatchRect" parent="Window/PortraitFrame"]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 56.0
+mouse_filter = 2
+texture = ExtResource("5_portrait_frame")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Nameplate" type="PanelContainer" parent="Window"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = -7.0
+offset_right = 58.0
+offset_bottom = 7.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nameplate")
+
+[node name="NameLabel" type="Label" parent="Window/Nameplate"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.643137, 0.254902, 1)
+theme_override_fonts/font = ExtResource("8_font")
+theme_override_font_sizes/font_size = 16
+text = "Name"
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="Window"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 9.0
+offset_right = 294.0
+offset_bottom = 62.0
+theme_override_colors/font_color = Color(0.917647, 0.87451, 0.796078, 1)
+theme_override_constants/line_spacing = -2
+theme_override_fonts/font = ExtResource("8_font")
+theme_override_font_sizes/font_size = 16
+text = "Text"
+autowrap_mode = 3
+
+[node name="Next" type="TextureRect" parent="Window"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 287.0
+offset_top = 57.0
+offset_right = 295.0
+offset_bottom = 65.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_next")

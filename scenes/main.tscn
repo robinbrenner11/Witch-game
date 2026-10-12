@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="8_pause_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/grimoire_book.tscn" id="9_grimoire_book"]
 [ext_resource type="PackedScene" path="res://scenes/ui/chest_window.tscn" id="10_chest_window"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="11_dialogue_box"]
 [ext_resource type="Script" path="res://scripts/ui/vitals_bar.gd" id="20_vitals"]
 
 [node name="Main" type="Node"]
@@ -40,3 +41,5 @@ script = ExtResource("20_vitals")
 [node name="BrewWindow" parent="UI" instance=ExtResource("7_brew_window")]
 
 [node name="GrimoireBook" parent="UI" instance=ExtResource("9_grimoire_book")]
+
+[node name="DialogueBox" parent="UI" instance=ExtResource("11_dialogue_box")]
