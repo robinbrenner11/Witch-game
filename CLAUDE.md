@@ -329,6 +329,9 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - **Sonne**: draußen ab 6 Uhr Schaden (`SunExposure`), drinnen sicher über `Level.indoors`. Neue Innenräume brauchen `indoors = true`
 - **Spielstand robust laden**: `load_save_data()` liest mit `data.get(…, Standard)` und sortiert Unbekanntes aus (umbenannte Items, entfernte Pflanzen). `SaveGame` schreibt über eine Zwischendatei und hält den vorletzten Stand als `.bak`
 - **Kampf**: Digitalis-Formen und ihre Angriffe sind Daten (`data/digitalis/<form>.tres`, `DigitalisForm` + `AttackData`); eine neue Form ist eine neue Datei plus `Grimoire.learn_form()`. Kampftränke sind Items mit `use = THROW` oder `heal > 0`. Gegner gehören in die Gruppe `blighted` und haben `take_hit(damage, knockback, stagger)`; Angriffe kündigen sich sichtbar an (Telegraph). Neumond-Stärke nur über `Moon.blight_surges()`. Treffer an der Hexe über `Vitals.take_damage()`, die Rückmeldung macht `VitalsFeedback`. Details: `docs/COMBAT_SYSTEM.md`
+- **Welt-Merker**: Was einmal passiert ist und so bleibt (Pforte offen, NPC kennengelernt), ist ein Flag im Autoload `WorldState` (`set_flag()`, `has_flag()`, Signal `flag_changed`; gespeichert). Für „höchstens einmal pro Nacht“ gibt es `mark_tonight()`/`did_tonight()` (nicht gespeichert). Freischaltungen nie fest verdrahten, sondern über Flags
+- **NPCs und Dialoge**: NPC = Daten (`data/npcs/<id>.tres`, `NpcData` mit `ScheduleEntry`-Routine) + geerbte Szene von `scenes/npcs/npc.tscn`; Spots sind `Marker2D` unter `Spots` im Level. Gespräche sind Dateien in `data/dialogue/<npc>/` (`DialogueData`: Priorität, Bedingungen, Folgen). Zeit nur über `DayCycle.minutes`. Dialoge zeigt die `DialogueBox` (Gruppe `dialogue_box`, `await box.show_lines(name_key, lines)`), höchstens 3 Zeilen pro Seite. Details: `docs/VILLAGE_HUB.md`
+- **Gesperrte Wege**: `Exit` und `GardenGate` haben `required_flag`; ohne das Flag bleiben sie zu und melden `locked_message`
 
 ---
 

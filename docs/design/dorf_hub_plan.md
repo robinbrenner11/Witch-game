@@ -308,6 +308,22 @@ Nicht angefasst: `player.gd`, `grimoire.gd`, `combat.gd`, Inventar, Garten-Logik
 
 ---
 
+## Umsetzungsstand (12.10.2026)
+
+| # | Stand | Abweichung vom Plan |
+|---|---|---|
+| M0 | ✅ `combat-overhaul` in `main`, Branch `village-hub` | – |
+| M1 | ✅ Dorf-Graybox, Waldweg | Waldweg zweigt oben ab (y ≈ 208), nicht bei y ≈ 600 (dort Käferbereich) |
+| M2 | ✅ `WorldState` mit Spielstand | zusätzlich Nacht-Merker (`mark_tonight`), nicht gespeichert |
+| M3 | ✅ Dialogbox, Anschlagbrett | – |
+| M4 | ✅ NPC-Grundgerüst, Wächter, F6 | Wächter geht schon um 5:40 hinein (sonst stünde er bei Sonnenaufgang draußen) |
+| M5 | ✅ Laufen, Streife, Warten | – |
+| M6 | ✅ Gesprächsauswahl, Gerüchte | Gerüchte nur, solange das Rezept unbekannt ist |
+| M7 | ✅ Hexenpforte | Das Tor steht im Garten (Ostrand, senkrechter Zaun mit Glutlaternen), im Dorf endet der Pfad oben am gesperrten Ausgang |
+| M8 | offen (optional) | – |
+
+Systembeschreibung und Tests: `docs/VILLAGE_HUB.md`.
+
 ## 9. Entscheidungen (Robin, 12.10.2026)
 
 1. ✅ **Basis:** `combat-overhaul` ist in `main` (Fast-Forward, 12.10.), `village-hub` zweigt davon ab.

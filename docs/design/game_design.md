@@ -290,6 +290,8 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 - ✅ **Beziehungen:** zuerst nur Freundschaft (Herzen, Geschenke, persönliche Geschichten).
 - 🔮 Romanzen vielleicht später als Update.
 - 💡 Die Katze ist die erste Begleiterin, als Belohnung am Ende von Zyklus 1 oder 2.
+- ✅ (12.10.) **Das Dorf ist vorerst ab Nacht 1 über den Wald erreichbar** (Ostrand). 💡 Später vielleicht erst über eine Quest. Das Dorf ist eine sichere Zone.
+- **Umsetzungsstand (12.10.2026, Dorf-Hub M1–M7):** Dorf als Graybox östlich vom Wald, Nachtwächter mit Tagesroutine und Streife, Dialogbox, Gespräche als Daten (Kennenlernen, Gerüchte mit Zutat im Grimoire, Bruder, Mond), Welt-Merker (`WorldState`), Hexenpforte als erste Freischaltung (Abkürzung Garten-Ostrand ↔ Dorf, öffnet nach dem ersten Gespräch). Details: `docs/VILLAGE_HUB.md`, Plan: `dorf_hub_plan.md`.
 
 ---
 
