@@ -163,6 +163,7 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - `docs/auftrag_einbau_grafiken.md` (08.10.2026) – laufender Einbau der neuen Grafiken in Schritten
 - `docs/design/design_entscheidungen_2026-10-07.md` – Tagesrhythmus, Bett, Garten, Nachtschatten, Hexenschlamm, Brauen, 5 Rezepte, Grafikregeln
 - `docs/design/checkliste_basics.md` – was vor den großen Erweiterungen noch fehlt (abhaken, wenn erledigt)
+- `docs/design/dorf_hub_plan.md` (12.10.2026) – Dorf-Hub: Layout, Nachtwächter, NPC-/Dialog-/Freischaltungs-System, Meilensteine M1–M8 und Robins Entscheidungen
 
 ---
 
