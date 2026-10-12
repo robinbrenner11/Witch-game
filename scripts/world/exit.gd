@@ -26,6 +26,11 @@ const EDITOR_COLOR := Color("#C2307A")
 	set(value):
 		spawn_offset = value
 		queue_redraw()
+## Nur passierbar, wenn dieses Flag gesetzt ist (WorldState), z. B. ein Weg,
+## der erst freigeschaltet wird. Leer = immer offen.
+@export var required_flag: String = ""
+## Meldung, solange der Ausgang zu ist (Text-Schlüssel).
+@export var locked_message: String = "MSG_PATH_LOCKED"
 
 
 func _ready() -> void:
@@ -54,7 +59,14 @@ func spawn_position() -> Vector2:
 	return global_position + spawn_offset
 
 
+func is_open() -> bool:
+	return required_flag == "" or WorldState.has_flag(required_flag)
+
+
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player and target_scene != "":
+		if not is_open():
+			Messages.deny(tr(locked_message))
+			return
 		# Über die Gruppe: Der Ausgang muss nicht wissen, wo Main hängt.
 		get_tree().call_group("main", "travel", target_scene, target_exit)

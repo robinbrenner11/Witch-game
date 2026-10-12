@@ -8,3 +8,5 @@ id = "first_meeting"
 lines = Array[String](["DLG_WATCHMAN_FIRST_1", "DLG_WATCHMAN_FIRST_2", "DLG_WATCHMAN_FIRST_3", "DLG_WATCHMAN_FIRST_4", "DLG_WATCHMAN_FIRST_5"])
 priority = 100
 once = true
+sets_flag = "witch_gate_open"
+after_message = "MSG_WITCH_GATE_OPEN"

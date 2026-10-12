@@ -13,6 +13,11 @@ extends Node2D
 @export var closed_collision: Vector2 = Vector2(32, 6)
 # Wie nah die Hexe kommen muss, damit es aufgeht.
 @export var sense_size: Vector2 = Vector2(48, 72)
+## Bleibt verriegelt, bis dieses Flag gesetzt ist (WorldState), z. B. die
+## Hexenpforte, die erst der Nachtwächter öffnet. Leer = nie verriegelt.
+@export var required_flag: String = ""
+## Meldung, wenn die Hexe vor dem verriegelten Tor steht (Text-Schlüssel).
+@export var locked_message: String = "MSG_GATE_LOCKED"
 
 var _sprite: AnimatedSprite2D
 var _blocker: CollisionShape2D
@@ -51,10 +56,17 @@ func _make_shape(size: Vector2, at: Vector2) -> CollisionShape2D:
 	return shape
 
 
+func is_locked() -> bool:
+	return required_flag != "" and not WorldState.has_flag(required_flag)
+
+
 func _on_body_entered(body: Node2D) -> void:
 	if not body is Player:
 		return
 	_visitors += 1
+	if is_locked():
+		Messages.deny(tr(locked_message))
+		return
 	# set_deferred: Kollisionen darf man nicht mitten in der Physik-Abfrage ändern.
 	_blocker.set_deferred("disabled", true)
 	_sprite.play()
@@ -63,7 +75,8 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if not body is Player:
 		return
-	_visitors -= 1
-	if _visitors == 0:
+	_visitors = maxi(_visitors - 1, 0)
+	# Nur schließen, was auch offen war (ein verriegeltes Tor ging gar nicht auf).
+	if _visitors == 0 and _blocker.disabled:
 		_blocker.set_deferred("disabled", false)
 		_sprite.play_backwards()

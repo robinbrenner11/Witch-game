@@ -388,3 +388,6 @@ DLG_WATCHMAN_DAWN_1,"The sky is going pale. Go home, witch. The sun has no love 
 DLG_WATCHMAN_NEW_MOON_1,No moon tonight. Darker than usual. Stay near the lanterns.,Kein Mond heute Nacht. Dunkler als sonst. Bleib in der Nähe der Laternen.
 DLG_WATCHMAN_FULL_MOON_1,Full moon. They say the mushroom ring in the woods glows on nights like this.,"Vollmond. Man sagt, der Pilzring im Wald leuchtet in solchen Nächten."
 MSG_RUMOR,A rumor. The grimoire takes note.,Ein Gerücht. Das Grimoire merkt es sich.
+MSG_GATE_LOCKED,Bolted from the other side.,Von der anderen Seite verriegelt.
+MSG_PATH_LOCKED,The path ends at a bolted gate.,Der Weg endet an einer verriegelten Pforte.
+MSG_WITCH_GATE_OPEN,The old gate behind your garden is open now.,Die alte Pforte hinter deinem Garten ist jetzt offen.
