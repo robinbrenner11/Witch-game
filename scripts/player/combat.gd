@@ -119,7 +119,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func set_active(value: bool) -> void:
-	if value and _in_safe_zone():
+	if value and _digitalis_rests_here():
 		Messages.post(tr("MSG_SAFE_ZONE"))
 		return
 	if value == active:
@@ -207,8 +207,8 @@ func _process(delta: float) -> void:
 	_update_afterimages(delta)
 	if not active:
 		return
-	# Wer den Garten betritt, steckt Digitalis weg.
-	if _in_safe_zone():
+	# Wer nach drinnen geht, steckt Digitalis weg.
+	if _digitalis_rests_here():
 		set_active(false)
 		return
 	# Im Kampf schaut die Hexe dorthin, wohin sie zielt.
@@ -324,9 +324,12 @@ func _update_afterimages(delta: float) -> void:
 		ghost.global_position = player.global_position
 
 
-func _in_safe_zone() -> bool:
+## Digitalis ist nicht nur für den Kampf, deshalb darf sie auch in sicheren
+## Zonen (Garten, Dorf) gezogen werden. Nur drinnen (Unterschlupf) ist für den
+## großen Stab kein Platz. Entscheidung 12.10.2026.
+func _digitalis_rests_here() -> bool:
 	var level := get_tree().get_first_node_in_group("level") as Level
-	return level == null or level.safe_zone
+	return level == null or level.indoors
 
 
 func _refresh_forms() -> void:

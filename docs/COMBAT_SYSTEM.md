@@ -131,7 +131,7 @@ Ablauf: umherkrabbeln → Hexe bemerken (110 px) → innehalten mit Telegraph (0
 
 Alle Tasten kommen aus der Eingabe-Zuordnung (`project.godot`: `attack_light`, `attack_heavy`, `potion_quick`, `potion_next`, dazu `combat`, `float`, `hotbar_*`). Texte zeigen sie über `InputHints`, nie fest geschrieben. Q liegt doppelt auf `use_item` und `potion_quick`; das geht, weil `PotionEffects` im Kampf und `CombatPotions` außerhalb nichts tun. Bei einem späteren Umbelegen-Menü beide getrennt anbieten.
 
-Im Garten und im Unterschlupf (sichere Zonen) bleibt Digitalis weggesteckt.
+Nur drinnen (Unterschlupf, `Level.indoors`) bleibt Digitalis weggesteckt. Im Garten und im Dorf (sichere Zonen ohne Gegner) darf man sie ziehen, weil sie auch außerhalb des Kampfs nützt, z. B. schneidet die Sichel Wildgras (Entscheidung 12.10.2026).
 
 ---
 
