@@ -364,7 +364,7 @@ MSG_HEALED,Warmth spreads through you.,Wärme breitet sich in dir aus.
 MSG_NO_COMBAT_POTION,No potion for the fight.,Kein Trank für den Kampf.
 NOTICE_BOARD,Notice Board,Anschlagbrett
 NOTICE_VILLAGE_1,"By order of the council: The lanterns are lit at dusk. After dark, keep to the light.",Auf Beschluss des Rates: Die Laternen brennen ab der Dämmerung. Nach Einbruch der Nacht bleibt im Licht.
-NOTICE_VILLAGE_2,The gate to the old witch's garden stays bolted. Keep away from it.,Die Pforte zum Garten der alten Hexe bleibt verriegelt. Haltet euch fern.
+NOTICE_VILLAGE_2,The old gate by the lake stays bolted. The path beyond leads to the witch's garden.,Die alte Pforte am See bleibt verriegelt. Der Weg dahinter führt zum Garten der Hexe.
 NOTICE_VILLAGE_3,Someone has scratched a small crescent moon into the corner of the paper.,Jemand hat eine kleine Mondsichel in die Ecke des Zettels geritzt.
 PROMPT_TALK,Talk,Sprechen
 NPC_WATCHMAN,Night Watchman,Nachtwächter
@@ -374,7 +374,7 @@ DLG_WATCHMAN_SMALLTALK_2,"Mind the lanterns. Past the last one, the woods start 
 DLG_WATCHMAN_SMALLTALK_3,Every night the same round. Every night the same creaking gate.,Jede Nacht dieselbe Runde. Jede Nacht dasselbe knarrende Tor.
 DLG_WATCHMAN_FIRST_1,"Hold there. Out of the woods, at this hour?","Halt. Aus dem Wald, um diese Zeit?"
 DLG_WATCHMAN_FIRST_2,Ah. So you are the one living in Mother Blight's garden.,"Ah. Du bist also die, die jetzt in Mother Blights Garten wohnt."
-DLG_WATCHMAN_FIRST_3,The woods are no road for anyone. There is an old gate behind your garden.,"Der Wald ist kein Weg, für niemanden. Hinter deinem Garten gibt es eine alte Pforte."
+DLG_WATCHMAN_FIRST_3,"The long way round the lake is no road for anyone. There is an old gate up by the water, near your garden.","Der lange Weg um den See ist nichts für dich. Oben am Wasser, nahe bei deinem Garten, gibt es eine alte Pforte."
 DLG_WATCHMAN_FIRST_4,I will draw the bolt tonight. Use that.,Ich schiebe heute Nacht den Riegel zurück. Nimm die.
 DLG_WATCHMAN_FIRST_5,And keep it quiet. The council would not thank me.,Und erzähl es nicht herum. Der Rat würde es mir nicht danken.
 DLG_WATCHMAN_RUMOR_MENDING_1,My grandmother kept ghost fern in her kitchen. Brewed it for the night watch when we came home bruised.,"Meine Großmutter hatte immer Geisterfarn in der Küche. Den hat sie uns aufgebrüht, wenn wir verbeult von der Wache kamen."
@@ -390,5 +390,5 @@ DLG_WATCHMAN_FULL_MOON_1,Full moon. They say the mushroom ring in the woods glow
 MSG_RUMOR,A rumor. The grimoire takes note.,Ein Gerücht. Das Grimoire merkt es sich.
 MSG_GATE_LOCKED,Bolted from the other side.,Von der anderen Seite verriegelt.
 MSG_PATH_LOCKED,The path ends at a bolted gate.,Der Weg endet an einer verriegelten Pforte.
-MSG_WITCH_GATE_OPEN,The old gate behind your garden is open now.,Die alte Pforte hinter deinem Garten ist jetzt offen.
+MSG_WITCH_GATE_OPEN,The old gate by the lake is open now.,Die alte Pforte am See ist jetzt offen.
 CONTROLS_FULLSCREEN,Fullscreen,Vollbild
