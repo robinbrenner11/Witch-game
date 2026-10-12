@@ -372,3 +372,19 @@ NPC_WATCHMAN_ROLE,Walks the village at night.,Geht nachts durchs Dorf.
 DLG_WATCHMAN_SMALLTALK_1,Quiet night. I like them quiet.,Ruhige Nacht. Ich mag sie ruhig.
 DLG_WATCHMAN_SMALLTALK_2,"Mind the lanterns. Past the last one, the woods start listening.",Achte auf die Laternen. Hinter der letzten fängt der Wald an zuzuhören.
 DLG_WATCHMAN_SMALLTALK_3,Every night the same round. Every night the same creaking gate.,Jede Nacht dieselbe Runde. Jede Nacht dasselbe knarrende Tor.
+DLG_WATCHMAN_FIRST_1,"Hold there. Out of the woods, at this hour?","Halt. Aus dem Wald, um diese Zeit?"
+DLG_WATCHMAN_FIRST_2,Ah. So you are the one living in Mother Blight's garden.,"Ah. Du bist also die, die jetzt in Mother Blights Garten wohnt."
+DLG_WATCHMAN_FIRST_3,The woods are no road for anyone. There is an old gate behind your garden.,"Der Wald ist kein Weg, für niemanden. Hinter deinem Garten gibt es eine alte Pforte."
+DLG_WATCHMAN_FIRST_4,I will draw the bolt tonight. Use that.,Ich schiebe heute Nacht den Riegel zurück. Nimm die.
+DLG_WATCHMAN_FIRST_5,And keep it quiet. The council would not thank me.,Und erzähl es nicht herum. Der Rat würde es mir nicht danken.
+DLG_WATCHMAN_RUMOR_MENDING_1,My grandmother kept ghost fern in her kitchen. Brewed it for the night watch when we came home bruised.,"Meine Großmutter hatte immer Geisterfarn in der Küche. Den hat sie uns aufgebrüht, wenn wir verbeult von der Wache kamen."
+DLG_WATCHMAN_RUMOR_EMBER_1,See those orange mushrooms in the woods? Ember morels. Crush one and it burns hot as coal.,"Siehst du die orangen Pilze im Wald? Glutmorcheln. Zerdrückt man eine, brennt sie heiß wie Kohle."
+DLG_WATCHMAN_RUMOR_EMBER_2,The old hunters threw them at the beetles. Never asked how they made them fly.,"Die alten Jäger haben sie nach den Käfern geworfen. Wie sie die zum Fliegen brachten, habe ich nie gefragt."
+DLG_WATCHMAN_RUMOR_GROWTH_1,Farmers here used to bury a mandrake at the edge of the field. Said it made the crops jump.,Die Bauern hier haben früher eine Alraune am Feldrand vergraben. Angeblich sind die Pflanzen dann nur so in die Höhe geschossen.
+DLG_WATCHMAN_RUMOR_GROWTH_2,The council forbade it. Too much screaming.,Der Rat hat es verboten. Zu viel Geschrei.
+DLG_WATCHMAN_BROTHER_1,My brother walked into those woods ten years ago. Said he would be back by dawn.,"Mein Bruder ist vor zehn Jahren in diesen Wald gegangen. Er sagte, er sei bis zum Morgen zurück."
+DLG_WATCHMAN_BROTHER_2,I keep the lantern lit out here. Just in case.,Ich lasse die Laterne hier draußen brennen. Nur für alle Fälle.
+DLG_WATCHMAN_DAWN_1,"The sky is going pale. Go home, witch. The sun has no love for your kind.","Der Himmel wird blass. Geh nach Hause, Hexe. Die Sonne mag deinesgleichen nicht."
+DLG_WATCHMAN_NEW_MOON_1,No moon tonight. Darker than usual. Stay near the lanterns.,Kein Mond heute Nacht. Dunkler als sonst. Bleib in der Nähe der Laternen.
+DLG_WATCHMAN_FULL_MOON_1,Full moon. They say the mushroom ring in the woods glows on nights like this.,"Vollmond. Man sagt, der Pilzring im Wald leuchtet in solchen Nächten."
+MSG_RUMOR,A rumor. The grimoire takes note.,Ein Gerücht. Das Grimoire merkt es sich.

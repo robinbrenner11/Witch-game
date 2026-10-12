@@ -26,8 +26,17 @@ static var _cache: Dictionary = {}
 @export_range(-1, 4) var moon_phase: int = -1
 ## Nur im Zeitblock mit diesem Thema (ScheduleEntry.topic). Leer = immer.
 @export var topic: String = ""
+## Höchstens einmal pro Nacht aus dieser Gruppe, z. B. "rumor": Pro Nacht
+## erzählt er nur ein Gerücht. Leer = so oft man will.
+@export var once_per_night: String = ""
 ## Wird nach dem Gespräch gesetzt (WorldState), z. B. eine Freischaltung.
 @export var sets_flag: String = ""
+## Meldung nach dem Gespräch (Text-Schlüssel), z. B. dass etwas offen ist.
+@export var after_message: String = ""
+## Gerücht: verrät diese Zutat (Item-ID) für das Rezept mit diesem Ergebnis
+## (Item-ID) im Grimoire. Kennt die Hexe das Rezept schon, erzählt er es nicht.
+@export var hint_recipe: String = ""
+@export var hint_ingredient: String = ""
 
 
 ## Alle Gespräche dieses NPCs aus seinem Ordner.
@@ -62,8 +71,27 @@ func is_available(npc_id: String, current_topic: String) -> bool:
 		return false
 	if moon_phase >= 0 and Moon.phase() != moon_phase:
 		return false
+	if once_per_night != "" and WorldState.did_tonight(night_key(npc_id)):
+		return false
+	if hint_recipe != "" and not _is_rumor_news():
+		return false
 	return WorldState.has_all(requires_flags) and WorldState.has_none(blocked_by_flags)
 
 
 func said_flag(npc_id: String) -> String:
 	return "dlg_%s_%s" % [npc_id, id]
+
+
+func night_key(npc_id: String) -> String:
+	return "%s/%s" % [npc_id, once_per_night]
+
+
+## Erzählt das Gerücht etwas Neues? Nicht, wenn das Rezept schon bekannt oder
+## die Zutat schon verraten ist.
+func _is_rumor_news() -> bool:
+	for recipe in RecipeData.all():
+		if recipe.result_item_id == hint_recipe:
+			return not Grimoire.knows_recipe(recipe) \
+				and not Grimoire.hinted_ingredients(hint_recipe).has(hint_ingredient)
+	push_warning("Gerücht %s: Rezept %s gibt es nicht" % [id, hint_recipe])
+	return false

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DialogueData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/dialogue_data.gd" id="1_dialogue"]
+
+[resource]
+script = ExtResource("1_dialogue")
+id = "forest_gate_brother"
+lines = Array[String](["DLG_WATCHMAN_BROTHER_1", "DLG_WATCHMAN_BROTHER_2"])
+priority = 15
+once = true
+requires_flags = Array[String](["met_watchman"])
+topic = "forest_gate"

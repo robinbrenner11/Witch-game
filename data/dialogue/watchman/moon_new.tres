@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DialogueData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/dialogue_data.gd" id="1_dialogue"]
+
+[resource]
+script = ExtResource("1_dialogue")
+id = "moon_new"
+lines = Array[String](["DLG_WATCHMAN_NEW_MOON_1"])
+priority = 10
+moon_phase = 0
+once_per_night = "moon"
+requires_flags = Array[String](["met_watchman"])

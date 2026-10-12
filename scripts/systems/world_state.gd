@@ -14,6 +14,16 @@ signal flag_changed(flag: String)
 # Flag -> true. Ein Dictionary statt eines Arrays, weil has() dann sofort
 # antwortet, egal wie viele Flags es einmal werden.
 var _flags: Dictionary = {}
+# Was heute Nacht schon war, z. B. "watchman/rumor" (höchstens ein Gerücht pro
+# Nacht). Wird mit jeder neuen Nacht geleert und nicht gespeichert:
+# Gespeichert wird beim Schlafen, also zu Beginn einer Nacht, wenn es ohnehin
+# leer ist. Speichert man mitten in der Nacht über das Pausemenü und lädt,
+# kann sich höchstens etwas Nächtliches einmal wiederholen.
+var _tonight: Dictionary = {}
+
+
+func _ready() -> void:
+	DayCycle.day_passed.connect(func(_day: int) -> void: _tonight.clear())
 
 
 func set_flag(flag: String) -> void:
@@ -43,8 +53,18 @@ func has_none(flags: Array[String]) -> bool:
 	return true
 
 
+## Merkt sich bis zum Ende der Nacht, dass etwas passiert ist.
+func mark_tonight(key: String) -> void:
+	_tonight[key] = true
+
+
+func did_tonight(key: String) -> bool:
+	return _tonight.has(key)
+
+
 func reset() -> void:
 	_flags.clear()
+	_tonight.clear()
 
 
 func get_save_data() -> Dictionary:
@@ -53,6 +73,7 @@ func get_save_data() -> Dictionary:
 
 func load_save_data(data: Dictionary) -> void:
 	_flags.clear()
+	_tonight.clear()
 	var flags: Variant = data.get("flags", [])
 	if not flags is Array:
 		push_warning("WorldState: Flags im Spielstand sind keine Liste")

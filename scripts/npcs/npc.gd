@@ -219,9 +219,16 @@ func _on_interactable_interacted(_player: Node2D) -> void:
 func _after_talk(dialogue: DialogueData) -> void:
 	if dialogue.once:
 		WorldState.set_flag(dialogue.said_flag(data.id))
+	if dialogue.once_per_night != "":
+		WorldState.mark_tonight(dialogue.night_key(data.id))
 	WorldState.set_flag(dialogue.sets_flag)
 	WorldState.set_flag("met_" + data.id)
 	Grimoire.report("talk", {"id": data.id})
+	if dialogue.hint_recipe != "":
+		Grimoire.hint_ingredient(dialogue.hint_recipe, dialogue.hint_ingredient)
+		Messages.post(tr("MSG_RUMOR"))
+	if dialogue.after_message != "":
+		Messages.post(tr(dialogue.after_message))
 
 
 func _find_level() -> Level:
