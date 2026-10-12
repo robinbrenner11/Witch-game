@@ -23,7 +23,7 @@ offset_bottom = -18.0
 mouse_filter = 2
 color = Color(1, 0.709804, 0.4, 1)
 
-[node name="LanternLight" type="PointLight2D" parent="." index="5"]
+[node name="LanternLight" type="PointLight2D" parent="Figure" index="5"]
 position = Vector2(9, -21)
 color = Color(1, 0.709804, 0.4, 1)
 texture = ExtResource("4_light_texture")

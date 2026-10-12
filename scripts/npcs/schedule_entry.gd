@@ -13,7 +13,7 @@ extends Resource
 @export var level: String = "Village"
 ## Name des Spots im Level. Leer = drinnen, also nicht zu sehen.
 @export var spot: String = ""
-## Spots für eine Streife, die im Kreis abgelaufen wird (ab M5). Leer = steht.
+## Spots für eine Streife, die im Kreis abgelaufen wird. Leer = er steht am Spot.
 @export var patrol: Array[String] = []
 ## Thema für Gespräche in diesem Block (siehe DialogueData.topic). Leer = keins.
 @export var topic: String = ""
