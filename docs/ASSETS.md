@@ -514,6 +514,10 @@ Ohne Schatten schweben alle Objekte leicht über dem Boden. Die Schatten sind sc
 
 Schnelle Platzhalter in Magenta-Violett; die echte Grafik kommt später von Robin. Szene: `scenes/world/wild/cave_crystal.tscn` (leuchtet schwach).
 
+## Neue Tränke und Zutaten – Platzhalter-Icons (16.10.2026)
+
+`assets/items/`: `potion_cleansing_mist.png`, `potion_dusk.png`, `potion_mending_strong.png` (Kolben wie die übrigen Tränke), `willow_bark.png`, `moon_water.png`, `swamp_light.png`, `bloom_bud.png`, je 16×16. Erzeugt mit `docs/art/item_generators/platzhalter_2026_10_16.py`. Echte Grafiken kommen später von Robin.
+
 ## Referenzen – `docs/art/`
 
 - `styleguide.pdf`, `hexen_palette.gpl` (Palette für Aseprite/GIMP, inkl. der 7 abgeleiteten Töne für die Pflanzen: Indigo, Indigo hell, Flieder, Giftgrün dunkel/hell, Nachtblau hell, Geisterblau, sowie der 27 Zwischentöne vom 07.10.2026, siehe `neue_farben.md`)

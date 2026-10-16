@@ -192,11 +192,14 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 | ID | Name | Wirkung | Art |
 |---|---|---|---|
 | `potion_growth` | Growth Potion | Pflanzen im 3×3 sofort +1 Stufe | Ausgießen |
-| `potion_will_o_wisp` | Will-o'-Wisp | kleines Licht folgt der Hexe für den Rest der Nacht | Trinken |
+| `potion_will_o_wisp` | Will-o'-Wisp | kleines Licht folgt der Hexe für den Rest der Nacht, öffnet dunkle Orte, schießt im Kampf mit (16.10.). Rezept seit 16.10.: Laternenbeere + Dämmerbeeren | Trinken |
 | `potion_moon_harvest` | Moon Harvest | Pflanzen im 3×3 sofort reif (Mondkelch ausgenommen) | Ausgießen |
-| `potion_liquid_moonlight` | Liquid Moonlight | großes Licht, verborgene Items werden sichtbar | Trinken |
+| `potion_liquid_moonlight` | Liquid Moonlight | großes Licht, verborgene Items werden sichtbar. Rezept seit 16.10.: Laternenbeere + Mondmoos + Mondkelch | Trinken |
+| `potion_dusk` | Dusk Draught (16.10.) | befallene Wesen bemerken die Hexe erst aus halber Entfernung. Dämmerbeeren + Nachtschatten | Trinken |
 | `potion_endless_night` | Endless Night | die Nacht dauert länger | Trinken |
 | `potion_sludge` | Witch's Muck (✅ 08.10.) | Dünger, eine Pflanze +1 Stufe | Ausgießen |
+
+Weitere Tränke, Zutaten und wofür sie gebraucht werden: `docs/design/welt_und_items.md` (Abschnitt 5).
 
 - ❓ Wurftränke für den Kampf und Tränke für NPCs sind neu und noch nicht ausgearbeitet.
 

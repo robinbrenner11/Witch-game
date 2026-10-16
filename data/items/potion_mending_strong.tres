@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/item_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/items/potion_mending_strong.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_script")
+id = "potion_mending_strong"
+display_name = "ITEM_POTION_MENDING_STRONG"
+icon = ExtResource("2_icon")
+type = 2
+description = "ITEM_POTION_MENDING_STRONG_DESC"
+use = 1
+heal = 8

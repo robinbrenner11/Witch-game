@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/item_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/items/potion_cleansing_mist.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_script")
+id = "potion_cleansing_mist"
+display_name = "ITEM_POTION_CLEANSING_MIST"
+icon = ExtResource("2_icon")
+type = 2
+description = "ITEM_POTION_CLEANSING_MIST_DESC"
+use = 3
+throw_radius = 40.0
+throw_damage = 1
+throw_color = Color(0.8, 0.84, 0.93, 1)

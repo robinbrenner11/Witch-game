@@ -95,6 +95,8 @@ Kampftränke sind Items mit `use = THROW` oder Trinktränke mit `heal > 0`. Welc
 | Heiltrank | trinken | +4 Leben, +5 Hexenkraft; die Hexe steht kurz still | Geisterfarn + Laternenbeere |
 | Glutbombe | werfen | 2 Schaden im Kreis (32 px), Rückstoß; trifft die Hexe nie | Glutmorchel + Bitterblütenblatt |
 | Dornennebel | werfen | Zone 36 px, 4 s: verlangsamt auf 45 %, 1 Schaden pro Sekunde; bremst auch die Hexe | Wildkraut + Bitterblütenblatt |
+| Weidenheiltrank (16.10.) | trinken | +8 Leben, +5 Hexenkraft | Geisterfarn + Laternenbeere + Weidenrinde |
+| Reinigungsnebel (16.10.) | werfen | 1 Schaden im Kreis (40 px), Gegner taumeln; öffnet in der Welt Blütennebel (Sperre S5) | Geisterfarn + Mondwasser + Blütenknospe |
 
 Werfen: Q halten zeigt einen gestrichelten Kreis in Wirkgröße an der Maus (höchstens 200 px weit), Loslassen wirft im Bogen; der Trank landet genau dort. Werfen kostet keine Hexenkraft. Wegstecken von Digitalis bricht das Zielen ab.
 

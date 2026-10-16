@@ -10,6 +10,12 @@ extends CharacterBody2D
 ## Der Dornkäfer (blight_beetle_horned.tscn) ist dasselbe Script mit mehr
 ## Leben, Hörnern und zwei Anläufen hintereinander.
 ## Bei Neumond (Moon.blight_surges) sind alle Käfer aggressiver.
+## Dämmertrank: Die Hexe fällt erst aus halber Entfernung auf.
+func _stealth() -> float:
+	var effects := _player.get_node_or_null("PotionEffects") as PotionEffects if _player else null
+	return DUSK_SIGHT if effects and effects.is_active("dusk") else 1.0
+
+
 ## Reinigen statt töten: Bei null Leben fällt die Blüte ab, der geheilte
 ## Käfer krabbelt davon und lässt ein Bitterblütenblatt zurück.
 ## Wo Käfer leben und wann neue kommen, regelt WildGrowth (wie bei Pilzen).
@@ -23,6 +29,8 @@ enum State { WANDER, NOTICE, CHARGE, RECOVER, STAGGER, CLEANSED }
 
 const ENEMY_LAYER := 4
 const WORLD_LAYER := 1
+# So viel der Sichtweite bleibt, solange der Dämmertrank wirkt.
+const DUSK_SIGHT := 0.5
 # Klippen und Mauern (Physik-Layer 4): Käfer kommen nicht hinauf oder hinunter.
 const CLIFF_LAYER := 8
 const DROP_ITEM := "bitterbloom_petal"
@@ -151,7 +159,7 @@ func _physics_process(delta: float) -> void:
 			velocity = (_target - position).limit_length(wander_speed * _slow)
 			if position.distance_to(_target) < 3.0 or _timer <= 0.0:
 				_pick_wander_target()
-			if to_player.length() < notice_distance * _surge(SURGE_SIGHT):
+			if to_player.length() < notice_distance * _surge(SURGE_SIGHT) * _stealth():
 				_begin_attack(to_player)
 		State.NOTICE:
 			velocity = Vector2.ZERO

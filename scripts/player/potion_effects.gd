@@ -18,6 +18,8 @@ const POTION_POWER := 5.0
 
 var _time := 0.0
 var _wisp_position := Vector2.ZERO
+# Dämmertrank: Befallene Wesen bemerken die Hexe später (BlightBeetle).
+var _dusk := false
 
 # Das Irrlicht ist "top_level": Es bewegt sich nicht automatisch mit der Hexe,
 # sondern fliegt ihr in _process mit etwas Verzögerung hinterher.
@@ -83,6 +85,10 @@ func _drink_selected() -> void:
 			moonlight.enabled = true
 			Sfx.play("brewing/moonlight")
 			Messages.post(tr("MSG_NIGHT_CLEAR"))
+		"potion_dusk":
+			_dusk = true
+			Sfx.play("brewing/wisp_appear")
+			Messages.post(tr("MSG_DUSK_CLOAK"))
 		"potion_endless_night":
 			DayCycle.lengthen_night(ENDLESS_NIGHT_FACTOR)
 			Sfx.play("brewing/endless_night")
@@ -91,7 +97,8 @@ func _drink_selected() -> void:
 
 ## Wirkt gerade dieser Trank? Für Dinge in der Welt, die darauf reagieren
 ## (z. B. ein Gate, das sich nur mit Licht öffnet). Namen: "wisp" (Irrlicht),
-## "moonlight" (Flüssiges Mondlicht), "endless_night" (Ewige Nacht).
+## "moonlight" (Flüssiges Mondlicht), "endless_night" (Ewige Nacht),
+## "dusk" (Dämmertrank).
 func is_active(effect: String) -> bool:
 	match effect:
 		"wisp":
@@ -100,6 +107,8 @@ func is_active(effect: String) -> bool:
 			return moonlight.enabled
 		"endless_night":
 			return DayCycle.night_slowdown > 1.0
+		"dusk":
+			return _dusk
 	return false
 
 
@@ -110,3 +119,4 @@ func _on_day_passed(_day: int) -> void:
 func _end_all() -> void:
 	wisp.hide()
 	moonlight.enabled = false
+	_dusk = false

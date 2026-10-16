@@ -426,3 +426,21 @@ REQ_MARA_FERN,"Ghost fern, three fronds. I will tell you what my mother brewed f
 REQ_MARA_FERN_THANKS,"Mara's note: Fern and lantern berry, for wounds. Mother swore by it.","Maras Zettel: Farn und Laternenbeere, für Wunden. Mutter schwor darauf."
 REQ_MARA_MOSS,"Moonmoss for my old joints, two tufts. It only opens under a full moon. Old Mara","Mondmoos für meine alten Knochen, zwei Büschel. Es öffnet sich nur bei Vollmond. Die alte Mara"
 REQ_MARA_MOSS_THANKS,Mara left a pale seed. It also wakes only under a full moon.,Mara hat einen bleichen Samen dagelassen. Der wacht auch nur bei Vollmond auf.
+ITEM_WILLOW_BARK,Willow Bark,Weidenrinde
+ITEM_WILLOW_BARK_DESC,"Peeled from a weeping willow by the lake. Bitter, and good for wounds.","Von einer Trauerweide am See geschält. Bitter, und gut für Wunden."
+ITEM_MOON_WATER,Moon Water,Mondwasser
+ITEM_MOON_WATER_DESC,"Lake water, drawn beneath a full moon. It never quite stops shimmering.","Seewasser, unter vollem Mond geschöpft. Es hört nie ganz auf zu schimmern."
+ITEM_SWAMP_LIGHT,Swamp Light,Sumpflicht
+ITEM_SWAMP_LIGHT_DESC,A glowing cap from the bog. It hops a little when you are not looking.,"Ein leuchtender Hut aus dem Moor. Er hüpft ein wenig, wenn man nicht hinsieht."
+ITEM_BLOOM_BUD,Bloom Bud,Blütenknospe
+ITEM_BLOOM_BUD_DESC,"Warm and soft, like a closed hand. Something inside it is still awake.","Warm und weich, wie eine geschlossene Hand. Etwas darin ist noch wach."
+ITEM_POTION_CLEANSING_MIST,Cleansing Mist,Reinigungsnebel
+ITEM_POTION_CLEANSING_MIST_DESC,"Throw it. Where it bursts, the Bitterbloom draws back.","Wirf ihn. Wo er zerplatzt, weicht die Bitterblüte zurück."
+ITEM_POTION_DUSK,Dusk Draught,Dämmertrank
+ITEM_POTION_DUSK_DESC,"For a night, you are only a shadow among shadows.",Für eine Nacht bist du nur ein Schatten unter Schatten.
+ITEM_POTION_MENDING_STRONG,Willow Mending,Weidenheiltrank
+ITEM_POTION_MENDING_STRONG_DESC,Stronger than the simple draught. Tastes like the bottom of a lake.,Stärker als der einfache Trank. Schmeckt nach dem Grund eines Sees.
+RECIPE_POTION_CLEANSING_MIST_NOTE,Moon water first. The bud fights back.,Zuerst das Mondwasser. Die Knospe wehrt sich.
+RECIPE_POTION_DUSK_NOTE,"Brew it at dusk, or it will not take.","Bei Dämmerung brauen, sonst wirkt er nicht."
+RECIPE_POTION_MENDING_STRONG_NOTE,The willow weeps so you do not have to.,"Die Weide weint, damit du es nicht musst."
+MSG_DUSK_CLOAK,The dusk wraps around you.,Die Dämmerung legt sich um dich.

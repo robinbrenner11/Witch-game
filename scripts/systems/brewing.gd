@@ -112,7 +112,12 @@ func load_save_data(data: Dictionary) -> void:
 	_known.clear()
 	var known: Dictionary = data.get("known", {})
 	for key in known:
-		_known[key] = String(known[key])
+		# Rezepte können sich ändern (16.10.: Irrlicht und Mondlicht). Was
+		# heute etwas anderes ergibt, wird vergessen statt falsch angezeigt.
+		var ingredients: Array[String] = []
+		ingredients.assign(String(key).split("+"))
+		if RecipeData.result_for(ingredients) == String(known[key]):
+			_known[key] = String(known[key])
 	_brewing.clear()
 	for item_id in data.get("brewing", []):
 		if ItemData.from_id(String(item_id)):
