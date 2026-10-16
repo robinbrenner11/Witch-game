@@ -87,6 +87,20 @@ func _drink_selected() -> void:
 			Messages.post(tr("MSG_NIGHT_STRETCHES"))
 
 
+## Wirkt gerade dieser Trank? Für Dinge in der Welt, die darauf reagieren
+## (z. B. ein Gate, das sich nur mit Licht öffnet). Namen: "wisp" (Irrlicht),
+## "moonlight" (Flüssiges Mondlicht), "endless_night" (Ewige Nacht).
+func is_active(effect: String) -> bool:
+	match effect:
+		"wisp":
+			return wisp.visible
+		"moonlight":
+			return moonlight.enabled
+		"endless_night":
+			return DayCycle.night_slowdown > 1.0
+	return false
+
+
 func _on_day_passed(_day: int) -> void:
 	_end_all()
 

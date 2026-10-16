@@ -36,6 +36,9 @@ const STEP_SURFACES := {
 @export var fixed_rect: Rect2 = Rect2()
 # Atmo-Loop dieses Orts (ID unter assets/audio/sfx/), z. B. "world/night_ambience_loop".
 @export var ambience: String = ""
+# Wie dunkel es hier zusätzlich zur Nacht ist (0 = normal, 1 = fast schwarz),
+# z. B. in Höhlen. Lichter (Irrlicht, Laternen) leuchten trotzdem.
+@export_range(0.0, 1.0) var darkness: float = 0.0
 # Schritt-Sound, wo kein Kachelboden liegt (Innenräume aus einer Raumgrafik).
 @export var step_surface_fallback: String = "stone"
 

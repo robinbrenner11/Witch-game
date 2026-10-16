@@ -228,6 +228,10 @@ class ThrownPotion:
 	func _land() -> void:
 		set_process(false)
 		var parent := get_parent()
+		# Auch die Welt kann auf Würfe reagieren (z. B. Ranken, die brennen).
+		for target in get_tree().get_nodes_in_group("potion_target"):
+			if (target as Node2D).global_position.distance_to(to) <= item.throw_radius + 24.0:
+				target.on_potion(item)
 		match item.throw_effect:
 			ItemData.ThrowEffect.BURST:
 				# Schaden trifft nur befallene Wesen, nie die Hexe.
