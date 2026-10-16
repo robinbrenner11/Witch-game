@@ -17,6 +17,9 @@ extends Resource
 @export var patrol: Array[String] = []
 ## Thema für Gespräche in diesem Block (siehe DialogueData.topic). Leer = keins.
 @export var topic: String = ""
+## Gilt nur in diesen Mondphasen (Moon.Phase), z. B. der Halbmondmarkt.
+## Leer = jede Nacht.
+@export var moon_phases: Array[int] = []
 
 
 ## Minuten seit Beginn der Nacht (18:00). So liegt ein Block um 2:00 hinter

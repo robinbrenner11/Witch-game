@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="NpcData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/npc_data.gd" id="1_npc"]
+[ext_resource type="Script" path="res://scripts/npcs/schedule_entry.gd" id="2_entry"]
+
+[sub_resource type="Resource" id="Resource_swamp"]
+script = ExtResource("2_entry")
+start_hour = 18
+level = "Swamp"
+spot = "UgoStall"
+moon_phases = Array[int]([0, 1, 3, 4])
+
+[sub_resource type="Resource" id="Resource_market"]
+script = ExtResource("2_entry")
+start_hour = 18
+level = "Village"
+spot = "UgoMarket"
+topic = "market"
+moon_phases = Array[int]([2])
+
+[sub_resource type="Resource" id="Resource_inside"]
+script = ExtResource("2_entry")
+start_hour = 5
+start_minute = 40
+level = ""
+
+[resource]
+script = ExtResource("1_npc")
+id = "ugo"
+name_key = "NPC_UGO"
+role_key = "NPC_UGO_ROLE"
+schedule = Array[ExtResource("2_entry")]([SubResource("Resource_swamp"), SubResource("Resource_market"), SubResource("Resource_inside")])
+walk_speed = 20.0

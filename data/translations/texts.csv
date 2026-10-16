@@ -463,3 +463,11 @@ DLG_MOSS_SMALLTALK_3,Dusk berries? The night folk love them more than gold.,Däm
 TRADE_OFFER,%d× %s for %d× %s,%d× %s gegen %d× %s
 TRADE_NOTHING,Nothing for now.,Gerade nichts.
 MSG_TRADE_MISSING,You do not have enough %s.,Dir fehlt %s.
+NPC_UGO,Ugo,Ugo
+NPC_UGO_ROLE,Toad merchant. Sells what others throw away.,"Krötenhändler. Verkauft, was andere wegwerfen."
+DLG_UGO_FIRST_1,A customer! In the bog! Ugo is moved. Truly.,Eine Kundin! Im Moor! Ugo ist gerührt. Wirklich.
+DLG_UGO_FIRST_2,"Ugo trades. Muck, lights, little things nobody asks about. No coin, only goods.","Ugo tauscht. Schlamm, Lichter, kleine Dinge, nach denen keiner fragt. Kein Geld, nur Ware."
+DLG_UGO_FIRST_3,At half moon Ugo sits at the village market. The humans pretend not to see him.,"Bei Halbmond sitzt Ugo auf dem Markt im Dorf. Die Menschen tun so, als sähen sie ihn nicht."
+DLG_UGO_MARKET,"Half moon! Ugo's favourite. Even the baker buys, after dark.","Halbmond! Ugos Liebling. Sogar die Bäckerin kauft, nach Einbruch der Dunkelheit."
+DLG_UGO_SMALLTALK_1,You brew muck? Wonderful muck. Ugo takes all of it.,Du braust Schlamm? Herrlicher Schlamm. Ugo nimmt alles.
+DLG_UGO_SMALLTALK_2,"The buds from the blight? Ugo knows nothing. Ugo has some, though.",Die Knospen von der Blüte? Ugo weiß von nichts. Ugo hat aber welche.

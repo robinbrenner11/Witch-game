@@ -121,116 +121,116 @@ position = Vector2(200, 600)
 [node name="MotherMoss" parent="Objects" unique_id=1743589590 instance=ExtResource("m1")]
 position = Vector2(80, 476)
 
-[node name="Generated" type="Node2D" parent="Objects" unique_id=1262788347]
+[node name="Generated" type="Node2D" parent="Objects" unique_id=1742946177]
 y_sort_enabled = true
 
-[node name="Rock_3_6" parent="Objects/Generated" unique_id=249720546 instance=ExtResource("12_6m1dt")]
+[node name="Rock_3_6" parent="Objects/Generated" unique_id=453642935 instance=ExtResource("12_6m1dt")]
 position = Vector2(112, 218)
 
-[node name="Lantern_4_14" parent="Objects/Generated" unique_id=1380439965 instance=ExtResource("13_tncff")]
+[node name="Lantern_4_14" parent="Objects/Generated" unique_id=1394717160 instance=ExtResource("13_tncff")]
 position = Vector2(144, 474)
 
-[node name="Willow_5_9" parent="Objects/Generated" unique_id=1279941182 instance=ExtResource("14_itbie")]
+[node name="Willow_5_9" parent="Objects/Generated" unique_id=13168213 instance=ExtResource("14_itbie")]
 position = Vector2(176, 314)
 flip = true
 
-[node name="Willow_5_16" parent="Objects/Generated" unique_id=150584045 instance=ExtResource("14_itbie")]
+[node name="Willow_5_16" parent="Objects/Generated" unique_id=132396772 instance=ExtResource("14_itbie")]
 position = Vector2(176, 538)
 
-[node name="Bush_7_20" parent="Objects/Generated" unique_id=1959414667 instance=ExtResource("15_j0aog")]
+[node name="Bush_7_20" parent="Objects/Generated" unique_id=486752610 instance=ExtResource("15_j0aog")]
 position = Vector2(240, 666)
 flip = true
 
-[node name="Willow_9_18" parent="Objects/Generated" unique_id=1469576748 instance=ExtResource("14_itbie")]
+[node name="Willow_9_18" parent="Objects/Generated" unique_id=370432428 instance=ExtResource("14_itbie")]
 position = Vector2(304, 602)
 
-[node name="Tree_9_21" parent="Objects/Generated" unique_id=1574902659 instance=ExtResource("16_4l4vd")]
+[node name="Tree_9_21" parent="Objects/Generated" unique_id=405095219 instance=ExtResource("16_4l4vd")]
 position = Vector2(304, 698)
 
-[node name="Rock_10_5" parent="Objects/Generated" unique_id=76272802 instance=ExtResource("12_6m1dt")]
+[node name="Rock_10_5" parent="Objects/Generated" unique_id=105810766 instance=ExtResource("12_6m1dt")]
 position = Vector2(336, 186)
 flip = true
 
-[node name="Tree_13_22" parent="Objects/Generated" unique_id=917002362 instance=ExtResource("17_7iyg7")]
+[node name="Tree_13_22" parent="Objects/Generated" unique_id=2085041138 instance=ExtResource("17_7iyg7")]
 position = Vector2(432, 730)
 flip = true
 
-[node name="Tree_15_2" parent="Objects/Generated" unique_id=241860839 instance=ExtResource("16_4l4vd")]
+[node name="Tree_15_2" parent="Objects/Generated" unique_id=420077055 instance=ExtResource("16_4l4vd")]
 position = Vector2(496, 90)
 
-[node name="Bush_15_21" parent="Objects/Generated" unique_id=1318830221 instance=ExtResource("18_h5ugw")]
+[node name="Bush_15_21" parent="Objects/Generated" unique_id=2013074744 instance=ExtResource("18_h5ugw")]
 position = Vector2(496, 698)
 flip = true
 
-[node name="Tree_16_4" parent="Objects/Generated" unique_id=516662399 instance=ExtResource("17_7iyg7")]
+[node name="Tree_16_4" parent="Objects/Generated" unique_id=1586597222 instance=ExtResource("17_7iyg7")]
 position = Vector2(528, 154)
 flip = true
 
-[node name="Willow_16_19" parent="Objects/Generated" unique_id=1449314997 instance=ExtResource("14_itbie")]
+[node name="Willow_16_19" parent="Objects/Generated" unique_id=1572129255 instance=ExtResource("14_itbie")]
 position = Vector2(528, 634)
 flip = true
 
-[node name="Lantern_19_4" parent="Objects/Generated" unique_id=1164803762 instance=ExtResource("13_tncff")]
+[node name="Lantern_19_4" parent="Objects/Generated" unique_id=1013855227 instance=ExtResource("13_tncff")]
 position = Vector2(624, 154)
 
-[node name="Willow_19_17" parent="Objects/Generated" unique_id=839266713 instance=ExtResource("14_itbie")]
+[node name="Willow_19_17" parent="Objects/Generated" unique_id=1897738828 instance=ExtResource("14_itbie")]
 position = Vector2(624, 570)
 
-[node name="Tree_20_1" parent="Objects/Generated" unique_id=1090235929 instance=ExtResource("19_ujncm")]
+[node name="Tree_20_1" parent="Objects/Generated" unique_id=347041235 instance=ExtResource("19_ujncm")]
 position = Vector2(656, 58)
 flip = true
 
-[node name="Willow_20_8" parent="Objects/Generated" unique_id=444443087 instance=ExtResource("14_itbie")]
+[node name="Willow_20_8" parent="Objects/Generated" unique_id=839669227 instance=ExtResource("14_itbie")]
 position = Vector2(656, 282)
 flip = true
 
-[node name="Tree_20_23" parent="Objects/Generated" unique_id=2110732632 instance=ExtResource("19_ujncm")]
+[node name="Tree_20_23" parent="Objects/Generated" unique_id=1995893992 instance=ExtResource("19_ujncm")]
 position = Vector2(656, 762)
 flip = true
 
-[node name="Bush_24_8" parent="Objects/Generated" unique_id=1287949129 instance=ExtResource("20_7x2hm")]
+[node name="Bush_24_8" parent="Objects/Generated" unique_id=1654261925 instance=ExtResource("20_7x2hm")]
 position = Vector2(784, 282)
 
-[node name="Tree_24_11" parent="Objects/Generated" unique_id=1415824193 instance=ExtResource("19_ujncm")]
+[node name="Tree_24_11" parent="Objects/Generated" unique_id=769134215 instance=ExtResource("19_ujncm")]
 position = Vector2(784, 378)
 flip = true
 
-[node name="Tree_25_2" parent="Objects/Generated" unique_id=412643748 instance=ExtResource("17_7iyg7")]
+[node name="Tree_25_2" parent="Objects/Generated" unique_id=1409511074 instance=ExtResource("17_7iyg7")]
 position = Vector2(816, 90)
 flip = true
 
-[node name="Rock_25_14" parent="Objects/Generated" unique_id=1831119281 instance=ExtResource("21_sqag8")]
+[node name="Rock_25_14" parent="Objects/Generated" unique_id=1037295296 instance=ExtResource("21_sqag8")]
 position = Vector2(816, 474)
 flip = true
 
-[node name="Tree_25_23" parent="Objects/Generated" unique_id=1810741276 instance=ExtResource("19_ujncm")]
+[node name="Tree_25_23" parent="Objects/Generated" unique_id=1035496873 instance=ExtResource("19_ujncm")]
 position = Vector2(816, 762)
 
-[node name="Tree_26_15" parent="Objects/Generated" unique_id=814073163 instance=ExtResource("16_4l4vd")]
+[node name="Tree_26_15" parent="Objects/Generated" unique_id=1523530829 instance=ExtResource("16_4l4vd")]
 position = Vector2(848, 506)
 
-[node name="Bush_26_17" parent="Objects/Generated" unique_id=552235901 instance=ExtResource("18_h5ugw")]
+[node name="Bush_26_17" parent="Objects/Generated" unique_id=1317124902 instance=ExtResource("18_h5ugw")]
 position = Vector2(848, 570)
 
-[node name="Tree_27_20" parent="Objects/Generated" unique_id=433935319 instance=ExtResource("19_ujncm")]
+[node name="Tree_27_20" parent="Objects/Generated" unique_id=128177211 instance=ExtResource("19_ujncm")]
 position = Vector2(880, 666)
 flip = true
 
-[node name="Tree_28_8" parent="Objects/Generated" unique_id=1524279697 instance=ExtResource("17_7iyg7")]
+[node name="Tree_28_8" parent="Objects/Generated" unique_id=1778914006 instance=ExtResource("17_7iyg7")]
 position = Vector2(912, 282)
 
-[node name="Tree_29_22" parent="Objects/Generated" unique_id=1366314281 instance=ExtResource("19_ujncm")]
+[node name="Tree_29_22" parent="Objects/Generated" unique_id=1186000320 instance=ExtResource("19_ujncm")]
 position = Vector2(944, 730)
 
-[node name="Tree_30_12" parent="Objects/Generated" unique_id=296567922 instance=ExtResource("16_4l4vd")]
+[node name="Tree_30_12" parent="Objects/Generated" unique_id=747817342 instance=ExtResource("16_4l4vd")]
 position = Vector2(976, 410)
 flip = true
 
-[node name="Tree_31_3" parent="Objects/Generated" unique_id=1020708878 instance=ExtResource("16_4l4vd")]
+[node name="Tree_31_3" parent="Objects/Generated" unique_id=51539566 instance=ExtResource("16_4l4vd")]
 position = Vector2(1008, 122)
 flip = true
 
-[node name="Tree_32_9" parent="Objects/Generated" unique_id=262788059 instance=ExtResource("16_4l4vd")]
+[node name="Tree_32_9" parent="Objects/Generated" unique_id=306004735 instance=ExtResource("16_4l4vd")]
 position = Vector2(1040, 314)
 
 [node name="CaveGate" type="StaticBody2D" parent="." unique_id=222564001]
@@ -379,3 +379,10 @@ position = Vector2(80, 476)
 
 [node name="Shore" type="Marker2D" parent="Spots" unique_id=768071985]
 position = Vector2(120, 572)
+
+[node name="ToSwamp" parent="." unique_id=631033816 instance=ExtResource("r31")]
+position = Vector2(16, 704)
+target_scene = "res://scenes/world/swamp.tscn"
+target_exit = "ToLakewood"
+size = Vector2(32, 64)
+spawn_offset = Vector2(48, 0)

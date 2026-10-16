@@ -1,0 +1,7 @@
+{
+ "scene": "res://scenes/world/swamp.tscn",
+ "levels": 3,
+ "default_level": 1,
+ "default_ground": "grass",
+ "depth_shade": false
+}

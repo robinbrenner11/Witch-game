@@ -28,6 +28,8 @@
 [ext_resource type="PackedScene" path="res://scenes/world/firefly.tscn" id="r26"]
 [ext_resource type="PackedScene" path="res://scenes/world/moth.tscn" id="r27"]
 [ext_resource type="PackedScene" path="res://scenes/world/exit.tscn" id="r28"]
+[ext_resource type="PackedScene" path="res://scenes/npcs/ugo.tscn" id="u2"]
+[ext_resource type="Script" path="res://scripts/world/unlockable.gd" id="u1"]
 
 [node name="Village" type="Node2D"]
 script = ExtResource("r1")
@@ -665,6 +667,9 @@ position = Vector2(96, 636)
 [node name="Market" type="Marker2D" parent="Spots"]
 position = Vector2(880, 552)
 
+[node name="UgoMarket" type="Marker2D" parent="Spots"]
+position = Vector2(1000, 600)
+
 [node name="ToLakewood" parent="." instance=ExtResource("r28")]
 position = Vector2(16, 592)
 target_scene = "res://scenes/world/lakewood.tscn"
@@ -679,3 +684,21 @@ target_exit = "ToVillageGate"
 size = Vector2(32, 64)
 spawn_offset = Vector2(48, 0)
 required_flag = "witch_gate_open"
+
+[node name="Ugo" parent="Objects" instance=ExtResource("u2")]
+position = Vector2(1000, 600)
+
+[node name="HalfMoonMarket" type="Node2D" parent="Objects"]
+y_sort_enabled = true
+script = ExtResource("u1")
+moon_phases = Array[int]([2])
+
+[node name="Stall" type="Node2D" parent="Objects/HalfMoonMarket"]
+position = Vector2(1056, 590)
+script = ExtResource("r3")
+size_tiles = Vector2i(2, 2)
+roof_rows = 1
+door_column = -1
+window_columns = PackedInt32Array()
+wall_color = Color(0.3, 0.24, 0.18, 1)
+roof_color = Color(0.36, 0.38, 0.18, 1)

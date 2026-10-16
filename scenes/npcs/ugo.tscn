@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/npcs/npc.tscn" id="1_npc"]
+[ext_resource type="Resource" path="res://data/npcs/ugo.tres" id="2_data"]
+
+[node name="Ugo" instance=ExtResource("1_npc")]
+data = ExtResource("2_data")
+
+[node name="Coat" parent="Figure" index="1"]
+color = Color(0.36, 0.38, 0.18, 1)
+
+[node name="Face" parent="Figure" index="2"]
+color = Color(0.5, 0.56, 0.3, 1)
+
+[node name="Brim" parent="Figure" index="3"]
+color = Color(0.43, 0.09, 0.19, 1)
