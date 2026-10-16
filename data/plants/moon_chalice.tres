@@ -17,4 +17,4 @@ ripens_only_at_full_moon = true
 glow_texture = ExtResource("5_glow")
 glow_color = Color(0.662745, 0.607843, 0.878431, 1)
 glow_energy = 1.1
-glow_offset = Vector2(0, -29)
+glow_offset = Vector2(1, -22)

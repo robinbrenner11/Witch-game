@@ -37,6 +37,10 @@ func _ready() -> void:
 	# in gleich breite Bilder, frame wählt eins davon aus.
 	sprite.texture = data.stages_texture
 	sprite.hframes = data.stage_count
+	# Der Stielfuß liegt immer 11 px über der Frame-Unterkante. So können Pflanzen
+	# größere Frames haben als 32x48 (Mondkelch: 48x64) und stehen trotzdem im Beet.
+	var frame_height := data.stages_texture.get_height()
+	sprite.offset.y = -(frame_height / 2.0 - 11.0)
 	glow.texture = data.glow_texture
 	glow.color = data.glow_color
 	glow.base_energy = data.glow_energy

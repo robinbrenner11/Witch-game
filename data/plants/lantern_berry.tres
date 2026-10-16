@@ -15,4 +15,4 @@ harvest_item_id = "crop_lantern_berry"
 glow_texture = ExtResource("5_glow")
 glow_color = Color(1, 0.709804, 0.4, 1)
 glow_energy = 1.5
-glow_offset = Vector2(8, -21)
+glow_offset = Vector2(8, -17)
