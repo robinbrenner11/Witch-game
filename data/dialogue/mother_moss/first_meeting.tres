@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DialogueData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/dialogue_data.gd" id="1_dialogue"]
+
+[resource]
+script = ExtResource("1_dialogue")
+id = "first_meeting"
+lines = Array[String](["DLG_MOSS_FIRST_1", "DLG_MOSS_FIRST_2", "DLG_MOSS_FIRST_3"])
+priority = 100
+once = true

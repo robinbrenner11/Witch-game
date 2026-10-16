@@ -211,9 +211,30 @@ func _on_interactable_interacted(_player: Node2D) -> void:
 		return
 	_talking = true
 	await box.show_lines(data.name_key, dialogue.lines, data.portrait)
+	_after_talk(dialogue)
+	await _offer_trades(box)
 	_talking = false
 	_wait = maxf(_wait, TALK_PAUSE)
-	_after_talk(dialogue)
+
+
+## Nach dem Gespräch: Hat er Tauschangebote, kommt die Auswahl. Nach jedem
+## Tausch erneut, bis die Hexe "Gerade nichts" wählt oder Esc drückt.
+func _offer_trades(box: DialogueBox) -> void:
+	while true:
+		var offers: Array[TradeOffer] = []
+		for offer in TradeOffer.all_for(data.id):
+			if offer.is_offered(data.id):
+				offers.append(offer)
+		if offers.is_empty():
+			return
+		var options: Array[String] = []
+		for offer in offers:
+			options.append(offer.label())
+		options.append("TRADE_NOTHING")
+		var picked := await box.choose(data.name_key, options, data.portrait)
+		if picked < 0 or picked >= offers.size():
+			return
+		offers[picked].trade(data.id)
 
 
 func _after_talk(dialogue: DialogueData) -> void:

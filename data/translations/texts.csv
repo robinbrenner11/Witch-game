@@ -451,3 +451,15 @@ MSG_MOONBRIDGE_CLOSED,"The water lies strangely flat here, as if it were waiting
 LOOK_MOONBRIDGE,A line of stillness runs to the island. Under a full moon it might hold you.,Eine stille Linie führt zur Insel. Bei Vollmond trägt sie dich vielleicht.
 MSG_SWAMP_VINES,Bitterbloom vines choke the stairs. They look dry enough to burn.,"Bitterblüten-Ranken würgen die Treppe. Sie sehen trocken genug aus, um zu brennen."
 LOOK_SWAMP_VINES,"Below the vines, stairs lead down into the mist. It smells of bog.",Unter den Ranken führt eine Treppe hinab in den Nebel. Es riecht nach Moor.
+NPC_MOTHER_MOSS,Mother Moss,Mutter Moos
+NPC_MOTHER_MOSS_ROLE,Keeps seeds by the lake.,Hütet Samen am See.
+DLG_MOSS_FIRST_1,Hm? Oh. You smell of Vespera's garden. Earth and old smoke.,Hm? Oh. Du riechst nach Vesperas Garten. Erde und alter Rauch.
+DLG_MOSS_FIRST_2,I am Moss. I have kept seeds by this lake for longer than the village has stood.,"Ich bin Moos. Ich hüte Samen an diesem See, schon länger, als das Dorf steht."
+DLG_MOSS_FIRST_3,"Bring me what grows wild, and I will give you what grows tame. Fair?","Bring mir, was wild wächst, und ich gebe dir, was zahm wächst. Gerecht?"
+DLG_MOSS_MOON_FULL,"Full moon. Tonight the lake will carry you to the island, if you ask it nicely.","Vollmond. Heute Nacht trägt dich der See zur Insel, wenn du ihn freundlich bittest."
+DLG_MOSS_SMALLTALK_1,"My kin in the deep woods have gone quiet. The bloom, I think.","Meine Verwandten im tiefen Wald sind still geworden. Die Blüte, glaube ich."
+DLG_MOSS_SMALLTALK_2,Peel the bark gently. The willows remember who was rough.,"Schäl die Rinde sanft. Die Weiden merken sich, wer grob war."
+DLG_MOSS_SMALLTALK_3,Dusk berries? The night folk love them more than gold.,Dämmerbeeren? Das Nachtvolk liebt sie mehr als Gold.
+TRADE_OFFER,%d× %s for %d× %s,%d× %s gegen %d× %s
+TRADE_NOTHING,Nothing for now.,Gerade nichts.
+MSG_TRADE_MISSING,You do not have enough %s.,Dir fehlt %s.

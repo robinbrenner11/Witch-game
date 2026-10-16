@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="NpcData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/npc_data.gd" id="1_npc"]
+[ext_resource type="Script" path="res://scripts/npcs/schedule_entry.gd" id="2_entry"]
+
+[sub_resource type="Resource" id="Resource_door"]
+script = ExtResource("2_entry")
+start_hour = 18
+level = "Lakewood"
+spot = "HutDoor"
+
+[sub_resource type="Resource" id="Resource_shore"]
+script = ExtResource("2_entry")
+start_hour = 22
+level = "Lakewood"
+spot = "Shore"
+
+[sub_resource type="Resource" id="Resource_back"]
+script = ExtResource("2_entry")
+start_hour = 2
+level = "Lakewood"
+spot = "HutDoor"
+
+[sub_resource type="Resource" id="Resource_inside"]
+script = ExtResource("2_entry")
+start_hour = 5
+start_minute = 40
+level = "Lakewood"
+
+[resource]
+script = ExtResource("1_npc")
+id = "mother_moss"
+name_key = "NPC_MOTHER_MOSS"
+role_key = "NPC_MOTHER_MOSS_ROLE"
+schedule = Array[ExtResource("2_entry")]([SubResource("Resource_door"), SubResource("Resource_shore"), SubResource("Resource_back"), SubResource("Resource_inside")])
+walk_speed = 24.0

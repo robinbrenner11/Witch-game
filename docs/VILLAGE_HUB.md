@@ -50,6 +50,8 @@ GrayboxBuilding scripts/world/graybox_building.gd  Platzhalter-Haus aus Farbflä
 
 **einen gesperrten Weg:** am `Exit` (und ggf. am `GardenGate`) `required_flag` eintragen. Solange das Flag fehlt, bleibt das Tor zu, und der Ausgang meldet `locked_message`. Freischalten: irgendein System ruft `WorldState.set_flag("…")` auf, z. B. ein Gespräch über `sets_flag`.
 
+**Tausch bei einem NPC (16.10.):** pro Angebot eine `.tres` in `data/trades/<npc>/` (`TradeOffer`: will Item und Menge, gibt Item und Menge, optional `per_night`, Mondphasen, Flags). Kein Code nötig: Nach jedem Gespräch zeigt der NPC die Angebote in der Antwort-Auswahl der Dialogbox, nach einem Tausch erneut, bis „Gerade nichts“ oder Esc. Erster Händler: Mutter Moos im Seewald v2.
+
 **einen NPC erst später auftauchen lassen:** `appears_flag` in seinen Daten. Laut Design erscheinen neue NPCs nur durch eine Aktion der Spielerin.
 
 ## 3. Der Nachtwächter

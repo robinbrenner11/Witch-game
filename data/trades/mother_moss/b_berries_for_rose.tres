@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TradeOffer" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/trade_offer.gd" id="1_trade"]
+
+[resource]
+script = ExtResource("1_trade")
+id = "b_berries_for_rose"
+wants_item = "dusk_berries"
+wants_amount = 3
+gives_item = "seed_blood_rose"
+gives_amount = 2
