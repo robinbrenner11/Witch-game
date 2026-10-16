@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="RequestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/request_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="reward_0"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "seed_lantern_berry"
+value = 3
+
+[sub_resource type="Resource" id="reward_1"]
+script = ExtResource("2_reward")
+type = 4
+target_id = "herbalism"
+value = 15
+
+[resource]
+script = ExtResource("1_script")
+id = "bakery_mandrake"
+giver = "bakery"
+text_key = "REQ_BAKERY_MANDRAKE"
+thanks_key = "REQ_BAKERY_MANDRAKE_THANKS"
+item_id = "crop_mandrake"
+amount = 2
+rewards = Array[ExtResource("2_reward")]([SubResource("reward_0"), SubResource("reward_1")])
+repeatable = true

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="RequestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/request_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="reward_0"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "seed_moon_chalice"
+value = 1
+
+[resource]
+script = ExtResource("1_script")
+id = "chapel_wisp"
+giver = "chapel"
+text_key = "REQ_CHAPEL_WISP"
+thanks_key = "REQ_CHAPEL_WISP_THANKS"
+item_id = "potion_will_o_wisp"
+amount = 1
+rewards = Array[ExtResource("2_reward")]([SubResource("reward_0")])
+min_day = 4

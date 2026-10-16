@@ -397,3 +397,32 @@ ITEM_CAVE_CRYSTAL_DESC,It hums faintly when you hold it close to your staff.,"Er
 MSG_CRYSTAL_GROWING,The crystal is still growing back.,Der Kristall wächst noch nach.
 MSG_TOO_DARK,Too dark. Without a light you would never find your way back.,Zu dunkel. Ohne Licht fändest du nie zurück.
 LOOK_CAVE_SLIT,"Behind the falling water, a crack in the rock. Cold air, the sound of dripping.","Hinter dem fallenden Wasser ein Spalt im Fels. Kalte Luft, irgendwo tropft es."
+PROMPT_DELIVER,Hand in,Abgeben
+REQUEST_WANTED,Wanted: %d× %s (you have %d).,Gesucht: %d× %s (du hast %d).
+REQUEST_REWARD,Reward: %s.,Lohn: %s.
+REQUEST_REWARD_RECIPE,a recipe,ein Rezept
+REQUEST_REWARD_CHEST,a bigger chest,eine größere Truhe
+REQUEST_REWARD_XP,know-how,Erfahrung
+REQUEST_REWARD_HINT,a hint,ein Hinweis
+NOTICE_NO_REQUESTS,No new notes tonight.,Heute Nacht keine neuen Zettel.
+MSG_CHEST_BIGGER,Your chest has grown.,Deine Truhe ist größer geworden.
+REQ_CHAPEL_LIGHT,The chapel grows so dark at night. Three lantern berries would help. Sister Ilse,Die Kapelle wird nachts so dunkel. Drei Laternenbeeren würden helfen. Schwester Ilse
+REQ_CHAPEL_LIGHT_THANKS,"Sister Ilse left seeds by the board. For your garden, child.","Schwester Ilse hat Samen am Brett hinterlegt. Für deinen Garten, Kind."
+REQ_CHAPEL_WISP,A light that walks the dead home. They say a witch can brew one. Sister Ilse,"Ein Licht, das die Toten heimgeleitet. Eine Hexe soll so etwas brauen können. Schwester Ilse"
+REQ_CHAPEL_WISP_THANKS,"Behind the board lies a pale seed, wrapped in cloth.","Hinter dem Brett liegt ein bleicher Samen, in Tuch gewickelt."
+REQ_BAKERY_MORELS,"My oven will not draw. Old Brack swears by ember morels from the woods. Hanne, baker","Mein Ofen zieht nicht. Der alte Brack schwört auf Glutmorcheln aus dem Wald. Hanne, Bäckerin"
+REQ_BAKERY_MORELS_THANKS,A warm loaf and a pouch of seeds. Hanne's oven smells of smoke.,Ein warmes Brot und ein Beutel Samen. Hannes Ofen riecht nach Rauch.
+REQ_BAKERY_MANDRAKE,Mandrake root for the dough. Do not ask. It rises better. Hanne,Alraune für den Teig. Frag nicht. Er geht besser auf. Hanne
+REQ_BAKERY_MANDRAKE_THANKS,Hanne leaves seeds and a note: Not a word to anyone.,Hanne hinterlässt Samen und einen Zettel: Kein Wort zu niemandem.
+REQ_CARPENTER_BACK,"My back is killing me. Wild herb for a poultice, five handfuls. Brack, carpenter","Mein Rücken bringt mich um. Wildkraut für einen Umschlag, fünf Hände voll. Brack, Zimmermann"
+REQ_CARPENTER_BACK_THANKS,"Brack's handwriting, shaky: Better already. I owe you.","Bracks Schrift, zittrig: Schon besser. Ich schulde dir was."
+REQ_CARPENTER_HAND,"The poultice helps, but I cut my hand on the saw. Anything stronger? Brack","Der Umschlag hilft, aber ich hab mich an der Säge geschnitten. Was Stärkeres? Brack"
+REQ_CARPENTER_HAND_THANKS,Brack: Healed overnight. Come back when I am done thinking.,"Brack: Über Nacht verheilt. Komm wieder, wenn ich fertig gedacht hab."
+REQ_CARPENTER_CHEST,For my girl's birthday: dusk berries. In return I build you a bigger chest. Brack,Für den Geburtstag meiner Kleinen: Dämmerbeeren. Dafür bau ich dir eine größere Truhe. Brack
+REQ_CARPENTER_CHEST_THANKS,Brack: The chest is done. It is already in your tree.,Brack: Die Truhe ist fertig. Sie steht schon in deinem Baum.
+REQ_CHILDREN_FEATHER,We need a real owl feather for our game. The owl is too scary. The children by the well,Wir brauchen eine echte Eulenfeder für unser Spiel. Die Eule ist zu gruselig. Die Kinder vom Brunnen
+REQ_CHILDREN_FEATHER_THANKS,"A drawing of you, very tall, and a red seed. On the back: Blood roses make the night longer.","Ein Bild von dir, sehr groß, und ein roter Samen. Hinten drauf: Blutrosen machen die Nacht länger."
+REQ_MARA_FERN,"Ghost fern, three fronds. I will tell you what my mother brewed from it. Old Mara","Geisterfarn, drei Wedel. Dafür verrate ich dir, was meine Mutter daraus braute. Die alte Mara"
+REQ_MARA_FERN_THANKS,"Mara's note: Fern and lantern berry, for wounds. Mother swore by it.","Maras Zettel: Farn und Laternenbeere, für Wunden. Mutter schwor darauf."
+REQ_MARA_MOSS,"Moonmoss for my old joints, two tufts. It only opens under a full moon. Old Mara","Mondmoos für meine alten Knochen, zwei Büschel. Es öffnet sich nur bei Vollmond. Die alte Mara"
+REQ_MARA_MOSS_THANKS,Mara left a pale seed. It also wakes only under a full moon.,Mara hat einen bleichen Samen dagelassen. Der wacht auch nur bei Vollmond auf.

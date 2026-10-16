@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="RequestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/request_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="reward_0"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "seed_lantern_berry"
+value = 2
+
+[resource]
+script = ExtResource("1_script")
+id = "carpenter_back"
+giver = "carpenter"
+text_key = "REQ_CARPENTER_BACK"
+thanks_key = "REQ_CARPENTER_BACK_THANKS"
+item_id = "wild_herb"
+amount = 5
+rewards = Array[ExtResource("2_reward")]([SubResource("reward_0")])
+blocked_by_flags = Array[String](["carpenter_1"])
+sets_flag = "carpenter_1"
+weight = 2

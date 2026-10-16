@@ -316,8 +316,11 @@ Offen und bewusst nicht hier: Mondeffekte für die Nächte 2–3 und 5–7, Craf
 | Schritt | Stand | Was |
 |---|---|---|
 | 1 | ✅ 16.10. | `Gate` (`scripts/world/gate.gd`), `PotionEffects.is_active()`, Würfe melden sich bei der Gruppe `potion_target`, Gießen per E am Gate, `Level.darkness`. **S2 als Test:** Spalt hinter dem Wasserfall im Höhen-Test, offen nur mit Irrlicht oder Flüssigem Mondlicht, sonst „Zu dunkel“. Dahinter `scenes/world/waterfall_cave.tscn` (aus Bauplan, drinnen, dunkel) mit 3 Höhlenkristallen, die nach 4 Nächten nachwachsen. Neues Item `cave_crystal` (Platzhalter-Grafik) |
-| 2–8 | offen | – |
+| 2 | ✅ 16.10. | **Gesuche am Anschlagbrett:** Autoload `Requests` (im Spielstand), Daten `RequestData` in `data/requests/`. Neues Spiel: 2 Zettel, danach jede Nacht einer mehr bis höchstens 3, jeder hängt 3 Nächte. Von jeder Person höchstens ein Zettel. Gezogen nach Gewicht, aber fest pro Nacht. E am Brett liest die Zettel (mit „du hast x“ und Lohn) oder gibt ab, wenn etwas passt. Belohnungen: Items, Rezept, Erfahrung, Gerücht, größere Truhe. 10 Gesuche von 5 unsichtbaren Dorfbewohnern: Schwester Ilse (Kapelle), Hanne (Bäckerin), Brack (Zimmermann, Kette über 3 Zettel → Truhe 16 → 24), die Kinder vom Brunnen, die alte Mara (Mondmoos nur bei Gibbous und Vollmond) |
+| 3–8 | offen | – |
 
 Tests (headless, Prüfskripte nicht im Repo): Gate zu ohne Licht mit Meldung, E zeigt Hinweis, offen mit Irrlicht und mit Mondlicht, wieder zu ohne Licht, Höhle betreten und verlassen, Höhle dunkel und sonnensicher, Kristalle wachsen, pflücken und nachwachsen, Glutbombe öffnet ein Wurf-Gate dauerhaft, Wachstumstrank öffnet ein Gieß-Gate, falscher Trank tut nichts: 25 / 25. Höhen-Test weiter 24 / 24, alle 323 Szenen, Scripts und Ressourcen laden.
+
+Tests Schritt 2: 26 / 26 (Zettel bei neuem Spiel, verschiedene Absender, Abgeben, Belohnung, höchstens 3, Zimmermann-Kette mit größerer Truhe und ohne Wiederholung, Mondphasen, Speichern und Laden, unbekannte Zettel, alter Spielstand, Hinweis E Lesen / E Abgeben, alle Seiten auf Englisch und Deutsch höchstens 3 Zeilen).
 
 Noch nicht: Der Eingang liegt im Höhen-Test statt im Seewald (kommt mit Schritt 4). Der Kristall hat noch keine Verwendung (kommt mit Gnarl in Schritt 7) und keinen Herbarium-Eintrag.

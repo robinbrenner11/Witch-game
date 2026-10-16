@@ -268,6 +268,12 @@ func _on_level_reached(discipline: DisciplineData, new_level: int) -> void:
 		milestone_ready.emit(discipline.id, new_level)
 
 
+## Belohnung von außerhalb des Buchs (z. B. ein erfülltes Gesuch).
+func grant(reward: RewardData) -> void:
+	_apply_reward(reward)
+	changed.emit()
+
+
 ## Werte (STAT) werden nicht hier angewendet, sondern abgefragt (get_stat).
 func _apply_reward(reward: RewardData) -> void:
 	match reward.type:

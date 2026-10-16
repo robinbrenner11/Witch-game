@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="RequestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/request_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="reward_0"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "seed_moon_chalice"
+value = 1
+
+[sub_resource type="Resource" id="reward_1"]
+script = ExtResource("2_reward")
+type = 4
+target_id = "herbalism"
+value = 20
+
+[resource]
+script = ExtResource("1_script")
+id = "mara_moss"
+giver = "mara"
+text_key = "REQ_MARA_MOSS"
+thanks_key = "REQ_MARA_MOSS_THANKS"
+item_id = "moonmoss"
+amount = 2
+rewards = Array[ExtResource("2_reward")]([SubResource("reward_0"), SubResource("reward_1")])
+moon_phases = Array[int]([3, 4])
+repeatable = true

@@ -30,6 +30,7 @@ Music="*res://scripts/systems/music.gd"
 Sfx="*res://scripts/systems/sfx.gd"
 ScreenFade="*res://scripts/ui/screen_fade.gd"
 WorldState="*res://scripts/systems/world_state.gd"
+Requests="*res://scripts/systems/requests.gd"
 SaveGame="*res://scripts/systems/save_game.gd"
 
 [display]

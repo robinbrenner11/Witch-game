@@ -37,6 +37,8 @@ func new_game() -> void:
 	Grimoire.reset()
 	Wilds.reset()
 	WorldState.reset()
+	# Nach DayCycle, damit die ersten Zettel zu Nacht 1 gehören.
+	Requests.reset()
 
 
 func save_game() -> void:
@@ -49,6 +51,7 @@ func save_game() -> void:
 		"grimoire": Grimoire.get_save_data(),
 		"wilds": Wilds.get_save_data(),
 		"world": WorldState.get_save_data(),
+		"requests": Requests.get_save_data(),
 	}
 	# JSON statt Binärformat: Man kann die Datei beim Testen einfach lesen.
 	var text := JSON.stringify(data, "\t")
@@ -127,6 +130,8 @@ func _apply(data: Dictionary) -> void:
 	Wilds.load_save_data(data.get("wilds", {}))
 	# Ältere Spielstände haben noch keine Welt-Merker: dann keine Flags.
 	WorldState.load_save_data(data.get("world", {}))
+	# Ältere Spielstände haben noch keine Gesuche: dann hängen neue Zettel.
+	Requests.load_save_data(data.get("requests", {}))
 
 
 ## Benennt from in to um und ersetzt dabei eine vorhandene Datei.
