@@ -9,7 +9,7 @@ Ergebnisse in `assets/plants/<pflanze>_stages.png`, Aseprite-Dateien in `art_src
 - **Transparenter Hintergrund**, kein Leuchten/Schein um die Pflanze (das Leuchten macht das Spiel)
 - **Kein Erdhügel**, oder nur ein flacher, der sauber unter der Pflanze liegt.
   Die Pflanze steht im Spiel schon im Beet. Blätter, die über der Erde liegen, lassen sich
-  nicht von ihr trennen (deshalb klappt die Alraune noch nicht)
+  nicht von ihr trennen (die erste Alraunen-Vorlage scheiterte daran)
 - 4 Stufen nebeneinander mit Abstand, nichts dazwischen (keine Funken zwischen den Stufen)
 - Quadratische Pixel, harte Kanten, dunkle Kontur
 - Gleiche Größe pro Vorlagen-Pixel in allen Stufen
@@ -44,3 +44,4 @@ und kommt mit jeder Frame-Größe klar. Danach in `data/plants/<pflanze>.tres` g
 | Geisterfarn | 40×48 | `--breite 40 --kontur` |
 | Nachtschatten | 40×48 | `--breite 40 --kontur --quadrat` |
 | Laternenbeere | 40×48 | `--breite 40 --quadrat --soil 10,11,15,15` |
+| Alraune | 40×48 | `--breite 40`, danach Augen und Gesichtsmitte von Hand aufgehellt |
