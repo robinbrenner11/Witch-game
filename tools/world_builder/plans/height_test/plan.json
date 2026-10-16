@@ -1,0 +1,10 @@
+{
+ "scene": "res://scenes/world/test/height_test.tscn",
+ "levels": 3,
+ "default_level": 1,
+ "default_ground": "forest_floor",
+ "rows_per_level": {
+  "rock": 2,
+  "wall": 1
+ }
+}

@@ -14,6 +14,8 @@ const LOST_STACKS := 3
 # Zusammenbruch in der Sonne: kein Itemverlust, aber die nächste Nacht
 # beginnt erst um 20 statt um 18 Uhr (Entscheidung 11.10.).
 const SUN_WAKE_TIME := 20 * 60
+# Testszene für Klippen, Treppen und Wasserfall (F7, nur in Debug-Builds).
+const HEIGHT_TEST := "res://scenes/world/test/height_test.tscn"
 
 var level: Level
 var _travelling := false
@@ -29,6 +31,12 @@ func _ready() -> void:
 	if bed:
 		player.global_position = bed.wake_spot.global_position
 	player.camera.reset_smoothing()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	# OS.is_debug_build(): nur im Editor und in Debug-Exporten, wie F1 bis F6.
+	if OS.is_debug_build() and event.is_action_pressed("debug_height_test"):
+		travel(HEIGHT_TEST, "ToGarden")
 
 
 ## Wechsel in einen anderen Ort: abblenden, Ort tauschen, Hexe an den

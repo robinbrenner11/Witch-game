@@ -75,6 +75,7 @@ python docs/audio/sfx_generator/sfx.py --preview    # alle + docs/audio/sfx_vors
 | `ui/page_turn` | 0.40 s | – | mono |
 | `world/book_pickup` | 2.20 s | – | mono |
 | `world/campfire_loop` | 6.00 s | ja | mono |
+| `world/waterfall_loop` | 8.00 s | ja | mono |
 | `world/fast_forward` | 1.25 s | – | mono |
 | `world/forest_ambience_loop` | 32.00 s | ja | stereo |
 | `world/night_ambience_loop` | 32.00 s | ja | stereo |

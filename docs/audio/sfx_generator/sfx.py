@@ -835,6 +835,18 @@ def campfire_loop(rng):
     return add_reverb(lp_circular(out, 6000), rng, wet=0.12, sec=0.4, decay=0.1, circular=True)
 
 
+def waterfall_loop(rng):
+    """Wasserfall (Platzhalter, Höhen-Test 16.10.): breites Rauschen, tiefes
+    Grollen vom Aufprall, feine Spritzer. 8 s, mono, nahtlos."""
+    sec = 8.0
+    n = int(SR * sec)
+    swell = 0.8 + 0.2 * norm(lp_circular(np.abs(rng.normal(size=n)), 1.5))
+    out = 0.55 * periodic_noise(n, rng, -0.5, 180, 6000) * swell
+    out += 0.45 * periodic_noise(n, rng, -1.0, 35, 220)
+    out += grains_circular(n, rng, int(sec * 40), 1800, 7000, amp=(0.05, 0.18))
+    return add_reverb(lp_circular(out, 7000), rng, wet=0.15, sec=0.8, decay=0.25, circular=True)
+
+
 def fast_forward(rng):
     """Zeitraffer am Feuer beginnt: schneller werdendes Ticken in warmem Rauschen."""
     sec = 1.0
@@ -1091,6 +1103,7 @@ _add("world/night_ambience_loop", night_ambience_loop, loop=True, level=-6)
 _add("world/forest_ambience_loop", forest_ambience_loop, loop=True, level=-6)
 _add("world/shelter_ambience_loop", shelter_ambience_loop, loop=True, level=-7)
 _add("world/campfire_loop", campfire_loop, loop=True, level=-6)
+_add("world/waterfall_loop", waterfall_loop, loop=True, level=-8)
 _add("world/fast_forward", fast_forward, level=-2, max_sec=1.4)
 _add("world/sleep", sleep_sound, max_sec=2.6)
 _add("world/well_splash", well_splash, max_sec=1.4)
