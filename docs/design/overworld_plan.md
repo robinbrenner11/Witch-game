@@ -1,6 +1,6 @@
 # Overworld mit Höhen – technischer Plan
 
-Stand: 16.10.2026 · Basis: Branch `village-hub` (`691cf95`) · Vorlage: KI-Weltkarte vom 15.10. (nur Inspiration, nicht 1:1)
+Stand: 16.10.2026 · Basis: Branch `village-hub` (`691cf95`), Umsetzung auf Branch `overworld` · Vorlage: KI-Weltkarte vom 15.10. (nur Inspiration, nicht 1:1) · Umsetzungsstand und Entscheidungen: Abschnitt 9
 
 Legende: ✅ vorhanden (im Code geprüft) · 🔮 Vorschlag (nicht entschieden) · ❓ Entscheidung von Robin nötig
 
@@ -37,7 +37,7 @@ Das Wichtigste daran:
 | Wasser | `Lake` ist ein gezeichneter Platzhalter mit Kollision und Mondspiegelung je nach Mondphase | Wird durch Wasser-Kacheln ersetzt, die Spiegelung bleibt als Idee |
 | Deko | `Decor`-Szenen mit Fußpunkt, Schatten, Kollision, Licht | Bäume usw. funktionieren auf jeder Höhe |
 | Spielstand | `Garden` speichert Beete und Pflanzen **nach Kachel-Koordinate**, `Wilds` Sammelobjekte nach Ort und Position | Ein umgebauter Garten verschiebt alte Beete (siehe 7) |
-| Generatoren | `docs/art/ground_generator`, `docs/art/world_generator` (Python, erzeugen Grafiken). Boden und Deko von Seewald und Dorf entstanden mit einem Hilfsskript, das nicht im Repo liegt | Der Welt-Generator wäre der gleiche Ansatz, diesmal im Repo |
+| Generatoren | `docs/art/ground_generator`, `docs/art/world_generator` (Python, erzeugen Grafiken). Boden und Deko von Seewald und Dorf entstanden mit einem Hilfsskript, das nicht im Repo liegt | Der Welt-Generator ist der gleiche Ansatz, diesmal im Repo |
 
 ---
 
@@ -74,7 +74,7 @@ Für jedes Gebiet malst du ein kleines Bild: **1 Pixel = 1 Kachel**, also z. B. 
 
 Ebenen exportierst du als PNGs (z. B. `seewald_height.png`, `seewald_ground.png` …). Die Farbtabelle lege ich als Aseprite-Palette ins Repo, damit du sie nur anklicken musst.
 
-### 2.3 Generator (Python, im Repo unter `tools/world_builder/`)
+### 2.3 Generator (GDScript, im Repo unter `tools/world_builder/`; zuerst als Python geplant, siehe 9)
 
 Liest die PNGs und schreibt in die Szene:
 - `Ground`: Boden über die vorhandenen Terrains (Übergänge wie bisher).
@@ -190,13 +190,13 @@ Jeder Schritt ist einzeln spielbar und ein eigener Commit auf einem neuen Branch
 
 ---
 
-## 6. Entscheidungen (❓)
+## 6. Entscheidungen
 
-1. **Wandhöhe pro Stufe:** 1 Kachelreihe (32 px, halb so hoch wie die Hexe, wirkt wie eine Stufe oder Mauer) oder 2 Reihen (64 px, wirkt wie eine echte Klippe). Vorschlag: Stützmauer 1 Reihe, Felsklippe 2 Reihen. Der Höhen-Test zeigt beides.
-2. **Zaubern über Kanten:** Fliegen Zauber über Klippen (eigener Layer `cliffs`) oder prallen sie ab (Klippen auf `world`)? Vorschlag: Sie fliegen darüber. Von oben hinunterzaubern fühlt sich gut an, und Käfer kommen trotzdem nicht hoch.
-3. **Garten und Seewald zusammenlegen?** Plateau oben, Treppe runter zum See, alles in einer Szene. Erst nach dem Höhen-Test entscheiden.
-4. **Generator ins Repo** (`tools/world_builder/`) statt wie bisher außerhalb? Vorschlag: ja, damit er mit dem Spiel wächst.
-5. **Alte Spielstände:** Siehe 7.
+1. ✅ (16.10.) **Wandhöhe:** Stützmauer 1 Kachelreihe pro Stufe, Felsklippe 2 Reihen. Ist im Bauplan einstellbar (`rows_per_level`).
+2. ✅ (16.10.) **Zauber über Kanten:** fliegen darüber. Klippen liegen auf eigenem Physik-Layer 4 `cliffs`, den nur Körper (Hexe, NPCs, Käfer) sehen.
+3. ❓ **Garten und Seewald zusammenlegen?** Nach dem Höhen-Test entscheiden.
+4. ✅ (16.10.) **Generator ins Repo:** `tools/world_builder/`.
+5. ❓ **Alte Spielstände:** Siehe 7, wird erst beim Garten-Umbau wichtig.
 
 ---
 
@@ -220,3 +220,43 @@ Jeder Schritt ist einzeln spielbar und ein eigener Commit auf einem neuen Branch
 - Echte Ebenen (Stufe 3) vor einem konkreten Fall.
 - Finale Grafiken (die machst du; der Plan sorgt nur dafür, dass sie ohne Umbau passen).
 - Weltkarte im Grimoire (eigenes Thema, sobald der Weltgraph steht).
+
+---
+
+## 9. Umsetzungsstand (16.10.2026)
+
+| # | Stand | Abweichung vom Plan |
+|---|---|---|
+| W1 | ✅ Höhen-Test `scenes/world/test/height_test.tscn`, im Spiel mit **F7** (nur Debug-Build), Ausgang oben zurück in den Garten | Rampe weggelassen (wäre nur eine andere Grafik für die Treppe, kommt mit dem echten Bedarf) |
+| W2 | ✅ zum Teil: Klippen-Atlanten Fels und Mauer mit festem Raster, Vorlage mit Feldnamen (`docs/art/cliff_generator/vorlage_raster.png`) | Wasser-Set noch offen; See bleibt vorerst der gezeichnete Platzhalter |
+| W3 | ✅ Builder baut den Höhen-Test aus `tools/world_builder/plans/height_test/`, Palette für Aseprite | **GDScript statt Python:** läuft direkt in Godot unter Windows (Datei → Ausführen), liest das Boden-TileSet selbst. **Eigene Boden-Zuordnung statt Godots Terrain-Malen:** Godot ließ an fehlenden Übergängen (z. B. Gartenerde ↔ Waldboden) Löcher |
+| W4–W7 | offen | – |
+
+**Zusätzlich gebaut (Vorschläge, bitte beim Test bewerten):**
+- **Abdunklung tieferer Flächen** (`Depth`-Layer): eine Stufe unter der höchsten Stelle leicht, zwei Stufen deutlicher. Abschaltbar pro Plan.
+- **Schattenstreifen** am Fuß jeder Wand.
+- **Wasserfall-Platzhalter** (`scripts/world/waterfall.gd`): fallende Pixelstreifen, schäumendes Becken (Hindernis), Rauschen als Loop `world/waterfall_loop`, das mit Abstand leiser wird.
+
+**Technik in Kürze** (Details: `tools/world_builder/LIESMICH.md`):
+- Neue Layer im Level: `Depth` (über dem Boden), `Cliffs` (Wände, Ränder, Treppen, Kollision), `Objects/Generated` (Deko an Markierungen). Der Builder fasst nur diese und `Ground` an.
+- `project.godot`: Physik-Layer 4 `cliffs`, Debug-Aktion `debug_height_test` (F7). Hexe und NPC: `collision_mask = 9`, Käfer: `WORLD_LAYER | CLIFF_LAYER`.
+- `assets/environment/cliffs/`: `cliff_rock.png`, `cliff_wall.png`, `cliff_layout.json`, `cliff_tileset.tres` (erzeugt von `tools/world_builder/make_cliff_tileset.gd`).
+
+**Tests (Godot 4.7.1, headless und unter Xvfb, Prüfskripte nicht im Repo):**
+
+| Prüfung | Ergebnis |
+|---|---|
+| Mauer und Felswand von oben und unten, Ränder N/O/W, hohe Wand (4 Reihen), Senke von oben/unten/Rand, alle drei Treppen in beide Richtungen | 24 / 24 |
+| Schweben und Ausweichen kommen nicht durch Wände | enthalten |
+| Zauber fliegt über die 4-Reihen-Wand in die Senke | enthalten |
+| Käfer bleibt 10 s lang in der Senke, obwohl die Hexe oben steht | enthalten |
+| F7 führt in den Test, Ausgang oben führt zurück in den Garten | OK |
+| Builder zweimal laufen lassen ergibt dieselbe Szene | OK |
+| Alle 319 Szenen, Scripts und Ressourcen laden ohne Fehler, neue Scripts ohne Warnungen | OK |
+
+Nicht geprüft: Spielgefühl, Windows, wie gut man die Höhe wirklich liest (dafür sind die Screenshots und dein Test da).
+
+**Bekannte Grenzen:**
+- Der Boden kennt nur die Übergänge, die es im TileSet gibt. Wo zwei Terrains ohne Übergang aneinanderstoßen, entsteht eine harte Kante (an Klippen unsichtbar, auf flachem Boden sichtbar).
+- Figuren in tieferen Bereichen werden nicht mit abgedunkelt, nur der Boden.
+- Godot vergibt beim Neu-Erzeugen neue `unique_id`s an Nodes. Das ändert nichts am Spiel, macht den Git-Diff aber länger.

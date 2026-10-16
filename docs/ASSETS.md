@@ -491,6 +491,19 @@ Ohne Schatten schweben alle Objekte leicht über dem Boden. Die Schatten sind sc
 | `shelter_broom` | `shadow_14x5.png` | `(+1, +1)` |
 | `shelter_firewood` | `shadow_30x7.png` | `(+1, +1)` |
 
+## Klippen und Stützmauern – `assets/environment/cliffs/` (16.10.2026, Platzhalter)
+
+| Datei | Größe | Inhalt |
+|---|---|---|
+| `cliff_rock.png` | 256×256 | Felsklippe: 8 × 8 Felder à 32 px (Wände oben/Mitte/unten/einreihig mit Enden, Ränder, Ecken, Wandfuß-Schatten, Abdunklung, Treppen) |
+| `cliff_wall.png` | 256×256 | Stützmauer, **gleiches Raster** |
+| `cliff_layout.json` | – | Feldname → Spalte, Zeile, Kollision. Wird vom World-Builder und von `make_cliff_tileset.gd` gelesen |
+| `cliff_tileset.tres` | – | TileSet mit beiden Atlanten (Quelle 0 Fels, 1 Mauer) und Kollision auf Physik-Layer 4 `cliffs` |
+
+- Erzeugt mit `docs/art/cliff_generator/cliffs.py`. Vorlage mit Feldnamen zum Übermalen: `docs/art/cliff_generator/vorlage_raster.png`.
+- Übermalen und unter demselben Namen speichern genügt; nur bei neuen Feldern das TileSet neu bauen (`tools/world_builder/LIESMICH.md`).
+- Licht von oben links: Oberkante hell, rechte Enden und Fuß dunkler. Schatten und Abdunklung sind halbtransparent.
+
 ## Referenzen – `docs/art/`
 
 - `styleguide.pdf`, `hexen_palette.gpl` (Palette für Aseprite/GIMP, inkl. der 7 abgeleiteten Töne für die Pflanzen: Indigo, Indigo hell, Flieder, Giftgrün dunkel/hell, Nachtblau hell, Geisterblau, sowie der 27 Zwischentöne vom 07.10.2026, siehe `neue_farben.md`)

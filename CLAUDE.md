@@ -164,6 +164,7 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - `docs/design/design_entscheidungen_2026-10-07.md` – Tagesrhythmus, Bett, Garten, Nachtschatten, Hexenschlamm, Brauen, 5 Rezepte, Grafikregeln
 - `docs/design/checkliste_basics.md` – was vor den großen Erweiterungen noch fehlt (abhaken, wenn erledigt)
 - `docs/design/dorf_hub_plan.md` (12.10.2026) – Dorf-Hub: Layout, Nachtwächter, NPC-/Dialog-/Freischaltungs-System, Meilensteine M1–M8 und Robins Entscheidungen
+- `docs/design/overworld_plan.md` (16.10.2026) – Overworld mit Höhen: Weltgraph aus der KI-Karte, Baupläne in Aseprite, World-Builder, Klippen-Layer, Platzhalter-Atlas, Schritte W1–W7
 
 ---
 
@@ -332,6 +333,7 @@ Sammlung aller bisherigen Ideen zum Spiel. Ergänzt `CLAUDE.md` (dort stehen die
 - **Welt-Merker**: Was einmal passiert ist und so bleibt (Pforte offen, NPC kennengelernt), ist ein Flag im Autoload `WorldState` (`set_flag()`, `has_flag()`, Signal `flag_changed`; gespeichert). Für „höchstens einmal pro Nacht“ gibt es `mark_tonight()`/`did_tonight()` (nicht gespeichert). Freischaltungen nie fest verdrahten, sondern über Flags
 - **NPCs und Dialoge**: NPC = Daten (`data/npcs/<id>.tres`, `NpcData` mit `ScheduleEntry`-Routine) + geerbte Szene von `scenes/npcs/npc.tscn`; Spots sind `Marker2D` unter `Spots` im Level. Gespräche sind Dateien in `data/dialogue/<npc>/` (`DialogueData`: Priorität, Bedingungen, Folgen). Zeit nur über `DayCycle.minutes`. Dialoge zeigt die `DialogueBox` (Gruppe `dialogue_box`, `await box.show_lines(name_key, lines)`), höchstens 3 Zeilen pro Seite. Details: `docs/VILLAGE_HUB.md`
 - **Gesperrte Wege**: `Exit` und `GardenGate` haben `required_flag`; ohne das Flag bleiben sie zu und melden `locked_message`
+- **Höhen und Baupläne**: Höhe ist nur gemalt (wie Stardew): Wände, Ränder und Treppen liegen im TileMapLayer `Cliffs` mit Kollision auf Physik-Layer 4 `cliffs` (Bit 8). Alles, was laufen soll (Hexe, NPCs, Gegner), braucht dieses Bit in `collision_mask`; Zauber und Würfe bewusst nicht. Orte mit Höhen entstehen aus Bauplänen (`tools/world_builder/plans/<ort>/`, 1 Pixel = 1 Kachel) über den World-Builder; er überschreibt nur `Ground`, `Depth`, `Cliffs` und `Objects/Generated`, Handarbeit gehört woandershin. Klippen-Grafiken haben ein festes Raster (`assets/environment/cliffs/cliff_layout.json`). Details: `tools/world_builder/LIESMICH.md`
 
 ---
 
