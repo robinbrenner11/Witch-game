@@ -1,0 +1,23 @@
+GIMP Palette
+Name: Bitterbloom Bauplan
+Columns: 6
+#
+  0   0   0	Hoehe 0 tief
+128 128 128	Hoehe 1 normal
+255 255 255	Hoehe 2 hoch
+ 64 125  89	Boden grass
+ 92  61  46	Boden soil
+153 115  76	Boden path
+115 102 140	Boden cobble
+ 89 102 128	Boden slab
+ 20  28  59	Boden graveyard
+ 74  51  41	Boden earth
+ 56  33  51	Boden forest_floor
+ 84 128  92	Boden meadow
+110  24  48	Material Mauer (material.png)
+217 164  65	Markierung Treppe
+255 181 102	Markierung Laterne
+ 63 125  90	Markierung Baum
+141 181 128	Markierung Trauerweide
+ 46  94  68	Markierung Busch
+234 223 203	Markierung Stein
