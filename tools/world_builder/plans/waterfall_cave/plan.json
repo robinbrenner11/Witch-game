@@ -1,0 +1,11 @@
+{
+ "scene": "res://scenes/world/waterfall_cave.tscn",
+ "levels": 3,
+ "default_level": 1,
+ "default_ground": "graveyard",
+ "rows_per_level": {
+  "rock": 2,
+  "wall": 1
+ },
+ "depth_shade": false
+}

@@ -392,3 +392,8 @@ MSG_GATE_LOCKED,Bolted from the other side.,Von der anderen Seite verriegelt.
 MSG_PATH_LOCKED,The path ends at a bolted gate.,Der Weg endet an einer verriegelten Pforte.
 MSG_WITCH_GATE_OPEN,The old gate by the lake is open now.,Die alte Pforte am See ist jetzt offen.
 CONTROLS_FULLSCREEN,Fullscreen,Vollbild
+ITEM_CAVE_CRYSTAL,Cave Crystal,Höhlenkristall
+ITEM_CAVE_CRYSTAL_DESC,It hums faintly when you hold it close to your staff.,"Er summt leise, wenn man ihn nah an den Stab hält."
+MSG_CRYSTAL_GROWING,The crystal is still growing back.,Der Kristall wächst noch nach.
+MSG_TOO_DARK,Too dark. Without a light you would never find your way back.,Zu dunkel. Ohne Licht fändest du nie zurück.
+LOOK_CAVE_SLIT,"Behind the falling water, a crack in the rock. Cold air, the sound of dripping.","Hinter dem fallenden Wasser ein Spalt im Fels. Kalte Luft, irgendwo tropft es."

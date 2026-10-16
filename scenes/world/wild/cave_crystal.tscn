@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/forage.gd" id="1_forage"]
+[ext_resource type="Texture2D" path="res://assets/environment/forage/forage_crystal.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_26x6.png" id="4_shadow"]
+[ext_resource type="Texture2D" path="res://assets/environment/forage/forage_crystal_picked.png" id="5_picked"]
+
+[node name="CaveCrystal" type="Node2D"]
+script = ExtResource("1_forage")
+texture = ExtResource("2_tex")
+shadow_texture = ExtResource("4_shadow")
+shadow_offset = Vector2(0, 1)
+light_energy = 0.6
+light_color = Color(0.76, 0.19, 0.48, 1)
+light_radius = 36.0
+light_offset = Vector2(0, -10)
+drop_item_id = "cave_crystal"
+picked_texture = ExtResource("5_picked")
+regrow_nights = 4
+not_ready_message = "MSG_CRYSTAL_GROWING"
