@@ -45,3 +45,19 @@ und kommt mit jeder Frame-Größe klar. Danach in `data/plants/<pflanze>.tres` g
 | Nachtschatten | 40×48 | `--breite 40 --kontur --quadrat` |
 | Laternenbeere | 40×48 | `--breite 40 --quadrat --soil 10,11,15,15` |
 | Alraune | 40×48 | `--breite 40`, danach Augen und Gesichtsmitte von Hand aufgehellt |
+
+## Kacheln (Texturen)
+
+`convert_tiles.py` macht aus einer Vorlage mit mehreren Textur-Streifen nebeneinander nahtlose
+32×32-Kacheln. Es sucht pro Streifen den Ausschnitt, dessen Ränder am besten ineinander übergehen.
+
+```
+python docs/art/ref_converter/convert_tiles.py art_src/inspo/wassertextur.png assets/environment/water/water_placeholder.png --streifen 4 --nimm 0,1,2,0 --ohne-deko 0,1
+```
+
+- `--nimm`: Streifen je Feld der Ausgabe, beim Wasser in der Reihenfolge tief, Ufer, flach, Durchgang
+- `--ohne-deko`: aus diesen Streifen Seerosen/Blüten entfernen und ruhige Ausschnitte bevorzugen
+  (Deko wiederholt sich beim Kacheln alle 32 px sichtbar; Seerosen besser als eigene Deko-Objekte)
+
+Für die Vorlage: Texturen ohne Deko, gleichmäßig verteilt, Muster nicht größer als etwa ein
+Drittel des Streifens.
