@@ -9,7 +9,7 @@ from PIL import Image
 
 from props import Canvas, C
 
-# Ergänzungen aus der erweiterten Palette (siehe docs/art/neue_farben.md)
+# Ergänzungen aus der erweiterten Palette (siehe docs/archiv/neue_farben.md)
 C.update({
     "1": (32, 20, 30), "2": (52, 34, 46), "3": (78, 52, 64), "4": (104, 72, 84),   # Ebenholz
     "s": (198, 184, 190), "S": (150, 136, 160),                                    # Laken-Schatten

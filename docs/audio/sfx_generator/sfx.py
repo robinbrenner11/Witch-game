@@ -5,7 +5,7 @@ Aufruf (aus dem Projektordner):
     python docs/audio/sfx_generator/sfx.py snap harvest # nur passende IDs
     python docs/audio/sfx_generator/sfx.py --preview    # alle + docs/audio/sfx_vorschau.ogg (braucht ffmpeg)
 
-Regeln aus docs/prompts/sound_auftrag_effekte.md: weich, gläsern, nah,
+Regeln aus docs/archiv/sound_auftrag_effekte.md: weich, gläsern, nah,
 tonale Effekte in D-dorisch (D E F G A H C), WAV 44,1 kHz / 16 Bit / mono
 (Atmos stereo),
 Spitze höchstens -3 dBFS, Loops nahtlos (Rauschen, Filter und Hall werden

@@ -109,7 +109,7 @@ Der Wald wird nicht durch neue, aggressive Bäume ersetzt, sondern **ausgetrunke
 
 ## 10. Aufteilung der Grafiken (09.10.)
 
-- ✅ **Große Welt-Sprites** (befallene Bäume, Felsen, Rankenwand, Blütenherz, Wurzelboden) erzeugt Robin mit seinem Bild-KI-Workflow nach `docs/prompts/grafik_auftrag_bitterbloom.md`.
+- ✅ **Große Welt-Sprites** (befallene Bäume, Felsen, Rankenwand, Blütenherz, Wurzelboden) erzeugt Robin mit seinem Bild-KI-Workflow nach `docs/auftraege/grafik_auftrag_bitterbloom.md`.
 - ✅ **Kleine Teile** macht Claude per Generator (`docs/art/item_generators/bitterbloom_small.py`):
   - Blüten-Zutaten als Icons 16×16: `blight_bud` (Knospe), `blight_vine` (Rankenstück), `blight_spores` (Sporen);
   - `blight_bud_overlay` (6 Frames à 16×16, „Atmen“) + `_glow`: glatte, glänzende Knospe, die aus einem schwarzen Riss quillt; zum Draufsetzen auf vorhandene Objekte;

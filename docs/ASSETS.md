@@ -332,7 +332,7 @@ Reine Atmosphäre, kein Gameplay. Die Tiere werden per Script bewegt, die Grafik
 
 ### Neue Farben
 
-6 Laub- und Weidentöne, siehe `docs/art/neue_farben.md` (Abschnitt 08.10.2026). Sie sind in `hexen_palette.gpl` nachgetragen. Alle anderen Töne stammen aus der bestehenden Palette.
+6 Laub- und Weidentöne, siehe `docs/archiv/neue_farben.md` (Abschnitt 08.10.2026). Sie sind in `hexen_palette.gpl` nachgetragen. Alle anderen Töne stammen aus der bestehenden Palette.
 
 ## Unterschlupf: hohler Uraltbaum – `assets/environment/shelter/` (08.10.2026)
 
@@ -525,7 +525,7 @@ Schnelle Platzhalter in Magenta-Violett; die echte Grafik kommt später von Robi
 
 ## Referenzen – `docs/art/`
 
-- `styleguide.pdf`, `hexen_palette.gpl` (Palette für Aseprite/GIMP, inkl. der 7 abgeleiteten Töne für die Pflanzen: Indigo, Indigo hell, Flieder, Giftgrün dunkel/hell, Nachtblau hell, Geisterblau, sowie der 27 Zwischentöne vom 07.10.2026, siehe `neue_farben.md`)
+- `styleguide.pdf`, `hexen_palette.gpl` (Palette für Aseprite/GIMP, inkl. der 7 abgeleiteten Töne für die Pflanzen: Indigo, Indigo hell, Flieder, Giftgrün dunkel/hell, Nachtblau hell, Geisterblau, sowie der 27 Zwischentöne vom 07.10.2026, siehe `docs/archiv/neue_farben.md`)
 - `plant_generators/`: Python-Scripts für Pflanzen, Icons (`icons.py`) und Licht (`lights.py`)
 - `item_generators/potions.py`, `world_generator/bed.py`, `ui_generator/brew_window.py`, `plant_generators/nightshade_aura.py`: Generatoren der Grafiken vom 07.10.2026 (Details: `neue_assets.md`)
 - `ground_generator/extra.py`: Erweiterung für Friedhofsgras, Beet-Endstücke und die neuen Übergänge (+ `extra_preview.py`, `pruefbericht_extra.txt`)

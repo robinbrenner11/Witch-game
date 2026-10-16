@@ -3,7 +3,7 @@ extends Resource
 
 ## Wer ein NPC ist und wann er wo steht, als Datei in data/npcs/<id>.tres.
 ## Die Szene (scenes/npcs/) zeigt ihn nur an; neue Routinen oder Namen sind
-## so eine Änderung an der Datei, kein Code. Plan: docs/design/dorf_hub_plan.md.
+## so eine Änderung an der Datei, kein Code. Plan: docs/archiv/dorf_hub_plan.md.
 
 const FOLDER := "res://data/npcs/"
 

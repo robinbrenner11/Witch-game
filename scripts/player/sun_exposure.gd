@@ -5,7 +5,7 @@ extends Node
 ## solange sie draußen ist. Von vollem Leben aus bricht sie gegen 8 Uhr
 ## zusammen und wacht spät am Abend im Bett auf (siehe main.gd). Im
 ## Unterschlupf (Level.indoors) ist sie sicher. Um 5 Uhr warnt DayCycle vor.
-## Entscheidung: 11.10.2026, docs/QUALITY_OVERHAUL.md.
+## Entscheidung: 11.10.2026, docs/archiv/QUALITY_OVERHAUL.md.
 ##
 ## Eigener Node unter dem Player (wie PlayerSounds), damit player.gd klein bleibt.
 

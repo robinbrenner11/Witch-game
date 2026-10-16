@@ -1,6 +1,6 @@
 # Bitterbloom – Game Design
 
-Stand: 08.10.2026. Zusammenfassung der Design-Session zu Kern-Loop, Fortschritt, Entdecken, Items und Magie, Kampf, NPCs und Lore. Ergänzt `design_entscheidungen_2026-10-07.md`. Wo sich beide widersprechen, gilt **dieses Dokument**.
+Stand: 08.10.2026. Zusammenfassung der Design-Session zu Kern-Loop, Fortschritt, Entdecken, Items und Magie, Kampf, NPCs und Lore. Ergänzt `docs/archiv/design_entscheidungen_2026-10-07.md`. Wo sich beide widersprechen, gilt **dieses Dokument**.
 
 Legende: ✅ entschieden · 💡 Idee, gefällt, noch nicht fest · 🔮 später / nach Akt 1 · ❓ offen · ❌ verworfen
 
@@ -371,7 +371,7 @@ Weitere Tränke, Zutaten und wofür sie gebraucht werden: `docs/design/welt_und_
 Kleine, testbare Schritte. Das Spiel soll so früh wie möglich Spaß machen.
 
 0. **Aufräumen:**
-   - Laufenden Grafik-Einbau abschließen (`docs/auftrag_einbau_grafiken.md`).
+   - Laufenden Grafik-Einbau abschließen (`docs/archiv/auftrag_einbau_grafiken.md`).
    - Den Schacht im Intro ersetzen (siehe 12).
    - **Englisch einrichten**, am besten mit Godots Übersetzungssystem (`tr()` und eine CSV-Tabelle). Englisch wird die Hauptsprache, Deutsch kann zweite Sprache bleiben. Das sollte früh passieren, solange es noch wenige Texte gibt.
 1. **Mondphasen-System:** 8 Nächte mit Phasen-Abfrage für andere Systeme. Zuerst Neumond, Halbmond und Vollmond.
@@ -391,7 +391,7 @@ Kleine, testbare Schritte. Das Spiel soll so früh wie möglich Spaß machen.
 ## 12. Korrekturen an bestehenden Dateien
 
 - ❌ **Schacht:** Das war ein Missverständnis. Gemeint war „in Schach halten“, also zurückhalten, nicht ein Schacht als Ort. Anzupassen:
-  - `docs/design/design_entscheidungen_2026-10-07.md`, Abschnitt 9: Monster „im Schacht halten“ wird zu „in Schach halten“, und der Dungeon im Schacht entfällt.
+  - `docs/archiv/design_entscheidungen_2026-10-07.md`, Abschnitt 9: Monster „im Schacht halten“ wird zu „in Schach halten“, und der Dungeon im Schacht entfällt.
   - `scripts/intro.gd`: „Vor zehn Jahren kamen sie aus dem Schacht.“ Vorschlag für den neuen Intro-Text auf Englisch, nach den Schriftregeln (keine Gedankenstriche, keine typografischen Anführungszeichen, keine Auslassungspunkte):
     > Ten years ago, the Bitterbloom woke in the deep woods.
     > The villagers keep it at bay. Barely.
@@ -399,7 +399,7 @@ Kleine, testbare Schritte. Das Spiel soll so früh wie möglich Spaß machen.
     > Her garden has been waiting ever since.
 - Die Rezeptbuch-Herkunft „verstorbene Hexe“ im alten Word-Dokument ist überholt. Das Buch gehört Vespera Hollow, die noch lebt.
 - Mit der Umstellung auf Englisch bekommen alle Item-, Trank- und UI-Texte englische Namen. Die IDs sind schon englisch.
-- **Ideensammlung in `CLAUDE.md`**, die durch dieses Dokument überholt ist:
+- **Ideensammlung** (früher in `CLAUDE.md`, jetzt `docs/archiv/ideensammlung.md`), die durch dieses Dokument überholt ist:
   - **Hexenpfade:** Die drei Zirkel, die man am Start wählt, werden zur Wahl bei Meilenstein-Stufen.
   - **Keine Schwerter oder Nahkampf als Hauptsystem:** Digitalis hat jetzt auch Nahkampf-Formen (Sickle, Rootmaul).
   - **Waffen verzaubern am Altar:** Die Upgrades macht jetzt Gnarl, und Crafting läuft über den Kessel.

@@ -6,7 +6,7 @@ extends Node
 ## has_flag(). So müssen sie einander nicht kennen.
 ##
 ## Bewusst nicht im Grimoire: Das Buch hält den Fortschritt der Hexe (Seiten,
-## Stufen), das hier ist der Zustand der Welt. Siehe docs/design/dorf_hub_plan.md,
+## Stufen), das hier ist der Zustand der Welt. Siehe docs/archiv/dorf_hub_plan.md,
 ## Abschnitt 5.2.
 
 signal flag_changed(flag: String)

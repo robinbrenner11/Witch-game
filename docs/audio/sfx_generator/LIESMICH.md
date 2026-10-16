@@ -1,6 +1,6 @@
 # Soundeffekte – Generator
 
-`sfx.py` erzeugt alle Effekte aus `docs/prompts/sound_auftrag_effekte.md` per Synthese (Stand 10.10.2026: alle Listen des Auftrags plus `world/shelter_ambience_loop`).
+`sfx.py` erzeugt alle Effekte aus `docs/archiv/sound_auftrag_effekte.md` per Synthese (Stand 10.10.2026: alle Listen des Auftrags plus `world/shelter_ambience_loop`).
 
 ```text
 python docs/audio/sfx_generator/sfx.py              # alle Effekte neu

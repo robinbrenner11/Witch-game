@@ -1,7 +1,7 @@
 # Dorf-Hub
 
 Stand: 12.10.2026, Branch `village-hub` (Meilensteine M1 bis M7, danach Umbau nach Robins Feedback: Seewald, organisches Dorf).
-Plan und Entscheidungen: `docs/design/dorf_hub_plan.md`.
+Plan und Entscheidungen: `docs/archiv/dorf_hub_plan.md`.
 
 Kurz: Ins Dorf (Graybox) kommt man nur über den **Seewald**, einen friedlichen, offenen Wald mit See zwischen Garten und tiefem Wald. Im Dorf geht der **Nachtwächter** jede Nacht seine Runde. Wer ihn zum ersten Mal anspricht, bekommt die **Hexenpforte** geöffnet, eine Abkürzung oben am See (nahe beim Garten) ins Dorf. Danach erzählt er Gerüchte, die im Grimoire eine Zutat verraten.
 

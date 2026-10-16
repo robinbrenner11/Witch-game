@@ -181,7 +181,7 @@ Nicht automatisch geprüft: wie sich der Kampf anfühlt (Tempo, Schwierigkeit) u
 - **Dornennebel bremst auch die Hexe** (Entscheidung: Effekte treffen sie). Kann sich zäh anfühlen, im Spiel prüfen.
 - **Klänge ungehört**: synthetisch erzeugt und auf Lautheit gebracht, aber noch nicht im Spiel angehört.
 - Die Kampfleiste zeigt Tasten nur für die ersten vier Formen.
-- Bekannte ältere Editor-Warnungen (Verdecken von `material`, `ready` u. a. in älteren Scripts) sind unverändert, siehe `docs/QUALITY_OVERHAUL.md`.
+- Bekannte ältere Editor-Warnungen (Verdecken von `material`, `ready` u. a. in älteren Scripts) sind unverändert, siehe `docs/archiv/QUALITY_OVERHAUL.md`.
 
 ---
 

@@ -4,7 +4,7 @@ extends Node2D
 ## bei Halbmond oder etwas, das erst nach einer Freischaltung da ist. Ist die
 ## Bedingung nicht erfüllt, sind die Kinder unsichtbar und ihre Kollisionen
 ## aus. Neu geprüft wird bei jeder neuen Nacht und jedem neuen Flag.
-## (Baustein M8 aus docs/design/dorf_hub_plan.md.)
+## (Baustein M8 aus docs/archiv/dorf_hub_plan.md.)
 
 ## Nur sichtbar mit diesem Flag (leer = egal).
 @export var required_flag: String = ""
