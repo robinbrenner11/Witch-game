@@ -1,0 +1,256 @@
+{
+ "tile_size": 32,
+ "columns": 8,
+ "rows": 8,
+ "materials": {
+  "rock": "cliff_rock.png",
+  "wall": "cliff_wall.png"
+ },
+ "tiles": {
+  "face_top_left_outer": {
+   "col": 0,
+   "row": 0,
+   "collision": "full"
+  },
+  "face_top_middle": {
+   "col": 1,
+   "row": 0,
+   "collision": "full"
+  },
+  "face_top_right_outer": {
+   "col": 2,
+   "row": 0,
+   "collision": "full"
+  },
+  "face_top_left_inner": {
+   "col": 3,
+   "row": 0,
+   "collision": "full"
+  },
+  "face_top_right_inner": {
+   "col": 4,
+   "row": 0,
+   "collision": "full"
+  },
+  "face_top_solo": {
+   "col": 5,
+   "row": 0,
+   "collision": "full"
+  },
+  "face_mid_left_outer": {
+   "col": 0,
+   "row": 1,
+   "collision": "full"
+  },
+  "face_mid_middle": {
+   "col": 1,
+   "row": 1,
+   "collision": "full"
+  },
+  "face_mid_right_outer": {
+   "col": 2,
+   "row": 1,
+   "collision": "full"
+  },
+  "face_mid_left_inner": {
+   "col": 3,
+   "row": 1,
+   "collision": "full"
+  },
+  "face_mid_right_inner": {
+   "col": 4,
+   "row": 1,
+   "collision": "full"
+  },
+  "face_mid_solo": {
+   "col": 5,
+   "row": 1,
+   "collision": "full"
+  },
+  "face_bottom_left_outer": {
+   "col": 0,
+   "row": 2,
+   "collision": "full"
+  },
+  "face_bottom_middle": {
+   "col": 1,
+   "row": 2,
+   "collision": "full"
+  },
+  "face_bottom_right_outer": {
+   "col": 2,
+   "row": 2,
+   "collision": "full"
+  },
+  "face_bottom_left_inner": {
+   "col": 3,
+   "row": 2,
+   "collision": "full"
+  },
+  "face_bottom_right_inner": {
+   "col": 4,
+   "row": 2,
+   "collision": "full"
+  },
+  "face_bottom_solo": {
+   "col": 5,
+   "row": 2,
+   "collision": "full"
+  },
+  "face_single_left_outer": {
+   "col": 0,
+   "row": 3,
+   "collision": "full"
+  },
+  "face_single_middle": {
+   "col": 1,
+   "row": 3,
+   "collision": "full"
+  },
+  "face_single_right_outer": {
+   "col": 2,
+   "row": 3,
+   "collision": "full"
+  },
+  "face_single_left_inner": {
+   "col": 3,
+   "row": 3,
+   "collision": "full"
+  },
+  "face_single_right_inner": {
+   "col": 4,
+   "row": 3,
+   "collision": "full"
+  },
+  "face_single_solo": {
+   "col": 5,
+   "row": 3,
+   "collision": "full"
+  },
+  "rim_n": {
+   "col": 0,
+   "row": 4,
+   "collision": "rim_n"
+  },
+  "rim_e": {
+   "col": 1,
+   "row": 4,
+   "collision": "rim_e"
+  },
+  "rim_w": {
+   "col": 2,
+   "row": 4,
+   "collision": "rim_w"
+  },
+  "rim_ne": {
+   "col": 3,
+   "row": 4,
+   "collision": "rim_ne"
+  },
+  "rim_nw": {
+   "col": 4,
+   "row": 4,
+   "collision": "rim_nw"
+  },
+  "rim_inner_ne": {
+   "col": 5,
+   "row": 4,
+   "collision": "in_ne"
+  },
+  "rim_inner_nw": {
+   "col": 6,
+   "row": 4,
+   "collision": "in_nw"
+  },
+  "shadow_left": {
+   "col": 0,
+   "row": 5,
+   "collision": "none"
+  },
+  "shadow_middle": {
+   "col": 1,
+   "row": 5,
+   "collision": "none"
+  },
+  "shadow_right": {
+   "col": 2,
+   "row": 5,
+   "collision": "none"
+  },
+  "shadow_solo": {
+   "col": 3,
+   "row": 5,
+   "collision": "none"
+  },
+  "depth_1": {
+   "col": 4,
+   "row": 5,
+   "collision": "none"
+  },
+  "depth_2": {
+   "col": 5,
+   "row": 5,
+   "collision": "none"
+  },
+  "stair_top_left": {
+   "col": 0,
+   "row": 6,
+   "collision": "stair_l"
+  },
+  "stair_top_middle": {
+   "col": 1,
+   "row": 6,
+   "collision": "none"
+  },
+  "stair_top_right": {
+   "col": 2,
+   "row": 6,
+   "collision": "stair_r"
+  },
+  "stair_mid_left": {
+   "col": 3,
+   "row": 6,
+   "collision": "stair_l"
+  },
+  "stair_mid_middle": {
+   "col": 4,
+   "row": 6,
+   "collision": "none"
+  },
+  "stair_mid_right": {
+   "col": 5,
+   "row": 6,
+   "collision": "stair_r"
+  },
+  "stair_bottom_left": {
+   "col": 0,
+   "row": 7,
+   "collision": "stair_l"
+  },
+  "stair_bottom_middle": {
+   "col": 1,
+   "row": 7,
+   "collision": "none"
+  },
+  "stair_bottom_right": {
+   "col": 2,
+   "row": 7,
+   "collision": "stair_r"
+  },
+  "stair_single_left": {
+   "col": 3,
+   "row": 7,
+   "collision": "stair_l"
+  },
+  "stair_single_middle": {
+   "col": 4,
+   "row": 7,
+   "collision": "none"
+  },
+  "stair_single_right": {
+   "col": 5,
+   "row": 7,
+   "collision": "stair_r"
+  }
+ }
+}

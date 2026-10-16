@@ -23,6 +23,8 @@ enum State { WANDER, NOTICE, CHARGE, RECOVER, STAGGER, CLEANSED }
 
 const ENEMY_LAYER := 4
 const WORLD_LAYER := 1
+# Klippen und Mauern (Physik-Layer 4): Käfer kommen nicht hinauf oder hinunter.
+const CLIFF_LAYER := 8
 const DROP_ITEM := "bitterbloom_petal"
 const SHADOW := preload("res://assets/effects/shadows/shadow_22x6.png")
 # So lange vor dem Anlauf steht die Richtung fest (die Spur leuchtet auf).
@@ -80,7 +82,7 @@ func _ready() -> void:
 	_target = _home
 	add_to_group("blighted")
 	collision_layer = ENEMY_LAYER
-	collision_mask = WORLD_LAYER
+	collision_mask = WORLD_LAYER | CLIFF_LAYER
 	var shape := CollisionShape2D.new()
 	var rect := RectangleShape2D.new()
 	rect.size = Vector2(16, 6)
