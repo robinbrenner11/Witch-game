@@ -231,7 +231,8 @@ Jeder Schritt ist einzeln spielbar und ein eigener Commit auf einem neuen Branch
 | W2 | ✅ zum Teil: Klippen-Atlanten Fels und Mauer mit festem Raster, Vorlage mit Feldnamen (`docs/art/cliff_generator/vorlage_raster.png`) | Wasser-Set noch offen; See bleibt vorerst der gezeichnete Platzhalter |
 | W3 | ✅ Builder baut den Höhen-Test aus `tools/world_builder/plans/height_test/`, Palette für Aseprite | **GDScript statt Python:** läuft direkt in Godot unter Windows (Datei → Ausführen), liest das Boden-TileSet selbst. **Eigene Boden-Zuordnung statt Godots Terrain-Malen:** Godot ließ an fehlenden Übergängen (z. B. Gartenerde ↔ Waldboden) Löcher |
 | W4 | Vorschlag liegt vor: `docs/design/welt_und_items.md` (Weltgraph, Sperren, Item-Kreislauf), wartet auf Robins Entscheidungen | – |
-| W5–W7 | offen | – |
+| W5 | 🟡 Seewald v2 gebaut (`lakewood_v2.tscn`, F8), wartet auf Robins Test. Tiefer Wald, Dorf, Garten folgen | Wasser kam schon hier in den Builder (Platzhalter-Kacheln) |
+| W6–W7 | offen | – |
 
 **Zusätzlich gebaut (Vorschläge, bitte beim Test bewerten):**
 - **Abdunklung tieferer Flächen** (`Depth`-Layer): eine Stufe unter der höchsten Stelle leicht, zwei Stufen deutlicher. Abschaltbar pro Plan.

@@ -2,7 +2,8 @@ extends SceneTree
 
 ## Baut assets/environment/cliffs/cliff_tileset.tres aus den Atlanten und
 ## cliff_layout.json: je Material eine Atlas-Quelle (gleiches Raster) und die
-## Kollisionsformen pro Feld auf dem Physik-Layer "cliffs".
+## Kollisionsformen pro Feld auf dem Physik-Layer "cliffs". Dazu
+## assets/environment/water/water_tileset.tres (Wasser blockiert wie Klippen).
 ##
 ## Nur nötig, wenn sich das Raster ändert (neue Felder). Übermalte Grafiken
 ## brauchen das nicht, die Datei zeigt einfach auf die PNGs.
@@ -46,7 +47,33 @@ func _initialize() -> void:
 				data.set_collision_polygon_points(0, index, polygon)
 	var error := ResourceSaver.save(tile_set, OUT)
 	print("cliff_tileset: ", "gespeichert" if error == OK else "Fehler %d" % error)
+	_make_water()
 	quit()
+
+
+func _make_water() -> void:
+	var dir := "res://assets/environment/water/"
+	var layout: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(dir + "water_layout.json"))
+	var size := int(layout["tile_size"])
+	var tile_set := TileSet.new()
+	tile_set.tile_size = Vector2i(size, size)
+	tile_set.add_physics_layer()
+	tile_set.set_physics_layer_collision_layer(0, CLIFF_LAYER_BIT)
+	tile_set.set_physics_layer_collision_mask(0, 0)
+	var source := TileSetAtlasSource.new()
+	source.texture = load(dir + str(layout["texture"]))
+	source.texture_region_size = Vector2i(size, size)
+	tile_set.add_source(source, 0)
+	for tile_name in layout["tiles"]:
+		var info: Dictionary = layout["tiles"][tile_name]
+		var coords := Vector2i(int(info["col"]), int(info["row"]))
+		source.create_tile(coords)
+		if str(info["collision"]) == "full":
+			var data := source.get_tile_data(coords, 0)
+			data.add_collision_polygon(0)
+			data.set_collision_polygon_points(0, 0, _rect(-size / 2.0, -size / 2.0, size / 2.0, size / 2.0))
+	var error := ResourceSaver.save(tile_set, dir + "water_tileset.tres")
+	print("water_tileset: ", "gespeichert" if error == OK else "Fehler %d" % error)
 
 
 ## Rechtecke als Polygone, Koordinaten relativ zur Kachelmitte (so erwartet

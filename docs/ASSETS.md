@@ -518,6 +518,11 @@ Schnelle Platzhalter in Magenta-Violett; die echte Grafik kommt später von Robi
 
 `assets/items/`: `potion_cleansing_mist.png`, `potion_dusk.png`, `potion_mending_strong.png` (Kolben wie die übrigen Tränke), `willow_bark.png`, `moon_water.png`, `swamp_light.png`, `bloom_bud.png`, je 16×16. Erzeugt mit `docs/art/item_generators/platzhalter_2026_10_16.py`. Echte Grafiken kommen später von Robin.
 
+## Wasser und Weidenrinde – Platzhalter (16.10.2026)
+
+- `assets/environment/water/water_placeholder.png` (128×32): 4 Felder tief, Ufer, flach, Durchgang. Raster in `water_layout.json`, TileSet `water_tileset.tres` (von `tools/world_builder/make_cliff_tileset.gd` gebaut, Kollision auf Layer 4). Generator `docs/art/cliff_generator/water.py`.
+- `assets/environment/forage/forage_bark.png` (20×12): Weidenrinde zum Sammeln. Der wilde Mondkelch auf der Insel nutzt `flora/flowers_moon.png`.
+
 ## Referenzen – `docs/art/`
 
 - `styleguide.pdf`, `hexen_palette.gpl` (Palette für Aseprite/GIMP, inkl. der 7 abgeleiteten Töne für die Pflanzen: Indigo, Indigo hell, Flieder, Giftgrün dunkel/hell, Nachtblau hell, Geisterblau, sowie der 27 Zwischentöne vom 07.10.2026, siehe `neue_farben.md`)

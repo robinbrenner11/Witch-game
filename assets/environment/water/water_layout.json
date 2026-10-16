@@ -1,0 +1,26 @@
+{
+ "tile_size": 32,
+ "texture": "water_placeholder.png",
+ "tiles": {
+  "deep": {
+   "col": 0,
+   "row": 0,
+   "collision": "full"
+  },
+  "shore": {
+   "col": 1,
+   "row": 0,
+   "collision": "full"
+  },
+  "shallow": {
+   "col": 2,
+   "row": 0,
+   "collision": "none"
+  },
+  "pass": {
+   "col": 3,
+   "row": 0,
+   "collision": "none"
+  }
+ }
+}

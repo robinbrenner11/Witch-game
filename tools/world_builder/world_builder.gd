@@ -5,6 +5,7 @@ extends RefCounted
 ## 1 Pixel = 1 Kachel ist (Robin malt sie in Aseprite). Erzeugt werden nur
 ## drei Teile der Szene, alles andere bleibt, wie es von Hand gebaut wurde:
 ##   Ground              Boden über die Terrains des Boden-TileSets
+##   Water               Wasser (tiefes am Rand als Ufer)
 ##   Cliffs              Klippen, Mauern, Kanten, Treppen (neuer TileMapLayer)
 ##   Objects/Generated   Bäume, Laternen, Steine … an den Markierungen
 ##
@@ -13,6 +14,8 @@ extends RefCounted
 ##   height.png    Höhe als Grauwert: schwarz 0, grau 1, weiß 2
 ##   ground.png    Boden: Farben = Terrain-Farben im Boden-TileSet
 ##   material.png  (optional) deckende Pixel = Mauer statt Fels
+##   water.png     (optional) Wasser: tief (blockiert), flach (begehbar),
+##                 Durchgang (sieht tief aus, ist begehbar, z. B. unter einem Gate)
 ##   marks.png     (optional) einzelne Pixel: Treppe, Baum, Laterne …
 ##
 ## Höhe ist nur gemalt (wie in Stardew Valley): Oben und unten ist normaler
@@ -22,6 +25,10 @@ extends RefCounted
 
 const CLIFF_DIR := "res://assets/environment/cliffs/"
 const CLIFF_TILESET := CLIFF_DIR + "cliff_tileset.tres"
+const WATER_DIR := "res://assets/environment/water/"
+const WATER_TILESET := WATER_DIR + "water_tileset.tres"
+# Farben in water.png
+const WATER_COLORS := {"deep": Color("#141B3A"), "shallow": Color("#26365E"), "pass": Color("#4E6A9A")}
 # Gleiche Reihenfolge wie in make_cliff_tileset.gd: Index = Quellen-ID.
 const MATERIALS := ["rock", "wall"]
 const TILE := 32
@@ -62,6 +69,8 @@ var _size := Vector2i.ZERO
 var _height: Array[PackedInt32Array] = []
 var _wall: Array[PackedByteArray] = []
 var _marks: Dictionary[Vector2i, String] = {}
+# Wasser: Zelle -> "deep", "shallow" oder "pass"
+var _water: Dictionary[Vector2i, String] = {}
 # Wand-Kacheln: Zelle -> {row, n, material, stair}
 var _faces: Dictionary[Vector2i, Dictionary] = {}
 var _tiles: Dictionary[Vector2i, Array] = {}  # Zelle -> [Material, Feldname]
@@ -93,6 +102,7 @@ func build(plan_dir: String) -> Error:
 	# hier nicht mehr an).
 	var root: Node = (load(scene_path) as PackedScene).instantiate(PackedScene.GEN_EDIT_STATE_MAIN)
 	_paint_ground(root.get_node("Ground") as TileMapLayer)
+	_paint_water(_water_layer(root))
 	_paint_cliffs(_cliff_layer(root))
 	_paint_depth(_depth_layer(root))
 	_place_marks(root)
@@ -142,6 +152,23 @@ func _read_images() -> Error:
 		for y in _size.y:
 			column[y] = 1 if material_image and material_image.get_pixel(x, y).a > 0.5 else 0
 		_wall.append(column)
+
+	var water_image := _load_image("water.png", false)
+	if water_image:
+		for x in _size.x:
+			for y in _size.y:
+				var c := water_image.get_pixel(x, y)
+				if c.a < 0.5:
+					continue
+				var kind := ""
+				for name in WATER_COLORS:
+					var w: Color = WATER_COLORS[name]
+					if absf(w.r - c.r) + absf(w.g - c.g) + absf(w.b - c.b) < 0.08:
+						kind = name
+				if kind == "":
+					report.append("unbekannte Wasserfarbe %s bei %s" % [c.to_html(false), Vector2i(x, y)])
+				else:
+					_water[Vector2i(x, y)] = kind
 
 	var marks_image := _load_image("marks.png", false)
 	if marks_image:
@@ -344,6 +371,36 @@ func _cliff_layer(root: Node) -> TileMapLayer:
 	return layer
 
 
+func _water_layer(root: Node) -> TileMapLayer:
+	var layer := root.get_node_or_null("Water") as TileMapLayer
+	if layer == null:
+		layer = TileMapLayer.new()
+		layer.name = "Water"
+		layer.z_index = -10
+		layer.tile_set = load(WATER_TILESET)
+		root.add_child(layer)
+		root.move_child(layer, root.get_node("Ground").get_index() + 1)
+		layer.owner = root
+	return layer
+
+
+## Tiefes Wasser direkt am Land wird zum Ufer (heller, blockiert genauso).
+func _paint_water(layer: TileMapLayer) -> void:
+	layer.clear()
+	var tiles: Dictionary = (JSON.parse_string(FileAccess.get_file_as_string(WATER_DIR + "water_layout.json")) as Dictionary)["tiles"]
+	for cell: Vector2i in _water:
+		var kind := _water[cell]
+		if kind == "deep":
+			for offset in [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1), Vector2i(-1, 0),
+					Vector2i(1, 0), Vector2i(-1, 1), Vector2i(0, 1), Vector2i(1, 1)]:
+				var other: Vector2i = cell + offset
+				if _inside(other) and not _water.has(other):
+					kind = "shore"
+					break
+		var info: Dictionary = tiles[kind]
+		layer.set_cell(cell, 0, Vector2i(int(info["col"]), int(info["row"])))
+
+
 ## Tiefere Flächen werden leicht abgedunkelt (je Stufe unter der höchsten
 ## im Ort mehr): so liest man Höhe auch dort, wo gerade keine Wand im Bild ist.
 func _depth_layer(root: Node) -> TileMapLayer:
@@ -524,8 +581,8 @@ func _place_marks(root: Node) -> void:
 	var cells := _marks.keys()
 	cells.sort()
 	for cell: Vector2i in cells:
-		if _faces.has(cell):
-			report.append("%s bei %s liegt auf einer Wand, wird ignoriert" % [_marks[cell], cell])
+		if _faces.has(cell) or _water.get(cell, "shallow") != "shallow":
+			report.append("%s bei %s liegt auf einer Wand oder im Wasser, wird ignoriert" % [_marks[cell], cell])
 			continue
 		var options: Array = MARK_SCENES[_marks[cell]]
 		# Fester Zufall pro Kachel: gleiche Pläne ergeben gleiche Orte.

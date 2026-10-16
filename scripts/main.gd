@@ -16,6 +16,8 @@ const LOST_STACKS := 3
 const SUN_WAKE_TIME := 20 * 60
 # Testszene für Klippen, Treppen und Wasserfall (F7, nur in Debug-Builds).
 const HEIGHT_TEST := "res://scenes/world/test/height_test.tscn"
+# Neuer Seewald mit Höhen, Insel und Höhle (F8, nur Debug), bis er den alten ersetzt.
+const LAKEWOOD_V2 := "res://scenes/world/lakewood_v2.tscn"
 
 var level: Level
 var _travelling := false
@@ -37,6 +39,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	# OS.is_debug_build(): nur im Editor und in Debug-Exporten, wie F1 bis F6.
 	if OS.is_debug_build() and event.is_action_pressed("debug_height_test"):
 		travel(HEIGHT_TEST, "ToGarden")
+	elif OS.is_debug_build() and event.is_action_pressed("debug_lakewood_v2"):
+		travel(LAKEWOOD_V2, "ToGarden")
 
 
 ## Wechsel in einen anderen Ort: abblenden, Ort tauschen, Hexe an den

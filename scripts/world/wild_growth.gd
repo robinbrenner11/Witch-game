@@ -208,6 +208,11 @@ func _has_allowed_ground(cell: Vector2i) -> bool:
 	var data := _level.ground.get_cell_tile_data(cell)
 	if data == null:
 		return false
+	# Nichts in Wasser, Wänden oder auf Kanten (Layer des World-Builders).
+	for layer_name in ["Water", "Cliffs"]:
+		var layer := _level.get_node_or_null(layer_name) as TileMapLayer
+		if layer and layer.get_cell_source_id(cell) != -1:
+			return false
 	for corner in [TileSet.CELL_NEIGHBOR_TOP_LEFT_CORNER, TileSet.CELL_NEIGHBOR_TOP_RIGHT_CORNER,
 			TileSet.CELL_NEIGHBOR_BOTTOM_LEFT_CORNER, TileSet.CELL_NEIGHBOR_BOTTOM_RIGHT_CORNER]:
 		if data.get_terrain_peering_bit(corner) not in terrains:

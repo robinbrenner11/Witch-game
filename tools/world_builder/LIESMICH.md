@@ -14,6 +14,7 @@ Ein Ordner pro Ort unter `tools/world_builder/plans/<ort>/` (der Ordner `plans/`
 | `height.png` | ja | Höhe als Grauwert: **schwarz = 0 (tief), grau = 1 (normal), weiß = 2 (hoch)** |
 | `ground.png` | nein | Boden. Farbe = Terrain-Farbe aus dem Boden-TileSet (Gras, Erde, Weg, Pflaster, Platten, Friedhof, Gartenerde, Waldboden, Wiese) |
 | `material.png` | nein | Deckende Pixel = **Mauer** statt Fels. Gilt für die Wand am Südrand und die Ränder dieser Fläche |
+| `water.png` | nein | Wasser auf transparentem Grund: `#141B3A` tief (blockiert), `#26365E` flach (begehbar), `#4E6A9A` Durchgang (sieht aus wie tief, ist aber begehbar, z. B. ein Steg unter einem Gate). Tiefes Wasser direkt am Land wird automatisch zum Ufer |
 | `marks.png` | nein | Einzelne Pixel auf transparentem Grund: Treppe, Laterne, Baum, Trauerweide, Busch, Stein |
 
 Alle Bilder gleich groß. In Aseprite: eine Datei mit Ebenen `height`, `ground`, `material`, `marks` anlegen, ganz unten eine Ebene mit dem vergrößerten Ausschnitt der KI-Karte zum Abpausen. Dann jede Ebene einzeln als PNG speichern, zum Beispiel indem man nur diese Ebene sichtbar lässt und exportiert (die Ebene mit der KI-Karte vorher ausblenden). Wie das in deiner Aseprite-Version am schnellsten geht, schauen wir beim ersten echten Plan zusammen an.
@@ -42,7 +43,7 @@ Die Zielszene muss es schon geben (Level mit `Ground` und `Objects`). Ausgänge,
 - **Nach Norden, Osten, Westen** gibt es nur einen schmalen Rand (6 px Kollision), keine sichtbare Wand.
 - **Treppe:** ein Treppen-Pixel irgendwo auf die Wand malen (am einfachsten in die unterste Reihe der höheren Fläche). Die ganze Wandspalte wird dort zur Treppe. Mehrere Spalten nebeneinander = breite Treppe, die äußeren bekommen Wangen mit Kollision. Unter Treppen liegt Stein (Schrittgeräusch).
 - Eine Wand braucht genug Fläche über sich. Ist die höhere Fläche schmaler als die Wand hoch, meldet der Builder das.
-- Deko-Markierungen auf einer Wand werden ignoriert (mit Meldung).
+- Deko-Markierungen auf einer Wand oder im Wasser werden ignoriert (mit Meldung). Wildwuchs (`WildGrowth`) wächst nie auf Wasser- oder Klippen-Kacheln.
 - Gleicher Plan = gleiche Szene. Varianten (Bodenkacheln, welcher Baum) hängen fest an der Position, nicht am Zufall.
 
 ## Bauen
@@ -58,13 +59,14 @@ godot --headless --script res://tools/world_builder/build.gd -- seewald  # nur e
 
 Meldungen (zu schmale Wand, Treppe nicht auf einer Wand, unbekannte Farbe) stehen in der Ausgabe.
 
-**Was der Builder überschreibt:** nur `Ground`, `Depth`, `Cliffs` und `Objects/Generated`. Alles andere in der Szene bleibt, wie es ist. Deshalb Bäume, die bleiben sollen, entweder als Markierung in den Plan malen oder von Hand unter `Objects/Decor` setzen, nicht unter `Generated`.
+**Was der Builder überschreibt:** nur `Ground`, `Water`, `Depth`, `Cliffs` und `Objects/Generated`. Alles andere in der Szene bleibt, wie es ist. Deshalb Bäume, die bleiben sollen, entweder als Markierung in den Plan malen oder von Hand unter `Objects/Decor` setzen, nicht unter `Generated`.
 
 ## Was entsteht
 
 | Node | Inhalt |
 |---|---|
 | `Ground` | Boden. Übergänge nur zwischen Terrains, für die es im Boden-TileSet einen Übergang gibt; sonst harte Kante (an Klippen liegt die unter der Wand) |
+| `Water` | Wasser mit Kollision auf Layer 4 `cliffs` (wie Klippen: Zauber fliegen darüber). Platzhalter-Kacheln in `assets/environment/water/` |
 | `Depth` | Abdunklung tieferer Flächen: 1 bzw. 2 Stufen unter der höchsten Stelle im Ort |
 | `Cliffs` | Wände, Ränder, Treppen, Schattenstreifen am Wandfuß. Kollision auf Physik-Layer 4 `cliffs` |
 | `Objects/Generated` | Deko an den Markierungen (Bäume zufällig aus Tanne, Eiche, Holunder; Büsche, Steine, Graybox-Laternen) |

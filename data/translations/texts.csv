@@ -444,3 +444,10 @@ RECIPE_POTION_CLEANSING_MIST_NOTE,Moon water first. The bud fights back.,Zuerst 
 RECIPE_POTION_DUSK_NOTE,"Brew it at dusk, or it will not take.","Bei Dämmerung brauen, sonst wirkt er nicht."
 RECIPE_POTION_MENDING_STRONG_NOTE,The willow weeps so you do not have to.,"Die Weide weint, damit du es nicht musst."
 MSG_DUSK_CLOAK,The dusk wraps around you.,Die Dämmerung legt sich um dich.
+PROMPT_SCOOP,Scoop,Schöpfen
+MSG_MOON_WATER_PLAIN,Just lake water. The moon is not full.,Nur Seewasser. Der Mond ist nicht voll.
+MSG_MOON_WATER_SPENT,The reflection has gone still. Enough for tonight.,Die Spiegelung ist still geworden. Genug für heute Nacht.
+MSG_MOONBRIDGE_CLOSED,"The water lies strangely flat here, as if it were waiting for something.","Das Wasser liegt hier seltsam glatt, als würde es auf etwas warten."
+LOOK_MOONBRIDGE,A line of stillness runs to the island. Under a full moon it might hold you.,Eine stille Linie führt zur Insel. Bei Vollmond trägt sie dich vielleicht.
+MSG_SWAMP_VINES,Bitterbloom vines choke the stairs. They look dry enough to burn.,"Bitterblüten-Ranken würgen die Treppe. Sie sehen trocken genug aus, um zu brennen."
+LOOK_SWAMP_VINES,"Below the vines, stairs lead down into the mist. It smells of bog.",Unter den Ranken führt eine Treppe hinab in den Nebel. Es riecht nach Moor.
