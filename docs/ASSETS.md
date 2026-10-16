@@ -504,6 +504,16 @@ Ohne Schatten schweben alle Objekte leicht über dem Boden. Die Schatten sind sc
 - Übermalen und unter demselben Namen speichern genügt; nur bei neuen Feldern das TileSet neu bauen (`tools/world_builder/LIESMICH.md`).
 - Licht von oben links: Oberkante hell, rechte Enden und Fuß dunkler. Schatten und Abdunklung sind halbtransparent.
 
+## Höhlenkristall – Platzhalter (16.10.2026)
+
+| Datei | Größe | Inhalt |
+|---|---|---|
+| `assets/environment/forage/forage_crystal.png` | 20×24 | Kristallgruppe zum Sammeln (1 Frame), Fußpunkt unten Mitte |
+| `assets/environment/forage/forage_crystal_picked.png` | 20×24 | abgebrochene Stümpfe, wachsen nach 4 Nächten nach |
+| `assets/items/forage_crystal.png` | 16×16 | Inventar-Icon |
+
+Schnelle Platzhalter in Magenta-Violett; die echte Grafik kommt später von Robin. Szene: `scenes/world/wild/cave_crystal.tscn` (leuchtet schwach).
+
 ## Referenzen – `docs/art/`
 
 - `styleguide.pdf`, `hexen_palette.gpl` (Palette für Aseprite/GIMP, inkl. der 7 abgeleiteten Töne für die Pflanzen: Indigo, Indigo hell, Flieder, Giftgrün dunkel/hell, Nachtblau hell, Geisterblau, sowie der 27 Zwischentöne vom 07.10.2026, siehe `neue_farben.md`)

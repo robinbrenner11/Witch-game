@@ -260,7 +260,7 @@ Neue Orte entstehen über den World-Builder als Graybox, neue Items als Datendat
 
 ## 9. Deine Entscheidungen
 
-Abhaken (✅) oder streichen (❌), gern mit Kommentar.
+✅ **16.10.2026: Robin hat dem Vorschlag als Ganzes zugestimmt** (Regeln, Weltgraph, Sperren, Items und Rezepte, Upgrades, Gesuche, Reihenfolge). Die Liste unten bleibt als Übersicht stehen. Wenn sich beim Bauen oder Testen etwas nicht gut anfühlt, wird der einzelne Punkt hier geändert.
 
 **Regeln**
 - [ ] R1 Zwei Verwendungen pro Item, mindestens eine öffnet etwas Neues
@@ -308,3 +308,16 @@ Abhaken (✅) oder streichen (❌), gern mit Kommentar.
 8. Turmruine, S5, Blütenherz 1
 
 Offen und bewusst nicht hier: Mondeffekte für die Nächte 2–3 und 5–7, Crafting über den Kessel, die Katze, Freundschaften.
+
+---
+
+## 10. Umsetzungsstand
+
+| Schritt | Stand | Was |
+|---|---|---|
+| 1 | ✅ 16.10. | `Gate` (`scripts/world/gate.gd`), `PotionEffects.is_active()`, Würfe melden sich bei der Gruppe `potion_target`, Gießen per E am Gate, `Level.darkness`. **S2 als Test:** Spalt hinter dem Wasserfall im Höhen-Test, offen nur mit Irrlicht oder Flüssigem Mondlicht, sonst „Zu dunkel“. Dahinter `scenes/world/waterfall_cave.tscn` (aus Bauplan, drinnen, dunkel) mit 3 Höhlenkristallen, die nach 4 Nächten nachwachsen. Neues Item `cave_crystal` (Platzhalter-Grafik) |
+| 2–8 | offen | – |
+
+Tests (headless, Prüfskripte nicht im Repo): Gate zu ohne Licht mit Meldung, E zeigt Hinweis, offen mit Irrlicht und mit Mondlicht, wieder zu ohne Licht, Höhle betreten und verlassen, Höhle dunkel und sonnensicher, Kristalle wachsen, pflücken und nachwachsen, Glutbombe öffnet ein Wurf-Gate dauerhaft, Wachstumstrank öffnet ein Gieß-Gate, falscher Trank tut nichts: 25 / 25. Höhen-Test weiter 24 / 24, alle 323 Szenen, Scripts und Ressourcen laden.
+
+Noch nicht: Der Eingang liegt im Höhen-Test statt im Seewald (kommt mit Schritt 4). Der Kristall hat noch keine Verwendung (kommt mit Gnarl in Schritt 7) und keinen Herbarium-Eintrag.
