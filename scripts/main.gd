@@ -16,7 +16,8 @@ const LOST_STACKS := 3
 const SUN_WAKE_TIME := 20 * 60
 # Testszene für Klippen, Treppen und Wasserfall (F7, nur in Debug-Builds).
 const HEIGHT_TEST := "res://scenes/world/test/height_test.tscn"
-# Neuer Seewald mit Höhen, Insel und Höhle (F8, nur Debug), bis er den alten ersetzt.
+# Neuer Seewald mit Höhen, Insel und Höhle (F9, nur Debug), bis er den alten ersetzt.
+# Nicht F8: das ist in Godot „Projekt stoppen“ und beendet das eingebettete Spiel.
 const LAKEWOOD_V2 := "res://scenes/world/lakewood_v2.tscn"
 
 var level: Level

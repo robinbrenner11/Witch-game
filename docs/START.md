@@ -21,7 +21,7 @@ Nach `main` wird nur mit Robins Okay gemergt und gepusht.
 Gepflegt in `docs/design/welt_und_items.md`, Abschnitt 10 („Nächste Schritte“). Kurz:
 1. Schritt 7: Gnarl und Upgrades (neuer `RewardData`-Typ `UPGRADE`)
 2. Schritt 8: Turmruine, Sperre S5, erstes Blütenherz (Boss braucht einen eigenen Entwurf)
-3. Nach Robins Test von Seewald v2 (F8): Ausgänge umstellen, alten Seewald entfernen, Höhen für Wald, Dorf und Garten
+3. Nach Robins Test von Seewald v2 (F9): Ausgänge umstellen, alten Seewald entfernen, Höhen für Wald, Dorf und Garten
 
 ## Welches Dokument für welche Frage
 
@@ -53,5 +53,5 @@ Gilt bei Widersprüchen: das neuere Dokument. `welt_und_items.md` (16.10.) vor `
 
 - `docs/art/`: Palette `hexen_palette.gpl`, Grafik-Generatoren (Python), Referenzen und Vorschauen
 - `tools/world_builder/`: Builder und Baupläne
-- Debug-Tasten: F3–F5 Grimoire, F7 Höhen-Test, F8 Seewald v2
+- Debug-Tasten: F3–F5 Grimoire, F7 Höhen-Test, F9 Seewald v2 (nicht F8, das stoppt in Godot das Spiel)
 - Tests laufen headless (`godot --headless --script <pfad>`). Prüfskripte liegen nicht im Repo.
