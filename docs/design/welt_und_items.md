@@ -172,7 +172,7 @@ Neue Verwendungen fett, neue Items mit 🆕.
 | 🆕 Weidenrinde | Seewald, Trauerweiden, alle 3 Nächte | **Heiltrank II** (stärker), **Gnarl** (Griff), **Gesuche** |
 | 🆕 Mondwasser | Seewald, am See, nur Vollmond | **Reinigungsnebel**, **Opfer mit Mondbedingung** |
 | 🆕 Höhlenkristall | Wasserfall-Höhle, wächst langsam nach | **Gnarl: Upgrades**, **Kessel-Upgrade** |
-| 🆕 Sumpflicht | Sumpf | **Irrlicht II** (Licht greift mit an, 💡 vom 09.10.), **Tausch bei Ugo** |
+| 🆕 Sumpflicht | Sumpf | **Irrlicht II** (stärkere Funken, öfter), **Tausch bei Ugo** |
 
 ### Rezepte (🔮 Änderungen)
 
@@ -190,7 +190,7 @@ Die übrigen Rezepte bleiben. Die Wurftränke bleiben vorläufig, wie im Kampf-D
 
 | Trank | Kampf / Garten | Welt |
 |---|---|---|
-| Irrlicht | 💡 Zusatzangriff (später) | **Höhle S2**, dunkle Ecken in Sumpf und Ruinen |
+| Irrlicht | ✅ schießt im Kampfmodus selbst schwache Funken auf den nächsten Gegner (16.10.) | **Höhle S2**, dunkle Ecken in Sumpf und Ruinen |
 | Flüssiges Mondlicht | – | **Mondsteg S1 an jeder Nacht**, macht Verborgenes sichtbar (Runen, versteckte Seiten, Mother Moss' Hütte?) |
 | Ewige Nacht | – | **lange Ausflüge** (Sumpf, später Berge und Moor liegen weit weg) |
 | Dämmertrank 🆕 | Gegner bemerken dich spät | an Blüten-Gebieten vorbeischleichen |

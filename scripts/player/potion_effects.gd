@@ -27,6 +27,8 @@ var _wisp_position := Vector2.ZERO
 
 func _ready() -> void:
 	DayCycle.day_passed.connect(_on_day_passed)
+	# Im Kampf schießt das Irrlicht von selbst mit (WispAttack).
+	wisp.add_child(WispAttack.new())
 	_end_all()
 
 

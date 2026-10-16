@@ -240,7 +240,7 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 - ✅ **Blütenherz:** Jedes befallene Gebiet hat einen Boss. Ist er gereinigt, heilt das Gebiet.
 - ✅ **Niederlage:** Die Nacht endet, man wacht im Garten auf, und **ein paar Dinge aus dem Inventar gehen verloren** (keine Ausrüstung).
 - ✅ **Der Garten ist eine sichere Zone.**
-- 💡 **Irrlicht greift mit an (09.10.):** Das Licht aus dem Will-o'-Wisp-Trank folgt der Hexe nicht nur, sondern macht im Kampf einen **Zusatzangriff** (z. B. kleiner Funke auf nahe Gegner).
+- ✅ (16.10., Idee vom 09.10.) **Irrlicht greift mit an:** Im Kampfmodus zielt das Irrlicht selbst auf das nächste befallene Wesen und schießt schwache Funken. Vorläufig alle 1,2 s, 1 Schaden, 150 px Reichweite, kostet keine Hexenkraft (`scripts/player/wisp_attack.gd`). Funken fliegen wie Zauber über Klippen, prallen aber an Bäumen und Laternen ab.
   - 🔮 Ein schöner erster Schritt Richtung Begleiter im Kampf, bevor die Katze kommt. Erst sinnvoll, wenn der Kampf-Prototyp steht.
 - 💡 **Kampfstil wie LoL (10.10.):** Im Kampf wird möglichst *alles* mit der Maus gezielt, nicht nur der normale Zauber. Noch nicht umsetzen.
   - ✅ (10.10.) **Laufen bleibt WASD**, kein Klick-Laufen wie in LoL.
