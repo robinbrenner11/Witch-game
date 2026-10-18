@@ -33,6 +33,9 @@
 
 [ext_resource type="PackedScene" path="res://scenes/npcs/gnarl.tscn" id="g_gnarl"]
 [ext_resource type="PackedScene" path="res://scenes/npcs/wren.tscn" id="w_wren"]
+[ext_resource type="Script" path="res://scripts/world/wild_growth.gd" id="h_wild"]
+[ext_resource type="PackedScene" path="res://scenes/world/wild/weed_thistle.tscn" id="h_thistle"]
+[ext_resource type="PackedScene" path="res://scenes/world/wild/weed_dock.tscn" id="h_dock"]
 [node name="Village" type="Node2D"]
 script = ExtResource("r1")
 safe_zone = true
@@ -727,3 +730,20 @@ position = Vector2(1124, 608)
 
 [node name="WrenLantern" parent="Objects/HalfMoonMarket" instance=ExtResource("r9")]
 position = Vector2(1146, 600)
+
+[node name="HerbGardenBush1" parent="Objects/Decor" instance=ExtResource("r15")]
+position = Vector2(184, 228)
+
+[node name="HerbGardenBush2" parent="Objects/Decor" instance=ExtResource("r15")]
+position = Vector2(332, 140)
+
+[node name="HerbGarden" type="Node" parent="."]
+script = ExtResource("h_wild")
+group = "village_herbs"
+kinds = Array[PackedScene]([ExtResource("h_thistle"), ExtResource("h_dock")])
+cluster_size = Vector2i(1, 2)
+start_clusters = 2
+max_count = 5
+terrains = Array[int]([8])
+area = Rect2(200, 136, 112, 80)
+clearance = 14.0
