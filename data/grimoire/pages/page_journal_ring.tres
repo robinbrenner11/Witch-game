@@ -17,3 +17,4 @@ reward = SubResource("Resource_reward")
 lore_key = "PAGE_JOURNAL_RING_LORE"
 journal_order = 2
 stub_hint_key = "PAGE_JOURNAL_RING_STUB"
+owl_hint_key = "OWL_HINT_RING"

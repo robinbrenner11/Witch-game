@@ -32,6 +32,9 @@ static var _all: Dictionary[String, PageData] = {}
 # diesem halben Wort als Hinweis auf den Fundort (Schlüssel in data/translations).
 @export var stub_hint_key: String = ""
 @export var dream_id: String = ""
+## Was die Eule im tiefen Wald über den Fundort sagt (Text-Schlüssel).
+## Leer = sie weiß nichts darüber.
+@export var owl_hint_key: String = ""
 
 
 static func from_id(page_id: String) -> PageData:

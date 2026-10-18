@@ -299,6 +299,8 @@ func _apply_reward(reward: RewardData) -> void:
 			upgrade(reward.target_id, reward.value)
 		RewardData.Type.DREAM:
 			queue_dream(reward.target_id)
+		RewardData.Type.PAGE:
+			find_page(reward.target_id)
 
 
 ## Liegt auf dieser Stufe ein Geschenk zum Abholen bereit?

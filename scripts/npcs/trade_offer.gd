@@ -55,6 +55,8 @@ func is_offered(npc_id: String) -> bool:
 		return false
 	if reward and reward.type == RewardData.Type.UPGRADE and not _upgrade_is_next():
 		return false
+	if reward and reward.type == RewardData.Type.PAGE and Grimoire.is_page_found(reward.target_id):
+		return false
 	return WorldState.has_all(requires_flags) and WorldState.has_none(blocked_by_flags) 		and (per_night <= 0 or times_tonight(npc_id) < per_night)
 
 
@@ -108,6 +110,8 @@ func label() -> String:
 	var cost := cost_text()
 	if reward and reward.type == RewardData.Type.UPGRADE:
 		return tr("TRADE_UPGRADE") % [tr(Grimoire.upgrade_key(reward.target_id, reward.value)), cost]
+	if reward and reward.type == RewardData.Type.PAGE:
+		return tr("TRADE_PAGE") % cost
 	if gives_item == "":
 		return tr("TRADE_GIVE") % cost
 	return tr("TRADE_OFFER") % [cost, gives_amount, Inventory.display_name_for(gives_item)]

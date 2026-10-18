@@ -13,6 +13,7 @@ enum Type {
 	STAT,            # target_id = Wert (z. B. "brew_count"), value = Bonus
 	DREAM,           # target_id = Traum in der nächsten Nacht
 	UPGRADE,         # target_id = Form oder Werkzeug (staff, sickle, cauldron), value = neue Stufe
+	PAGE,            # target_id = Grimoire-Seite (z. B. von Ugo getauscht)
 }
 
 @export var type: Type = Type.RECIPE

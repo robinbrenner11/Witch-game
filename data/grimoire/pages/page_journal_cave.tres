@@ -18,3 +18,4 @@ lore_key = "PAGE_JOURNAL_CAVE_LORE"
 journal_order = 0
 stub_hint_key = "PAGE_JOURNAL_CAVE_STUB"
 dream_id = "dream_bells"
+owl_hint_key = "OWL_HINT_CAVE"

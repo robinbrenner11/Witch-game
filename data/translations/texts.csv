@@ -588,3 +588,16 @@ DREAM_WISH_3,"Keep me, she whispers into the soil. Just as I am.","Bewahre mich,
 DREAM_WISH_4,"The roots listen. Far away in the woods, a bud opens.",Die Wurzeln hören zu. Weit weg im Wald öffnet sich eine Knospe.
 PAGE_JOURNAL_RING_LORE,Full moon. I danced in the ring until the mushrooms glowed and the garden sang back. I should have stopped there.,"Vollmond. Ich tanzte im Ring, bis die Pilze glühten und der Garten zurücksang. Dort hätte ich aufhören sollen."
 PAGE_JOURNAL_RING_STUB,Ful,Vol
+NPC_OWL,Owl,Eule
+OWL_FIRST,"Hoo. You carry her book. I watched her write it, long ago.","Huu. Du trägst ihr Buch. Ich sah sie es schreiben, vor langer Zeit."
+OWL_HINT_CAVE,"Where the water falls loudest, stones remember a song. A page sleeps there in the dark.","Wo das Wasser am lautesten fällt, erinnern sich Steine an ein Lied. Dort schläft eine Seite im Dunkeln."
+OWL_HINT_JOURNAL_01,"Under the bloom, not far from my tree, a page is choking.","Unter der Blüte, nicht weit von meinem Baum, erstickt eine Seite."
+OWL_HINT_RING,"When the moon is bottled, the ring shows what it hides.","Wenn der Mond in der Flasche ist, zeigt der Ring, was er verbirgt."
+OWL_HINT_HEART,"In the broken tower a heart keeps a page, like a seed.","Im zerbrochenen Turm hält ein Herz eine Seite, wie einen Samen."
+OWL_NOTHING,Hoo. You have found all I know of. The rest the woods keep.,"Huu. Du hast alles gefunden, wovon ich weiß. Den Rest behält der Wald."
+OWL_SLEEPY,Hoo. One riddle a night. Owls need their sleep too.,Huu. Ein Rätsel pro Nacht. Auch Eulen brauchen Schlaf.
+TRADE_PAGE,Old page: %s,Alte Seite: %s
+MSG_UGO_PAGE,"Ugo slips you a page, wrapped in muck. It is overgrown.","Ugo steckt dir eine Seite zu, in Schlamm gewickelt. Sie ist überwuchert."
+PAGE_JOURNAL_SWAMP_LORE,They call me Mother Blight now. I left the garden gate open. Someone will come who is braver than I was.,"Sie nennen mich jetzt Mother Blight. Ich ließ das Gartentor offen. Es wird jemand kommen, der mutiger ist als ich."
+PAGE_JOURNAL_SWAMP_STUB,The,Sie
+OWL_HINT_SWAMP,The toad in the bog sells what others throw away. Even paper.,"Die Kröte im Moor verkauft, was andere wegwerfen. Sogar Papier."

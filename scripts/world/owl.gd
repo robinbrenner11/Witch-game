@@ -2,8 +2,10 @@ extends Node2D
 
 ## Die Eule auf dem toten Baum im Wald. Sitzt still, blinzelt, schaut sich um
 ## und plustert sich manchmal auf. Nachts sieht man fast nur ihre Augen.
-## Reine Atmosphäre. Frames und Abläufe: docs/ASSETS.md, Ambient-Fauna.
-## Später wird sie eine Person (Grimoire-Hinweise, game_design.md).
+## Frames und Abläufe: docs/ASSETS.md, Ambient-Fauna.
+## Spricht man sie an (E am Baumfuß), deutet sie einmal pro Nacht an, wo die
+## nächste fehlende Tagebuchseite liegt (PageData.owl_hint_key, in der
+## Reihenfolge des Journals). docs/design/grimoire.md, Abschnitt 2.
 
 const TEXTURE := preload("res://assets/environment/fauna/owl.png")
 const GLOW_TEXTURE := preload("res://assets/environment/fauna/owl_glow.png")
@@ -27,6 +29,7 @@ const ACTION_FPS := 6.0
 @export var max_pause: float = 6.0
 
 var _sprites: Array[AnimatedSprite2D] = []
+var _talking := false
 
 
 func _ready() -> void:
@@ -41,7 +44,51 @@ func _ready() -> void:
 			sprite.material = material
 		add_child(sprite)
 		_sprites.append(sprite)
+	var interactable := Interactable.new()
+	var shape := CollisionShape2D.new()
+	var rect := RectangleShape2D.new()
+	rect.size = Vector2(28, 24)
+	shape.shape = rect
+	interactable.position = Vector2(0, -12)
+	interactable.add_child(shape)
+	interactable.interacted.connect(_on_interacted)
+	add_child(interactable)
 	_idle_loop()
+
+
+## Text für den Interaktions-Hinweis (siehe Interactable).
+func interaction_prompt() -> String:
+	return "PROMPT_TALK"
+
+
+## Die nächste Tagebuchseite, die noch fehlt und über die sie etwas weiß.
+static func next_hint() -> String:
+	for page in SpreadJournal.journal_pages():
+		if page.owl_hint_key != "" and not Grimoire.is_page_found(page.id):
+			return page.owl_hint_key
+	return ""
+
+
+func _on_interacted(_player: Node2D) -> void:
+	var box := get_tree().get_first_node_in_group("dialogue_box") as DialogueBox
+	if box == null or _talking:
+		return
+	_talking = true
+	for sprite in _sprites:
+		sprite.play("ruffle")
+	var line := "OWL_SLEEPY"
+	if not WorldState.did_tonight("owl/hint"):
+		line = next_hint()
+		if line == "":
+			line = "OWL_NOTHING"
+		else:
+			WorldState.mark_tonight("owl/hint")
+	if not WorldState.has_flag("met_owl"):
+		await box.show_lines("NPC_OWL", ["OWL_FIRST"])
+		WorldState.set_flag("met_owl")
+	await box.show_lines("NPC_OWL", [line])
+	Grimoire.report("talk", {"id": "owl"})
+	_talking = false
 
 
 func _build_frames(strip: Texture2D) -> SpriteFrames:
