@@ -10,8 +10,15 @@ Wechsel der Schrift: in assets/ui/fonts/game_font.tres die Base Font austauschen
 per Doppelklick auf die Datei). Alle UI-Teile nutzen diese eine Datei.
 
 m6x11 von Daniel Linssen – https://managore.itch.io/m6x11
-Seit 18.10.2026 die Schrift fürs ganze Spiel (passt zum Zielbild in art_src/inspo/).
+Am 18.10.2026 kurz die Schrift fürs ganze Spiel (passt zum Zielbild in art_src/inspo/), dann abgelöst durch Alagard.
 Lizenz: frei nutzbar, Nennung erwünscht → Credits (Daniel Linssen).
 m6x11.ttf ist das Original. Ihm fehlen Umlaute, ß, ·, – und …; die ergänzt
-docs/art/font_patch/m6x11_umlauts.py und schreibt m6x11_de.ttf. game_font.tres zeigt auf m6x11_de.ttf.
+docs/art/font_patch/m6x11_umlauts.py und schreibt m6x11_de.ttf. Zum Zurückwechseln game_font.tres wieder auf m6x11_de.ttf zeigen lassen.
 Pixelscharf bei Größe 16 (1 Pixel). HUD, Dialogbox und Menüs zeigen Text seit 18.10. in 1×.
+
+Alagard von Hewett Tsoi (Pix3M) – https://www.dafont.com/alagard.font
+Seit 18.10.2026 die Schrift fürs ganze Spiel (Fraktur-artige Pixelschrift).
+Lizenz: laut DaFont frei, auch kommerziell; Nennung im Abspann (Hewett Tsoi) – vor Release nochmal prüfen.
+alagard.ttf ist das Original (nur ASCII). Umlaute, ß, ·, ×, – und … ergänzt
+docs/art/font_patch/alagard_umlauts.py und schreibt alagard_de.ttf. game_font.tres zeigt auf alagard_de.ttf.
+Gleiches Raster wie m6x11 (64 Einheiten = 1 Pixel), pixelscharf bei Größe 16. Etwa ein Viertel breiter als m6x11.
