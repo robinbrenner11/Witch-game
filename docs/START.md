@@ -4,7 +4,7 @@ Stand: 16.10.2026. **Das hier zuerst lesen**, danach nur die Dokumente, die die 
 
 ## Stand in einem Absatz
 
-Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen und Hexenpfaden, Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen. Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss und Ugo, Gnarl mit Upgrades (Stab II, Sichel II, Kessel II), Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald v2, Wasserfall-Höhle, Sumpf). Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
+Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen und Hexenpfaden, Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen. Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss und Ugo, Gnarl mit Upgrades (Stab II, Sichel II, Kessel II), Turmruine mit Blütennebel und Blütenherz 1 (Boss, Platzhalter), Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald v2, Wasserfall-Höhle, Sumpf). Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
 
 ## Branches
 
@@ -19,7 +19,7 @@ Nach `main` wird nur mit Robins Okay gemergt und gepusht.
 ## Nächste Schritte
 
 Gepflegt in `docs/design/welt_und_items.md`, Abschnitt 10 („Nächste Schritte“). Kurz:
-1. Schritt 8: Turmruine, Sperre S5, erstes Blütenherz (Boss braucht einen eigenen Entwurf)
+1. Robins Test: Gnarl und Upgrades (Schritt 7), Turmruine mit Blütenherz 1 (Schritt 8, Boss-Entwurf in `welt_und_items.md` Abschnitt 11)
 2. Nach Robins Test von Seewald v2 (F9): Ausgänge umstellen, alten Seewald entfernen, Höhen für Wald, Dorf und Garten
 
 ## Welches Dokument für welche Frage

@@ -496,3 +496,28 @@ UPGRADE_SICKLE_2,Sickle II,Sichel II
 UPGRADE_SICKLE_2_NOTE,Sickle II: the blade now cuts bloom vines.,Sichel II: Die Klinge schneidet jetzt Blütenranken.
 UPGRADE_CAULDRON_2,Cauldron II,Kessel II
 UPGRADE_CAULDRON_2_NOTE,Your cauldron now holds four ingredients.,Dein Kessel fasst jetzt vier Zutaten.
+BOOK_GROUP_FAR,Far places,Ferne Orte
+ENTRY_WILLOW_BARK_1,Bitter bark from the weeping willows by the lake.,Bittere Rinde von den Trauerweiden am See.
+ENTRY_WILLOW_BARK_2,The willows grow new bark after three nights.,Die Weiden bilden nach drei Nächten neue Rinde.
+ENTRY_WILLOW_BARK_3,Old wives chew it against pain. Gnarl uses it for handles.,Alte Frauen kauen sie gegen Schmerzen. Gnarl macht Griffe daraus.
+ENTRY_MOON_WATER_1,Lake water that held the full moon.,"Seewasser, in dem der Vollmond lag."
+ENTRY_MOON_WATER_2,"Only on full moon nights, and only a little.","Nur in Vollmondnächten, und nur ein wenig."
+ENTRY_MOON_WATER_3,It shines brighter near the bloom. Or the bloom shrinks from it.,Nahe der Blüte leuchtet es heller. Oder die Blüte weicht davor zurück.
+ENTRY_CAVE_CRYSTAL_1,It grows in the dark behind the waterfall.,Er wächst im Dunkeln hinter dem Wasserfall.
+ENTRY_CAVE_CRYSTAL_2,A broken stone grows back after four nights.,Ein abgebrochener Stein wächst nach vier Nächten nach.
+ENTRY_CAVE_CRYSTAL_3,It hums with Digitalis. Gnarl knows why.,"Er summt mit Digitalis. Gnarl weiß, warum."
+ENTRY_SWAMP_LIGHT_1,A mushroom that glows like a will-o'-wisp.,"Ein Pilz, der wie ein Irrlicht leuchtet."
+ENTRY_SWAMP_LIGHT_2,It hides from the light and comes back in the bog.,Er versteckt sich vor dem Licht und kommt im Moor wieder.
+ENTRY_SWAMP_LIGHT_3,Ugo pays well for it. Ugo never says why.,"Ugo zahlt gut dafür. Ugo sagt nie, warum."
+ENTRY_BLOOM_BUD_1,"A closed bud of the bloom, like a fist.","Eine geschlossene Knospe der Blüte, wie eine Faust."
+ENTRY_BLOOM_BUD_2,Near the bloom hearts they open.,Nahe der Blütenherzen öffnen sie sich.
+ENTRY_BLOOM_BUD_3,"Brewed with moon water, it turns against its own kind.","Mit Mondwasser gebraut, wendet sie sich gegen ihresgleichen."
+MSG_BLOOM_MIST,A magenta mist hangs between the trees. Buds glow inside it.,Ein Magenta-Nebel hängt zwischen den Bäumen. Darin glimmen Knospen.
+LOOK_BLOOM_MIST,"Behind the mist, a broken tower. Something in it beats like a heart.",Hinter dem Nebel ein zerbrochener Turm. Etwas darin schlägt wie ein Herz.
+MSG_HEART_AWAKENS,The bloom heart wakes. The ground starts to move.,Das Blütenherz erwacht. Der Boden gerät in Bewegung.
+MSG_HEART_CLOSES,The heart closes its petals and calls for help.,Das Herz schließt seine Blätter und ruft um Hilfe.
+MSG_HEART_SHIELDED,The closed bud does not yield. Something has to open it.,Die geschlossene Knospe gibt nicht nach. Etwas muss sie öffnen.
+MSG_HEART_OPENS,The petals open again.,Die Blätter öffnen sich wieder.
+MSG_HEART_CLEANSED,The bloom heart withers. The woods breathe out.,Das Blütenherz welkt. Der Wald atmet auf.
+PAGE_JOURNAL_02_LORE,"They will call it a curse. It was a wish. I asked the garden to keep me as I am, and it listened too well.","Sie werden es einen Fluch nennen. Es war ein Wunsch. Ich bat den Garten, mich zu bewahren, wie ich bin, und er hörte zu gut zu."
+PAGE_JOURNAL_02_STUB,The,Sie

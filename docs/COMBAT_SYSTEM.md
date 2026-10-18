@@ -192,7 +192,7 @@ Nicht automatisch geprüft: wie sich der Kampf anfühlt (Tempo, Schwierigkeit) u
 - **Formen freischalten über das Grimoire**: Belohnung `DIGITALIS_FORM` ist schon vorbereitet; dritte Form z. B. die Dornenpeitsche aus der Tabelle in `game_design.md` (Reichweite, heranziehen), dann als neue `AttackData.Kind`.
 - **Sichel in der Overworld**: Unkraut schneiden ohne Kampfmodus, mit eigener Bedienung (laut Design später getrennt vom Kampf).
 - **Weitere Gegner mit eigenem Telegraph**: eine befallene Pflanze, die Sporen spuckt (Kreis am Boden vor dem Einschlag); Motten im Schwarm, die nur bei Licht angreifen.
-- **Blütenherz (Boss)**: mehrere Phasen, jede mit eigenem, gut lesbarem Telegraph; darf fordernd sein.
+- **Blütenherz (Boss)**: mehrere Phasen, jede mit eigenem, gut lesbarem Telegraph; darf fordernd sein. Gebaut als Entwurf: `scripts/world/bloom_heart.gd` (Wurzelstöße, Knospenpanzer mit Käfern, Dornenstrahlen; Reinigungsnebel bricht den Panzer), Werte und Phasen in `docs/design/welt_und_items.md`, Abschnitt 11.
 - **Irrlicht hilft im Kampf** (Idee vom 09.10.): kleiner Funke auf nahe Gegner.
 - **Kleine Synergien statt Kombo-System**: z. B. ein gestaggerter Käfer nimmt von der Sichel +1 Schaden. Nur wenn es sich im Test lohnt.
 - **Weitere Wurftränke**: Reinigungsnebel, Giftwolke (aus der Kandidatenliste vom 10.10.).

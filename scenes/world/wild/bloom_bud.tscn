@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/forage.gd" id="1_forage"]
+[ext_resource type="Texture2D" path="res://assets/environment/forage/forage_bloom_bud.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_22x6.png" id="4_shadow"]
+
+[node name="BloomBud" type="Node2D"]
+script = ExtResource("1_forage")
+texture = ExtResource("2_tex")
+shadow_texture = ExtResource("4_shadow")
+light_energy = 0.6
+light_color = Color(0.894118, 0.345098, 0.694118, 1)
+light_radius = 32.0
+light_offset = Vector2(0, -10)
+light_flicker = 0.25
+drop_item_id = "bloom_bud"

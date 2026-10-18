@@ -322,13 +322,13 @@ Offen und bewusst nicht hier: Mondeffekte für die Nächte 2–3 und 5–7, Craf
 | 5 | ✅ 16.10. | **Mutter Moos (Mother Moss)** im Seewald v2 an ihrer Hütte (18 Uhr Tür, 22 Uhr Ufer, 2 Uhr Tür, 5:40 drinnen). Erstes Gespräch, Vollmond-Hinweis auf den Mondsteg, Alltagszeilen. **Tausch:** Nach dem Gespräch kommt die Auswahl; 4 Wildkraut → 2 Alraunensamen, 3 Dämmerbeeren → 2 Blutrosensamen, 2 Weidenrinde → 1 Mondkelchsamen (einmal pro Nacht). Neu dafür: **Antwort-Auswahl in der Dialogbox** (`DialogueBox.choose()`, 3 Zeilen sichtbar, rollt, Tasten, Maus, Esc) und Tauschangebote als Daten (`TradeOffer`, `data/trades/<npc>/`) |
 | 6 | ✅ 16.10. | **Sumpf** `scenes/world/swamp.tscn` aus Bauplan (Tümpel, flaches Wasser, Sumpflichter wachsen nach, 2 Käfer, keine sichere Zone), erreichbar aus der Senke im Seewald v2 (Ausgang `ToSwamp`, nach dem Wegbrennen der Ranken). **Ugo** (Krötenhändler): im Sumpf, bei Halbmond auf dem Markt im Dorf. Tausch: 3 Hexenschlamm → 2 Mondmoos, 2 Sumpflicht → 1 Nachtschattensamen, 1 Heiltrank → 1 Blütenknospe (1× pro Nacht), bei Halbmond 2 Dämmerbeeren → 1 Eulenfeder. **Halbmondmarkt:** Stand im Dorf (`Unlockable`, nur bei Halbmond sichtbar). Neu: `ScheduleEntry.moon_phases`, `scripts/world/unlockable.gd`. Achtung: `village.tscn` wurde dafür ergänzt (Ugo, Spot `UgoMarket`, Stand) |
 | 7 | ✅ 18.10. | **Gnarl und Upgrades:** Gnarl (Wurzelschnitzer, Platzhalter-Figur) sitzt im tiefen Wald am Baumstumpf am Befall, hustet und will einen Heiltrank (Gerücht: Laternenbeere). Nach der Gabe bedankt er sich und zieht **ab der nächsten Nacht** in die Werkstatt im Dorf (Laterne brennt dann). Dort Upgrades als Tausch: **Stab II** (2 Höhlenkristall + 3 Bitterblütenblatt: der starke Zauber durchschlägt ein Wesen), **Sichel II** (3 Glutmorchel + 2 Weidenrinde: schneidet die Ranken-Treppe S4, Sichel I prallt mit Hinweis ab), **Kessel II** (3 Höhlenkristall + 1 Weidenrinde: 4 Plätze). Neu: `RewardData.Type.UPGRADE`, `Grimoire.upgrade_level()`, Formstufen als eigene Dateien (`data/digitalis/staff_2.tres`), `TradeOffer` mit zweitem Material, Belohnung, Flags und Gaben ohne Gegenleistung, `ScheduleEntry.requires_flag`/`blocked_by_flag`, `WorldState.set_flag_next_night()`, `Gate.cuttable`, `AttackData.pierce`/`cuts_vines`. `Brewing.capacity` ergibt sich jetzt aus der Kessel-Stufe |
-| 8 | offen | – |
+| 8 | ✅ 18.10. (Boss als 🔮 Entwurf) | **Turmruine** `scenes/world/tower_ruin.tscn` aus Bauplan (Hof als Arena, Turmstumpf, Mauerreste, dunkel), erreichbar vom tiefen Wald (Ausgang Osten). **Blütennebel S5** davor: Reinigungsnebel lichtet ihn nur für diese Nacht (`Gate.item_opens_tonight`), nach dem Blütenherz für immer offen. **Blütenknospen** wachsen in der Ruine nach (3 Nächte). **Blütenherz 1** (`scripts/world/bloom_heart.gd`, Entwurf Abschnitt 11): drei Phasen, gereinigt setzt es `bloom_heart_1_cleansed`, lässt 3 Knospen und die Tagebuchseite `page_journal_02` fallen und bleibt verdorrt stehen. Dazu Herbarium-Seite **Ferne Orte** (Weidenrinde, Mondwasser, Höhlenkristall, Sumpflicht, Blütenknospe) |
 
 ### Nächste Schritte (Stand 16.10., Abbruch wegen Nutzungslimit)
 
-2. **Schritt 8: Turmruine, Blütennebel S5, Blütenherz 1** (Boss, eigener Entwurf nötig).
 3. **Robins Test** von Seewald v2 (F9), danach Ausgänge von Garten, Wald und Dorf auf `lakewood_v2.tscn` umstellen und den alten Seewald entfernen (W5). Danach tiefer Wald, Dorf, Garten mit Höhen (Spielstand-Frage beim Garten, `overworld_plan.md` Abschnitt 7).
-4. Offen: Herbarium-Einträge für die neuen Items, echte Grafiken (Robin, mit dem Plugin), Wasser-Animation.
+4. Offen: echte Grafiken (Robin, mit dem Plugin), Wasser-Animation. Robins Test von Blütenherz 1 (Entwurf in Abschnitt 11).
+5. Was nach Blütenherz 1 passiert, ist nur als Flag vorbereitet (`bloom_heart_1_cleansed`): Heilung des tiefen Walds (weniger Befall?), Hexenring als Schnellreise, Apprentice, Moor S8. Das braucht Robins Entscheidung (game_design.md, Abschnitte 4 und 10).
 
 
 Tests (headless, Prüfskripte nicht im Repo): Gate zu ohne Licht mit Meldung, E zeigt Hinweis, offen mit Irrlicht und mit Mondlicht, wieder zu ohne Licht, Höhle betreten und verlassen, Höhle dunkel und sonnensicher, Kristalle wachsen, pflücken und nachwachsen, Glutbombe öffnet ein Wurf-Gate dauerhaft, Wachstumstrank öffnet ein Gieß-Gate, falscher Trank tut nichts: 25 / 25. Höhen-Test weiter 24 / 24, alle 323 Szenen, Scripts und Ressourcen laden.
@@ -346,3 +346,27 @@ Tests Schritt 6: 18 / 18 (Senke → Sumpf → zurück, Ugo im Sumpf und bei Halb
 Tests Schritt 7: 52 / 52 (Gnarl im Wald, Gabe nur mit Heiltrank, Dank in derselben Nacht, Umzug erst nächste Nacht und auch nach Speichern, Werkstatt-Laterne, alle drei Upgrades mit und ohne Material, kein Upgrade doppelt, Stufen speichern und laden, Auswahl-Zeilen passen auf Englisch und Deutsch, Sichel I prallt an S4 ab, Sichel II schneidet, Stab II fliegt durch das erste Wesen). Alle 388 Szenen, Scripts und Ressourcen laden.
 
 Noch nicht: Die Blütenknospe ist für Gnarl noch nicht im Einsatz (die Tabelle in Abschnitt 6 nennt sie nicht, sie bleibt für den Reinigungsnebel). Höhlenkristall hat keinen Herbarium-Eintrag.
+
+Tests Schritt 8: 26 / 26 (Herbarium Ferne Orte, Nebel zu, Glutbombe wirkungslos, Reinigungsnebel lichtet nur für die Nacht, Ausgänge Wald ↔ Ruine, Herz schläft und erwacht, Wurzelstöße treffen, Panzer mit zwei Käfern hält, Reinigungsnebel und gereinigte Käfer brechen ihn, Phase 3 mit neuem Panzer, Strahl trifft, zwischen den Strahlen sicher, Reinigen mit Knospen und Seite, bleibt verdorrt, Nebel danach für immer weg). Schritt 7 weiter 52 / 52, alle 398 Dateien laden.
+
+---
+
+## 11. Blütenherz 1 (🔮 Entwurf vom 18.10., als Platzhalter gebaut)
+
+Robin hat Schritt 8 angenommen, der Boss selbst brauchte noch einen Entwurf. Gebaut ist dieser Vorschlag, damit man ihn spielen und dann ändern kann. Alle Werte sind Exporte an `scenes/world/bloom_heart.tscn` (Leben, Abstände, Telegraph-Zeiten, Schaden, Anzahl).
+
+**Idee:** Das Herz bewegt sich nicht. Es kämpft über den Boden um sich herum. Jede Phase hat genau einen neuen, gut lesbaren Telegraph. Fordernd, aber fair (game_design.md, Abschnitt 7).
+
+| Phase | Leben | Was passiert | Telegraph | Antwort der Spielerin |
+|---|---|---|---|---|
+| 0 | – | schläft, bis die Hexe nah kommt (150 px) | – | – |
+| 1 Wurzelstöße | 100 % bis 65 % | alle 2,4 s drei Ringe: einer unter der Hexe, zwei daneben | Ring füllt sich in 0,9 s | aus dem Ring laufen oder ausweichen |
+| 2 Knospenpanzer | ab 65 % | Herz schließt sich und ruft 2 Käfer; Panzer hält, bis sie gereinigt sind | Knospe wird zur geschlossenen Bordeaux-Faust mit Goldnaht, Meldung | Käfer reinigen **oder Reinigungsnebel** aufs Herz werfen (bricht den Panzer und lähmt 2,5 s) |
+| 3 Dornenstrahlen | ab 30 % | wieder Panzer und Käfer, dann alle 3,6 s sechs Strahlen in zufälliger Drehung, dazu schnellere Wurzelstöße | gepunktete Linien, kurz vor dem Schuss dicht und hell | zwischen zwei Linien stehen |
+
+- Neumond: Telegraphen 20 % kürzer (`Moon.blight_surges()`).
+- Gereinigt: Flag `bloom_heart_1_cleansed`, 3 Blütenknospen, Tagebuchseite 2 („Es war ein Wunsch …“, passt zu „Vespera fürchtete das Altern“, game_design.md 9). Danach verdorrter Knoten.
+- Verloren: wie jede Niederlage. Das Herz ist beim nächsten Besuch wieder heil.
+
+❓ Für Robin beim Test: Ist es zu leicht oder zu schwer (Leben 36)? Soll der Reinigungsnebel Pflicht sein (heute: optional, die Käfer gehen auch)? Was soll nach dem Reinigen im tiefen Wald passieren?
+

@@ -39,6 +39,9 @@ const MESSAGE_COOLDOWN := 2.0
 @export var active_effects: Array[String] = []
 ## Item-ID eines Tranks zum Gießen oder Werfen. Braucht required_flag.
 @export var open_with_item: String = ""
+## Der Trank öffnet nur für diese Nacht statt für immer (Blütennebel S5).
+## Für immer offen ist es dann nur über required_flag.
+@export var item_opens_tonight: bool = false
 ## Lässt sich mit einer Sichel durchschneiden, die cuts_vines hat (AttackData).
 ## Braucht required_flag. Schwächere Hiebe melden nur cut_message.
 @export var cuttable: bool = false
@@ -94,6 +97,8 @@ func _draw() -> void:
 func is_open() -> bool:
 	if required_flag != "" and WorldState.has_flag(required_flag):
 		return true
+	if item_opens_tonight and WorldState.did_tonight(_tonight_key()):
+		return true
 	if moon_phase >= 0 and Moon.phase() == moon_phase:
 		return true
 	for effect in active_effects:
@@ -120,6 +125,10 @@ func on_potion(item: ItemData) -> bool:
 	return true
 
 
+func _tonight_key() -> String:
+	return "gate/" + required_flag
+
+
 ## Ein Sichelhieb hat die Sperre getroffen (Slash ruft das für die Gruppe
 ## "cuttable" auf). can_cut: Die Sichel schneidet Ranken.
 func on_cut(can_cut: bool) -> void:
@@ -144,7 +153,10 @@ func _effect_active(effect: String) -> bool:
 
 
 func _open_for_good() -> void:
-	WorldState.set_flag(required_flag)
+	if item_opens_tonight:
+		WorldState.mark_tonight(_tonight_key())
+	else:
+		WorldState.set_flag(required_flag)
 	_apply(true, false)
 
 
