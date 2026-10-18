@@ -53,6 +53,9 @@ var _claimed: Dictionary = {}
 var _forms: Array[String] = []
 # Form oder Werkzeug -> Stufe (Upgrades von Gnarl). Was fehlt, ist Stufe 1.
 var _upgrades: Dictionary = {}
+# Träume, die beim nächsten Schlafen kommen, und die schon geträumten.
+var _dreams_pending: Array[String] = []
+var _dreams_seen: Array[String] = []
 
 
 func _ready() -> void:
@@ -153,6 +156,8 @@ func _check_readable(page_id: String) -> void:
 	var page := PageData.from_id(page_id)
 	if page.reward and page.reward.type != RewardData.Type.RECIPE:
 		_apply_reward(page.reward)
+	if page.dream_id != "":
+		queue_dream(page.dream_id)
 
 
 # --- Rezepte -----------------------------------------------------------------
@@ -292,6 +297,8 @@ func _apply_reward(reward: RewardData) -> void:
 			learn_form(reward.target_id)
 		RewardData.Type.UPGRADE:
 			upgrade(reward.target_id, reward.value)
+		RewardData.Type.DREAM:
+			queue_dream(reward.target_id)
 
 
 ## Liegt auf dieser Stufe ein Geschenk zum Abholen bereit?
@@ -481,6 +488,28 @@ func learn_form(form_id: String) -> void:
 		changed.emit()
 
 
+# --- Träume --------------------------------------------------------------------
+
+## Der Traum kommt beim nächsten Schlafen (jeder nur einmal).
+func queue_dream(dream_id: String) -> void:
+	if DreamData.from_id(dream_id) and not _dreams_pending.has(dream_id) and not _dreams_seen.has(dream_id):
+		_dreams_pending.append(dream_id)
+
+
+## Der nächste anstehende Traum, gilt damit als geträumt. null = keiner.
+func take_pending_dream() -> DreamData:
+	if _dreams_pending.is_empty():
+		return null
+	var dream_id: String = _dreams_pending.pop_front()
+	_dreams_seen.append(dream_id)
+	changed.emit()
+	return DreamData.from_id(dream_id)
+
+
+func has_dreamt(dream_id: String) -> bool:
+	return _dreams_seen.has(dream_id)
+
+
 # --- Upgrades ------------------------------------------------------------------
 
 ## Stufe einer Form ("staff", "sickle") oder eines Werkzeugs ("cauldron").
@@ -582,6 +611,7 @@ func get_save_data() -> Dictionary:
 		"firsts": _firsts, "taught": _taught, "counts": _counts,
 		"completed_groups": _completed_groups, "claimed": _claimed, "forms": _forms,
 		"upgrades": _upgrades.duplicate(),
+		"dreams_pending": _dreams_pending.duplicate(), "dreams_seen": _dreams_seen.duplicate(),
 	}
 
 
@@ -605,6 +635,15 @@ func load_save_data(data: Dictionary) -> void:
 			_forms.append(String(form_id))
 	if _forms.is_empty():
 		_forms.assign(START_FORMS)
+	_dreams_pending.clear()
+	_dreams_seen.clear()
+	for key in ["dreams_pending", "dreams_seen"]:
+		var list: Variant = data.get(key, [])
+		if list is Array:
+			for dream_id in list:
+				# Entfernte Träume fallen weg.
+				if dream_id is String and DreamData.from_id(dream_id):
+					(_dreams_pending if key == "dreams_pending" else _dreams_seen).append(dream_id)
 	_upgrades.clear()
 	var upgrades: Variant = data.get("upgrades", {})
 	if upgrades is Dictionary:

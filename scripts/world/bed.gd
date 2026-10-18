@@ -45,10 +45,15 @@ func _sleep(player: Player) -> void:
 
 	DayCycle.sleep_until_night()
 	Grimoire.complete_goal("sleep")
+	# Ein anstehender Traum (nach bestimmten Seiten) gilt ab hier als
+	# geträumt, damit der Spielstand das schon weiß.
+	var dream := Grimoire.take_pending_dream()
 	# Erst nach dem Wachstum über Nacht speichern, damit der Stand zum
 	# Aufwachen passt.
 	SaveGame.save_game()
 	await get_tree().create_timer(DARK_TIME).timeout
+	if dream:
+		await DreamView.play(get_tree(), dream)
 
 	await ScreenFade.fade_in()
 	await get_tree().create_timer(WAKE_UP_TIME).timeout

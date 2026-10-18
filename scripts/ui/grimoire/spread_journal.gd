@@ -81,11 +81,25 @@ func _build_entry(box: Control, page: PageData, is_left: bool) -> void:
 		return
 	var lore := BookStyle.label(text, BookStyle.INK_VESPERA, text_width)
 	box.add_child(lore)
+	_add_dream(box, page)
 	if not Grimoire.is_seen(seen_key(page)):
 		# Vesperas Tinte kehrt Zeichen für Zeichen zurück.
 		lore.visible_ratio = 0.0
 		lore.create_tween().tween_property(lore, "visible_ratio", 1.0, INK_TIME)
 		Grimoire.mark_seen(seen_key(page))
+
+
+## Wurde zu dieser Seite schon geträumt, steht darunter ein kurzer Eintrag
+## in der Tinte der Spielerin, mit einer kleinen Mondsichel davor.
+func _add_dream(box: Control, page: PageData) -> void:
+	var dream := DreamData.from_id(page.dream_id)
+	if dream == null or not Grimoire.has_dreamt(dream.id):
+		return
+	box.add_child(BookStyle.rule(text_width))
+	var row := HBoxContainer.new()
+	row.add_child(SmallMoon.new())
+	row.add_child(BookStyle.label(dream.title_key, BookStyle.INK_PLAYER, text_width - 12))
+	box.add_child(row)
 
 
 ## Legt eine Zeichnung über die ganze Seite (Stummel, Ranken).
@@ -120,3 +134,17 @@ class TornStub:
 			draw_rect(Rect2(edge, y, 1, 1), BookStyle.SHEET_SHADOW_DEEP)
 		var text_x := size.x - STRIP + 4 if fold_on_right else 4.0
 		draw_string(get_theme_default_font(), Vector2(text_x, 30), hint, HORIZONTAL_ALIGNMENT_LEFT, STRIP - 6, 16, BookStyle.INK_VESPERA)
+
+
+## Mondsichel vor Traum-Einträgen.
+class SmallMoon:
+	extends Control
+
+	func _init() -> void:
+		custom_minimum_size = Vector2(9, 9)
+
+	func _draw() -> void:
+		for y in range(-3, 4):
+			for x in range(-3, 4):
+				if Vector2(x, y).length() <= 3.2 and Vector2(x + 2, y - 1).length() > 2.6:
+					draw_rect(Rect2(x + 4, y + 5, 1, 1), BookStyle.MAGENTA)
