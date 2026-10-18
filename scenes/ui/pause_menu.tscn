@@ -25,9 +25,8 @@ color = Color(0.054902, 0.039216, 0.0784314, 0.6)
 
 [node name="Scaled" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 320.0
-offset_bottom = 180.0
-scale = Vector2(2, 2)
+offset_right = 640.0
+offset_bottom = 360.0
 mouse_filter = 2
 
 [node name="Menu" type="CenterContainer" parent="Scaled"]

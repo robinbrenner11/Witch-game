@@ -6,10 +6,9 @@ extends Control
 ## der Scheibe wird geprüft, ob es auf der beleuchteten Seite der
 ## Schattengrenze liegt (zunehmend rechts hell, abnehmend links).
 
-# Mond mit 11 Pixeln Durchmesser, jedes Pixel doppelt so groß gezeichnet wie
-# die übrige UI (Hotbar, Uhr).
-const RADIUS := 5
-const PIXEL := 2
+# Mond mit 15 Pixeln Durchmesser in einfacher Pixelgröße wie die Schrift.
+const RADIUS := 7
+const PIXEL := 1
 const LIT := Color("#EADFCB")
 # Die dunkle Seite bleibt schwach sichtbar, damit man auch den Neumond sieht.
 const DARK := Color("#344678")

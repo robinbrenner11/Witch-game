@@ -1,6 +1,6 @@
 [gd_resource type="FontVariation" format=3]
 
-[ext_resource type="FontFile" path="res://assets/ui/fonts/Alkhemikal.ttf" id="1_font"]
+[ext_resource type="FontFile" path="res://assets/ui/fonts/m6x11_de.ttf" id="1_font"]
 
 [resource]
 base_font = ExtResource("1_font")

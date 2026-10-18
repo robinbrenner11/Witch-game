@@ -15,9 +15,9 @@ extends Control
 ##     var picked := await box.choose("NPC_MOTHER_MOSS", ["TRADE_…", "TRADE_NOTHING"])
 ##
 ## Wie Truhe und Kessel hält das Fenster das Spiel an, solange es offen ist,
-## also steht auch die Uhr. Grafiken in 1×, das Fenster ist auf scale = 2
-## gestellt (wie das Brau-Fenster). Aufbau nach dem Mockup in
-## docs/art/ui_generator/dialog.py.
+## also steht auch die Uhr. Grafiken und Schrift in 1× (seit 18.10.2026, wie
+## im Zielbild art_src/inspo/: flache Box über die ganze Breite statt doppelt
+## vergrößert). Aufbau nach dem Mockup in docs/art/ui_generator/dialog.py.
 
 signal finished
 signal chosen(index: int)
@@ -28,9 +28,9 @@ const NEXT_FRAMES := 4
 const NEXT_FPS := 6.0
 const NEXT_FRAME_SIZE := 8
 # Mit Portrait rückt der Text nach rechts (Mockup: Portrait 56 px breit).
-const TEXT_LEFT := 10.0
+const TEXT_LEFT := 12.0
 const TEXT_LEFT_WITH_PORTRAIT := 74.0
-const TEXT_RIGHT := 294.0
+const TEXT_RIGHT := 596.0
 # So viele Antworten passen gleichzeitig ins Fenster (wie die 3 Textzeilen).
 const CHOICE_ROWS := 3
 const CHOICE_BG := preload("res://assets/ui/dialog_choice_bg.png")
