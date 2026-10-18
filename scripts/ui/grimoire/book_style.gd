@@ -32,28 +32,43 @@ const INK_FAINT := SHEET_SHADOW_DEEP   # Nebeninfos
 # --- Maße (1×, Viewport 640×360) ---
 # Das Buch sitzt etwas links der Mitte: Rechts neben den Lesezeichen stehen
 # ihre Namen, unten eine Zeile mit der Bedienung.
-const COVER := Rect2(44, 22, 500, 312)
-const LEFT_PAGE := Rect2(56, 30, 234, 292)
-const RIGHT_PAGE := Rect2(298, 30, 234, 292)
-const FOLD := Rect2(290, 30, 8, 292)
+# Seit Alagard (18.10.2026) 10 px weiter links, damit lange Lesezeichen-Namen
+# wie "Bestiarium" (80 px) noch ins Bild passen.
+const COVER := Rect2(34, 22, 500, 312)
+const LEFT_PAGE := Rect2(46, 30, 234, 292)
+const RIGHT_PAGE := Rect2(288, 30, 234, 292)
+const FOLD := Rect2(280, 30, 8, 292)
 # Innenrand der Seiten, dort beginnt der Text.
 const PAGE_MARGIN := 12
-const TAB_X := 544.0
+const TAB_X := 534.0
 const TAB_WIDTH := 13.0
 const TAB_WIDTH_ACTIVE := 18.0
 const TAB_HEIGHT := 18.0
 const TAB_GAP := 2.0
 const TAB_GROUP_GAP := 6.0
 # Die Namen der Lesezeichen beginnen hier (rechts vom Buch).
-const TAB_LABEL_X := 566.0
+const TAB_LABEL_X := 556.0
+const TAB_LABEL_WIDTH := 84.0
 const HINT_Y := 338.0
 const SLOT_SIZE := 24.0
 const LABEL_LIGHT := BONE
 const LABEL_DIM := Color("#6E6478")
+# Seitentext in der Textschrift, Überschriften und Lesezeichen in der
+# Zierschrift aus dem Theme. Beides ist zurzeit Alagard; die Textschrift hat
+# 1 px engere Zeilen, damit die Seiten reichen.
+const TEXT_FONT := preload("res://assets/ui/fonts/text_font.tres")
+const TITLE_FONT := preload("res://assets/ui/fonts/game_font.tres")
 
 
 ## Ein Label in Buchtinte. text darf ein Übersetzungsschlüssel sein.
 static func label(text: String, color: Color = INK, width: float = 0.0) -> Label:
+	var result := title(text, color, width)
+	result.add_theme_font_override("font", TEXT_FONT)
+	return result
+
+
+## Wie label(), aber in der Zierschrift: für Überschriften und Namen.
+static func title(text: String, color: Color = INK, width: float = 0.0) -> Label:
 	var result := Label.new()
 	result.text = text
 	result.add_theme_color_override("font_color", color)
@@ -69,7 +84,7 @@ static func heading(text: String, color: Color, width: float) -> VBoxContainer:
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 1)
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	box.add_child(label(text, color))
+	box.add_child(title(text, color))
 	box.add_child(rule(width))
 	return box
 
@@ -147,6 +162,8 @@ static func text_button(text: String, color: Color = INK) -> Button:
 	button.text = text
 	button.flat = true
 	button.focus_mode = Control.FOCUS_NONE
+	# Steht mitten im Seitentext, also in dessen Schrift.
+	button.add_theme_font_override("font", TEXT_FONT)
 	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
 		button.add_theme_color_override(state, color)
 	button.add_theme_color_override("font_hover_color", MAGENTA)
@@ -217,6 +234,8 @@ static func button(text: String) -> Button:
 	var result := Button.new()
 	result.text = text
 	result.focus_mode = Control.FOCUS_NONE
+	# Textschrift: Die Knöpfe stehen in schmalen Zeilen (Nehmen, Wählen).
+	result.add_theme_font_override("font", TEXT_FONT)
 	result.add_theme_color_override("font_color", GOLD)
 	result.add_theme_color_override("font_hover_color", BONE)
 	result.add_theme_color_override("font_pressed_color", BONE)

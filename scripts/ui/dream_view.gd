@@ -13,7 +13,7 @@ const TEXT_COLOR := Color("#EADFCB")
 const MOON := Color("#C6B8BE")
 const FADE := 0.8
 const TEXT_WIDTH := 420.0
-const FONT := preload("res://assets/ui/fonts/game_font.tres")
+const FONT := preload("res://assets/ui/fonts/text_font.tres")
 const FONT_SIZE := 16
 
 signal _next

@@ -26,7 +26,7 @@ func _init(for_chapter: ChapterData) -> void:
 	_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_label.position = Vector2(BookStyle.TAB_LABEL_X - BookStyle.TAB_X, 0)
 	add_child(_label)
-	size = Vector2(BookStyle.TAB_LABEL_X - BookStyle.TAB_X + 74, BookStyle.TAB_HEIGHT)
+	size = Vector2(BookStyle.TAB_LABEL_X - BookStyle.TAB_X + BookStyle.TAB_LABEL_WIDTH, BookStyle.TAB_HEIGHT)
 	mouse_entered.connect(func() -> void:
 		_hovered = true
 		refresh())

@@ -49,7 +49,7 @@ func build(left: Control, right: Control) -> void:
 func _build_index(page: Control, entries: Array[EntryData]) -> void:
 	var discovered := entries.filter(func(e: EntryData) -> bool: return Grimoire.is_discovered(e)).size()
 	var header := HBoxContainer.new()
-	header.add_child(BookStyle.label(chapter.title_key, BookStyle.INK_VESPERA_TITLE))
+	header.add_child(BookStyle.title(chapter.title_key, BookStyle.INK_VESPERA_TITLE))
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(spacer)

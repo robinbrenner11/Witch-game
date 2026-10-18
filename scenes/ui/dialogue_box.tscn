@@ -8,12 +8,13 @@
 [ext_resource type="Texture2D" path="res://assets/ui/dialog_portrait_bg.png" id="6_portrait_bg"]
 [ext_resource type="Texture2D" path="res://assets/ui/dialog_next.png" id="7_next"]
 [ext_resource type="FontVariation" path="res://assets/ui/fonts/game_font.tres" id="8_font"]
+[ext_resource type="FontVariation" path="res://assets/ui/fonts/text_font.tres" id="9_text_font"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nameplate"]
 content_margin_left = 6.0
-content_margin_top = 0.0
+content_margin_top = 2.0
 content_margin_right = 6.0
-content_margin_bottom = 0.0
+content_margin_bottom = 2.0
 texture = ExtResource("4_nameplate")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
@@ -113,9 +114,9 @@ patch_margin_bottom = 6
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 8.0
-offset_top = -7.0
+offset_top = -9.0
 offset_right = 58.0
-offset_bottom = 7.0
+offset_bottom = 10.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_nameplate")
 
@@ -136,7 +137,7 @@ offset_top = 10.0
 offset_right = 596.0
 offset_bottom = 62.0
 theme_override_colors/font_color = Color(0.917647, 0.87451, 0.796078, 1)
-theme_override_fonts/font = ExtResource("8_font")
+theme_override_fonts/font = ExtResource("9_text_font")
 theme_override_font_sizes/font_size = 16
 text = "Text"
 autowrap_mode = 3

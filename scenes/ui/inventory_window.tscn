@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ui/inventory_window.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/ui/hotbar_panel.png" id="2_panel"]
 [ext_resource type="FontVariation" path="res://assets/ui/fonts/game_font.tres" id="3_font"]
+[ext_resource type="FontVariation" path="res://assets/ui/fonts/text_font.tres" id="5_text_font"]
 [ext_resource type="Script" path="res://scripts/ui/inventory_grid.gd" id="4_grid"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
@@ -73,7 +74,7 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.776471, 0.721569, 0.745098, 1)
-theme_override_fonts/font = ExtResource("3_font")
+theme_override_fonts/font = ExtResource("5_text_font")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -81,7 +82,7 @@ autowrap_mode = 3
 [node name="Use" type="Label" parent="Box/Info/InfoBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.643137, 0.254902, 1)
-theme_override_fonts/font = ExtResource("3_font")
+theme_override_fonts/font = ExtResource("5_text_font")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 

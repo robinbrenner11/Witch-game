@@ -53,13 +53,23 @@ func build(left: Control, right: Control) -> void:
 
 func _build_levels(page: Control, level: int) -> void:
 	var header := HBoxContainer.new()
-	header.add_child(BookStyle.label(chapter.title_key, BookStyle.INK_VESPERA_TITLE))
+	header.add_child(BookStyle.title(chapter.title_key, BookStyle.INK_VESPERA_TITLE))
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(spacer)
 	var level_key := "BOOK_LEVEL_MAX" if level >= discipline.max_level else "BOOK_LEVEL"
-	header.add_child(BookStyle.label(tr(level_key) % level, BookStyle.INK))
+	var level_text := tr(level_key) % level
+	var level_label := BookStyle.title(level_text, BookStyle.INK)
 	page.add_child(header)
+	# "Stufe 10, gemeistert" passt nicht neben lange Namen; dann rechtsbündig
+	# in eine eigene Zeile, sonst drückt die Kopfzeile die Seite in den Falz.
+	var needed := BookStyle.TITLE_FONT.get_string_size(tr(chapter.title_key) + level_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x + 8
+	if needed > text_width:
+		level_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		level_label.custom_minimum_size.x = text_width
+		page.add_child(level_label)
+	else:
+		header.add_child(level_label)
 	page.add_child(BookStyle.rule(text_width))
 
 	# Erfahrung bis zur nächsten Stufe als Balken mit Zahlen daneben.
@@ -160,17 +170,25 @@ static func reward_text(reward: RewardData) -> String:
 
 func _build_paths(page: Control, level: int) -> void:
 	page.add_child(BookStyle.heading("BOOK_PATHS", BookStyle.INK_VESPERA_TITLE, text_width))
-	for milestone in discipline.milestone_levels:
+	var milestones := discipline.milestone_levels
+	for i in milestones.size():
+		var milestone: int = milestones[i]
 		page.add_child(BookStyle.label(tr("BOOK_LEVEL") % milestone, BookStyle.GOLD_DARK))
 		var before := Grimoire.chosen_path(discipline.id, 5) if milestone > 5 else ""
 		if milestone > 5 and before == "":
 			page.add_child(BookStyle.label("BOOK_PATH_UNKNOWN", BookStyle.INK_FAINT, text_width))
 			continue
 		var chosen := Grimoire.chosen_path(discipline.id, milestone)
-		var cards := HBoxContainer.new()
-		cards.add_theme_constant_override("separation", 4)
+		# Ist hier schon gewählt und kommt danach noch eine Stufe, zeigt die
+		# Seite nur noch den gewählten Pfad in einer Zeile: Die Karten stehen
+		# untereinander (lange Pfadnamen in Alagard), für alle reicht die Seite nicht.
+		var compact := chosen != "" and i < milestones.size() - 1
+		var cards := VBoxContainer.new()
+		cards.add_theme_constant_override("separation", 3)
 		for path in PathData.options(discipline.id, milestone, before):
-			cards.add_child(_path_card(path, chosen, level))
+			if compact and path.id != chosen:
+				continue
+			cards.add_child(_path_card(path, chosen, level, compact))
 		page.add_child(cards)
 	if book.opened_at_lectern:
 		_add_respec(page)
@@ -178,19 +196,23 @@ func _build_paths(page: Control, level: int) -> void:
 
 ## Eine Karte pro Pfad: Name, Wirkung, und je nach Zustand Wählen,
 ## "Dein Pfad" oder ab welcher Stufe.
-func _path_card(path: PathData, chosen: String, level: int) -> Control:
+func _path_card(path: PathData, chosen: String, level: int, compact: bool = false) -> Control:
 	var is_chosen := chosen == path.id
 	var card := PathCard.new()
 	if is_chosen:
 		card.state = PathCard.State.CHOSEN
 	elif Grimoire.can_choose(path):
 		card.state = PathCard.State.OPEN
-	var width := (text_width - 4) / 2.0
-	card.custom_minimum_size.x = width
+	card.custom_minimum_size.x = text_width
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 1)
 	box.position = Vector2(4, 2)
-	var inner := width - 8
+	var inner := text_width - 8
+	if compact:
+		box.add_child(BookStyle.label("%s · %s" % [tr(path.title_key), tr("BOOK_PATH_CHOSEN")], BookStyle.INK_PLAYER, inner))
+		card.content = box
+		card.add_child(box)
+		return card
 	var faint := chosen != "" and not is_chosen
 	var title_color := BookStyle.INK_PLAYER if is_chosen else (BookStyle.INK_FAINT if faint else BookStyle.INK)
 	box.add_child(BookStyle.label(path.title_key, title_color, inner))

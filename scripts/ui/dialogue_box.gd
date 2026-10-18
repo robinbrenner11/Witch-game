@@ -112,6 +112,9 @@ func is_choosing() -> bool:
 func _set_speaker(speaker_key: String, portrait_texture: Texture2D) -> void:
 	nameplate.visible = speaker_key != ""
 	name_label.text = tr(speaker_key)
+	# Ein PanelContainer wächst mit dem Text, schrumpft aber nicht von selbst:
+	# Ohne das bliebe das Schild nach "Mutter Moos" auch für "Ugo" so breit.
+	nameplate.reset_size()
 	portrait.texture = portrait_texture
 	portrait_frame.visible = portrait_texture != null
 	var left := TEXT_LEFT_WITH_PORTRAIT if portrait_texture else TEXT_LEFT

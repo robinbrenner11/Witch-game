@@ -31,6 +31,7 @@ func _build_note(page: Control) -> void:
 	note.custom_minimum_size.x = text_width
 	note.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	note.add_theme_color_override("default_color", BookStyle.INK_VESPERA)
+	note.add_theme_font_override("normal_font", BookStyle.TEXT_FONT)
 	# Zusammengesetzter Text, deshalb tr() von Hand: Godot übersetzt nur
 	# Texte automatisch, die genau ein Schlüssel sind.
 	var text := tr(NOTE_KEY)
@@ -41,7 +42,7 @@ func _build_note(page: Control) -> void:
 		text += "\n· " + line
 	note.text = text
 	page.add_child(note)
-	var signature := BookStyle.label("BOOK_SIGNATURE", BookStyle.INK_VESPERA_TITLE, text_width)
+	var signature := BookStyle.title("BOOK_SIGNATURE", BookStyle.INK_VESPERA_TITLE, text_width)
 	signature.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	page.add_child(signature)
 	# Darunter antwortet die neue Besitzerin, in ihrer eigenen Tinte.
@@ -58,20 +59,22 @@ func _build_overview(page: Control) -> void:
 	top.add_child(hand)
 	var info := VBoxContainer.new()
 	info.add_theme_constant_override("separation", 0)
-	var number := BookStyle.label(str(strength), BookStyle.GOLD_DARK)
+	var number := BookStyle.title(str(strength), BookStyle.GOLD_DARK)
 	number.add_theme_font_size_override("font_size", 32)
 	info.add_child(number)
-	info.add_child(BookStyle.label("BOOK_STRENGTH_TEXT", BookStyle.INK_FAINT, text_width - 60))
+	info.add_child(BookStyle.label("BOOK_STRENGTH_TEXT", BookStyle.INK_FAINT, text_width - 52))
 	top.add_child(info)
 	page.add_child(top)
 	page.add_child(BookStyle.rule_plain(text_width))
 
-	# Alle Disziplinen mit ihrer Farbe und Stufe.
+	# Alle Disziplinen mit ihrer Farbe und Stufe. Die Zeilen eines Blocks
+	# stehen ohne Abstand untereinander, sonst reicht die Seite nicht.
+	var levels := _rows_block(page)
 	for chapter in ChapterData.all():
 		var discipline := DisciplineData.from_id(chapter.id)
 		if discipline == null:
 			continue
-		page.add_child(_overview_row(chapter.title_key, tr("BOOK_LEVEL") % Grimoire.level(discipline.id), chapter.tab_color))
+		levels.add_child(_overview_row(chapter.title_key, tr("BOOK_LEVEL") % Grimoire.level(discipline.id), chapter.tab_color))
 	page.add_child(BookStyle.rule_plain(text_width))
 	var pages := PageData.all().size()
 	var found := 0
@@ -82,13 +85,22 @@ func _build_overview(page: Control) -> void:
 	var known := recipes.filter(func(r: RecipeData) -> bool: return Grimoire.knows_recipe(r)).size()
 	var entries := EntryData.in_chapter("herbarium")
 	var discovered := entries.filter(func(e: EntryData) -> bool: return Grimoire.is_discovered(e)).size()
-	page.add_child(_overview_row("BOOK_OVERVIEW_PAGES", "%d/%d" % [found, pages], Color.TRANSPARENT))
-	page.add_child(_overview_row("BOOK_OVERVIEW_RECIPES", "%d/%d" % [known, recipes.size()], Color.TRANSPARENT))
-	page.add_child(_overview_row("BOOK_OVERVIEW_HERBARIUM", "%d/%d" % [discovered, entries.size()], Color.TRANSPARENT))
+	var counts := _rows_block(page)
+	counts.add_child(_overview_row("BOOK_OVERVIEW_PAGES", "%d/%d" % [found, pages], Color.TRANSPARENT))
+	counts.add_child(_overview_row("BOOK_OVERVIEW_RECIPES", "%d/%d" % [known, recipes.size()], Color.TRANSPARENT))
+	counts.add_child(_overview_row("BOOK_OVERVIEW_HERBARIUM", "%d/%d" % [discovered, entries.size()], Color.TRANSPARENT))
 	page.add_child(BookStyle.rule_plain(text_width))
 	var until_full := Moon.nights_until(Moon.Phase.FULL)
 	var moon_text := tr("BOOK_MOON_FULL_NOW") if until_full == 0 else tr("BOOK_MOON_FULL_IN") % until_full
 	page.add_child(_overview_row(Moon.phase_name(), moon_text, Color.TRANSPARENT))
+
+
+func _rows_block(page: Control) -> VBoxContainer:
+	var block := VBoxContainer.new()
+	block.add_theme_constant_override("separation", 0)
+	block.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	page.add_child(block)
+	return block
 
 
 ## Name links, Wert rechts, davor optional ein kleines Farbfeld.

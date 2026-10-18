@@ -90,7 +90,7 @@ func _first_interesting(recipes: Array[RecipeData]) -> RecipeData:
 func _build_index(page: Control, recipes: Array[RecipeData]) -> void:
 	var known := recipes.filter(func(r: RecipeData) -> bool: return state_of(r) == BookSlot.State.KNOWN).size()
 	var header := HBoxContainer.new()
-	header.add_child(BookStyle.label(chapter.title_key, BookStyle.INK_VESPERA_TITLE))
+	header.add_child(BookStyle.title(chapter.title_key, BookStyle.INK_VESPERA_TITLE))
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(spacer)
@@ -102,8 +102,11 @@ func _build_index(page: Control, recipes: Array[RecipeData]) -> void:
 	page.add_child(BookStyle.rule(text_width))
 
 	# Filter: der gewählte unterstrichen; ohne passende Rezepte blass.
-	var filters := HBoxContainer.new()
-	filters.add_theme_constant_override("separation", 4)
+	# Bricht um, wenn die Namen nicht in eine Zeile passen (Deutsch).
+	var filters := HFlowContainer.new()
+	filters.custom_minimum_size.x = text_width
+	filters.add_theme_constant_override("h_separation", 4)
+	filters.add_theme_constant_override("v_separation", 0)
 	for f in FILTERS:
 		var count := recipes.filter(func(r: RecipeData) -> bool: return f == "all" or category_of(r) == f).size()
 		var color := BookStyle.INK if f == filter else (BookStyle.INK_FAINT if count == 0 else BookStyle.GOLD_DARK)
