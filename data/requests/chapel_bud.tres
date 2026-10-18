@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="RequestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/request_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="reward_0"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "potion_mending"
+value = 2
+
+[sub_resource type="Resource" id="reward_1"]
+script = ExtResource("2_reward")
+type = 4
+target_id = "warding"
+value = 40
+
+[resource]
+script = ExtResource("1_script")
+id = "chapel_bud"
+giver = "chapel"
+text_key = "REQ_CHAPEL_BUD"
+thanks_key = "REQ_CHAPEL_BUD_THANKS"
+item_id = "bloom_bud"
+amount = 1
+rewards = Array[ExtResource("2_reward")]([SubResource("reward_0"), SubResource("reward_1")])
+requires_flags = Array[String](["met_ugo"])
+repeatable = true

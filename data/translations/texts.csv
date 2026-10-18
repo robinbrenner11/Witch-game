@@ -601,3 +601,7 @@ MSG_UGO_PAGE,"Ugo slips you a page, wrapped in muck. It is overgrown.","Ugo stec
 PAGE_JOURNAL_SWAMP_LORE,They call me Mother Blight now. I left the garden gate open. Someone will come who is braver than I was.,"Sie nennen mich jetzt Mother Blight. Ich ließ das Gartentor offen. Es wird jemand kommen, der mutiger ist als ich."
 PAGE_JOURNAL_SWAMP_STUB,The,Sie
 OWL_HINT_SWAMP,The toad in the bog sells what others throw away. Even paper.,"Die Kröte im Moor verkauft, was andere wegwerfen. Sogar Papier."
+REQ_MARA_MOON_WATER,Moon water for my eyes. Old Mara,"Mondwasser, bitte. Die alte Mara"
+REQ_MARA_MOON_WATER_THANKS,Mara left two pale seeds and a drawing of the moon.,Mara hat zwei bleiche Samen und eine Zeichnung vom Mond dagelassen.
+REQ_CHAPEL_BUD,"A closed bloom bud, please. Sister Ilse",Eine geschlossene Blütenknospe. Schwester Ilse
+REQ_CHAPEL_BUD_THANKS,"Sister Ilse left two draughts, blessed and corked.","Schwester Ilse hat zwei Tränke dagelassen, gesegnet und verkorkt."
