@@ -567,3 +567,13 @@ STAT_BOLT_DAMAGE,+%d staff damage,+%d Stabschaden
 PAGE_RECIPE_CLEANSING_MIST_LORE,"Fern for the spirit, moon water for the eyes, and one of its own buds. The bloom cannot bear to see itself.","Farn für den Geist, Mondwasser für die Augen und eine ihrer eigenen Knospen. Die Blüte erträgt es nicht, sich selbst zu sehen."
 PAGE_JOURNAL_CAVE_LORE,"Behind the water the stones hum when I bring the staff. It chose me here, I think. Or I chose it. I no longer remember which.","Hinter dem Wasser summen die Steine, wenn ich den Stab mitbringe. Hier hat er mich gewählt, glaube ich. Oder ich ihn. Ich weiß nicht mehr, was von beidem."
 PAGE_JOURNAL_CAVE_STUB,Beh,Hin
+NPC_WREN,Wren,Wren
+NPC_WREN_ROLE,A wayfarer from the mountains. Comes with the half moon.,Eine Reisende aus den Bergen. Kommt mit dem Halbmond.
+NPC_WREN_IMPRESSION,"Boots full of snow in summer. She laughs at the bridge, but not about it.","Stiefel voller Schnee im Sommer. Sie lacht über die Brücke, aber nicht darüber."
+DLG_WREN_FIRST_1,A witch at the market. The mountains told me there would be one again.,"Eine Hexe auf dem Markt. Die Berge haben gesagt, es gäbe wieder eine."
+DLG_WREN_FIRST_2,"Wren. I walk the old road over the gorge, while it still holds.","Wren. Ich gehe die alte Straße über die Schlucht, solange sie noch hält."
+DLG_WREN_FIRST_3,I trade what the valley lacks for what the mountains lack. Every half moon.,"Ich tausche, was dem Tal fehlt, gegen das, was den Bergen fehlt. Jeden Halbmond."
+DLG_WREN_RUMOR_DUSK,Up north they brew dusk berries with nightshade. The beetles walk right past them.,Oben im Norden brauen sie Dämmerbeeren mit Nachtschatten. Die Käfer laufen an ihnen vorbei.
+DLG_WREN_SMALLTALK_1,The gorge bridge groans more each crossing. Someone should mend it.,Die Schluchtbrücke ächzt bei jedem Gang mehr. Jemand sollte sie flicken.
+DLG_WREN_SMALLTALK_2,Crystals hum louder in the cold. Did you know?,Kristalle summen in der Kälte lauter. Wusstest du das?
+DLG_WREN_SMALLTALK_3,"Half moon is honest light. Half seen, half hidden.","Halbmond ist ehrliches Licht. Halb gesehen, halb verborgen."

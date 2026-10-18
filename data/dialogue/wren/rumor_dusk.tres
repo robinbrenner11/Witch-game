@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DialogueData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/dialogue_data.gd" id="1_dialogue"]
+
+[resource]
+script = ExtResource("1_dialogue")
+id = "rumor_dusk"
+lines = Array[String](["DLG_WREN_RUMOR_DUSK"])
+priority = 20
+once = true
+requires_flags = Array[String](["met_wren"])
+once_per_night = "rumor"
+hint_recipe = "potion_dusk"
+hint_ingredient = "dusk_berries"

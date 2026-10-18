@@ -236,6 +236,7 @@ Entschieden ist Tausch statt Geld mit Fokus auf verteilten NPCs mit wechselnden 
 | Nachtwächter ✅ | Dorf | Gerüchte, Schlüssel zum Friedhof (Akt 2) | – |
 
 Halbmondmarkt (✅ entschieden): Ugo und ein Wanderer kommen bei Halbmond auf den gemauerten Markt im Dorf, mit fester Tauschliste.
+- 18.10. gebaut (🔮 Figur und Angebote): **Wren**, eine Reisende aus den Bergen (deutet die Schluchtbrücke S7 und Akt 2 an). Nur bei Halbmond am Markt, neben Ugos Stand, mit eigener Laterne. Tausch: 4 Laternenbeeren → 1 Höhlenkristall (1× pro Nacht, zweite Quelle für Gnarls Upgrades), 2 Blutrosen → 2 Weidenrinde, 3 Wildkraut → 1 Geisterfarnsamen. Gerücht: Dämmertrank (Dämmerbeeren). Tests 21 / 21.
 
 ---
 

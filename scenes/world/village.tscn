@@ -32,6 +32,7 @@
 [ext_resource type="Script" path="res://scripts/world/unlockable.gd" id="u1"]
 
 [ext_resource type="PackedScene" path="res://scenes/npcs/gnarl.tscn" id="g_gnarl"]
+[ext_resource type="PackedScene" path="res://scenes/npcs/wren.tscn" id="w_wren"]
 [node name="Village" type="Node2D"]
 script = ExtResource("r1")
 safe_zone = true
@@ -717,3 +718,12 @@ required_flag = "gnarl_moved"
 
 [node name="WorkshopLantern" parent="Objects/WorkshopLit" instance=ExtResource("r9")]
 position = Vector2(548, 752)
+
+[node name="WrenMarket" type="Marker2D" parent="Spots"]
+position = Vector2(1124, 608)
+
+[node name="Wren" parent="Objects" instance=ExtResource("w_wren")]
+position = Vector2(1124, 608)
+
+[node name="WrenLantern" parent="Objects/HalfMoonMarket" instance=ExtResource("r9")]
+position = Vector2(1146, 600)

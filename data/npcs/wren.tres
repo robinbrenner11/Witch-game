@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="NpcData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/npc_data.gd" id="1_npc"]
+[ext_resource type="Script" path="res://scripts/npcs/schedule_entry.gd" id="2_entry"]
+[ext_resource type="Texture2D" path="res://assets/ui/book_icons/wren.png" id="9_icon"]
+
+[sub_resource type="Resource" id="Resource_market"]
+script = ExtResource("2_entry")
+start_hour = 18
+level = "Village"
+spot = "WrenMarket"
+topic = "market"
+moon_phases = Array[int]([2])
+
+[sub_resource type="Resource" id="Resource_gone"]
+script = ExtResource("2_entry")
+start_hour = 5
+start_minute = 40
+level = ""
+
+[resource]
+script = ExtResource("1_npc")
+id = "wren"
+name_key = "NPC_WREN"
+role_key = "NPC_WREN_ROLE"
+schedule = Array[ExtResource("2_entry")]([SubResource("Resource_market"), SubResource("Resource_gone")])
+walk_speed = 30.0
+book_icon = ExtResource("9_icon")
+impression_key = "NPC_WREN_IMPRESSION"
+book_order = 4
