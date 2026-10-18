@@ -342,12 +342,12 @@ Generator: `docs/art/nature_generator/shelter.py` · Vorschauen: `vorschau/vorsc
 
 | Datei | Frame | Frames | FPS | Hinweis |
 |---|---|---|---|---|
-| `hollow_tree.png` (+`_glow`) | 192×224 | 8 | 6 | Uraltbaum mit breiter Schirmkrone in zwei Etagen und hängender Bartflechte. Tür tief im Stamm, von einem Wurzelbogen gerahmt, Mondsichel darüber, Trittstein davor. Glow-Ebene: Türspalt, Fenster, Laterne |
+| `hollow_tree.png` (+`_glow`) | 256×309 | 1 | – | Uraltbaum nach Robins Vorlage (`art_src/inspo/baumhaus.png`, 16.10.2026): Krone in Blutrot und Magenta, hängende Flechten, zwei leuchtende Fenster, Laterne links, Tür mit Treppe, Wurzeln mit lila Kristallen und Pilzen. Glow-Ebene: Fenster, Tür, Laterne, Kerzen, Kristalle. Quelle mit Ebenen: `art_src/shelter/hollow_tree.aseprite` |
 
-- **Fußpunkt** unten Mitte (96, 223). `centered = true`, `offset = Vector2(0, -112)`.
-- **Tür** unten Mitte, 22 px breit, Unterkante 4 px über dem Fußpunkt → hier liegt der Ausgang `ToShelter` (Exit-Bereich ca. 24×12 direkt vor der Tür).
-- **Kollision:** zwei Rechtecke links und rechts der Tür (je ca. 32×14 am Stammfuß), damit man nur durch die Tür hineingeht. Die Wurzeln sind begehbar.
-- **Lichter** (PointLight2D + `NightLight`, relativ zum Fußpunkt): Tür `(+14, −5)` warm, Energie 1.0, Radius ca. 50 · Laterne `(−52, −67)` warm, 1.1, Radius ca. 40, `flicker` 0.1 · Fenster `(+18, −65)` warm, 0.6, Radius ca. 30.
+- **Fußpunkt** an der Tür (oberste Treppenstufe), nicht unten Mitte: `foot_offset = Vector2(12, 59)` in `hollow_tree.tscn` (12 px rechts der Bildmitte, 59 px über der Unterkante). Die Wurzeln davor gelten als Boden, die Hexe läuft darüber.
+- **Tür** etwa 20 px breit direkt über dem Fußpunkt → dort liegt der Ausgang `ToShelter`.
+- **Kollision:** zwei Rechtecke links und rechts der Tür (je 34×16), damit man nur durch die Tür hineingeht.
+- **Lichter** (relativ zum Fußpunkt): Tür `(2, −15)`, Laterne `(−78, −70)` mit Flackern, Fenster unten `(22, −72)`, Fenster oben `(−16, −103)`.
 
 ### Innen (Szene `shelter.tscn`)
 

@@ -6,31 +6,29 @@
 [ext_resource type="Texture2D" path="res://assets/effects/shadows/shadow_180x36.png" id="4_shadow"]
 [ext_resource type="Texture2D" path="res://assets/effects/lights/light_round_64.png" id="5_light"]
 [ext_resource type="Script" path="res://scripts/systems/night_light.gd" id="6_night_light"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_side"]
-size = Vector2(32, 14)
+[ext_resource type="Texture2D" path="res://assets/environment/shelter/hollow_tree_ground.png" id="7_ground"]
 
 [node name="HollowTree" type="Node2D"]
 script = ExtResource("1_decor")
 texture = ExtResource("2_tex")
-frame_count = 8
 glow_texture = ExtResource("3_glow")
 shadow_texture = ExtResource("4_shadow")
-shadow_offset = Vector2(8, -8)
+shadow_offset = Vector2(6, 22)
 fade_when_behind = true
+foot_offset = Vector2(12, 59)
+
+[node name="Ground" type="Sprite2D" parent="."]
+z_index = -6
+position = Vector2(0, 8)
+texture = ExtResource("7_ground")
 
 [node name="Trunk" type="StaticBody2D" parent="."]
 
-[node name="LeftOfDoor" type="CollisionShape2D" parent="Trunk"]
-position = Vector2(-27, -7)
-shape = SubResource("RectangleShape2D_side")
-
-[node name="RightOfDoor" type="CollisionShape2D" parent="Trunk"]
-position = Vector2(27, -7)
-shape = SubResource("RectangleShape2D_side")
+[node name="Roots" type="CollisionPolygon2D" parent="Trunk"]
+polygon = PackedVector2Array(-60, -30, -75, -24, -95, -14, -108, -4, -122, 6, -130, 12, -115, 18, -90, 24, -66, 30, -60, 36, -11, 36, -11, -2, 11, -2, 11, 36, 60, 36, 66, 30, 90, 22, 103, 16, 108, 10, 97, 4, 90, -2, 86, -8, 68, -14, 62, -20, 53, -26, 50, -30)
 
 [node name="DoorLight" type="PointLight2D" parent="."]
-position = Vector2(14, -5)
+position = Vector2(2, -15)
 color = Color(1, 0.71, 0.4, 1)
 texture = ExtResource("5_light")
 texture_scale = 1.5625
@@ -38,7 +36,7 @@ script = ExtResource("6_night_light")
 base_energy = 1.0
 
 [node name="LanternLight" type="PointLight2D" parent="."]
-position = Vector2(-52, -67)
+position = Vector2(-78, -70)
 color = Color(1, 0.71, 0.4, 1)
 texture = ExtResource("5_light")
 texture_scale = 1.25
@@ -47,9 +45,17 @@ base_energy = 1.1
 flicker = 0.1
 
 [node name="WindowLight" type="PointLight2D" parent="."]
-position = Vector2(18, -65)
+position = Vector2(22, -72)
 color = Color(1, 0.71, 0.4, 1)
 texture = ExtResource("5_light")
 texture_scale = 0.9375
 script = ExtResource("6_night_light")
 base_energy = 0.6
+
+[node name="UpperWindowLight" type="PointLight2D" parent="."]
+position = Vector2(-16, -103)
+color = Color(1, 0.71, 0.4, 1)
+texture = ExtResource("5_light")
+texture_scale = 1.0
+script = ExtResource("6_night_light")
+base_energy = 0.7

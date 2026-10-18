@@ -7,3 +7,4 @@
 
 # Exportierte Builds (exe)
 /build/
+__pycache__/

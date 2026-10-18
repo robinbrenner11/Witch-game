@@ -48,6 +48,10 @@ const RUSTLE_DISTANCE := 56.0
 # Große Objekte (Bäume): Steht die Hexe dahinter, wird das Bild halb
 # durchsichtig, damit man sie und was dort liegt noch sieht.
 @export var fade_when_behind: bool = false
+# Wo im Bild der Fußpunkt liegt, gemessen von unten Mitte (x nach rechts,
+# y nach oben). Null = unten Mitte. Beim Uraltbaum liegt er an der Tür, die
+# Wurzeln davor reichen tiefer und gelten als Boden (die Hexe läuft darüber).
+@export var foot_offset: Vector2 = Vector2.ZERO
 # Fester Frame, z. B. Truhe zu (0) statt offen (1). -1 = zufällig.
 # Mit fps = 0 bleibt das Bild stehen.
 @export var start_frame: int = -1
@@ -126,14 +130,21 @@ func _update_fade(player: Node2D, delta: float) -> void:
 ## Die Fläche, die das Bild in der Welt bedeckt (ohne die Fußzeile).
 func cover_rect() -> Rect2:
 	var size := Vector2(texture.get_width() / float(frame_count), texture.get_height())
-	return Rect2(global_position - Vector2(size.x / 2.0, size.y), size - Vector2(0, 8))
+	var top_left := global_position - Vector2(size.x / 2.0 + _foot_shift_x(), size.y - foot_offset.y)
+	return Rect2(top_left, size - Vector2(0, 8 + foot_offset.y))
+
+
+# Waagerechter Versatz des Bildes, damit der Fußpunkt auf dem Ursprung liegt
+# (gespiegelt auch gespiegelt).
+func _foot_shift_x() -> float:
+	return foot_offset.x * (-1.0 if flip else 1.0)
 
 
 func _add_sprite(strip: Texture2D, unshaded: bool) -> AnimatedSprite2D:
 	var animated := AnimatedSprite2D.new()
 	animated.sprite_frames = strip_frames(strip, frame_count, fps)
 	var height := strip.get_height()
-	animated.offset = Vector2(0, height / 2.0 if hang else -height / 2.0)
+	animated.offset = Vector2(-_foot_shift_x(), (height / 2.0 if hang else -height / 2.0) + foot_offset.y)
 	animated.flip_h = flip
 	if flat:
 		animated.z_index = FLAT_Z
