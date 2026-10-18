@@ -61,3 +61,11 @@ python docs/art/ref_converter/convert_tiles.py art_src/inspo/wassertextur.png as
 
 Für die Vorlage: Texturen ohne Deko, gleichmäßig verteilt, Muster nicht größer als etwa ein
 Drittel des Streifens.
+
+## Wasser-Animation
+
+`convert_tiles.py` schreibt die Wasserkacheln nach `assets/environment/water/water_placeholder.png`.
+Danach einmal `python docs/art/ref_converter/animate_water.py` aufrufen: Es macht daraus
+`water_animated.png` (4 Frames untereinander, die Muster wandern langsam). Das Wasser-TileSet
+zeigt auf diese Datei. Tempo pro Kachel steht oben im Skript (`SHIFT`), die Frame-Dauer
+(0,4 s) im TileSet.

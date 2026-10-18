@@ -332,7 +332,7 @@ Offen und bewusst nicht hier: Mondeffekte für die Nächte 2–3 und 5–7, Craf
 ### Nächste Schritte (Stand 16.10., Abbruch wegen Nutzungslimit)
 
 3. **Robins Test** von Seewald v2 (F9), danach Ausgänge von Garten, Wald und Dorf auf `lakewood_v2.tscn` umstellen und den alten Seewald entfernen (W5). Danach tiefer Wald, Dorf, Garten mit Höhen (Spielstand-Frage beim Garten, `overworld_plan.md` Abschnitt 7).
-4. Offen: echte Grafiken (Robin, mit dem Plugin), Wasser-Animation. Robins Test von Blütenherz 1 (Entwurf in Abschnitt 11).
+4. Offen: echte Grafiken (Robin, mit dem Plugin). Wasser-Animation gebaut (18.10., `animate_water.py`). Robins Test von Blütenherz 1 (Entwurf in Abschnitt 11).
 5. Was nach Blütenherz 1 passiert, ist nur als Flag vorbereitet (`bloom_heart_1_cleansed`): Heilung des tiefen Walds (weniger Befall?), Hexenring als Schnellreise, Apprentice, Moor S8. Das braucht Robins Entscheidung (game_design.md, Abschnitte 4 und 10).
 
 
