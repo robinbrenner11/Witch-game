@@ -8,6 +8,16 @@ extends Node2D
 @export var page_id: String = ""
 # Bei zerrissenen Seiten: welcher Teil hier liegt (0, 1, 2 …).
 @export var fragment: int = 0
+# Versteckt: nur zu sehen und aufzuheben, solange Flüssiges Mondlicht wirkt
+# (docs/design/grimoire.md, Abschnitt 2, Fundorte).
+@export var moonlight_only: bool = false
+
+# So oft wird geprüft, ob das Mondlicht wirkt (Sekunden).
+const MOONLIGHT_CHECK := 0.25
+const REVEAL_TIME := 0.6
+
+var _check_wait := 0.0
+var _revealed := true
 
 # Befallene Seiten sehen welk aus, bis es eine eigene Grafik gibt.
 const BLIGHTED_TINT := Color("#7C7C68")
@@ -21,6 +31,33 @@ func _ready() -> void:
 	var page := PageData.from_id(page_id)
 	if page and page.state == PageData.State.BLIGHTED:
 		$Sprite2D.modulate = BLIGHTED_TINT
+	if moonlight_only:
+		_set_revealed(false, true)
+	else:
+		set_process(false)
+
+
+func _process(delta: float) -> void:
+	_check_wait -= delta
+	if _check_wait > 0.0:
+		return
+	_check_wait = MOONLIGHT_CHECK
+	var player := get_tree().get_first_node_in_group("player")
+	var effects := player.get_node_or_null("PotionEffects") as PotionEffects if player else null
+	var lit := effects != null and effects.is_active("moonlight")
+	if lit != _revealed:
+		_set_revealed(lit, false)
+
+
+## Im Mondlicht taucht die Seite langsam auf, ohne verschwindet sie wieder.
+func _set_revealed(revealed: bool, instant: bool) -> void:
+	_revealed = revealed
+	$Interactable.set_deferred("monitorable", revealed)
+	$Glimmer.enabled = revealed
+	if instant:
+		modulate.a = 1.0 if revealed else 0.0
+	else:
+		create_tween().tween_property(self, "modulate:a", 1.0 if revealed else 0.0, REVEAL_TIME)
 
 
 ## Text für den Interaktions-Hinweis (siehe Interactable).

@@ -15,6 +15,6 @@ id = "page_journal_cave"
 kind = 1
 reward = SubResource("Resource_reward")
 lore_key = "PAGE_JOURNAL_CAVE_LORE"
-journal_order = 2
+journal_order = 0
 stub_hint_key = "PAGE_JOURNAL_CAVE_STUB"
 dream_id = "dream_bells"

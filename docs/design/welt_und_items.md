@@ -49,7 +49,7 @@ Für Akt 1 reichen 9 Orte (5 gibt es schon), 8 Sperren, 6 neue Items und 2 neue 
 | Mondernte | Alraune + Geisterfarn + Mondkelch | Garten 3×3 reif | nur Beete |
 | Hexenschlamm | Fehlschlag | 1 Pflanze +1 | nur Beete |
 | Irrlicht | Laternenbeere + Nachtschatten | Licht folgt der Hexe | nein |
-| Flüssiges Mondlicht | Laternenbeere + Nachtschatten + Mondkelch | großes Licht | nein (verborgene Items sind geplant, nicht gebaut) |
+| Flüssiges Mondlicht | Laternenbeere + Nachtschatten + Mondkelch | großes Licht | ja (18.10.: Mondsteg S1, versteckte Seite im Hexenring) |
 | Ewige Nacht | Blutrose + Nachtschatten + Alraune | Nacht dauert länger | ja, indirekt |
 | Heiltrank | Geisterfarn + Laternenbeere | +4 Leben | Kampf |
 | Glutbombe | Glutmorchel + Bitterblütenblatt | Wurf, Schaden | Kampf |
