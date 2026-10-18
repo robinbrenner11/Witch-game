@@ -15,5 +15,5 @@ id = "page_journal_02"
 kind = 1
 reward = SubResource("Resource_reward")
 lore_key = "PAGE_JOURNAL_02_LORE"
-journal_order = 2
+journal_order = 3
 stub_hint_key = "PAGE_JOURNAL_02_STUB"

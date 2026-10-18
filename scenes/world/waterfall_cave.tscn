@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/world/wild_growth.gd" id="r4"]
 [ext_resource type="PackedScene" path="res://scenes/world/wild/cave_crystal.tscn" id="r5"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/loose_page.tscn" id="lp_page"]
 [node name="WaterfallCave" type="Node2D" unique_id=1374307624]
 script = ExtResource("r1")
 safe_zone = true
@@ -59,3 +60,7 @@ target_scene = "res://scenes/world/lakewood_v2.tscn"
 target_exit = "ToCave"
 size = Vector2(64, 24)
 spawn_offset = Vector2(0, -52)
+
+[node name="CavePage" parent="Objects" instance=ExtResource("lp_page")]
+position = Vector2(176, 304)
+page_id = "page_journal_cave"

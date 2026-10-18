@@ -564,3 +564,6 @@ PATH_WARDING_HEXCASTER,Hexcaster,Hexenruferin
 PATH_WARDING_HEXCASTER_DESC,Far and bright. Staff spells deal +1 damage.,Weit und hell. Stabzauber machen +1 Schaden.
 STAT_SLASH_DAMAGE,+%d sickle damage,+%d Sichelschaden
 STAT_BOLT_DAMAGE,+%d staff damage,+%d Stabschaden
+PAGE_RECIPE_CLEANSING_MIST_LORE,"Fern for the spirit, moon water for the eyes, and one of its own buds. The bloom cannot bear to see itself.","Farn für den Geist, Mondwasser für die Augen und eine ihrer eigenen Knospen. Die Blüte erträgt es nicht, sich selbst zu sehen."
+PAGE_JOURNAL_CAVE_LORE,"Behind the water the stones hum when I bring the staff. It chose me here, I think. Or I chose it. I no longer remember which.","Hinter dem Wasser summen die Steine, wenn ich den Stab mitbringe. Hier hat er mich gewählt, glaube ich. Oder ich ihn. Ich weiß nicht mehr, was von beidem."
+PAGE_JOURNAL_CAVE_STUB,Beh,Hin

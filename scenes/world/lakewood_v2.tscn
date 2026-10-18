@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/bat_flyer.tscn" id="r30"]
 [ext_resource type="PackedScene" path="res://scenes/world/exit.tscn" id="r31"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/loose_page.tscn" id="lp_page"]
 [node name="Lakewood" type="Node2D" unique_id=237814477]
 script = ExtResource("r1")
 safe_zone = true
@@ -388,3 +389,7 @@ target_scene = "res://scenes/world/swamp.tscn"
 target_exit = "ToLakewood"
 size = Vector2(32, 64)
 spawn_offset = Vector2(48, 0)
+
+[node name="IslandPage" parent="Objects" instance=ExtResource("lp_page")]
+position = Vector2(384, 424)
+page_id = "page_recipe_cleansing_mist"
