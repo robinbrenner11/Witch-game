@@ -16,7 +16,11 @@ const START_CAPACITY := 3
 # Ab so vielen Zutaten kann gebraut werden.
 const MIN_INGREDIENTS := 2
 
-var capacity: int = START_CAPACITY
+# Jede Kessel-Stufe (Upgrade bei Gnarl) fasst eine Zutat mehr. Die Stufe
+# liegt im Grimoire, deshalb wird hier nichts gespeichert.
+var capacity: int:
+	get:
+		return START_CAPACITY + Grimoire.upgrade_level("cauldron") - 1
 
 # Schon gebraute Kombinationen: sortierte Zutaten (z. B.
 # "crop_ghost_fern+crop_mandrake") -> Ergebnis. Bekanntes zeigt das
@@ -104,11 +108,10 @@ func reset() -> void:
 
 
 func get_save_data() -> Dictionary:
-	return {"capacity": capacity, "known": _known, "brewing": _brewing, "finished": _finished, "finished_count": _finished_count, "counts": _brew_counts}
+	return {"known": _known, "brewing": _brewing, "finished": _finished, "finished_count": _finished_count, "counts": _brew_counts}
 
 
 func load_save_data(data: Dictionary) -> void:
-	capacity = int(data.get("capacity", START_CAPACITY))
 	_known.clear()
 	var known: Dictionary = data.get("known", {})
 	for key in known:

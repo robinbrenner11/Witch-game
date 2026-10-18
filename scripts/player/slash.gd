@@ -62,6 +62,10 @@ func _check_hits() -> void:
 			var push := (point - global_position).normalized()
 			enemy.take_hit(attack.damage, push * attack.knockback)
 			CombatFx.sparks(get_parent(), point, attack.color, 8, 40.0)
+	for gate in get_tree().get_nodes_in_group("cuttable"):
+		if not _hit.has(gate.get_instance_id()) and _in_arc((gate as Gate).global_position, (gate as Gate).reach()):
+			_hit[gate.get_instance_id()] = true
+			(gate as Gate).on_cut(attack.cuts_vines)
 	if attack.cuts_wild:
 		for node in get_tree().get_nodes_in_group("wild"):
 			if node is Weed and _in_arc((node as Node2D).global_position + Vector2(0, -6), 6.0):

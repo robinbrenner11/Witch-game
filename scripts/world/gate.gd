@@ -13,6 +13,7 @@ extends StaticBody2D
 ##   moon_phase      gerade diese Mondphase (Moon.Phase), -1 = egal
 ##   active_effects  eine dieser Trankwirkungen ist aktiv ("wisp", "moonlight")
 ##   open_with_item  dieser Trank wird daraufgegossen (E) oder geworfen
+##   cuttable        eine Sichel, die Ranken schneidet (Sichel II), trifft es
 ##
 ## Aussehen: optionale Kind-Nodes "Closed" und "Open" werden je nach Zustand
 ## ein- und ausgeblendet. So kann später eine Grafik an dieselbe Stelle.
@@ -38,6 +39,11 @@ const MESSAGE_COOLDOWN := 2.0
 @export var active_effects: Array[String] = []
 ## Item-ID eines Tranks zum Gießen oder Werfen. Braucht required_flag.
 @export var open_with_item: String = ""
+## Lässt sich mit einer Sichel durchschneiden, die cuts_vines hat (AttackData).
+## Braucht required_flag. Schwächere Hiebe melden nur cut_message.
+@export var cuttable: bool = false
+## Meldung, wenn ein Hieb abprallt (Text-Schlüssel).
+@export var cut_message: String = ""
 ## Meldung, solange zu (Text-Schlüssel).
 @export var locked_message: String = "MSG_PATH_LOCKED"
 ## Was E zeigt, wenn man den passenden Trank nicht in der Hand hat
@@ -53,6 +59,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	add_to_group("potion_target")
+	if cuttable:
+		add_to_group("cuttable")
 	collision_layer = CLIFF_LAYER
 	collision_mask = 0
 	_shape = CollisionShape2D.new()
@@ -63,8 +71,8 @@ func _ready() -> void:
 	_add_sensor()
 	if look_message != "" or open_with_item != "":
 		_add_interactable()
-	if open_with_item != "" and required_flag == "":
-		push_warning("Gate %s: open_with_item braucht ein required_flag" % name)
+	if (open_with_item != "" or cuttable) and required_flag == "":
+		push_warning("Gate %s: open_with_item und cuttable brauchen ein required_flag" % name)
 	_apply(is_open(), true)
 
 
@@ -110,6 +118,23 @@ func on_potion(item: ItemData) -> bool:
 		return false
 	_open_for_good()
 	return true
+
+
+## Ein Sichelhieb hat die Sperre getroffen (Slash ruft das für die Gruppe
+## "cuttable" auf). can_cut: Die Sichel schneidet Ranken.
+func on_cut(can_cut: bool) -> void:
+	if _open:
+		return
+	if can_cut:
+		_open_for_good()
+	elif cut_message != "" and _message_wait <= 0.0:
+		_message_wait = MESSAGE_COOLDOWN
+		Messages.deny(tr(cut_message))
+
+
+## Wie weit die Sperre von ihrer Mitte reicht (für Treffer im Bogen).
+func reach() -> float:
+	return minf(size.x, size.y) / 2.0
 
 
 func _effect_active(effect: String) -> bool:

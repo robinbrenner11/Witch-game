@@ -17,9 +17,11 @@ signal milestone_ready(discipline_id: String, level: int)
 # Die ersten Ziele auf dem Innendeckel, in der Reihenfolge von Vesperas Notiz.
 const GOALS: Array[String] = ["plant", "brew", "sleep", "wake"]
 # Digitalis-Formen, die die Hexe von Anfang an kennt (IDs in data/digitalis/).
-# VORLÄUFIG beide: Laut game_design.md kommt die Sichel später über Gnarl. Bis
-# es diesen Weg gibt, ist sie zum Testen gleich da. Später nur ["staff"].
+# Die Sichel ist von Anfang an da (Werkzeug für Gras und Unkraut, entschieden
+# 16.10., welt_und_items.md U-b); Gnarl macht nur die Upgrades.
 const START_FORMS: Array[String] = ["staff", "sickle"]
+# Was außer den Formen ein Upgrade haben kann.
+const UPGRADE_TOOLS: Array[String] = ["cauldron"]
 
 var has_book := false
 var _done_goals: Array[String] = []
@@ -49,6 +51,8 @@ var _completed_groups: Array[String] = []
 var _claimed: Dictionary = {}
 # Bekannte Digitalis-Formen in der Reihenfolge, in der man sie bekommen hat.
 var _forms: Array[String] = []
+# Form oder Werkzeug -> Stufe (Upgrades von Gnarl). Was fehlt, ist Stufe 1.
+var _upgrades: Dictionary = {}
 
 
 func _ready() -> void:
@@ -286,6 +290,8 @@ func _apply_reward(reward: RewardData) -> void:
 			add_xp(reward.target_id, reward.value)
 		RewardData.Type.DIGITALIS_FORM:
 			learn_form(reward.target_id)
+		RewardData.Type.UPGRADE:
+			upgrade(reward.target_id, reward.value)
 
 
 ## Liegt auf dieser Stufe ein Geschenk zum Abholen bereit?
@@ -475,6 +481,31 @@ func learn_form(form_id: String) -> void:
 		changed.emit()
 
 
+# --- Upgrades ------------------------------------------------------------------
+
+## Stufe einer Form ("staff", "sickle") oder eines Werkzeugs ("cauldron").
+## Ohne Upgrade 1. Die Formen lesen daraus, welche Datei gilt (DigitalisForm),
+## der Kessel seine Plätze (Brewing.capacity).
+func upgrade_level(target_id: String) -> int:
+	return int(_upgrades.get(target_id, 1))
+
+
+## Hebt auf diese Stufe an. Nie nach unten, damit ein doppelt ausgezahltes
+## Upgrade nichts kaputtmacht.
+func upgrade(target_id: String, to_level: int) -> void:
+	if to_level <= upgrade_level(target_id):
+		return
+	_upgrades[target_id] = to_level
+	# Was die neue Stufe kann, z. B. UPGRADE_STAFF_2_NOTE.
+	Messages.post(tr(upgrade_key(target_id, to_level) + "_NOTE"))
+	changed.emit()
+
+
+## Text-Schlüssel für den Namen einer Stufe, z. B. UPGRADE_STAFF_2 ("Stab II").
+static func upgrade_key(target_id: String, at_level: int) -> String:
+	return "UPGRADE_%s_%d" % [target_id.to_upper(), at_level]
+
+
 # --- Kapitel und Glimmen -----------------------------------------------------
 
 ## Bedingungen aus ChapterData.unlock. Unbekannte Bedingungen bleiben zu, bis
@@ -544,6 +575,7 @@ func get_save_data() -> Dictionary:
 		"hints": _hints, "seen": _seen, "xp": _xp, "paths": _paths,
 		"firsts": _firsts, "taught": _taught, "counts": _counts,
 		"completed_groups": _completed_groups, "claimed": _claimed, "forms": _forms,
+		"upgrades": _upgrades.duplicate(),
 	}
 
 
@@ -567,5 +599,12 @@ func load_save_data(data: Dictionary) -> void:
 			_forms.append(String(form_id))
 	if _forms.is_empty():
 		_forms.assign(START_FORMS)
+	_upgrades.clear()
+	var upgrades: Variant = data.get("upgrades", {})
+	if upgrades is Dictionary:
+		for target_id in upgrades:
+			# Unbekanntes (entfernte Formen) fällt weg.
+			if DigitalisForm.from_id(String(target_id)) != null or UPGRADE_TOOLS.has(String(target_id)):
+				_upgrades[String(target_id)] = maxi(int(upgrades[target_id]), 1)
 	_repeats.clear()
 	changed.emit()

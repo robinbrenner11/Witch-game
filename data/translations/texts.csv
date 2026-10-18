@@ -460,7 +460,7 @@ DLG_MOSS_MOON_FULL,"Full moon. Tonight the lake will carry you to the island, if
 DLG_MOSS_SMALLTALK_1,"My kin in the deep woods have gone quiet. The bloom, I think.","Meine Verwandten im tiefen Wald sind still geworden. Die Blüte, glaube ich."
 DLG_MOSS_SMALLTALK_2,Peel the bark gently. The willows remember who was rough.,"Schäl die Rinde sanft. Die Weiden merken sich, wer grob war."
 DLG_MOSS_SMALLTALK_3,Dusk berries? The night folk love them more than gold.,Dämmerbeeren? Das Nachtvolk liebt sie mehr als Gold.
-TRADE_OFFER,%d× %s for %d× %s,%d× %s gegen %d× %s
+TRADE_OFFER,%s for %d× %s,%s gegen %d× %s
 TRADE_NOTHING,Nothing for now.,Gerade nichts.
 MSG_TRADE_MISSING,You do not have enough %s.,Dir fehlt %s.
 NPC_UGO,Ugo,Ugo
@@ -471,3 +471,28 @@ DLG_UGO_FIRST_3,At half moon Ugo sits at the village market. The humans pretend 
 DLG_UGO_MARKET,"Half moon! Ugo's favourite. Even the baker buys, after dark.","Halbmond! Ugos Liebling. Sogar die Bäckerin kauft, nach Einbruch der Dunkelheit."
 DLG_UGO_SMALLTALK_1,You brew muck? Wonderful muck. Ugo takes all of it.,Du braust Schlamm? Herrlicher Schlamm. Ugo nimmt alles.
 DLG_UGO_SMALLTALK_2,"The buds from the blight? Ugo knows nothing. Ugo has some, though.",Die Knospen von der Blüte? Ugo weiß von nichts. Ugo hat aber welche.
+TRADE_UPGRADE,%s: %s,%s: %s
+TRADE_GIVE,Give %s,%s geben
+NPC_GNARL,Gnarl,Gnarl
+NPC_GNARL_ROLE,Root carver. Cuts what the bloom has grown.,"Wurzelschnitzer. Schneidet, was die Blüte gewachsen hat."
+DLG_GNARL_FIRST_1,"Careful, witch. This wood bites back. *cough*","Vorsicht, Hexe. Dieses Holz beißt zurück. *hust*"
+DLG_GNARL_FIRST_2,"Gnarl. Root carver. I cut what the bloom has grown, before it grows further.","Gnarl. Wurzelschnitzer. Ich schneide, was die Blüte gewachsen hat, bevor es weiterwächst."
+DLG_GNARL_FIRST_3,"The dust sits in my chest. Bring me a mending draught, and I will carve for you.","Der Staub sitzt mir in der Brust. Bring mir einen Heiltrank, dann schnitze ich für dich."
+DLG_GNARL_RUMOR_MENDING,Vespera brewed hers with lantern berries. Smelled like a warm stove.,Vespera hat ihren mit Laternenbeeren gebraut. Roch wie ein warmer Ofen.
+DLG_GNARL_ASK,*cough* A mending draught. That is all I ask.,*hust* Ein Heiltrank. Mehr will ich nicht.
+DLG_GNARL_FOREST_SMALLTALK,"Digitalis, hm? Fine wood. Could be finer.","Digitalis, hm? Gutes Holz. Könnte besser sein."
+DLG_GNARL_THANKS,Better already. Tomorrow I move to the old workshop in the village. Away from this dust.,Schon besser. Morgen ziehe ich in die alte Werkstatt im Dorf. Weg von diesem Staub.
+DLG_GNARL_WORKSHOP_1,"The roof leaks, but the bloom stays outside. Good trade.","Das Dach leckt, aber die Blüte bleibt draußen. Guter Tausch."
+DLG_GNARL_WORKSHOP_2,"Bring me crystal from behind the waterfall, and your staff learns to pierce.","Bring mir Kristall von hinterm Wasserfall, dann lernt dein Stab, durchzuschlagen."
+DLG_GNARL_WORKSHOP_3,Morels and willow bark harden a blade. Tough enough for bloom vines.,Glutmorcheln und Weidenrinde härten eine Klinge. Zäh genug für Blütenranken.
+DLG_GNARL_SMALLTALK_1,"Your cauldron is too small. Crystal and bark, and I widen the rim.","Dein Kessel ist zu klein. Kristall und Rinde, dann weite ich den Rand."
+DLG_GNARL_SMALLTALK_2,"The cough is better. Do not tell the watchman, he worries.","Der Husten ist besser. Sag's nicht dem Nachtwächter, der macht sich Sorgen."
+DLG_GNARL_SMALLTALK_3,Every petal you bring is one the woods do not have to carry.,"Jedes Blatt, das du bringst, muss der Wald nicht mehr tragen."
+MSG_GNARL_MOVING,Gnarl packs his tools. From tomorrow night he works in the village workshop.,Gnarl packt sein Werkzeug. Ab morgen Nacht arbeitet er in der Werkstatt im Dorf.
+MSG_VINES_TOO_TOUGH,The blade slides off. These vines are too tough for it.,Die Klinge rutscht ab. Diese Ranken sind zu zäh für sie.
+UPGRADE_STAFF_2,Staff II,Stab II
+UPGRADE_STAFF_2_NOTE,Staff II: the heavy spell now pierces one creature.,Stab II: Der starke Zauber durchschlägt jetzt ein Wesen.
+UPGRADE_SICKLE_2,Sickle II,Sichel II
+UPGRADE_SICKLE_2_NOTE,Sickle II: the blade now cuts bloom vines.,Sichel II: Die Klinge schneidet jetzt Blütenranken.
+UPGRADE_CAULDRON_2,Cauldron II,Kessel II
+UPGRADE_CAULDRON_2_NOTE,Your cauldron now holds four ingredients.,Dein Kessel fasst jetzt vier Zutaten.

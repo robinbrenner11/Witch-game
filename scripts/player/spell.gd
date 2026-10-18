@@ -22,12 +22,17 @@ var burst_radius := 0.0
 var radius := 3.0
 # Wie stark Getroffenes weggestoßen wird.
 var knockback := 90.0
+# Durch so viele Wesen fliegt es noch hindurch (Stab II).
+var pierce := 0
 
 # Farbe dieses Zaubers (aus den Angriffsdaten).
 var color := COLOR
 
 var _travelled := 0.0
 var _done := false
+# Wesen, durch die es schon geflogen ist: Die trifft es nicht noch einmal,
+# auch nicht beim Platzen.
+var _pierced: Array[Node] = []
 
 
 ## Übernimmt die Werte eines Angriffs (Combat ruft das vor add_child auf).
@@ -39,6 +44,7 @@ func setup(attack: AttackData, aim: Vector2) -> void:
 	damage = attack.damage
 	burst_radius = attack.burst_radius
 	knockback = attack.knockback
+	pierce = attack.pierce
 	color = attack.color
 
 
@@ -92,7 +98,14 @@ func _draw() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if _done or body is Player:
+	if _done or body is Player or _pierced.has(body):
+		return
+	if pierce > 0 and body.has_method("take_hit"):
+		# Durchschlagen: treffen, Funken, weiterfliegen.
+		pierce -= 1
+		_pierced.append(body)
+		body.take_hit(damage, direction * knockback)
+		CombatFx.sparks(get_parent(), global_position, color, 8, 40.0)
 		return
 	if burst_radius <= 0.0 and body.has_method("take_hit"):
 		body.take_hit(damage, direction * knockback)
@@ -113,7 +126,7 @@ func _burst() -> void:
 	if burst_radius > 0.0:
 		for enemy in get_tree().get_nodes_in_group("blighted"):
 			var offset := (enemy as Node2D).global_position - global_position
-			if offset.length() <= burst_radius and enemy.has_method("take_hit"):
+			if offset.length() <= burst_radius and enemy.has_method("take_hit") and not _pierced.has(enemy):
 				enemy.take_hit(damage, offset.normalized() * knockback)
 	var sparks := CPUParticles2D.new()
 	sparks.one_shot = true

@@ -20,6 +20,19 @@ extends Resource
 ## Gilt nur in diesen Mondphasen (Moon.Phase), z. B. der Halbmondmarkt.
 ## Leer = jede Nacht.
 @export var moon_phases: Array[int] = []
+## Gilt nur mit diesem Flag (WorldState), z. B. nach einem Umzug. Leer = egal.
+@export var requires_flag: String = ""
+## Gilt nicht mehr, sobald dieses Flag gesetzt ist. Leer = egal.
+@export var blocked_by_flag: String = ""
+
+
+## Gilt der Block heute Nacht (Mondphase, Flags)?
+func applies() -> bool:
+	if not moon_phases.is_empty() and Moon.phase() not in moon_phases:
+		return false
+	if requires_flag != "" and not WorldState.has_flag(requires_flag):
+		return false
+	return blocked_by_flag == "" or not WorldState.has_flag(blocked_by_flag)
 
 
 ## Minuten seit Beginn der Nacht (18:00). So liegt ein Block um 2:00 hinter

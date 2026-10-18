@@ -6,6 +6,11 @@ extends Resource
 ## (Linksklick) und einem starken Angriff (Rechtsklick). Neue Formen brauchen
 ## so nur eine neue Datei; neuer Code nur, wenn eine ganz neue Angriffsart
 ## dazukommt (siehe AttackData.Kind).
+##
+## Upgrades (Gnarl): Jede höhere Stufe ist eine eigene, vollständige Datei
+## <id>_<stufe>.tres mit derselben id, z. B. staff_2.tres. Balancing einer
+## Stufe = Zahlen in ihrer Datei ändern. Welche Stufe die Hexe hat, weiß das
+## Grimoire (upgrade_level).
 
 const DIRECTORY := "res://data/digitalis/%s.tres"
 
@@ -16,9 +21,18 @@ const DIRECTORY := "res://data/digitalis/%s.tres"
 @export var icon: Texture2D
 @export var light: AttackData
 @export var heavy: AttackData
+## Stufe dieser Datei (1 = ohne Upgrade).
+@export var level: int = 1
 
 
-## null, wenn es die Form nicht gibt.
-static func from_id(form_id: String) -> DigitalisForm:
+## Die Form in dieser Stufe. Gibt es die Stufe nicht als Datei, die nächst-
+## niedrigere. null, wenn es die Form gar nicht gibt.
+static func from_id(form_id: String, at_level: int = 1) -> DigitalisForm:
+	if form_id == "":
+		return null
+	for step in range(at_level, 1, -1):
+		var upgraded := DIRECTORY % ("%s_%d" % [form_id, step])
+		if ResourceLoader.exists(upgraded):
+			return load(upgraded)
 	var path := DIRECTORY % form_id
-	return load(path) if form_id != "" and ResourceLoader.exists(path) else null
+	return load(path) if ResourceLoader.exists(path) else null
