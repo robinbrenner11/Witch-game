@@ -53,12 +53,18 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -190.0
 offset_top = -168.0
-offset_right = 0.0
-offset_bottom = 0.0
+offset_right = 190.0
+offset_bottom = 168.0
+mouse_filter = 2
+
+[node name="Art" type="Control" parent="Window"]
+anchors_preset = 0
+offset_right = 190.0
+offset_bottom = 168.0
 scale = Vector2(2, 2)
 mouse_filter = 2
 
-[node name="Panel" type="NinePatchRect" parent="Window"]
+[node name="Panel" type="NinePatchRect" parent="Window/Art"]
 layout_mode = 0
 offset_right = 190.0
 offset_bottom = 168.0
@@ -70,16 +76,17 @@ patch_margin_bottom = 6
 
 [node name="Title" type="Label" parent="Window"]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 3.0
-offset_right = 80.0
-offset_bottom = 17.0
+offset_left = 20.0
+offset_top = 6.0
+offset_right = 160.0
+offset_bottom = 34.0
 theme_override_colors/font_color = Color(0.917647, 0.87451, 0.796078, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 16
 text = "BREW_TITLE"
+vertical_alignment = 1
 
-[node name="Cauldron" type="TextureRect" parent="Window"]
+[node name="Cauldron" type="TextureRect" parent="Window/Art"]
 layout_mode = 0
 offset_left = 34.0
 offset_top = 42.0
@@ -88,26 +95,27 @@ offset_bottom = 78.0
 mouse_filter = 2
 texture = ExtResource("4_cauldron")
 
-[node name="Slots" type="Control" parent="Window"]
+[node name="Slots" type="Control" parent="Window/Art"]
 anchors_preset = 0
 mouse_filter = 2
 
-[node name="Pips" type="Control" parent="Window"]
+[node name="Pips" type="Control" parent="Window/Art"]
 anchors_preset = 0
 mouse_filter = 2
 
 [node name="ResultName" type="Label" parent="Window"]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 78.0
-offset_right = 122.0
-offset_bottom = 92.0
+offset_left = 4.0
+offset_top = 156.0
+offset_right = 244.0
+offset_bottom = 184.0
 theme_override_colors/font_color = Color(0.85098, 0.643137, 0.254902, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Arrow" type="TextureRect" parent="Window"]
+[node name="Arrow" type="TextureRect" parent="Window/Art"]
 layout_mode = 0
 offset_left = 120.0
 offset_top = 28.0
@@ -116,7 +124,7 @@ offset_bottom = 37.0
 mouse_filter = 2
 texture = ExtResource("5_arrow")
 
-[node name="ResultSlot" type="TextureRect" parent="Window"]
+[node name="ResultSlot" type="TextureRect" parent="Window/Art"]
 layout_mode = 0
 offset_left = 144.0
 offset_top = 20.0
@@ -125,7 +133,7 @@ offset_bottom = 44.0
 mouse_filter = 2
 texture = ExtResource("6_result_slot")
 
-[node name="ResultIcon" type="TextureRect" parent="Window"]
+[node name="ResultIcon" type="TextureRect" parent="Window/Art"]
 layout_mode = 0
 offset_left = 148.0
 offset_top = 24.0
@@ -135,10 +143,10 @@ mouse_filter = 2
 
 [node name="BrewButton" type="Button" parent="Window"]
 layout_mode = 0
-offset_left = 133.0
-offset_top = 50.0
-offset_right = 179.0
-offset_bottom = 66.0
+offset_left = 266.0
+offset_top = 105.0
+offset_right = 358.0
+offset_bottom = 127.0
 focus_mode = 0
 theme_override_colors/font_color = Color(0.917647, 0.87451, 0.796078, 1)
 theme_override_colors/font_hover_color = Color(0.917647, 0.87451, 0.796078, 1)
@@ -154,10 +162,10 @@ text = "BREW_BUTTON"
 
 [node name="RecipesButton" type="Button" parent="Window"]
 layout_mode = 0
-offset_left = 112.0
-offset_top = 2.0
-offset_right = 180.0
-offset_bottom = 18.0
+offset_left = 224.0
+offset_top = 4.0
+offset_right = 360.0
+offset_bottom = 36.0
 focus_mode = 0
 tooltip_text = "B"
 theme_override_colors/font_color = Color(0.85098, 0.643137, 0.254902, 1)
@@ -172,7 +180,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_link")
 text = "BREW_RECIPES"
 alignment = 2
 
-[node name="Divider" type="TextureRect" parent="Window"]
+[node name="Divider" type="TextureRect" parent="Window/Art"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 94.0
@@ -180,7 +188,7 @@ offset_right = 180.0
 offset_bottom = 95.0
 mouse_filter = 2
 
-[node name="Inventory" type="GridContainer" parent="Window"]
+[node name="Inventory" type="GridContainer" parent="Window/Art"]
 layout_mode = 0
 offset_left = 13.0
 offset_top = 99.0

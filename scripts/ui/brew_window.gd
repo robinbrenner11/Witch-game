@@ -7,9 +7,10 @@ extends Control
 ## weil die Reihenfolge egal ist und Zweier- wie Dreier-Rezepte sich fertig
 ## anfühlen sollen.
 ##
-## Alle Grafiken sind in 1× gezeichnet; das Fenster wird doppelt so groß
-## angezeigt (Window hat scale = 2). Positionen stammen aus
-## docs/art/ui_generator/brew_window.py (window_v2).
+## Alle Grafiken sind in 1× gezeichnet und liegen unter Window/Art, das doppelt
+## so groß angezeigt wird (scale = 2). Positionen stammen aus
+## docs/art/ui_generator/brew_window.py (window_v2). Texte und Knöpfe liegen
+## daneben in 1× (Schrift wie überall in Größe 16, seit 18.10.2026).
 ##
 ## Solange es offen ist, ist das Spiel pausiert. Schließen (E oder Esc) legt
 ## nicht gebraute Zutaten zurück ins Inventar. Braut der Kessel schon, zeigt
@@ -35,14 +36,14 @@ const PIP_SPACING := 7
 # Was gerade im Kessel liegt (aus dem Inventar genommen).
 var _ingredients: Array[String] = []
 
-@onready var cauldron: TextureRect = $Window/Cauldron
-@onready var slots: Control = $Window/Slots
-@onready var pips: Control = $Window/Pips
+@onready var cauldron: TextureRect = $Window/Art/Cauldron
+@onready var slots: Control = $Window/Art/Slots
+@onready var pips: Control = $Window/Art/Pips
 @onready var result_name: Label = $Window/ResultName
-@onready var arrow: TextureRect = $Window/Arrow
-@onready var result_icon: TextureRect = $Window/ResultIcon
+@onready var arrow: TextureRect = $Window/Art/Arrow
+@onready var result_icon: TextureRect = $Window/Art/ResultIcon
 @onready var brew_button: Button = $Window/BrewButton
-@onready var divider: TextureRect = $Window/Divider
+@onready var divider: TextureRect = $Window/Art/Divider
 
 
 func _ready() -> void:
