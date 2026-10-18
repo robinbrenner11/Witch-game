@@ -1,0 +1,11 @@
+{
+ "scene": "res://scenes/world/garden.tscn",
+ "levels": 3,
+ "default_level": 1,
+ "default_ground": "grass",
+ "origin": [
+  14,
+  -4
+ ],
+ "depth_shade": false
+}

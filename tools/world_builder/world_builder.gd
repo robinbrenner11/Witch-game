@@ -54,7 +54,7 @@ const MARKS := {
 # Was an einer Markierung entsteht. Mehrere Szenen = Zufall pro Kachel
 # (aber jedes Mal gleich, damit Neu-Erzeugen nichts umwürfelt).
 const MARK_SCENES := {
-	"lantern": ["res://scenes/world/graybox/lantern.tscn"],
+	"lantern": ["res://scenes/world/decor/lantern_post.tscn"],
 	"tree": ["res://scenes/world/decor/tree_fir.tscn", "res://scenes/world/decor/tree_oak.tscn",
 			"res://scenes/world/decor/tree_elder.tscn"],
 	"willow": ["res://scenes/world/decor/tree_willow.tscn"],
@@ -65,6 +65,9 @@ const MARK_SCENES := {
 
 var _plan_dir := ""
 var _settings: Dictionary = {}
+# Wo das linke obere Pixel des Plans in der Szene liegt (in Kacheln). Für Orte,
+# die nicht bei (0, 0) anfangen, z. B. den Garten (plan.json: "origin": [x, y]).
+var _origin := Vector2i.ZERO
 var _size := Vector2i.ZERO
 var _height: Array[PackedInt32Array] = []
 var _wall: Array[PackedByteArray] = []
@@ -88,6 +91,8 @@ func build(plan_dir: String) -> Error:
 		report.append("plan.json fehlt in " + _plan_dir)
 		return ERR_FILE_NOT_FOUND
 	_settings = JSON.parse_string(json)
+	var origin: Array = _settings.get("origin", [0, 0])
+	_origin = Vector2i(int(origin[0]), int(origin[1]))
 	_layout = JSON.parse_string(FileAccess.get_file_as_string(CLIFF_DIR + "cliff_layout.json"))
 	var error := _read_images()
 	if error != OK:
@@ -398,7 +403,7 @@ func _paint_water(layer: TileMapLayer) -> void:
 					kind = "shore"
 					break
 		var info: Dictionary = tiles[kind]
-		layer.set_cell(cell, 0, Vector2i(int(info["col"]), int(info["row"])))
+		layer.set_cell(cell + _origin, 0, Vector2i(int(info["col"]), int(info["row"])))
 
 
 ## Tiefere Flächen werden leicht abgedunkelt (je Stufe unter der höchsten
@@ -432,7 +437,7 @@ func _paint_depth(layer: TileMapLayer) -> void:
 			var steps := mini(top - _height[x][y], 2)
 			if steps > 0:
 				var info: Dictionary = tiles["depth_%d" % steps]
-				layer.set_cell(Vector2i(x, y), 0, Vector2i(int(info["col"]), int(info["row"])))
+				layer.set_cell(Vector2i(x, y) + _origin, 0, Vector2i(int(info["col"]), int(info["row"])))
 
 
 func _paint_cliffs(layer: TileMapLayer) -> void:
@@ -441,7 +446,7 @@ func _paint_cliffs(layer: TileMapLayer) -> void:
 	for cell: Vector2i in _tiles:
 		var material: String = _tiles[cell][0]
 		var info: Dictionary = tiles[_tiles[cell][1]]
-		layer.set_cell(cell, MATERIALS.find(material), Vector2i(int(info["col"]), int(info["row"])))
+		layer.set_cell(cell + _origin, MATERIALS.find(material), Vector2i(int(info["col"]), int(info["row"])))
 
 
 func _paint_ground(ground: TileMapLayer) -> void:
@@ -487,7 +492,7 @@ func _paint_ground(ground: TileMapLayer) -> void:
 				continue
 			# Fester Zufall pro Zelle unter gleichwertigen Varianten.
 			var pick: Array = options[absi(hash(Vector2i(x, y))) % options.size()]
-			ground.set_cell(Vector2i(x, y), pick[0], pick[1])
+			ground.set_cell(Vector2i(x, y) + _origin, pick[0], pick[1])
 
 
 ## Terrain einer Ecke (Gitterpunkt zwischen bis zu vier Zellen): das stärkste
@@ -588,9 +593,9 @@ func _place_marks(root: Node) -> void:
 		# Fester Zufall pro Kachel: gleiche Pläne ergeben gleiche Orte.
 		var pick: int = absi(hash(cell)) % options.size()
 		var node: Node2D = (load(options[pick]) as PackedScene).instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
-		node.name = "%s_%d_%d" % [_marks[cell].capitalize(), cell.x, cell.y]
+		node.name = "%s_%d_%d" % [_marks[cell].capitalize(), cell.x + _origin.x, cell.y + _origin.y]
 		# Fußpunkt etwas unter der Kachelmitte, wie bei Hand gesetzter Deko.
-		node.position = Vector2(cell * TILE) + Vector2(TILE / 2.0, TILE - 6)
+		node.position = Vector2((cell + _origin) * TILE) + Vector2(TILE / 2.0, TILE - 6)
 		if "flip" in node and hash(cell * 7) % 2 == 0:
 			node.set("flip", true)
 		generated.add_child(node)
