@@ -521,3 +521,39 @@ MSG_HEART_OPENS,The petals open again.,Die Blätter öffnen sich wieder.
 MSG_HEART_CLEANSED,The bloom heart withers. The woods breathe out.,Das Blütenherz welkt. Der Wald atmet auf.
 PAGE_JOURNAL_02_LORE,"They will call it a curse. It was a wish. I asked the garden to keep me as I am, and it listened too well.","Sie werden es einen Fluch nennen. Es war ein Wunsch. Ich bat den Garten, mich zu bewahren, wie ich bin, und er hörte zu gut zu."
 PAGE_JOURNAL_02_STUB,The,Sie
+BOOK_FORMS_HINT,Forms you know. Gnarl carves them finer.,"Formen, die du kennst. Gnarl schnitzt sie feiner."
+BOOK_FORM_LIGHT,Left click: %s,Linksklick: %s
+BOOK_FORM_HEAVY,Right click: %s,Rechtsklick: %s
+BOOK_FORM_WORLD,Outside a fight: %s,Außerhalb des Kampfs: %s
+BOOK_FORM_MAX,Gnarl cannot carve it any finer.,Feiner kann Gnarl sie nicht schnitzen.
+BOOK_FORM_NEXT,%s at Gnarl: %s,%s bei Gnarl: %s
+DIGITALIS_STAFF_LIGHT,a quick spark towards the cursor.,ein schneller Funke zur Maus.
+DIGITALIS_STAFF_HEAVY,a slow spell that bursts in a circle.,"ein langsamer Zauber, der im Kreis platzt."
+DIGITALIS_STAFF_WORLD,nothing yet. It listens.,noch nichts. Er lauscht.
+DIGITALIS_SICKLE_LIGHT,a short cut in an arc.,ein kurzer Schnitt im Bogen.
+DIGITALIS_SICKLE_HEAVY,a wide sweep around you.,ein weiter Hieb rund um dich.
+DIGITALIS_SICKLE_WORLD,cuts wild grass and weeds.,schneidet Wildgras und Unkraut.
+BOOK_PERSON_WHERE,Found at: %s,Zu finden: %s
+BOOK_PERSON_TRADES,Trades: %s,Tauscht: %s
+BOOK_PERSON_UPGRADES,upgrades for Digitalis,Upgrades für Digitalis
+PLACE_VILLAGE,the village,im Dorf
+PLACE_FOREST,the deep woods,im tiefen Wald
+PLACE_LAKEWOOD,the lake woods,im Seewald
+PLACE_SWAMP,the swamp,im Sumpf
+NPC_WATCHMAN_IMPRESSION,"Tired eyes, a steady lantern. He worries more than he says.","Müde Augen, eine ruhige Laterne. Er sorgt sich mehr, als er sagt."
+NPC_MOTHER_MOSS_IMPRESSION,Older than the village. She smells of rain and keeps every seed.,Älter als das Dorf. Sie riecht nach Regen und hütet jeden Samen.
+NPC_UGO_IMPRESSION,Talks about himself as if he were someone else. Loves muck.,"Spricht von sich, als wäre er jemand anders. Liebt Schlamm."
+NPC_GNARL_IMPRESSION,"Small, gruff, coughing. His hands know wood better than words.","Klein, brummig, hustend. Seine Hände kennen Holz besser als Worte."
+BOOK_GROUP_BLIGHTED,Blighted,Befallen
+BEAST_BLIGHT_BEETLE,Blight Beetle,Befallener Käfer
+BEAST_BLIGHT_BEETLE_HORNED,Thorn Beetle,Dornkäfer
+BEAST_BLOOM_HEART_1,Bloom Heart of the Tower,Blütenherz im Turm
+ENTRY_BLIGHT_BEETLE_1,A beetle with a bloom on its shell. It charges along a glowing trail.,Ein Käfer mit einer Blüte auf dem Panzer. Er rennt eine leuchtende Spur entlang.
+ENTRY_BLIGHT_BEETLE_2,Step aside when the trail flares. After a charge it needs a breath.,"Weich aus, wenn die Spur aufleuchtet. Nach dem Anlauf braucht er Luft."
+ENTRY_BLIGHT_BEETLE_3,"Cleansed, it leaves a bitter petal and runs home.",Gereinigt lässt er ein bitteres Blatt zurück und rennt nach Hause.
+ENTRY_BLIGHT_BEETLE_HORNED_1,Horns and thorns. It charges twice before it rests.,"Hörner und Dornen. Er rennt zweimal an, bevor er rastet."
+ENTRY_BLIGHT_BEETLE_HORNED_2,At new moon they come in numbers.,Bei Neumond kommen sie in Scharen.
+ENTRY_BLIGHT_BEETLE_HORNED_3,Its shell is tougher. A burst hits it from all sides.,Sein Panzer ist zäher. Ein platzender Zauber trifft ihn von allen Seiten.
+ENTRY_BLOOM_HEART_1_1,A knot of roots that beat like a heart in the old tower.,"Ein Knoten aus Wurzeln, der im alten Turm wie ein Herz schlug."
+ENTRY_BLOOM_HEART_1_2,"When it closed, cleansing mist opened it again.","Als es sich schloss, öffnete Reinigungsnebel es wieder."
+ENTRY_BLOOM_HEART_1_3,"It held a page of Vespera's journal, like a seed.","Es hielt eine Seite aus Vesperas Tagebuch, wie einen Samen."

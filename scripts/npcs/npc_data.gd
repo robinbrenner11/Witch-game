@@ -22,6 +22,14 @@ const FOLDER := "res://data/npcs/"
 ## Für die Dialogbox. Leer = ohne Portrait.
 @export var portrait: Texture2D
 
+@export_group("Grimoire")
+## Kleines Bild im Kapitel People (Platzhalter, bis es Portraits gibt).
+@export var book_icon: Texture2D
+## Eindruck der Hexe von dieser Person (Text-Schlüssel, ihre Handschrift).
+@export var impression_key: String = ""
+## Platz im Raster.
+@export var book_order: int = 0
+
 
 ## Minuten seit Beginn der Nacht (18:00), 0 bis unter 1440.
 static func to_night_minute(minutes: float) -> float:

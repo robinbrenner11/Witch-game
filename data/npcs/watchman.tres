@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/npcs/npc_data.gd" id="1_npc"]
 [ext_resource type="Script" path="res://scripts/npcs/schedule_entry.gd" id="2_entry"]
 
+[ext_resource type="Texture2D" path="res://assets/ui/book_icons/watchman.png" id="9_icon"]
 [sub_resource type="Resource" id="Resource_shift"]
 script = ExtResource("2_entry")
 start_hour = 18
@@ -43,3 +44,6 @@ id = "watchman"
 name_key = "NPC_WATCHMAN"
 role_key = "NPC_WATCHMAN_ROLE"
 schedule = Array[ExtResource("2_entry")]([SubResource("Resource_shift"), SubResource("Resource_well"), SubResource("Resource_patrol"), SubResource("Resource_gate"), SubResource("Resource_dawn"), SubResource("Resource_inside")])
+book_icon = ExtResource("9_icon")
+impression_key = "NPC_WATCHMAN_IMPRESSION"
+book_order = 0

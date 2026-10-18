@@ -105,14 +105,29 @@ func trade(npc_id: String) -> bool:
 ## Text für die Antwort-Auswahl, z. B. "4× Wildkraut gegen 2× Alraunensamen",
 ## "Stab II: 2× Höhlenkristall, 3× Bitterblütenblatt" oder "1× Heiltrank geben".
 func label() -> String:
-	var cost := "%d× %s" % [wants_amount, Inventory.display_name_for(wants_item)]
-	if also_wants_item != "":
-		cost += ", %d× %s" % [also_wants_amount, Inventory.display_name_for(also_wants_item)]
+	var cost := cost_text()
 	if reward and reward.type == RewardData.Type.UPGRADE:
 		return tr("TRADE_UPGRADE") % [tr(Grimoire.upgrade_key(reward.target_id, reward.value)), cost]
 	if gives_item == "":
 		return tr("TRADE_GIVE") % cost
 	return tr("TRADE_OFFER") % [cost, gives_amount, Inventory.display_name_for(gives_item)]
+
+
+## Was das Angebot kostet, z. B. "2× Höhlenkristall, 3× Bitterblütenblatt".
+func cost_text() -> String:
+	var cost := "%d× %s" % [wants_amount, Inventory.display_name_for(wants_item)]
+	if also_wants_item != "":
+		cost += ", %d× %s" % [also_wants_amount, Inventory.display_name_for(also_wants_item)]
+	return cost
+
+
+## Das Upgrade-Angebot für diese Stufe, bei welchem NPC auch immer (oder null).
+static func for_upgrade(target_id: String, at_level: int) -> TradeOffer:
+	for npc in DataFolder.load_all(NpcData.FOLDER):
+		for offer in all_for((npc as NpcData).id):
+			if offer.reward and offer.reward.type == RewardData.Type.UPGRADE 					and offer.reward.target_id == target_id and offer.reward.value == at_level:
+				return offer
+	return null
 
 
 func _night_key(npc_id: String, index: int) -> String:

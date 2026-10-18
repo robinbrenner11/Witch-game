@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+[ext_resource type="Texture2D" path="res://assets/ui/book_icons/blight_beetle.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "blight_beetle"
+chapter = "bestiary"
+page_group = "blighted"
+order = 100
+title_key = "BEAST_BLIGHT_BEETLE"
+icon = ExtResource("2_icon")
+discover_on = "cleanse/blight_beetle"
+facts = Array[String](["ENTRY_BLIGHT_BEETLE_1", "ENTRY_BLIGHT_BEETLE_2", "ENTRY_BLIGHT_BEETLE_3"])
+fact_triggers = Array[String](["", "cleanse/blight_beetle:3", "cleanse/blight_beetle:10"])

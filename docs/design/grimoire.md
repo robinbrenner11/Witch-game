@@ -305,7 +305,11 @@ Gebaut (G1–G6), alles mit **Platzhalter-Grafiken aus Code** (Farben aus der Pa
   - Rezepte: „×1 Zutat“ mit Häkchen oder „missing“, Randnotiz mit Bordeaux-Linie, „Brew this“ als Knopf.
   - HUD: kleines Buch oben links, glimmt magenta bei Neuem, Klick öffnet das Buch.
 - 💡 **Später (Robin, 08.10.2026):** Kapitel bleiben, aber in Recipes, Herbarium und People bekommt **jeder Eintrag eine eigene Doppelseite** (statt Raster links und Detail rechts auf derselben Doppelseite). Die Übersicht bleibt als erste Doppelseite des Kapitels.
-- **Noch offen:** Umblätter-Animation, Tintenklecks, Ranken-Welken als Animation, Pin im HUD, Träume, People/Bestiary/Digitalis mit Inhalt, Inhalt der ca. 12 Seiten (Frage 4). Werte (Erfahrungskurve, Belohnungen) sind erste Vorschläge zum Austarieren.
+- **18.10.2026: Digitalis, People und Bestiary haben Inhalt** (Platzhalter-Bilder in `assets/ui/book_icons/`):
+  - **Digitalis** (`spread_digitalis.gd`): Raster Stab, Sichel, Dornenpeitsche, Wurzelhammer (unbekannte als ?). Rechts Name mit Stufe, Kerben, Links- und Rechtsklick, Nutzen außerhalb des Kampfs, Notiz der Upgrade-Stufe in Magenta, was Gnarl für die nächste Stufe will (erst nach dem Kennenlernen, vorher „Gnarl weiß mehr.“).
+  - **People** (`spread_people.gd`): alle NPCs aus `data/npcs/`, bekannt ab Flag `met_<id>`. Rechts Name, Rolle, wo man sie findet (aus der Routine), Eindruck in Magenta (`NpcData.impression_key`), was sie tauschen. **Freundschaft (5 Herzen) und Vorlieben fehlen noch**, die kommen mit dem Social-System.
+  - **Bestiary** (wie Herbarium, `chapter = "bestiary"`): offen ab dem ersten gereinigten Wesen (`unlock = "first_fight"`). Einträge Käfer, Dornkäfer, Blütenherz im Turm.
+- **Noch offen:** Umblätter-Animation, Tintenklecks, Ranken-Welken als Animation, Pin im HUD, Träume, Warding und Bonding (Disziplinen ohne Daten), Inhalt der ca. 12 Seiten (Frage 4). Werte (Erfahrungskurve, Belohnungen) sind erste Vorschläge zum Austarieren.
 
 ## 5c. Überarbeitung 09.10.2026 (Grafiken und Aufbau)
 

@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/npcs/npc_data.gd" id="1_npc"]
 [ext_resource type="Script" path="res://scripts/npcs/schedule_entry.gd" id="2_entry"]
 
+[ext_resource type="Texture2D" path="res://assets/ui/book_icons/ugo.png" id="9_icon"]
 [sub_resource type="Resource" id="Resource_swamp"]
 script = ExtResource("2_entry")
 start_hour = 18
@@ -31,3 +32,6 @@ name_key = "NPC_UGO"
 role_key = "NPC_UGO_ROLE"
 schedule = Array[ExtResource("2_entry")]([SubResource("Resource_swamp"), SubResource("Resource_market"), SubResource("Resource_inside")])
 walk_speed = 20.0
+book_icon = ExtResource("9_icon")
+impression_key = "NPC_UGO_IMPRESSION"
+book_order = 2
