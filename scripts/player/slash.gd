@@ -24,6 +24,8 @@ var source: Player
 # Schwung von links nach rechts oder umgekehrt; Combat wechselt bei leichten
 # Hieben ab, damit Serien nicht gestempelt wirken.
 var mirrored := false
+# Schaden zusätzlich zu attack.damage (Boni aus dem Grimoire).
+var bonus_damage := 0
 
 var _time := 0.0
 var _hit: Dictionary = {}
@@ -60,7 +62,7 @@ func _check_hits() -> void:
 		if _in_arc(point, ENEMY_RADIUS):
 			_hit[id] = true
 			var push := (point - global_position).normalized()
-			enemy.take_hit(attack.damage, push * attack.knockback)
+			enemy.take_hit(attack.damage + bonus_damage, push * attack.knockback)
 			CombatFx.sparks(get_parent(), point, attack.color, 8, 40.0)
 	for gate in get_tree().get_nodes_in_group("cuttable"):
 		if not _hit.has(gate.get_instance_id()) and _in_arc((gate as Gate).global_position, (gate as Gate).reach()):

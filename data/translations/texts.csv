@@ -557,3 +557,10 @@ ENTRY_BLIGHT_BEETLE_HORNED_3,Its shell is tougher. A burst hits it from all side
 ENTRY_BLOOM_HEART_1_1,A knot of roots that beat like a heart in the old tower.,"Ein Knoten aus Wurzeln, der im alten Turm wie ein Herz schlug."
 ENTRY_BLOOM_HEART_1_2,"When it closed, cleansing mist opened it again.","Als es sich schloss, öffnete Reinigungsnebel es wieder."
 ENTRY_BLOOM_HEART_1_3,"It held a page of Vespera's journal, like a seed.","Es hielt eine Seite aus Vesperas Tagebuch, wie einen Samen."
+ACTION_CLEANSE,cleansing creatures,Wesen reinigen
+PATH_WARDING_HEXBLADE,Hexblade,Hexenklinge
+PATH_WARDING_HEXBLADE_DESC,Close and sharp. Sickle cuts deal +1 damage.,Nah und scharf. Sichelhiebe machen +1 Schaden.
+PATH_WARDING_HEXCASTER,Hexcaster,Hexenruferin
+PATH_WARDING_HEXCASTER_DESC,Far and bright. Staff spells deal +1 damage.,Weit und hell. Stabzauber machen +1 Schaden.
+STAT_SLASH_DAMAGE,+%d sickle damage,+%d Sichelschaden
+STAT_BOLT_DAMAGE,+%d staff damage,+%d Stabschaden

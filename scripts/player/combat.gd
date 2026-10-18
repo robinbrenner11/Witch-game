@@ -249,11 +249,15 @@ func _fire(attack: AttackData) -> void:
 		AttackData.Kind.BOLT:
 			var spell := Spell.new()
 			spell.setup(attack, (get_global_mouse_position() - staff.tip_position()).normalized())
+			# Boni aus dem Grimoire (Warding-Pfad Hexcaster).
+			spell.damage += Grimoire.get_stat("bolt_damage")
 			level.objects.add_child(spell)
 			spell.global_position = staff.tip_position()
 		AttackData.Kind.SLASH:
 			var slash := Slash.new()
 			slash.attack = attack
+			# Boni aus dem Grimoire (Warding-Pfad Hexblade).
+			slash.bonus_damage = Grimoire.get_stat("slash_damage")
 			slash.source = player
 			slash.aim = _aim()
 			slash.mirrored = _slash_mirrored

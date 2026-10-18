@@ -520,8 +520,8 @@ func is_unlocked(chapter: ChapterData) -> bool:
 				if page and page.kind == PageData.Kind.JOURNAL:
 					return true
 			return false
-		"first_fight":
-			# Bestiary: sobald das erste Wesen gereinigt ist.
+		"first_fight", "combat":
+			# Bestiary und Warding: sobald das erste Wesen gereinigt ist.
 			for key: String in _counts:
 				if key.begins_with("cleanse/"):
 					return true
