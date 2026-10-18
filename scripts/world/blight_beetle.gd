@@ -257,6 +257,14 @@ func take_hit(damage: int, knockback: Vector2, stagger: bool = true) -> void:
 	_set_state(State.STAGGER, 0.2)
 
 
+## Wehrlos für eine Weile (Reinigungsnebel): steht still, greift nicht an.
+func stun(seconds: float) -> void:
+	if state == State.CLEANSED:
+		return
+	_knockback = Vector2.ZERO
+	_set_state(State.STAGGER, seconds)
+
+
 ## Langsamer für eine Weile (Dornennebel). Der stärkste Effekt zählt.
 func apply_slow(factor: float, seconds: float) -> void:
 	_slow = minf(_slow, factor) if _slow_left > 0.0 else factor
@@ -264,7 +272,8 @@ func apply_slow(factor: float, seconds: float) -> void:
 
 
 func _on_touch(body: Node2D) -> void:
-	if state == State.CLEANSED or not body is Player:
+	# Taumelnd (getroffen oder Reinigungsnebel) tut er niemandem etwas.
+	if state == State.CLEANSED or state == State.STAGGER or not body is Player:
 		return
 	var witch := body as Player
 	var vitals: Vitals = witch.get_node("Vitals")
@@ -384,6 +393,11 @@ class Glow:
 			# Hornspitzen glimmen wie die Blüte.
 			draw_rect(Rect2(-7, -25, 1, 1), Color("#E458B1"))
 			draw_rect(Rect2(6, -25, 1, 1), Color("#E458B1"))
+		if beetle.state == State.STAGGER and beetle._timer > 0.3:
+			# Wehrlos: drei helle Punkte kreisen über dem Kopf.
+			for i in 3:
+				var angle := beetle._timer * 6.0 + TAU * i / 3.0
+				draw_rect(Rect2((Vector2(cos(angle) * 6.0, -24.0 + sin(angle) * 2.0)).round(), Vector2.ONE), Color("#EADFCB"))
 		if beetle.state == State.NOTICE:
 			# Ausrufezeichen: gleich greift er an.
 			var top := -33 if beetle.horned else -30

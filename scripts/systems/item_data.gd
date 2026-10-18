@@ -57,6 +57,9 @@ const DEFAULT_MAX_STACK := 999
 # Größe der Wirkfläche in Pixeln, je Trank verschieden (Entscheidung 10.10.).
 @export var throw_radius: float = 32.0
 @export var throw_damage: int = 2
+# Getroffene Wesen sind so lange wehrlos (Sekunden, 0 = gar nicht), z. B.
+# Reinigungsnebel.
+@export var throw_stun: float = 0.0
 # Nur Zonen: wie lange sie bleibt, wie stark sie bremst (0.5 = halbes Tempo)
 # und alle wie viele Sekunden sie Schaden macht.
 @export var zone_time: float = 4.0

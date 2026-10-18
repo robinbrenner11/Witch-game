@@ -13,4 +13,5 @@ description = "ITEM_POTION_CLEANSING_MIST_DESC"
 use = 3
 throw_radius = 40.0
 throw_damage = 1
+throw_stun = 2.0
 throw_color = Color(0.8, 0.84, 0.93, 1)

@@ -239,6 +239,8 @@ class ThrownPotion:
 					var offset: Vector2 = (enemy as Node2D).global_position - to
 					if offset.length() <= item.throw_radius and enemy.has_method("take_hit"):
 						enemy.take_hit(item.throw_damage, offset.normalized() * 160.0)
+						if item.throw_stun > 0.0 and enemy.has_method("stun"):
+							enemy.stun(item.throw_stun)
 				var ring := CombatFx.Ring.new(item.throw_radius, item.throw_color)
 				parent.add_child(ring)
 				ring.global_position = to
