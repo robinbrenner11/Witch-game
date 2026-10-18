@@ -20,6 +20,7 @@ var _time := 0.0
 var _wisp_position := Vector2.ZERO
 # Dämmertrank: Befallene Wesen bemerken die Hexe später (BlightBeetle).
 var _dusk := false
+var _wisp_attack: WispAttack
 
 # Das Irrlicht ist "top_level": Es bewegt sich nicht automatisch mit der Hexe,
 # sondern fliegt ihr in _process mit etwas Verzögerung hinterher.
@@ -30,7 +31,8 @@ var _dusk := false
 func _ready() -> void:
 	DayCycle.day_passed.connect(_on_day_passed)
 	# Im Kampf schießt das Irrlicht von selbst mit (WispAttack).
-	wisp.add_child(WispAttack.new())
+	_wisp_attack = WispAttack.new()
+	wisp.add_child(_wisp_attack)
 	_end_all()
 
 
@@ -76,9 +78,11 @@ func _drink_selected() -> void:
 	# Jede Trinkwirkung ist eigenes Verhalten, deshalb hier im Code statt
 	# als Zahlen in den Item-Daten.
 	match item.id:
-		"potion_will_o_wisp":
+		"potion_will_o_wisp", "potion_will_o_wisp_bright":
 			_wisp_position = global_position + WISP_OFFSET
 			wisp.show()
+			# Ein Sumpfirrlicht bleibt stark, bis die Nacht endet.
+			_wisp_attack.strong = _wisp_attack.strong or item.id == "potion_will_o_wisp_bright"
 			Sfx.play("brewing/wisp_appear")
 			Messages.post(tr("MSG_WISP_JOINS"))
 		"potion_liquid_moonlight":
@@ -118,5 +122,6 @@ func _on_day_passed(_day: int) -> void:
 
 func _end_all() -> void:
 	wisp.hide()
+	_wisp_attack.strong = false
 	moonlight.enabled = false
 	_dusk = false

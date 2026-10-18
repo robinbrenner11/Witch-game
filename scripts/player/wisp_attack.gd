@@ -11,6 +11,10 @@ extends Node
 const INTERVAL := 1.2
 const RANGE := 150.0
 const DAMAGE := 1
+# Sumpfirrlicht (Irrlicht II, mit Sumpflicht gebraut): öfter und stärker.
+const STRONG_INTERVAL := 0.7
+const STRONG_DAMAGE := 2
+const STRONG_COLOR := Color("#8DE6A6")
 const SPEED := 260.0
 const KNOCKBACK := 40.0
 const COLOR := Color("#BFD7FF")
@@ -18,6 +22,8 @@ const COLOR := Color("#BFD7FF")
 const AIM_OFFSET := Vector2(0, -8)
 
 var _wait := INTERVAL
+## Sumpfirrlicht getrunken? Setzt PotionEffects.
+var strong := false
 
 
 func _process(delta: float) -> void:
@@ -33,7 +39,7 @@ func _process(delta: float) -> void:
 	var target := _nearest_enemy(wisp.global_position)
 	if target == null:
 		return
-	_wait = INTERVAL
+	_wait = STRONG_INTERVAL if strong else INTERVAL
 	_shoot(wisp.global_position, target.global_position + AIM_OFFSET)
 
 
@@ -56,10 +62,10 @@ func _shoot(from: Vector2, to: Vector2) -> void:
 	spark.direction = (to - from).normalized()
 	spark.speed = SPEED
 	spark.max_distance = RANGE + 30.0
-	spark.damage = DAMAGE
+	spark.damage = STRONG_DAMAGE if strong else DAMAGE
 	spark.radius = 2.0
 	spark.knockback = KNOCKBACK
-	spark.color = COLOR
+	spark.color = STRONG_COLOR if strong else COLOR
 	level.objects.add_child(spark)
 	spark.global_position = from
 	Sfx.play_at("combat/bolt", from)
