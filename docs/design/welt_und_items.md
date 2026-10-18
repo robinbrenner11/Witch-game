@@ -329,12 +329,14 @@ Offen und bewusst nicht hier: Mondeffekte für die Nächte 2–3 und 5–7, Craf
 | 3c | ✅ 18.10. | **Sumpfirrlicht (Irrlicht II)**: Laternenbeere + Dämmerbeeren + Sumpflicht. Leuchtet wie das Irrlicht (öffnet dieselben Sperren), schießt im Kampf alle 0,7 s mit 2 Schaden (Werte in `wisp_attack.gd`). Icon ist ein grün eingefärbter Platzhalter |
 | 8 | ✅ 18.10. (Boss als 🔮 Entwurf) | **Turmruine** `scenes/world/tower_ruin.tscn` aus Bauplan (Hof als Arena, Turmstumpf, Mauerreste, dunkel), erreichbar vom tiefen Wald (Ausgang Osten). **Blütennebel S5** davor: Reinigungsnebel lichtet ihn nur für diese Nacht (`Gate.item_opens_tonight`), nach dem Blütenherz für immer offen. **Blütenknospen** wachsen in der Ruine nach (3 Nächte). **Blütenherz 1** (`scripts/world/bloom_heart.gd`, Entwurf Abschnitt 11): drei Phasen, gereinigt setzt es `bloom_heart_1_cleansed`, lässt 3 Knospen und die Tagebuchseite `page_journal_02` fallen und bleibt verdorrt stehen. Dazu Herbarium-Seite **Ferne Orte** (Weidenrinde, Mondwasser, Höhlenkristall, Sumpflicht, Blütenknospe). Nachgetragen aus Abschnitt 3/4: **Rezeptseite Reinigungsnebel auf der Insel** (S1 führt so zu S5) und eine **Tagebuchseite in der Höhle** (Lore zu Digitalis) |
 
-### Nächste Schritte (Stand 16.10., Abbruch wegen Nutzungslimit)
+### Nächste Schritte (Stand 18.10.)
 
-3. **Robins Test** von Seewald v2 (F9), danach Ausgänge von Garten, Wald und Dorf auf `lakewood_v2.tscn` umstellen und den alten Seewald entfernen (W5). Danach tiefer Wald, Dorf, Garten mit Höhen (Spielstand-Frage beim Garten, `overworld_plan.md` Abschnitt 7).
-4. Offen: echte Grafiken (Robin, mit dem Plugin). Wasser-Animation gebaut (18.10., `animate_water.py`). Robins Test von Blütenherz 1 (Entwurf in Abschnitt 11).
-5. Was nach Blütenherz 1 passiert, ist nur als Flag vorbereitet (`bloom_heart_1_cleansed`): Heilung des tiefen Walds (weniger Befall?), Hexenring als Schnellreise, Apprentice, Moor S8. Das braucht Robins Entscheidung (game_design.md, Abschnitte 4 und 10).
+Akt 1 aus Abschnitt 9 ist komplett gebaut (Schritte 1–8, alles Graybox). Was jetzt an Robin hängt:
 
+1. **Ausgänge auf Seewald v2 umstellen (W5, wartet auf Robins Okay).** Wichtig: Bis dahin sind im normalen Spiel (ohne F9) Mutter Moos, Insel, Höhle, Sumpf mit Ugo, Mondwasser und Weidenrinde **nicht erreichbar**. Ohne Mondwasser gibt es keinen Reinigungsnebel, und ohne den kommt man nicht durch den Blütennebel zur Turmruine (außer über den Debug-Weg). Danach tiefer Wald, Dorf, Garten mit Höhen (Spielstand-Frage beim Garten, `overworld_plan.md` Abschnitt 7).
+2. **Robins Test** von Gnarl und den Upgrades, Blütenherz 1 (Entwurf Abschnitt 11), Wren, den Grimoire-Kapiteln Digitalis, People, Bestiary, Warding und den Träumen.
+3. **Entscheidungen:** Was nach Blütenherz 1 passiert (vorbereitet nur als Flag `bloom_heart_1_cleansed`: Heilung des Walds, Hexenring als Schnellreise, Apprentice, Moor S8; game_design.md 4 und 10). Warding Stufe 10. Mondeffekte für die Nächte 2–3 und 5–7. Seltene Ereignisse und Fest. Katze und Bonding. Crafting über den Kessel. Akt-2-Sperren S3, S6, S7.
+4. **Grafiken** (Robin): echte Sprites für alle Platzhalter (Liste in der Session-Zusammenfassung vom 18.10.), Grimoire-Grafikpaket (danach Umblättern, Tintenkleckse, Ranken-Welken).
 
 Tests (headless, Prüfskripte nicht im Repo): Gate zu ohne Licht mit Meldung, E zeigt Hinweis, offen mit Irrlicht und mit Mondlicht, wieder zu ohne Licht, Höhle betreten und verlassen, Höhle dunkel und sonnensicher, Kristalle wachsen, pflücken und nachwachsen, Glutbombe öffnet ein Wurf-Gate dauerhaft, Wachstumstrank öffnet ein Gieß-Gate, falscher Trank tut nichts: 25 / 25. Höhen-Test weiter 24 / 24, alle 323 Szenen, Scripts und Ressourcen laden.
 
