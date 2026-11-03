@@ -9,8 +9,8 @@ Stand: 03.11.2026. Aufgabenliste für Sessions, die ohne Robin laufen (Regeln: `
 
 ## Bereit
 
-1. **Schritt 7: Gnarl und Upgrades**
-   Wie in `docs/design/welt_und_items.md` Abschnitt 6 beschrieben: Gnarl im tiefen Wald, zieht nach Hilfe in die Dorf-Werkstatt; Upgrades als Tausch mit neuem `RewardData`-Typ `UPGRADE` (Stab II, Sichel II, Kessel 4 Plätze). Höhlenkristall und Blütenknospe bekommen damit ihre Verwendung. Dialoge im Stil der bestehenden NPCs (`docs/VILLAGE_HUB.md`). Wenn Gnarls Persönlichkeit oder Hintergrund nicht festgelegt ist: knapp und neutral schreiben, als „Von mir entschieden“ markieren. Bei Bedarf in kleine PRs teilen (erst Gnarl + Dialog, dann Upgrades).
+1. **Schritt 7b: Upgrades bei Gnarl**
+   Gnarl selbst steht (7a, siehe „Erledigt“). Wie in `docs/design/welt_und_items.md` Abschnitt 6 beschrieben: Upgrades als Tausch mit neuem `RewardData`-Typ `UPGRADE` (Stab II, Sichel II, Kessel 4 Plätze). Höhlenkristall und Blütenknospe bekommen damit ihre Verwendung. Dialoge im Stil der bestehenden NPCs (`docs/VILLAGE_HUB.md`). Wenn Gnarls Persönlichkeit oder Hintergrund nicht festgelegt ist: knapp und neutral schreiben, als „Von mir entschieden“ markieren. Bei Bedarf in kleine PRs teilen (erst Gnarl + Dialog, dann Upgrades).
 
 2. **Wasser-Animation**
    Kachel-Animation im Wasser-TileSet (3–4 Frames) wie in `docs/design/overworld_plan.md` Abschnitt 3 beschrieben. Platzhalter-Frames per Generator in `docs/art/`, Robins echte Grafik ersetzt sie später. Der World-Builder muss die animierten Kacheln weiter richtig setzen.
@@ -31,5 +31,6 @@ Stand: 03.11.2026. Aufgabenliste für Sessions, die ohne Robin laufen (Regeln: `
 
 ## Erledigt
 
+- 03.11.2026: Schritt 7a, Gnarl: im tiefen Wald, Heiltrank als Gabe, Umzug in die Dorf-Werkstatt zur nächsten Nacht. Test `tests/test_gnarl.gd`. Branch `claude/gnarl-upgrades`.
 - 03.11.2026: Herbarium-Einträge für Weidenrinde, Mondwasser, Höhlenkristall, Sumpflicht, Bitterblütenblatt und Blütenknospe (Mondmoos und Eulenfeder hatten schon einen), Test `tests/test_herbarium.gd`. PR #2 (`claude/herbarium-eintraege`).
 - 03.11.2026: Tests im Repo (`tests/`), Godot-Setup für Cloud-Sessions (`tools/setup_godot.sh`), Regeln für Arbeit ohne Robin in `CLAUDE.md`, doppelte Text-Schlüssel `DIGITALIS_STAFF`/`DIGITALIS_SICKLE` entfernt.

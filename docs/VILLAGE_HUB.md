@@ -52,6 +52,10 @@ GrayboxBuilding scripts/world/graybox_building.gd  Platzhalter-Haus aus Farbflä
 
 **Tausch bei einem NPC (16.10.):** pro Angebot eine `.tres` in `data/trades/<npc>/` (`TradeOffer`: will Item und Menge, gibt Item und Menge, optional `per_night`, Mondphasen, Flags). Kein Code nötig: Nach jedem Gespräch zeigt der NPC die Angebote in der Antwort-Auswahl der Dialogbox, nach einem Tausch erneut, bis „Gerade nichts“ oder Esc. Erster Händler: Mutter Moos im Seewald v2.
 
+**einen NPC umziehen lassen (03.11.):** Routine-Blöcke (`ScheduleEntry`) haben `requires_flags` und `blocked_by_flags`. Der alte Block wird durch das Flag gesperrt, der neue braucht es. Damit er nicht vor den Augen der Hexe verschwindet, das Flag mit `WorldState.set_flag_next_night()` setzen (z. B. über `TradeOffer.sets_flag_next_night`). Beispiel: Gnarl.
+
+**eine Gabe statt Tausch (03.11.):** `TradeOffer` mit leerem `gives_item` erscheint als „1× Heiltrank geben“. `sets_flag` setzt danach ein Flag, `blocked_by_flags` nimmt das Angebot wieder weg. Braucht ein Gespräch genau dieses Flag, antwortet der NPC gleich nach der Gabe damit (`Npc._follow_up`).
+
 **einen NPC erst später auftauchen lassen:** `appears_flag` in seinen Daten. Laut Design erscheinen neue NPCs nur durch eine Aktion der Spielerin.
 
 ## 3. Der Nachtwächter
@@ -73,6 +77,21 @@ GrayboxBuilding scripts/world/graybox_building.gd  Platzhalter-Haus aus Farbflä
 | `dawn` | 15 | Thema `dawn` | – |
 | `moon_new`, `moon_full` | 10 | Neu- bzw. Vollmond, einmal pro Nacht | – |
 | `smalltalk_1..3` | 0 | immer | – |
+
+## 3b. Gnarl (03.11.2026, Schritt 7 Teil 1)
+
+Wurzelschnitzer (Wichtel, Graybox-Figur: klein, rindenbraun, magenta Kappe). Sitzt anfangs im tiefen Wald am Westrand der befallenen Ecke (Spot `GnarlCamp` in `forest.tscn`). Beim Kennenlernen hustet er und bittet um einen Heiltrank; nach dem Gespräch bietet er „1× Heiltrank geben“ an. Danach dankt er sofort, packt, und **ab der nächsten Nacht** steht er an der Werkstatt im Dorf (Spot `Workshop`, Thema `workshop`), die Fenster der Werkstatt leuchten (`GrayboxBuilding.lit_flag`) und eine Laterne steht vor der Tür.
+
+| Gespräch | Priorität | Bedingung |
+|---|---|---|
+| `first_meeting` | 100 | einmalig |
+| `helped` | 90 | einmalig, nach dem Heiltrank (`gnarl_helped`), folgt direkt auf die Gabe |
+| `packing` | 30 | geholfen, noch nicht umgezogen |
+| `waiting` | 20 | kennengelernt, noch kein Heiltrank |
+| `workshop_1..3` | 5 | Thema `workshop` (nach `gnarl_moved`) |
+| `smalltalk` | 0 | immer |
+
+Flags: `met_gnarl`, `gnarl_helped` (sofort), `gnarl_moved` (nächste Nacht). Upgrades folgen in Teil 2.
 
 ## 4. Steuerung und Debug
 

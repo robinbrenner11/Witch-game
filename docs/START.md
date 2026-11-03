@@ -4,7 +4,7 @@ Stand: 03.11.2026. **Das hier zuerst lesen**, danach nur die Dokumente, die die 
 
 ## Stand in einem Absatz
 
-Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen, Hexenpfaden und Herbarium (alle Sammelfunde, Beute und Zutaten haben einen Eintrag), Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen. Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss und Ugo, Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald v2, Wasserfall-Höhle, Sumpf). Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
+Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen, Hexenpfaden und Herbarium (alle Sammelfunde, Beute und Zutaten haben einen Eintrag), Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen. Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss und Ugo, Gnarl (Wurzelschnitzer, zieht nach einem Heiltrank vom Wald in die Dorf-Werkstatt), Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald v2, Wasserfall-Höhle, Sumpf). Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
 
 ## Branches
 
@@ -19,7 +19,7 @@ Nach `main` wird nur mit Robins Okay gemergt und gepusht.
 ## Nächste Schritte
 
 **Aufgaben für Sessions ohne Robin: `docs/BACKLOG.md`** (bereit / wartet auf Robin). Der Plan dahinter steht in `docs/design/welt_und_items.md`, Abschnitt 10. Kurz:
-1. Schritt 7: Gnarl und Upgrades (neuer `RewardData`-Typ `UPGRADE`)
+1. Schritt 7b: Upgrades bei Gnarl (neuer `RewardData`-Typ `UPGRADE`); Gnarl selbst steht seit 03.11.
 2. Schritt 8: Turmruine, Sperre S5, erstes Blütenherz (Boss braucht einen eigenen Entwurf)
 3. Nach Robins Test von Seewald v2 (F8): Ausgänge umstellen, alten Seewald entfernen, Höhen für Wald, Dorf und Garten
 

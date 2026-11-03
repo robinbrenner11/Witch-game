@@ -480,6 +480,21 @@ DLG_MOSS_SMALLTALK_2,Peel the bark gently. The willows remember who was rough.,"
 DLG_MOSS_SMALLTALK_3,Dusk berries? The night folk love them more than gold.,Dämmerbeeren? Das Nachtvolk liebt sie mehr als Gold.
 TRADE_OFFER,%d× %s for %d× %s,%d× %s gegen %d× %s
 TRADE_NOTHING,Nothing for now.,Gerade nichts.
+TRADE_GIVE,Give %d× %s,%d× %s geben
+NPC_GNARL,Gnarl,Gnarl
+NPC_GNARL_ROLE,Root carver. Coughs from the wood he loves.,"Wurzelschnitzer. Hustet von dem Holz, das er liebt."
+DLG_GNARL_FIRST_1,Mind the shavings. This wood bites back.,Pass auf die Späne auf. Dieses Holz beißt zurück.
+DLG_GNARL_FIRST_2,"Gnarl. Root carver. Blighted roots carve the best, and they make you cough.","Gnarl. Wurzelschnitzer. Befallene Wurzeln schnitzen sich am besten, und man hustet davon."
+DLG_GNARL_FIRST_3,"A mending potion would help. You brew, don't you?","Ein Heiltrank würde helfen. Du braust doch, oder?"
+DLG_GNARL_WAITING,"Still coughing. A mending potion, if you have one.","Ich huste immer noch. Einen Heiltrank, wenn du einen hast."
+DLG_GNARL_HELPED_1,Bitter. Good. My hands are steady again.,Bitter. Gut. Die Hände sind wieder ruhig.
+DLG_GNARL_HELPED_2,There's an empty workshop in the village. From tomorrow night I carve there.,Im Dorf steht eine Werkstatt leer. Ab morgen Nacht schnitze ich dort.
+DLG_GNARL_HELPED_3,Bring that stick of yours by. I can do more than spoons.,Bring deinen Stecken vorbei. Ich kann mehr als Löffel.
+DLG_GNARL_PACKING,Packing. Tomorrow night I'm in the village.,Ich packe. Morgen Nacht bin ich im Dorf.
+DLG_GNARL_WORKSHOP_1,"Proper walls. Proper bench. Still the cough, but less.","Richtige Wände. Richtige Werkbank. Der Husten bleibt, aber weniger."
+DLG_GNARL_WORKSHOP_2,The village children watch through the window. I carve them faces. They run.,Die Dorfkinder gucken durchs Fenster. Ich schnitz ihnen Gesichter. Sie rennen.
+DLG_GNARL_WORKSHOP_3,Blighted wood is honest. It shows you exactly where it's sick.,"Befallenes Holz ist ehrlich. Es zeigt dir genau, wo es krank ist."
+DLG_GNARL_SMALLTALK,The roots hum tonight. Not a good hum.,Die Wurzeln summen heute. Kein gutes Summen.
 MSG_TRADE_MISSING,You do not have enough %s.,Dir fehlt %s.
 NPC_UGO,Ugo,Ugo
 NPC_UGO_ROLE,Toad merchant. Sells what others throw away.,"Krötenhändler. Verkauft, was andere wegwerfen."
