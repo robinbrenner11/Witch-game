@@ -350,8 +350,6 @@ MSG_SUN_BURNS,The sun burns. Get inside.,Die Sonne brennt. Schnell hinein.
 MSG_SUN_COLLAPSE,The sun was too much. You wake late in your bed.,Die Sonne war zu viel. Du wachst spät in deinem Bett auf.
 CHEST_TITLE,Chest,Truhe
 PROMPT_OPEN,Open,Öffnen
-DIGITALIS_STAFF,Staff,Stab
-DIGITALIS_SICKLE,Sickle,Sichel
 ITEM_POTION_MENDING,Mending Draught,Heiltrank
 ITEM_POTION_MENDING_DESC,Tastes of iron and lanterns. Wounds close a little.,Schmeckt nach Eisen und Laternen. Wunden schließen sich ein wenig.
 ITEM_POTION_EMBER_BOMB,Ember Bomb,Glutbombe

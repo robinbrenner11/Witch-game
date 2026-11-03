@@ -18,7 +18,7 @@ Nach `main` wird nur mit Robins Okay gemergt und gepusht.
 
 ## Nächste Schritte
 
-Gepflegt in `docs/design/welt_und_items.md`, Abschnitt 10 („Nächste Schritte“). Kurz:
+**Aufgaben für Sessions ohne Robin: `docs/BACKLOG.md`** (bereit / wartet auf Robin). Der Plan dahinter steht in `docs/design/welt_und_items.md`, Abschnitt 10. Kurz:
 1. Schritt 7: Gnarl und Upgrades (neuer `RewardData`-Typ `UPGRADE`)
 2. Schritt 8: Turmruine, Sperre S5, erstes Blütenherz (Boss braucht einen eigenen Entwurf)
 3. Nach Robins Test von Seewald v2 (F8): Ausgänge umstellen, alten Seewald entfernen, Höhen für Wald, Dorf und Garten
@@ -54,4 +54,4 @@ Gilt bei Widersprüchen: das neuere Dokument. `welt_und_items.md` (16.10.) vor `
 - `docs/art/`: Palette `hexen_palette.gpl`, Grafik-Generatoren (Python), Referenzen und Vorschauen
 - `tools/world_builder/`: Builder und Baupläne
 - Debug-Tasten: F3–F5 Grimoire, F7 Höhen-Test, F8 Seewald v2
-- Tests laufen headless (`godot --headless --script <pfad>`). Prüfskripte liegen nicht im Repo.
+- `tests/`: Tests im Repo, headless mit `godot --headless --script res://tests/run_tests.gd`. In der Cloud vorher `bash tools/setup_godot.sh` (Details: `CLAUDE.md` Abschnitt 13). Ältere Prüfskripte (Schritte 1–6) lagen nicht im Repo.

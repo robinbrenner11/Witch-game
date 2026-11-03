@@ -139,9 +139,22 @@ Zum Testen:
 (was ich in Godot tun soll, um es auszuprobieren)
 ```
 
-5. Nach jedem funktionierenden Schritt einen Git-Commit vorschlagen (kurze deutsche Commit-Message). **Nicht ohne meine Zustimmung pushen.**
+5. Nach jedem funktionierenden Schritt committen (kurze deutsche Commit-Message).
 
 Größere Vorhaben immer in kleine, einzeln spielbare Schritte teilen und vorher kurz den Plan nennen.
+
+### Git und Branches
+
+- Jede Aufgabe auf einem eigenen Branch `claude/<thema>`, abgezweigt vom aktuellen Arbeitsbranch (steht in `docs/START.md`). Auf `claude/…`-Branches darf gepusht werden.
+- Nach `main` und in den aktuellen Arbeitsbranch (z. B. `overworld`) wird **nur mit meinem Okay** gemergt oder gepusht. Ergebnis ist ein Pull Request gegen den Arbeitsbranch.
+- Grafiken, die ich selbst gemacht habe, nur einbauen, nicht verändern oder ersetzen.
+
+### Wenn ich nicht da bin (Cloud-Session, geplante Aufgabe)
+
+- Aufgabe aus `docs/BACKLOG.md` nehmen, nur aus „Bereit“. Nichts aus „Wartet auf Robin“ anfangen.
+- Nicht auf Antworten warten: den Plan statt vorher zu fragen in die PR-Beschreibung schreiben. Bei kleinen Detailfragen die Lösung wählen, die sich am leichtesten ändern lässt, und sie in der PR-Beschreibung unter „Von mir entschieden“ auflisten.
+- Wenn eine echte Design-Entscheidung nötig wird (❓, neue Mechanik, Story, Boss): an der Stelle aufhören, den Stand pushen, die Frage in die PR-Beschreibung und in `docs/BACKLOG.md` unter „Wartet auf Robin“ eintragen.
+- Vor dem Pushen testen (siehe 13). Am Ende `docs/BACKLOG.md`, `docs/START.md` und den Umsetzungsstand im passenden Design-Dokument aktualisieren.
 
 ## 11. Wo was steht
 
@@ -177,3 +190,11 @@ Legende in den Design-Dokumenten: ✅ entschieden · 💡 Idee von Robin, späte
 - **Sperren**: Wege, die man erst später öffnen kann, sind ein `Gate` (`scripts/world/gate.gd`): offen bei Flag, Mondphase, aktiver Trankwirkung (`PotionEffects.is_active("wisp")`) oder wenn der passende Trank daraufgegossen (E) bzw. geworfen wird (Gruppe `potion_target`, Methode `on_potion(item)`). Mit einem Trank geöffnet bleibt es über `required_flag` für immer offen. Vor einem `Exit` platziert, sperrt es einen Ortswechsel. Dunkle Orte über `Level.darkness`
 - **Gesuche**: Zettel am Anschlagbrett sind Daten (`data/requests/<id>.tres`, `RequestData`: Absender, Item, Menge, Belohnungen als `RewardData`, Mondphasen, Flags für Ketten). Der Autoload `Requests` hängt sie auf und speichert sie; neue Gesuche brauchen keinen Code, nur Datei und Texte (`REQ_<ID>`, `REQ_<ID>_THANKS`, höchstens 3 Zeilen inklusive Status). Belohnungen von außerhalb des Buchs über `Grimoire.grant(reward)`
 - **Höhen und Baupläne**: Höhe ist nur gemalt (wie Stardew): Wände, Ränder und Treppen liegen im TileMapLayer `Cliffs` mit Kollision auf Physik-Layer 4 `cliffs` (Bit 8). Alles, was laufen soll (Hexe, NPCs, Gegner), braucht dieses Bit in `collision_mask`; Zauber und Würfe bewusst nicht. Orte mit Höhen entstehen aus Bauplänen (`tools/world_builder/plans/<ort>/`, 1 Pixel = 1 Kachel) über den World-Builder; er überschreibt nur `Ground`, `Water`, `Depth`, `Cliffs` und `Objects/Generated`, Handarbeit gehört woandershin. Klippen-Grafiken haben ein festes Raster (`assets/environment/cliffs/cliff_layout.json`). Details: `tools/world_builder/LIESMICH.md`
+
+## 13. Tests
+
+- In einer neuen Cloud-Umgebung zuerst `bash tools/setup_godot.sh`, dann `godot --headless --import`.
+- Alle Tests: `godot --headless --script res://tests/run_tests.gd`, eine Datei: `… -- test_smoke`. Exit-Code 0 = grün.
+- Tests liegen **im Repo** in `tests/test_<thema>.gd` und erben von `TestCase` (`check()`, `check_eq()`). Für jede neue Funktion die Prüfungen als Testdatei dazulegen, nicht als Wegwerf-Skript.
+- `test_smoke` prüft bei jeder Änderung: alles lädt, Verweise stimmen, Texte vollständig (en/de, keine Doppelten), Items und Rezepte passen zusammen.
+- Was sich headless nicht prüfen lässt (Aussehen, Spielgefühl), unter „Zum Testen“ für mich aufschreiben.
