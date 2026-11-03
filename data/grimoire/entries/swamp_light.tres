@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "swamp_light"
+page_group = "beyond"
+order = 14
+title_key = "ITEM_SWAMP_LIGHT"
+item_ids = Array[String](["swamp_light"])
+discover_on = "forage/swamp_light"
+facts = Array[String](["ENTRY_SWAMP_LIGHT_1", "ENTRY_SWAMP_LIGHT_2", "ENTRY_SWAMP_LIGHT_3"])
+fact_triggers = Array[String](["", "forage/swamp_light:2", "forage/swamp_light:5"])

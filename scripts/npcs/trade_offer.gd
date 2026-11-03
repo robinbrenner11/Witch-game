@@ -60,6 +60,9 @@ func trade(npc_id: String) -> bool:
 	Inventory.add(gives_item, gives_amount)
 	WorldState.mark_tonight(_night_key(npc_id, times_tonight(npc_id)))
 	Grimoire.report("trade", {"id": npc_id})
+	# Was man nur ertauschen kann (z. B. Blütenknospe), entdeckt so seinen
+	# Herbarium-Eintrag.
+	Grimoire.report("obtain", {"id": gives_item})
 	Sfx.play("ui/item_get")
 	return true
 
