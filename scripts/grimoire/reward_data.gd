@@ -12,6 +12,7 @@ enum Type {
 	XP,              # target_id = Disziplin, value = Erfahrungspunkte
 	STAT,            # target_id = Wert (z. B. "brew_count"), value = Bonus
 	DREAM,           # target_id = Traum in der nächsten Nacht
+	UPGRADE,         # target_id = was verbessert wird (staff, sickle, cauldron), value = neue Stufe
 }
 
 @export var type: Type = Type.RECIPE

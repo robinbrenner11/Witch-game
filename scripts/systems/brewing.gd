@@ -98,6 +98,13 @@ func learn(ingredients: Array[String], result_item_id: String) -> void:
 	_known[_key(ingredients)] = result_item_id
 
 
+## Mehr Plätze im Kessel (Upgrade bei Gnarl). Weniger werden es nie.
+func raise_capacity(new_capacity: int) -> void:
+	if new_capacity > capacity:
+		capacity = new_capacity
+		changed.emit()
+
+
 ## Neues Spiel: leerer Kessel, nichts bekannt, Startkapazität.
 func reset() -> void:
 	load_save_data({})

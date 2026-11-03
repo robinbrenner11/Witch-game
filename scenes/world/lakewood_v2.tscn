@@ -263,6 +263,7 @@ script = ExtResource("r9")
 size = Vector2(64, 64)
 required_flag = "swamp_vines_burnt"
 open_with_item = "potion_ember_bomb"
+cut_open = true
 locked_message = "MSG_SWAMP_VINES"
 look_message = "LOOK_SWAMP_VINES"
 

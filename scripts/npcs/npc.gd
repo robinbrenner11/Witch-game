@@ -235,6 +235,12 @@ func _offer_trades(box: DialogueBox) -> void:
 		if picked < 0 or picked >= offers.size():
 			return
 		var offer := offers[picked]
+		if offer.needs_confirm():
+			await box.show_lines(data.name_key, offer.detail_lines(), data.portrait)
+			var confirm: Array[String] = ["TRADE_DO", "TRADE_NOTHING"]
+			var answer := await box.choose(data.name_key, confirm, data.portrait)
+			if answer != 0:
+				continue
 		if offer.trade(data.id) and offer.sets_flag != "":
 			await _follow_up(box, offer.sets_flag)
 

@@ -91,7 +91,9 @@ Wurzelschnitzer (Wichtel, Graybox-Figur: klein, rindenbraun, magenta Kappe). Sit
 | `workshop_1..3` | 5 | Thema `workshop` (nach `gnarl_moved`) |
 | `smalltalk` | 0 | immer |
 
-Flags: `met_gnarl`, `gnarl_helped` (sofort), `gnarl_moved` (nächste Nacht). Upgrades folgen in Teil 2.
+Flags: `met_gnarl`, `gnarl_helped` (sofort), `gnarl_moved` (nächste Nacht).
+
+**Upgrades (Teil 2):** In der Werkstatt bietet Gnarl nach jedem Gespräch Stab II, Sichel II und den Kessel mit 4 Plätzen an (`data/trades/gnarl/b_…`, `c_…`, `d_…`). Weil mehrere Materialien nicht in eine Auswahlzeile passen, steht dort nur der Name; nach der Wahl sagt Gnarl, was er braucht und was es bewirkt, und die Hexe bestätigt mit „Mach das.“ Allgemein: `TradeOffer.more_wants` (weitere Materialien), `reward` (Belohnung wie im Grimoire) und `description_key`; solche Angebote bestätigt man immer (`needs_confirm()`). Ein Upgrade wird nur angeboten, solange es die nächste Stufe ist.
 
 ## 4. Steuerung und Debug
 

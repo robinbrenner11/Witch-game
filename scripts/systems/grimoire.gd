@@ -49,6 +49,8 @@ var _completed_groups: Array[String] = []
 var _claimed: Dictionary = {}
 # Bekannte Digitalis-Formen in der Reihenfolge, in der man sie bekommen hat.
 var _forms: Array[String] = []
+# Was Gnarl verbessert hat: "staff"/"sickle"/"cauldron" -> Stufe (fehlt = 1).
+var _upgrades: Dictionary = {}
 
 
 func _ready() -> void:
@@ -286,6 +288,8 @@ func _apply_reward(reward: RewardData) -> void:
 			add_xp(reward.target_id, reward.value)
 		RewardData.Type.DIGITALIS_FORM:
 			learn_form(reward.target_id)
+		RewardData.Type.UPGRADE:
+			_upgrade(reward.target_id, reward.value)
 
 
 ## Liegt auf dieser Stufe ein Geschenk zum Abholen bereit?
@@ -465,6 +469,22 @@ func roll_stat(stat: String) -> bool:
 # --- Digitalis-Formen -----------------------------------------------------------
 
 ## Formen, zwischen denen die Hexe im Kampf wechseln kann (Combat).
+## Stufe einer Digitalis-Form oder des Kessels (1 = nicht verbessert).
+func upgrade_level(target: String) -> int:
+	return int(_upgrades.get(target, 1))
+
+
+## Upgrades gehen nur nach oben. Formen holen sich ihre Werte selbst
+## (Combat hört auf changed), der Kessel bekommt seine Plätze hier.
+func _upgrade(target: String, new_level: int) -> void:
+	if new_level <= upgrade_level(target):
+		return
+	_upgrades[target] = new_level
+	if target == "cauldron":
+		Brewing.raise_capacity(Brewing.START_CAPACITY + new_level - 1)
+	report("upgrade", {"id": target})
+
+
 func known_forms() -> Array[String]:
 	return _forms.duplicate()
 
@@ -544,6 +564,7 @@ func get_save_data() -> Dictionary:
 		"hints": _hints, "seen": _seen, "xp": _xp, "paths": _paths,
 		"firsts": _firsts, "taught": _taught, "counts": _counts,
 		"completed_groups": _completed_groups, "claimed": _claimed, "forms": _forms,
+		"upgrades": _upgrades.duplicate(),
 	}
 
 
@@ -567,5 +588,10 @@ func load_save_data(data: Dictionary) -> void:
 			_forms.append(String(form_id))
 	if _forms.is_empty():
 		_forms.assign(START_FORMS)
+	_upgrades.clear()
+	var upgrades: Variant = data.get("upgrades", {})
+	if upgrades is Dictionary:
+		for target in upgrades:
+			_upgrades[String(target)] = maxi(int(upgrades[target]), 1)
 	_repeats.clear()
 	changed.emit()

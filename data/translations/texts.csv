@@ -481,6 +481,14 @@ DLG_MOSS_SMALLTALK_3,Dusk berries? The night folk love them more than gold.,Däm
 TRADE_OFFER,%d× %s for %d× %s,%d× %s gegen %d× %s
 TRADE_NOTHING,Nothing for now.,Gerade nichts.
 TRADE_GIVE,Give %d× %s,%d× %s geben
+TRADE_NEEDS,For %s I need: %s.,Für %s brauche ich: %s.
+TRADE_DO,Do it.,Mach das.
+UPGRADE_STAFF_2,Staff II,Stab II
+UPGRADE_STAFF_2_DESC,Crystal in the tip. Your strong spell will punch through the first thing it hits.,"Kristall in die Spitze. Dann schlägt dein starker Zauber durch das Erste, was er trifft."
+UPGRADE_SICKLE_2,Sickle II,Sichel II
+UPGRADE_SICKLE_2_DESC,"A bud's bitterness on the blade. Then it cuts the calm blight vines, too.",Die Bitterkeit einer Knospe auf der Klinge. Dann schneidet sie auch ruhige Ranken der Blüte.
+UPGRADE_CAULDRON_2,"Cauldron, 4 slots",Kessel mit 4 Plätzen
+UPGRADE_CAULDRON_2_DESC,A crystal ring for your cauldron. Room for a fourth ingredient.,Ein Kristallring für deinen Kessel. Platz für eine vierte Zutat.
 NPC_GNARL,Gnarl,Gnarl
 NPC_GNARL_ROLE,Root carver. Coughs from the wood he loves.,"Wurzelschnitzer. Hustet von dem Holz, das er liebt."
 DLG_GNARL_FIRST_1,Mind the shavings. This wood bites back.,Pass auf die Späne auf. Dieses Holz beißt zurück.

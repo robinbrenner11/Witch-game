@@ -13,6 +13,7 @@ extends StaticBody2D
 ##   moon_phase      gerade diese Mondphase (Moon.Phase), -1 = egal
 ##   active_effects  eine dieser Trankwirkungen ist aktiv ("wisp", "moonlight")
 ##   open_with_item  dieser Trank wird daraufgegossen (E) oder geworfen
+##   cut_open        eine Sichel, die Ranken schneidet (Sichel II), trifft es
 ##
 ## Aussehen: optionale Kind-Nodes "Closed" und "Open" werden je nach Zustand
 ## ein- und ausgeblendet. So kann später eine Grafik an dieselbe Stelle.
@@ -38,6 +39,9 @@ const MESSAGE_COOLDOWN := 2.0
 @export var active_effects: Array[String] = []
 ## Item-ID eines Tranks zum Gießen oder Werfen. Braucht required_flag.
 @export var open_with_item: String = ""
+## Lässt sich mit einer Sichel aufschneiden, die Ranken schneidet
+## (AttackData.cuts_vines). Braucht required_flag.
+@export var cut_open: bool = false
 ## Meldung, solange zu (Text-Schlüssel).
 @export var locked_message: String = "MSG_PATH_LOCKED"
 ## Was E zeigt, wenn man den passenden Trank nicht in der Hand hat
@@ -53,6 +57,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	add_to_group("potion_target")
+	if cut_open:
+		add_to_group("cuttable")
 	collision_layer = CLIFF_LAYER
 	collision_mask = 0
 	_shape = CollisionShape2D.new()
@@ -107,6 +113,14 @@ func interaction_prompt() -> String:
 ## der Gruppe "potion_target" in seinem Wirkkreis auf).
 func on_potion(item: ItemData) -> bool:
 	if _open or item == null or item.id != open_with_item:
+		return false
+	_open_for_good()
+	return true
+
+
+## Ein Sichelhieb, der Ranken schneidet, hat es getroffen (Slash ruft das auf).
+func on_cut() -> bool:
+	if _open or not cut_open:
 		return false
 	_open_for_good()
 	return true
