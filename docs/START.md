@@ -53,4 +53,4 @@ Gilt bei Widersprüchen: das neuere Dokument. `welt_und_items.md` (16.10.) vor `
 - `docs/art/`: Palette `hexen_palette.gpl`, Grafik-Generatoren (Python), Referenzen und Vorschauen
 - `tools/world_builder/`: Builder und Baupläne
 - Debug-Tasten: F3–F5 Grimoire, F7 Höhen-Test, F8 Seewald v2
-- `tests/`: Tests im Repo, headless mit `godot --headless --script res://tests/run_tests.gd`. In der Cloud vorher `bash tools/setup_godot.sh` (Details: `CLAUDE.md` Abschnitt 13). Ältere Prüfskripte (Schritte 1–6) lagen nicht im Repo.
+- `tests/`: Tests im Repo (Hilfsskripte in `tests/helpers/`), headless mit `godot --headless --script res://tests/run_tests.gd`. In der Cloud vorher `bash tools/setup_godot.sh` (Details: `CLAUDE.md` Abschnitt 13). Ältere Prüfskripte (Schritte 1–6) lagen nicht im Repo.

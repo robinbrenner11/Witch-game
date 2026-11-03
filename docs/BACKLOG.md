@@ -9,13 +9,12 @@ Stand: 03.11.2026. Aufgabenliste für Sessions, die ohne Robin laufen (Regeln: `
 
 ## Bereit
 
-1. **Kleinkram**
-   - `BrewSlot` und `BrewWindow` verweisen gegenseitig aufeinander (`var window: BrewWindow` ↔ `preload(brew_slot.tscn)`). Beim Laden in ungünstiger Reihenfolge meldet Godot einen Parse-Fehler (im Testlauf sichtbar). Kreis auflösen, ohne das Verhalten zu ändern.
-   - Erledigte Branches `combat-overhaul` und `quality-overhaul` sind vollständig in `main`. Löschen nur mit Robins Okay, hier nur notieren.
+_(leer, siehe „Vorschläge“)_
 
 ## Wartet auf Robin
 
-- **Gnarl und Upgrades testen.** Die Upgrades sind gerade praktisch nur über F8 erreichbar, weil Weidenrinde und Höhlenkristall nur im Seewald v2 wachsen. Das Digitalis-Kapitel im Grimoire zeigt die Stufe noch nicht (Kerben, „Gnarl braucht …“, `grimoire.md` Abschnitt Digitalis); das wäre ein Folgeschritt, sobald das Kapitel mehr als Silhouetten zeigt.
+- **Alte Branches löschen?** `combat-overhaul` und `quality-overhaul` sind vollständig in `main`. Löschen nur mit deinem Okay.
+- **Gnarl und Upgrades testen.** Die Upgrades sind gerade praktisch nur über F8 erreichbar, weil Weidenrinde und Höhlenkristall nur im Seewald v2 wachsen. Anzeige im Grimoire: siehe Vorschlag 1.
 - **Seewald v2 testen (F8).** Blockiert: Ausgänge auf `lakewood_v2.tscn` umstellen, alten Seewald entfernen (W5), danach Höhen für Wald, Dorf und Garten.
 - **`overworld` nach `main` mergen.** `overworld` ist rund 30 Commits vor `main`. Nach Robins Test mergen, damit es wieder einen stabilen Stand gibt.
 - **Schritt 8: Turmruine, Blütennebel S5, erstes Blütenherz.** Der Boss braucht erst einen Entwurf (Aussehen, Ablauf, Belohnung).
@@ -24,8 +23,17 @@ Stand: 03.11.2026. Aufgabenliste für Sessions, die ohne Robin laufen (Regeln: `
 - **Grimoire mit echten Grafiken** (`docs/auftraege/auftrag_grimoire_umbau.md`), wartet auf Robins Grafik-Paket.
 - **Große Welt-Sprites der Bitterblüte** (`docs/auftraege/grafik_auftrag_bitterbloom.md`), macht Robin.
 
+## Vorschläge
+
+Von Claude notiert, nicht gebaut. Robin entscheidet, ob sie nach „Bereit“ wandern.
+
+1. **Digitalis-Kapitel zeigt Upgrades.** Laut `grimoire.md` (✅) zeigt das Kapitel pro Form die Stufe als Kerben und was Gnarl für die nächste Stufe braucht. Daten dafür gibt es jetzt (`Grimoire.upgrade_level()`, Angebote in `data/trades/gnarl/`). Klein, macht die Upgrades im Buch sichtbar.
+2. **Dornkäfer lassen manchmal eine Blütenknospe fallen.** `welt_und_items.md` nennt „stärkere Wesen“ als Quelle der Blütenknospe, bisher gibt es sie nur bei Ugo. Ein Wert am Käfer (`drop_item_id`, Chance) als Daten. Klein, bringt mehr Grund zu kämpfen.
+3. **People-Kapitel mit den NPCs füllen.** Nachtwächter, Mutter Moos, Ugo und Gnarl haben schon `role_key`. Pro NPC ein Eintrag mit Fakten, die sich über Gespräche aufdecken (wie im Herbarium). Mittel, lässt die NPCs mehr wie Personen wirken.
+
 ## Erledigt
 
+- 03.11.2026: Kleinkram: Ladekreis `BrewSlot` ↔ `BrewWindow` aufgelöst (`load()` statt `preload()`), der Parse-Fehler im Testlauf ist weg. Test `tests/test_brew_ui.gd` (startet Godot einmal frisch, prüft auch Platz für 4 Zutaten). Branch `claude/autopilot`.
 - 03.11.2026: Wasser-Animation: 4 Frames pro Wasserfeld über die Kachel-Animation des TileSets, Platzhalter-Frames aus `water.py`, Builder unverändert (setzt Frame 0). Test `tests/test_water.gd`. Branch `claude/autopilot`.
 - 03.11.2026: Schritt 7, Gnarl und Upgrades: Gnarl im tiefen Wald, Heiltrank als Gabe, Umzug in die Dorf-Werkstatt zur nächsten Nacht (7a); Stab II, Sichel II, Kessel mit 4 Plätzen als Tausch bei Gnarl (7b). Tests `tests/test_gnarl.gd`, `tests/test_upgrades.gd`. PR #3 (`claude/gnarl-upgrades`).
 - 03.11.2026: Herbarium-Einträge für Weidenrinde, Mondwasser, Höhlenkristall, Sumpflicht, Bitterblütenblatt und Blütenknospe (Mondmoos und Eulenfeder hatten schon einen), Test `tests/test_herbarium.gd`. PR #2 (`claude/herbarium-eintraege`).
