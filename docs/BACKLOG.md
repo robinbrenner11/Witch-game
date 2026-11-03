@@ -33,8 +33,8 @@ Von Claude notiert, nicht gebaut. Robin entscheidet, ob sie nach „Bereit“ wa
 
 ## Erledigt
 
-- 03.11.2026: Kleinkram: Ladekreis `BrewSlot` ↔ `BrewWindow` aufgelöst (`load()` statt `preload()`), der Parse-Fehler im Testlauf ist weg. Test `tests/test_brew_ui.gd` (startet Godot einmal frisch, prüft auch Platz für 4 Zutaten). Branch `claude/autopilot`.
-- 03.11.2026: Wasser-Animation: 4 Frames pro Wasserfeld über die Kachel-Animation des TileSets, Platzhalter-Frames aus `water.py`, Builder unverändert (setzt Frame 0). Test `tests/test_water.gd`. Branch `claude/autopilot`.
+- 03.11.2026: Kleinkram: Ladekreis `BrewSlot` ↔ `BrewWindow` aufgelöst (`load()` statt `preload()`), der Parse-Fehler im Testlauf ist weg. Test `tests/test_brew_ui.gd` (startet Godot einmal frisch, prüft auch Platz für 4 Zutaten). PR #4 (`claude/autopilot`).
+- 03.11.2026: Wasser-Animation: 4 Frames pro Wasserfeld über die Kachel-Animation des TileSets, Platzhalter-Frames aus `water.py`, Builder unverändert (setzt Frame 0). Test `tests/test_water.gd`. PR #4 (`claude/autopilot`).
 - 03.11.2026: Schritt 7, Gnarl und Upgrades: Gnarl im tiefen Wald, Heiltrank als Gabe, Umzug in die Dorf-Werkstatt zur nächsten Nacht (7a); Stab II, Sichel II, Kessel mit 4 Plätzen als Tausch bei Gnarl (7b). Tests `tests/test_gnarl.gd`, `tests/test_upgrades.gd`. PR #3 (`claude/gnarl-upgrades`).
 - 03.11.2026: Herbarium-Einträge für Weidenrinde, Mondwasser, Höhlenkristall, Sumpflicht, Bitterblütenblatt und Blütenknospe (Mondmoos und Eulenfeder hatten schon einen), Test `tests/test_herbarium.gd`. PR #2 (`claude/herbarium-eintraege`).
 - 03.11.2026: Tests im Repo (`tests/`), Godot-Setup für Cloud-Sessions (`tools/setup_godot.sh`), Regeln für Arbeit ohne Robin in `CLAUDE.md`, doppelte Text-Schlüssel `DIGITALIS_STAFF`/`DIGITALIS_SICKLE` entfernt.
