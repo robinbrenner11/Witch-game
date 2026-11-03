@@ -520,7 +520,8 @@ Schnelle Platzhalter in Magenta-Violett; die echte Grafik kommt später von Robi
 
 ## Wasser und Weidenrinde – Platzhalter (16.10.2026)
 
-- `assets/environment/water/water_placeholder.png` (128×32): 4 Felder tief, Ufer, flach, Durchgang. Raster in `water_layout.json`, TileSet `water_tileset.tres` (von `tools/world_builder/make_cliff_tileset.gd` gebaut, Kollision auf Layer 4). Generator `docs/art/cliff_generator/water.py`.
+- `assets/environment/water/water_placeholder.png` (512×32 seit 03.11.): 4 Felder tief, Ufer, flach, Durchgang, je **4 Animations-Frames**. Frame 0 = Spalten 0–3 (wie vorher), Frame 1 = Spalten 4–7, Frame 2 = 8–11, Frame 3 = 12–15, jeweils in derselben Reihenfolge. 0,3 s pro Frame, Schleife. Raster in `water_layout.json` (`frames`, `frame_duration`), TileSet `water_tileset.tres` (von `tools/world_builder/make_cliff_tileset.gd` gebaut, nur Wasser: `… -- water`, Kollision auf Layer 4). Generator `docs/art/cliff_generator/water.py`.
+- **Für Robins echte Grafik:** dasselbe Raster übermalen (4 Felder × 4 Frames). Andere Frame-Anzahl oder Dauer: Werte in `water_layout.json` ändern und `make_cliff_tileset.gd -- water` laufen lassen. Orte müssen dafür nicht neu gebaut werden, sie zeigen nur auf Frame 0.
 - `assets/environment/forage/forage_bark.png` (20×12): Weidenrinde zum Sammeln. Der wilde Mondkelch auf der Insel nutzt `flora/flowers_moon.png`.
 
 ## Referenzen – `docs/art/`

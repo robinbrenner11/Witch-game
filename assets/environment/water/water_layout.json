@@ -1,6 +1,8 @@
 {
  "tile_size": 32,
  "texture": "water_placeholder.png",
+ "frames": 4,
+ "frame_duration": 0.3,
  "tiles": {
   "deep": {
    "col": 0,

@@ -233,6 +233,7 @@ Jeder Schritt ist einzeln spielbar und ein eigener Commit auf einem neuen Branch
 | W4 | ✅ `docs/design/welt_und_items.md` (Weltgraph, Sperren, Item-Kreislauf), am 16.10. von Robin angenommen, Umsetzung dort in Abschnitt 10 | – |
 | W5 | 🟡 Seewald v2 gebaut (`lakewood_v2.tscn`, F8), wartet auf Robins Test. Tiefer Wald, Dorf, Garten folgen | Wasser kam schon hier in den Builder (Platzhalter-Kacheln) |
 | W6–W7 | offen | – |
+| Wasser-Animation | ✅ 03.11. | 4 Frames pro Wasserfeld (eingebaute Kachel-Animation, 0,3 s), Frames rechts neben Frame 0 im selben Raster, gebaute Orte bleiben gültig. Platzhalter aus `docs/art/cliff_generator/water.py`. Test: `tests/test_water.gd` |
 
 **Zusätzlich gebaut (Vorschläge, bitte beim Test bewerten):**
 - **Abdunklung tieferer Flächen** (`Depth`-Layer): eine Stufe unter der höchsten Stelle leicht, zwei Stufen deutlicher. Abschaltbar pro Plan.

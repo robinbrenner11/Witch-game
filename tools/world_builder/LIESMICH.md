@@ -66,7 +66,7 @@ Meldungen (zu schmale Wand, Treppe nicht auf einer Wand, unbekannte Farbe) stehe
 | Node | Inhalt |
 |---|---|
 | `Ground` | Boden. Übergänge nur zwischen Terrains, für die es im Boden-TileSet einen Übergang gibt; sonst harte Kante (an Klippen liegt die unter der Wand) |
-| `Water` | Wasser mit Kollision auf Layer 4 `cliffs` (wie Klippen: Zauber fliegen darüber). Platzhalter-Kacheln in `assets/environment/water/` |
+| `Water` | Wasser mit Kollision auf Layer 4 `cliffs` (wie Klippen: Zauber fliegen darüber). Platzhalter-Kacheln in `assets/environment/water/`, animiert über die Kachel-Animation des TileSets (der Builder setzt nur Frame 0) |
 | `Depth` | Abdunklung tieferer Flächen: 1 bzw. 2 Stufen unter der höchsten Stelle im Ort |
 | `Cliffs` | Wände, Ränder, Treppen, Schattenstreifen am Wandfuß. Kollision auf Physik-Layer 4 `cliffs` |
 | `Objects/Generated` | Deko an den Markierungen (Bäume zufällig aus Tanne, Eiche, Holunder; Büsche, Steine, Graybox-Laternen) |

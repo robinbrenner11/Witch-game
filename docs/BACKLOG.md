@@ -9,10 +9,7 @@ Stand: 03.11.2026. Aufgabenliste für Sessions, die ohne Robin laufen (Regeln: `
 
 ## Bereit
 
-1. **Wasser-Animation**
-   Kachel-Animation im Wasser-TileSet (3–4 Frames) wie in `docs/design/overworld_plan.md` Abschnitt 3 beschrieben. Platzhalter-Frames per Generator in `docs/art/`, Robins echte Grafik ersetzt sie später. Der World-Builder muss die animierten Kacheln weiter richtig setzen.
-
-2. **Kleinkram**
+1. **Kleinkram**
    - `BrewSlot` und `BrewWindow` verweisen gegenseitig aufeinander (`var window: BrewWindow` ↔ `preload(brew_slot.tscn)`). Beim Laden in ungünstiger Reihenfolge meldet Godot einen Parse-Fehler (im Testlauf sichtbar). Kreis auflösen, ohne das Verhalten zu ändern.
    - Erledigte Branches `combat-overhaul` und `quality-overhaul` sind vollständig in `main`. Löschen nur mit Robins Okay, hier nur notieren.
 
@@ -29,6 +26,7 @@ Stand: 03.11.2026. Aufgabenliste für Sessions, die ohne Robin laufen (Regeln: `
 
 ## Erledigt
 
+- 03.11.2026: Wasser-Animation: 4 Frames pro Wasserfeld über die Kachel-Animation des TileSets, Platzhalter-Frames aus `water.py`, Builder unverändert (setzt Frame 0). Test `tests/test_water.gd`. Branch `claude/autopilot`.
 - 03.11.2026: Schritt 7, Gnarl und Upgrades: Gnarl im tiefen Wald, Heiltrank als Gabe, Umzug in die Dorf-Werkstatt zur nächsten Nacht (7a); Stab II, Sichel II, Kessel mit 4 Plätzen als Tausch bei Gnarl (7b). Tests `tests/test_gnarl.gd`, `tests/test_upgrades.gd`. PR #3 (`claude/gnarl-upgrades`).
 - 03.11.2026: Herbarium-Einträge für Weidenrinde, Mondwasser, Höhlenkristall, Sumpflicht, Bitterblütenblatt und Blütenknospe (Mondmoos und Eulenfeder hatten schon einen), Test `tests/test_herbarium.gd`. PR #2 (`claude/herbarium-eintraege`).
 - 03.11.2026: Tests im Repo (`tests/`), Godot-Setup für Cloud-Sessions (`tools/setup_godot.sh`), Regeln für Arbeit ohne Robin in `CLAUDE.md`, doppelte Text-Schlüssel `DIGITALIS_STAFF`/`DIGITALIS_SICKLE` entfernt.
