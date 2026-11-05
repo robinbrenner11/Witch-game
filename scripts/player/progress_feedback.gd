@@ -1,10 +1,12 @@
 class_name ProgressFeedback
 extends Node2D
 
-## Rückmeldung, wenn die Hexe in einer Disziplin aufsteigt: ein kurzes
-## Glockenspiel und goldene und magenta Funken, die um sie aufsteigen. Die
-## Meldung im Text kommt wie bisher vom Grimoire; das hier macht den Moment
-## spürbar. Eigener Node, damit player.gd klein bleibt (wie VitalsFeedback).
+## Rückmeldung für Fortschritt: Steigt die Hexe in einer Disziplin auf, gibt
+## es ein kurzes Glockenspiel und goldene und magenta Funken. Entdeckt sie
+## einen neuen Eintrag im Grimoire, raschelt eine Seite und ein paar magenta
+## Funken steigen auf. Die Meldungen im Text kommen wie bisher vom Grimoire;
+## das hier macht die Momente spürbar. Eigener Node, damit player.gd klein
+## bleibt (wie VitalsFeedback).
 
 const GOLD := Color("#D9A441")
 const MAGIC := Color("#E458B1")
@@ -17,6 +19,7 @@ var player: Node2D
 func _ready() -> void:
 	player = get_parent() as Node2D
 	Grimoire.level_up.connect(_on_level_up)
+	Grimoire.entry_discovered.connect(_on_entry_discovered)
 
 
 func _on_level_up(_discipline_id: String, _level: int) -> void:
@@ -27,6 +30,13 @@ func _on_level_up(_discipline_id: String, _level: int) -> void:
 	var at := player.global_position + CHEST
 	_rising_motes(level.objects, at, GOLD, 14)
 	_rising_motes(level.objects, at, MAGIC, 8)
+
+
+func _on_entry_discovered(_entry: EntryData) -> void:
+	Sfx.play("world/page_pickup")
+	var level := get_tree().get_first_node_in_group("level") as Level
+	if level and is_instance_valid(player):
+		_rising_motes(level.objects, player.global_position + CHEST, MAGIC, 6)
 
 
 ## Ruhiger als Kampf-Funken: aus einem Ring um die Hexe, gut eine Sekunde

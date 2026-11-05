@@ -12,6 +12,8 @@ extends Node
 signal changed
 signal page_found(page_id: String)
 signal level_up(discipline_id: String, level: int)
+# Ein Eintrag im Herbarium oder bei den Leuten ist neu entdeckt.
+signal entry_discovered(entry: EntryData)
 signal milestone_ready(discipline_id: String, level: int)
 
 # So lang darf der Name der Hexe höchstens sein (passt dann überall hin).
@@ -222,6 +224,7 @@ func report(action: String, details: Dictionary = {}) -> void:
 		if entry.discover_on == first_key and not was_discovered.has(entry.id):
 			var message := "MSG_PERSON_DISCOVERED" if entry.chapter == "people" else "MSG_ENTRY_DISCOVERED"
 			Messages.post(tr(message) % tr(entry.title_key))
+			entry_discovered.emit(entry)
 	_check_completed_groups()
 	changed.emit()
 
