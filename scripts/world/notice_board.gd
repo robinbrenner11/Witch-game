@@ -36,14 +36,17 @@ func _on_interactable_interacted(_player: Node2D) -> void:
 	box.show_lines(title_key, pages)
 
 
-## Eine Seite pro hängendem Zettel: Text, darunter was gesucht ist und was es gibt.
+## Zwei Seiten pro hängendem Zettel: erst der Text, dann was gesucht ist und
+## was es gibt. Beides auf einer Seite passte nicht in die Dialogbox (3 Zeilen),
+## auf Deutsch lief die Zeile mit dem Lohn unten heraus.
 func notes_pages() -> Array[String]:
 	var pages: Array[String] = []
 	for id in Requests.active_ids():
 		var request := Requests.get_request(id)
 		var wanted := tr("REQUEST_WANTED") % [request.amount, Inventory.display_name_for(request.item_id),
 				Inventory.count(request.item_id)]
-		pages.append("%s\n%s %s" % [tr(request.text_key), wanted, tr("REQUEST_REWARD") % Requests.reward_text(request)])
+		pages.append(request.text_key)
+		pages.append("%s\n%s" % [wanted, tr("REQUEST_REWARD") % Requests.reward_text(request)])
 	if pages.is_empty():
 		pages.append("NOTICE_NO_REQUESTS")
 	return pages
