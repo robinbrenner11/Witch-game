@@ -51,6 +51,7 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 
 ## Nächste Schritte (priorisiert)
 
-1. Rückmeldung beim Ernten/Sammeln prüfen (sieht man, was man bekommt?).
-2. Gnarls Upgrades sind ohne Seewald v2 (wartet auf Robins Test) praktisch nicht erreichbar – bleibt offen bis zur Freigabe.
-3. Neue Vorschläge sammeln, sobald Robin Rückmeldung gibt.
+1. Robins Test von Seewald v2 (F8) abwarten: Erst danach sind Höhlenkristall und Weidenrinde im normalen Spiel erreichbar und damit Gnarls Upgrades.
+2. Anschlagbrett und Gesuche einmal im Bild prüfen (Zettel lesen, Abgeben) – noch kein Screenshot davon.
+3. Kampf im Bild prüfen (Telegraph-Spur beim Anlauf, Treffer-Rückmeldung); braucht im Werkzeug eine Möglichkeit, einen Käfer gezielt neben die Hexe zu setzen.
+4. Freundschaftssystem (Herzen, Geschenke) erst nach Robins Entscheidung zum Umfang; das People-Kapitel ist darauf vorbereitet.
