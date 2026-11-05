@@ -37,11 +37,12 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 20 | Sonne als klare Gefahr: Ab der Morgenwarnung (5 Uhr) pulsiert die Uhr kerzenlichtwarm, am Tag schneller. Bisher nur eine einzelne Meldung um 5 Uhr, die man in einem offenen Fenster verpassen konnte | ✅ Test `test_clock.gd`, Screenshots zweier Pulsstufen geprüft |
 | 21 | Gnarl als Person: nach jedem Upgrade eine eigene, kurze Reaktion direkt nach dem Tausch (Stab, Sichel, Kessel) | ✅ reine Daten (`sets_flag` + Gespräch), Test in `test_upgrades.gd`, Zeilenlänge über `test_gnarl.gd` geprüft |
 | 22 | QA Kampf: Regressionstest für Treffer, Taumeln, Reinigung mit Beute und Grimoire-Meldung, keine doppelte Beute, Dornkäfer zäher, Schaden über Zeit ohne Taumeln, alle Angriffe (Stufe I und II) mit Schaden/Kosten/Abklingzeit, Unverwundbarkeit der Hexe | ✅ `test_combat.gd` (5), alles grün, kein Fehler gefunden |
+| 23 | Fehler am Anschlagbrett (per Screenshot gefunden): Zettel-Text plus „Gesucht/Lohn“ brauchte 4 (en) bzw. 5 (de) Zeilen, die Box fasst 3 – der Lohn lief unten heraus. Jetzt zwei Seiten pro Zettel | ✅ `test_notice_board.gd` misst jede Seite in der echten Box; neuer `test_dialogue_fit.gd` prüft alle Gesprächszeilen aller NPCs (alle passen). Screenshot beider Seiten auf Deutsch geprüft |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 67/67 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
+- 05.11.: alle Tests 70/70 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
 - 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen
@@ -52,6 +53,5 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 ## Nächste Schritte (priorisiert)
 
 1. Robins Test von Seewald v2 (F8) abwarten: Erst danach sind Höhlenkristall und Weidenrinde im normalen Spiel erreichbar und damit Gnarls Upgrades.
-2. Anschlagbrett und Gesuche einmal im Bild prüfen (Zettel lesen, Abgeben) – noch kein Screenshot davon.
-3. Kampf im Bild prüfen (Telegraph-Spur beim Anlauf, Treffer-Rückmeldung); braucht im Werkzeug eine Möglichkeit, einen Käfer gezielt neben die Hexe zu setzen.
-4. Freundschaftssystem (Herzen, Geschenke) erst nach Robins Entscheidung zum Umfang; das People-Kapitel ist darauf vorbereitet.
+2. Kampf im Bild prüfen (Telegraph-Spur beim Anlauf, Treffer-Rückmeldung); braucht im Werkzeug eine Möglichkeit, einen Käfer gezielt neben die Hexe zu setzen.
+3. Freundschaftssystem (Herzen, Geschenke) erst nach Robins Entscheidung zum Umfang; das People-Kapitel ist darauf vorbereitet.

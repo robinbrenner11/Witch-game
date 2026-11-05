@@ -13,7 +13,8 @@ extends SceneTree
 ## scene=res://… nimmt statt des Spiels eine andere Szene (z. B. den Titel).
 ## lang=de stellt die Sprache um. garden=demo pflanzt Beete mit allen Pflanzen,
 ## brew=1 öffnet das Brau-Fenster, message=SCHLÜSSEL zeigt eine Meldung,
-## press=aktion,… drückt Tasten, say=SCHLÜSSEL zeigt eine Zeile in der Dialogbox.
+## press=aktion,… drückt Tasten, say=SCHLÜSSEL zeigt eine Zeile in der Dialogbox,
+## interact=Pfad/im/Ort löst E an diesem Objekt aus.
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -68,6 +69,10 @@ func _initialize() -> void:
 		book.open(String(args["book"]))
 	if args.has("message"):
 		root.get_node("Messages").post(TranslationServer.translate(String(args["message"])))
+	# interact=Objects/NoticeBoard tut, was E an diesem Objekt im Ort tut.
+	if args.has("interact"):
+		var target: Node = main.level.get_node(String(args["interact"]))
+		target._on_interactable_interacted(main.player)
 	# press=inventory,ui_cancel drückt Tasten (Aktionen) nacheinander.
 	for action in String(args.get("press", "")).split(",", false):
 		for pressed in [true, false]:
