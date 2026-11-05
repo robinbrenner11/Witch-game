@@ -15,7 +15,8 @@ extends SceneTree
 ## brew=1 öffnet das Brau-Fenster, message=SCHLÜSSEL zeigt eine Meldung,
 ## press=aktion,… drückt Tasten, say=SCHLÜSSEL zeigt eine Zeile in der Dialogbox,
 ## interact=Pfad/im/Ort löst E an diesem Objekt aus, spawn=szene@x,y;… setzt Szenen,
-## freeze=0.3 hält eingesetzte Käfer im Innehalten vor dem Anlauf fest.
+## freeze=0.3 hält eingesetzte Käfer im Innehalten vor dem Anlauf fest,
+## call=Pfad:methode:arg ruft eine Methode an einem Node unter main.tscn auf.
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -97,6 +98,14 @@ func _initialize() -> void:
 			event.pressed = pressed
 			root.push_input(event)
 			await process_frame
+	# call=UI/InventoryWindow:_on_slot_hovered:3 ruft eine Methode an einem
+	# Node unter main.tscn auf (Zahlen werden als Zahl übergeben).
+	for entry in String(args.get("call", "")).split(";", false):
+		var parts := entry.split(":")
+		var call_args := []
+		for value in parts.slice(2):
+			call_args.append(int(value) if value.is_valid_int() else value)
+		main.get_node(parts[0]).callv(parts[1], call_args)
 	# say=SCHLÜSSEL zeigt eine Zeile in der Dialogbox (Sprecher: Nachtwächter).
 	if args.has("say"):
 		var lines: Array[String] = [String(args["say"])]
