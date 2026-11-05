@@ -36,6 +36,9 @@ func _build_note(page: Control) -> void:
 	var text := tr(NOTE_KEY)
 	for goal in Grimoire.GOALS:
 		var line := tr(GOAL_KEYS[goal])
+		if goal == "wake":
+			# Taste nie fest im Text: Sie stimmt dann auch nach dem Umbelegen.
+			line = line % InputHints.key_for("snap")
 		if Grimoire.is_goal_done(goal):
 			line = "[s][color=#%s]%s[/color][/s]" % [BookStyle.INK_FAINT.to_html(false), line]
 		text += "\n· " + line
@@ -55,6 +58,9 @@ func _build_overview(page: Control) -> void:
 	top.add_theme_constant_override("separation", 8)
 	var hand := WitchHand.new()
 	hand.stage = _hand_stage(strength)
+	# Der Satz zur Bedeutung steht als Tooltip an der Hand: Als Text unter der
+	# Zahl ließ er die Seite überlaufen.
+	hand.tooltip_text = "BOOK_STRENGTH_TOOLTIP"
 	top.add_child(hand)
 	var info := VBoxContainer.new()
 	info.add_theme_constant_override("separation", 0)
@@ -138,7 +144,7 @@ class WitchHand:
 
 	func _ready() -> void:
 		custom_minimum_size = Vector2(44, 70)
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		mouse_filter = Control.MOUSE_FILTER_PASS
 
 	func _draw() -> void:
 		# Handfläche mit abgerundeten Ecken.

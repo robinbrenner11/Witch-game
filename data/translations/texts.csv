@@ -52,7 +52,7 @@ Fang klein an:"
 GOAL_PLANT,Put a seed in the earth.,Leg einen Samen in die Erde.
 GOAL_BREW,Toss ingredients into my cauldron and see what happens.,"Wirf Zutaten in meinen Kessel und sieh, was geschieht."
 GOAL_SLEEP,Sleep. The night works for you.,Schlaf. Die Nacht arbeitet für dich.
-GOAL_WAKE,Wake the earth with a snap (R).,Weck die Erde mit einem Schnippen (R).
+GOAL_WAKE,Wake the earth with a snap (%s).,Weck die Erde mit einem Schnippen (%s).
 BOOK_UNDISCOVERED,Not yet discovered.,Noch nicht entdeckt.
 BOOK_USE_DRINK,For drinking.,Zum Trinken.
 BOOK_USE_POUR,For pouring onto a bed.,Zum Ausgießen auf ein Beet.
@@ -299,7 +299,7 @@ ACTION_HARVEST,harvesting,Ernten
 ACTION_BREW,brewing,Brauen
 ACTION_BREW_EXPERIMENT,new mixtures,neue Mischungen
 ACTION_FORAGE,foraging,Sammeln
-ACTION_CLEAR,clearing weeds,Wildgras räumen
+ACTION_CLEAR,weeding,Jäten
 ACTION_VISIT,new places,neue Orte
 ACTION_PAGE,found pages,gefundene Seiten
 BOOK_PATH_CONFIRM,Really?,Wirklich?
@@ -309,7 +309,8 @@ BOOK_HAVE_MISSING,missing,fehlt
 BOOK_USE_POUR_SHORT,pour on a bed,aufs Beet gießen
 BOOK_USE_DRINK_SHORT,drink it,trinken
 BOOK_USE_THROW_SHORT,throw in a fight,im Kampf werfen
-BOOK_STRENGTH_TEXT,The sum of all your disciplines. Some things only answer a strong witch.,Die Summe all deiner Disziplinen. Manches antwortet nur einer starken Hexe.
+BOOK_STRENGTH_TEXT,The sum of all your disciplines.,Die Summe all deiner Disziplinen.
+BOOK_STRENGTH_TOOLTIP,Some things only answer a strong witch.,Manches antwortet nur einer starken Hexe.
 BOOK_OVERVIEW_PAGES,Pages found,Seiten gefunden
 BOOK_OVERVIEW_RECIPES,Recipes known,Rezepte bekannt
 BOOK_OVERVIEW_HERBARIUM,Herbarium,Herbarium
@@ -319,7 +320,7 @@ REWARD_XP,+%d %s,+%d %s
 BOOK_FACTS,%d of %d known,%d von %d bekannt
 BOOK_BLANK_PAGE,More of Vespera's pages are scattered out there.,Weitere Seiten von Vespera liegen irgendwo dort draußen.
 BOOK_TO_HERBARIUM,Look it up in the herbarium,Im Herbarium nachsehen
-BOOK_INDICATOR,Grimoire (B),Grimoire (B)
+BOOK_INDICATOR,Grimoire (%s),Grimoire (%s)
 MOON_NEW,New Moon,Neumond
 MOON_WAXING,Waxing Moon,Zunehmender Mond
 MOON_HALF,Half Moon,Halbmond

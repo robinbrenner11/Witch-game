@@ -11,6 +11,7 @@ extends SceneTree
 ##     flags=gnarl_moved,met_gnarl items=cave_crystal:2 book=digitalis
 ##
 ## scene=res://… nimmt statt des Spiels eine andere Szene (z. B. den Titel).
+## lang=de stellt die Sprache um.
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -30,6 +31,8 @@ func _initialize() -> void:
 	for entry in String(args.get("items", "")).split(",", false):
 		var parts := entry.split(":")
 		inventory.add(parts[0], int(parts[1]) if parts.size() > 1 else 1)
+	if args.has("lang"):
+		TranslationServer.set_locale(String(args["lang"]))
 	if args.has("hour"):
 		day_cycle.minutes = float(args["hour"]) * 60.0
 	if args.has("scene"):
