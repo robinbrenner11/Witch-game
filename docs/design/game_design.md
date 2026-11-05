@@ -304,7 +304,7 @@ Weitere Tränke, Zutaten und wofür sie gebraucht werden: `docs/design/welt_und_
 ## 9. Lore
 
 ### Die Hauptfigur
-- ✅ Eine junge Hexe. **Der Spieler benennt sie zu Beginn selbst.** (Umgesetzt 05.11.2026: Frage im Intro nach den Textzeilen, gespeichert als `Grimoire.witch_name`, höchstens 14 Zeichen, leer erlaubt. Sie unterschreibt damit auf dem Innendeckel unter Vesperas „V.“. In Dialogen kommt der Name noch nicht vor.)
+- ✅ Eine junge Hexe. **Der Spieler benennt sie zu Beginn selbst.** (Umgesetzt 05.11.2026: Frage im Intro nach den Textzeilen, gespeichert als `Grimoire.witch_name`, höchstens 14 Zeichen, leer erlaubt. Sie unterschreibt damit auf dem Innendeckel unter Vesperas „V.“. In Dialogen: Platzhalter `{witch}` (ohne Namen „Hexe“), bisher nur beim Nachtwächter in der Morgendämmerung.)
 - ✅ Sie folgt dem **Ruf des Fingerhuts (Digitalis)**, der im verlassenen Garten auf sie wartet.
 - 💡 Sie war ohnehin auf der Suche nach einem Ort für sich.
 - ❓ Warum Digitalis gerade sie gerufen hat, wird im Lauf der Geschichte enthüllt.

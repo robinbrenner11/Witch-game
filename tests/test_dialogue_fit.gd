@@ -18,11 +18,13 @@ func test_all_dialogue_lines_fit() -> void:
 				if not keys.has(key):
 					keys.append(key)
 	check(keys.size() > 30, "Gesprächszeilen gefunden (%d)" % keys.size())
+	# Längster erlaubter Name aus breiten Buchstaben für {witch}.
+	Grimoire.witch_name = "W".repeat(Grimoire.NAME_MAX_LENGTH)
 	var old_locale := TranslationServer.get_locale()
 	for locale in ["en", "de"]:
 		TranslationServer.set_locale(locale)
 		for key in keys:
-			box.text_label.text = tr(key)
+			box.text_label.text = DialogueBox.fill_in(tr(key))
 			box.text_label.visible_characters = -1
 			var lines := box.text_label.get_line_count()
 			check(lines <= MAX_LINES, "%s (%s): %d Zeilen" % [key, locale, lines])

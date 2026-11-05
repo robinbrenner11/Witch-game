@@ -52,6 +52,8 @@ GrayboxBuilding scripts/world/graybox_building.gd  Platzhalter-Haus aus Farbflä
 
 **Tausch bei einem NPC (16.10.):** pro Angebot eine `.tres` in `data/trades/<npc>/` (`TradeOffer`: will Item und Menge, gibt Item und Menge, optional `per_night`, Mondphasen, Flags). Kein Code nötig: Nach jedem Gespräch zeigt der NPC die Angebote in der Antwort-Auswahl der Dialogbox, nach einem Tausch erneut, bis „Gerade nichts“ oder Esc. Erster Händler: Mutter Moos im Seewald v2.
 
+**den Namen der Hexe in einer Zeile (05.11.):** `{witch}` im Text, die Dialogbox setzt den Namen ein (ohne Namen „Hexe“/„witch“, `DialogueBox.fill_in`). Sparsam einsetzen, damit es besonders bleibt.
+
 **einen NPC erst später auftauchen lassen:** `appears_flag` in seinen Daten. Laut Design erscheinen neue NPCs nur durch eine Aktion der Spielerin.
 
 ## 3. Der Nachtwächter
