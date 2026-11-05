@@ -46,12 +46,13 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 30 | Fortschritt spürbar: Stufenaufstieg einer Disziplin bekommt ein Glockenspiel (`ui/level_up`, neu im Generator) und aufsteigende goldene/magenta Funken um die Hexe (`ProgressFeedback`). Vorher nur eine Textzeile | ✅ Test `test_progress_feedback.gd`, Funken per Screenshot geprüft. **Klang nicht gehört** (keine Audioausgabe), nur Länge 1,6 s und Spitze −9 dBFS geprüft |
 | 31 | Entdecken spürbar: neuer Eintrag im Herbarium oder bei den Leuten → Seitenrascheln (vorhandener Klang) und ein paar magenta Funken; neues Signal `Grimoire.entry_discovered` | ✅ Test in `test_progress_feedback.gd` |
 | 32 | Fehler + Inhalt: Das Bestiarium konnte sich nie öffnen (Freischaltung „first_fight“ wurde nicht ausgewertet). Jetzt offen nach der ersten Reinigung, mit Einträgen für befallenen Käfer und Dornkäfer (Verhalten, Schwäche mit Spieltipp zur Anlauf-Spur, Beute), eigene Meldung und Bildchen | ✅ `test_bestiary.gd` (4), Layout-Test deckt das Kapitel ab, Screenshot auf Deutsch geprüft |
+| 33 | Entscheidungen mit Gewicht: 4 Hexenpfade versprachen etwas, das nicht passierte. Jetzt wirken Volatil (Wurftränke platzen weiter, ×1,25), Nachhall (Dornennebel hält länger, ×1,5), Nachtschatten-Bändigerin (Kuppel hemmt eigene Pflanzen nicht), Sucherin (lose Seiten glimmen doppelt so weit) | ✅ `test_paths_effects.gd` (3). Werte sind Annahmen, nicht gespielt. Drei weitere Pfade brauchen neue Systeme → Frage im Backlog |
 | 27 | Inventar-Tafel und lange Meldungen auf Deutsch geprüft | ✅ passt, keine Änderung |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 82/82 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
+- 05.11.: alle Tests 85/85 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
 - 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen
