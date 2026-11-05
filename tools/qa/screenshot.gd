@@ -14,7 +14,8 @@ extends SceneTree
 ## lang=de stellt die Sprache um. garden=demo pflanzt Beete mit allen Pflanzen,
 ## brew=1 öffnet das Brau-Fenster, message=SCHLÜSSEL zeigt eine Meldung,
 ## press=aktion,… drückt Tasten, say=SCHLÜSSEL zeigt eine Zeile in der Dialogbox,
-## interact=Pfad/im/Ort löst E an diesem Objekt aus, spawn=szene@x,y;… setzt Szenen.
+## interact=Pfad/im/Ort löst E an diesem Objekt aus, spawn=szene@x,y;… setzt Szenen,
+## freeze=0.3 hält eingesetzte Käfer im Innehalten vor dem Anlauf fest.
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -69,6 +70,14 @@ func _initialize() -> void:
 		main.level.objects.add_child(node)
 		var xy := parts[1].split(",")
 		node.global_position = Vector2(float(xy[0]), float(xy[1]))
+		# freeze=0.3 hält einen Käfer im Innehalten vor dem Anlauf fest, mit so
+		# vielen Sekunden Rest (unter 0.2 steht die Spur fest und leuchtet auf).
+		if args.has("freeze") and node.has_method("take_hit"):
+			await process_frame
+			node._player = main.player
+			node._notice(0.45, main.player.global_position - node.global_position)
+			node._timer = float(args["freeze"])
+			node.set_physics_process(false)
 	main.player.camera.reset_smoothing()
 	if args.has("book"):
 		grimoire.has_book = true
