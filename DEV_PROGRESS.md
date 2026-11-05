@@ -39,7 +39,7 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 22 | QA Kampf: Regressionstest für Treffer, Taumeln, Reinigung mit Beute und Grimoire-Meldung, keine doppelte Beute, Dornkäfer zäher, Schaden über Zeit ohne Taumeln, alle Angriffe (Stufe I und II) mit Schaden/Kosten/Abklingzeit, Unverwundbarkeit der Hexe | ✅ `test_combat.gd` (5), alles grün, kein Fehler gefunden |
 | 23 | Fehler am Anschlagbrett (per Screenshot gefunden): Zettel-Text plus „Gesucht/Lohn“ brauchte 4 (en) bzw. 5 (de) Zeilen, die Box fasst 3 – der Lohn lief unten heraus. Jetzt zwei Seiten pro Zettel | ✅ `test_notice_board.gd` misst jede Seite in der echten Box; neuer `test_dialogue_fit.gd` prüft alle Gesprächszeilen aller NPCs (alle passen). Screenshot beider Seiten auf Deutsch geprüft |
 | 24 | HUD verständlicher: Herz vor dem Lebensbalken, magenta Raute vor der Hexenkraft (vorher zwei Balken ohne Kennzeichnung) | ✅ Screenshot geprüft |
-| 25 | Kampf im Bild (Werkzeug `spawn=`): Käfer läuft an, trifft, Lebensbalken sinkt, Digitalis wird gezogen. Die Anlauf-Spur selbst habe ich nicht zuverlässig erwischt (Timing, Kamera) | ⚠️ teilweise geprüft; Logik über `test_combat.gd` abgesichert |
+| 25 | Kampf im Bild (Werkzeug `spawn=`, `freeze=`): Käfer läuft an, trifft, Lebensbalken sinkt, Digitalis wird gezogen. Anlauf-Spur: „!“ über dem Käfer, erst schwache gestrichelte Spur zur Hexe, kurz vor dem Anlauf fest und hell | ✅ Screenshots beider Phasen geprüft, gut lesbar, keine Änderung nötig |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
@@ -55,5 +55,4 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 ## Nächste Schritte (priorisiert)
 
 1. Robins Test von Seewald v2 (F8) abwarten: Erst danach sind Höhlenkristall und Weidenrinde im normalen Spiel erreichbar und damit Gnarls Upgrades.
-2. Anlauf-Spur der Käfer im Bild prüfen: braucht im Werkzeug eine Möglichkeit, den Käfer im Zustand NOTICE festzuhalten (Zufall und Kamera machen es sonst unzuverlässig).
-3. Freundschaftssystem (Herzen, Geschenke) erst nach Robins Entscheidung zum Umfang; das People-Kapitel ist darauf vorbereitet.
+2. Freundschaftssystem (Herzen, Geschenke) erst nach Robins Entscheidung zum Umfang; das People-Kapitel ist darauf vorbereitet.
