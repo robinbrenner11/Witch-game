@@ -261,8 +261,20 @@ DIGITALIS_STAFF,Staff,Stab
 DIGITALIS_SICKLE,Sickle,Sichel
 DIGITALIS_THORNWHIP,Thornwhip,Dornenpeitsche
 DIGITALIS_ROOTMAUL,Rootmaul,Wurzelhammer
-DIGITALIS_STAFF_HINT,Something in the garden is still waiting for you.,Etwas im Garten wartet noch auf dich.
 DIGITALIS_GNARL_HINT,Gnarl knows more.,Gnarl weiß mehr.
+DIGITALIS_LIGHT,Light: %s,Leicht: %s
+DIGITALIS_HEAVY,Strong: %s,Stark: %s
+DIGITALIS_WORLD,Outside: %s,Draußen: %s
+DIGITALIS_STAFF_LIGHT,a quick bolt towards your aim.,ein schneller Funke zum Ziel.
+DIGITALIS_STAFF_HEAVY,"a slow spell that bursts and hits everything nearby.","ein langsamer Zauber, der platzt und alles in der Nähe trifft."
+DIGITALIS_STAFF_WORLD,spells fly over walls and water.,Zauber fliegen über Mauern und Wasser.
+DIGITALIS_STAFF_UPGRADE_2,the strong spell pierces one enemy.,der starke Zauber durchschlägt einen Gegner.
+DIGITALIS_SICKLE_LIGHT,a quick slash in front of you.,ein schneller Hieb vor dir.
+DIGITALIS_SICKLE_HEAVY,a wide sweeping arc.,ein weiter Bogen rundherum.
+DIGITALIS_SICKLE_WORLD,cuts grass and weeds.,schneidet Gras und Unkraut.
+DIGITALIS_SICKLE_UPGRADE_2,cuts calm bitterbloom vines.,schneidet ruhige Bitterblüten-Ranken.
+DIGITALIS_GNARL_NEEDS,Gnarl needs for %s:,Gnarl braucht für %s:
+DIGITALIS_FULLY_CARVED,Fully carved. Gnarl has nothing more to add.,Ganz ausgeschnitzt. Gnarl hat nichts mehr hinzuzufügen.
 PEOPLE_NOT_MET,No one has crossed your path yet.,Noch hat niemand deinen Weg gekreuzt.
 TAB_COVER,Note,Notiz
 TAB_RECIPES,Recipes,Rezepte

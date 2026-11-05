@@ -1,18 +1,12 @@
 class_name SpreadSilhouettes
 extends GrimoireSpread
 
-## Kapitel, deren Spielsystem es noch nicht gibt (Digitalis, People): ein
-## Raster aus Silhouetten mit kleinen Hinweisen. So sieht man schon, dass da
-## etwas kommt. Wird ersetzt, sobald es Digitalis-Formen und NPCs gibt.
+## Kapitel, deren Spielsystem es noch nicht gibt (People): ein Raster aus
+## Silhouetten mit kleinen Hinweisen. So sieht man schon, dass da etwas
+## kommt. Digitalis hat seit 03.11. eine eigene Doppelseite (SpreadDigitalis).
 
 # Kapitel-ID -> Liste von [Schlüssel Name, Schlüssel Hinweis].
 const ENTRIES := {
-	"digitalis": [
-		["DIGITALIS_STAFF", "DIGITALIS_STAFF_HINT"],
-		["DIGITALIS_SICKLE", "DIGITALIS_GNARL_HINT"],
-		["DIGITALIS_THORNWHIP", "DIGITALIS_GNARL_HINT"],
-		["DIGITALIS_ROOTMAUL", "DIGITALIS_GNARL_HINT"],
-	],
 	"people": [
 		["???", "PEOPLE_NOT_MET"], ["???", "PEOPLE_NOT_MET"], ["???", "PEOPLE_NOT_MET"],
 		["???", "PEOPLE_NOT_MET"], ["???", "PEOPLE_NOT_MET"],
