@@ -78,6 +78,10 @@ UI
 
 Die Sichel schneidet im Kampf Wildgras und Unkraut, das im Bogen steht (Ertrag wie beim Ernten). Leichte Hiebe schwingen abwechselnd von links und rechts.
 
+### Beute (05.11.2026)
+
+Jeder gereinigte Käfer lässt ein Bitterblütenblatt fallen. Seltene Beute zusätzlich über die Exporte `rare_drop_item` und `rare_drop_chance` am Käfer: Der Dornkäfer gibt mit 30 % eine Blütenknospe (Material für Sichel II und Reinigungsnebel). Dornkäfer kommen vor allem in der Neumond-Flut.
+
 ### Upgrades bei Gnarl (03.11.2026)
 
 Höhere Stufen einer Form sind eigene Dateien: `data/digitalis/upgrades/<form>_<stufe>.tres` (Kopie der Grundform mit anderen Werten). `DigitalisForm.at_level(id, stufe)` lädt die passende Stufe, `Combat._refresh_forms()` fragt `Grimoire.upgrade_level(id)` und lädt neu, sobald sich das Grimoire ändert. Freigeschaltet wird über einen Tausch bei Gnarl mit `RewardData`-Typ `UPGRADE`.

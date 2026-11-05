@@ -168,7 +168,7 @@ Neue Verwendungen fett, neue Items mit 🆕.
 | Eulenfeder | tiefer Wald, selten | Pfadwechsel, **Opfer am Lesepult**, **Thornwhip-Upgrade (Akt 2)** |
 | Mondmoos | tiefer Wald, Vollmond | Pfadwechsel, **Flüssiges Mondlicht (neues Rezept)**, **Opfer mit Mondbedingung** |
 | Bitterblütenblatt | Käfer reinigen | Glutbombe, Dornennebel, **Gnarl** |
-| 🆕 Blütenknospe | stärkere Wesen, Turmruine | **Reinigungsnebel**, **Gnarl (Stufe II)** |
+| 🆕 Blütenknospe | stärkere Wesen (✅ 05.11.: Dornkäfer, 30 % pro Reinigung), Ugo, Turmruine | **Reinigungsnebel**, **Gnarl (Stufe II)** |
 | 🆕 Weidenrinde | Seewald, Trauerweiden, alle 3 Nächte | **Heiltrank II** (stärker), **Gnarl** (Griff), **Gesuche** |
 | 🆕 Mondwasser | Seewald, am See, nur Vollmond | **Reinigungsnebel**, **Opfer mit Mondbedingung** |
 | 🆕 Höhlenkristall | Wasserfall-Höhle, wächst langsam nach | **Gnarl: Upgrades**, **Kessel-Upgrade** |

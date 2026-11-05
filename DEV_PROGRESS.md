@@ -24,11 +24,12 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 6 | Werkzeug: `scene=` für Titel und andere Szenen, `lang=de` | ✅ |
 | 7 | Einstieg: Ziele in spielbarer Reihenfolge (Wecken → Pflanzen → Brauen → Schlafen), Taste fürs Schnippen aus der Belegung statt fest „(R)“, Lesepult glimmt magenta mit aufsteigenden Funken, solange Vesperas Buch dort liegt | ✅ Test `test_onboarding.gd` (4, u. a. keine festen Tasten in Texten), Screenshot geprüft. Nebenbei: Buch-Hinweis im HUD nannte „B“ fest |
 | 8 | Fehler: Grimoire-Seiten liefen über (Herbarium mit 4 Gruppen deutlich, Innendeckel, Wildkunde auf Deutsch) | ✅ Belohnung neben dem Gruppennamen, Erklärung der Hexenstärke als Tooltip, „Jäten“ statt „Wildgras räumen“. Neuer Test `test_book_layout.gd` schlägt jedes Kapitel auf Englisch und Deutsch auf und misst. Herbarium-Fix auch auf PR #2 übernommen |
+| 10 | Kampf lohnt mehr: Dornkäfer lassen mit 30 % eine Blütenknospe fallen (bisher nur 1/Nacht bei Ugo, gebraucht für Sichel II und Reinigungsnebel) | ✅ Test `test_beetle_drops.gd`. Balancing-Annahme: 30 % bei 2–4 Dornkäfern pro Neumond-Flut ≈ 1 Knospe pro Flut; nicht gespielt |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 49/49 grün, Testlauf ohne SCRIPT ERROR.
+- 05.11.: alle Tests 51/51 grün, Testlauf ohne SCRIPT ERROR.
 - 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen
@@ -39,6 +40,5 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 
 ## Nächste Schritte (priorisiert)
 
-1. Vorschlag 2 aus dem Backlog: Dornkäfer lassen manchmal eine Blütenknospe fallen.
-2. Titelbildschirm mit etwas Stimmung (z. B. Kerzenlicht, Funken), ohne neue Grafik von Robin vorwegzunehmen.
-3. Weitere Orte auf Lesbarkeit und Hinweise prüfen (Garten mit Beeten, Kessel-Fenster).
+1. Titelbildschirm mit etwas Stimmung (z. B. Kerzenlicht, Funken), ohne neue Grafik von Robin vorwegzunehmen.
+2. Weitere Orte auf Lesbarkeit und Hinweise prüfen (Garten mit Beeten, Kessel-Fenster).

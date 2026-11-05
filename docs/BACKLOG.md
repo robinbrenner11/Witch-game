@@ -27,11 +27,11 @@ _(leer, siehe „Vorschläge“)_
 
 Von Claude notiert, nicht gebaut. Robin entscheidet, ob sie nach „Bereit“ wandern.
 
-1. **Dornkäfer lassen manchmal eine Blütenknospe fallen.** `welt_und_items.md` nennt „stärkere Wesen“ als Quelle der Blütenknospe, bisher gibt es sie nur bei Ugo. Ein Wert am Käfer (`drop_item_id`, Chance) als Daten. Klein, bringt mehr Grund zu kämpfen.
-2. **People-Kapitel mit den NPCs füllen.** Nachtwächter, Mutter Moos, Ugo und Gnarl haben schon `role_key`. Pro NPC ein Eintrag mit Fakten, die sich über Gespräche aufdecken (wie im Herbarium). Mittel, lässt die NPCs mehr wie Personen wirken.
+1. **People-Kapitel mit den NPCs füllen.** Nachtwächter, Mutter Moos, Ugo und Gnarl haben schon `role_key`. Pro NPC ein Eintrag mit Fakten, die sich über Gespräche aufdecken (wie im Herbarium). Mittel, lässt die NPCs mehr wie Personen wirken.
 
 ## Erledigt
 
+- 05.11.2026: Dornkäfer lassen mit 30 % eine Blütenknospe fallen (`rare_drop_item`/`rare_drop_chance`). Einstieg (Zielreihenfolge, glimmendes Pult, Tasten aus der Belegung), Grimoire-Seiten laufen nicht mehr über, NPC-Silhouetten. Tests `test_beetle_drops.gd`, `test_onboarding.gd`, `test_book_layout.gd`. PR #4.
 - 05.11.2026: Digitalis-Kapitel im Grimoire (Formen, Stufe als Kerben, Gnarls Bedarf), Screenshot-Werkzeug `tools/qa/`, Gnarl lesbarer (Silhouette, Schnitzkerze), Fix Werkstatt-Licht. Test `test_digitalis_chapter.gd`. Protokoll: `DEV_PROGRESS.md`. PR #4.
 - 03.11.2026: Kleinkram: Ladekreis `BrewSlot` ↔ `BrewWindow` aufgelöst (`load()` statt `preload()`), der Parse-Fehler im Testlauf ist weg. Test `tests/test_brew_ui.gd` (startet Godot einmal frisch, prüft auch Platz für 4 Zutaten). PR #4 (`claude/autopilot`).
 - 03.11.2026: Wasser-Animation: 4 Frames pro Wasserfeld über die Kachel-Animation des TileSets, Platzhalter-Frames aus `water.py`, Builder unverändert (setzt Frame 0). Test `tests/test_water.gd`. PR #4 (`claude/autopilot`).
