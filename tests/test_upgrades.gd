@@ -173,3 +173,19 @@ func test_texts_fit() -> void:
 	TranslationServer.set_locale(old_locale)
 	box.queue_free()
 	await tree.process_frame
+
+
+## Nach jedem Upgrade sagt Gnarl gleich etwas dazu (Antwort auf den Tausch).
+func test_gnarl_reacts_to_upgrade() -> void:
+	# Wie im Spiel: Kennenlernen und Dank sind längst erzählt.
+	for flag in ["gnarl_moved", "gnarl_helped", "dlg_gnarl_first_meeting", "dlg_gnarl_helped"]:
+		WorldState.set_flag(flag)
+	for offer in [STAFF_2, SICKLE_2, CAULDRON_2]:
+		check(offer.sets_flag != "", "%s setzt ein Flag für die Reaktion" % offer.id)
+		for item_id in offer.all_wants():
+			Inventory.add(item_id, offer.all_wants()[item_id])
+		check(offer.trade("gnarl"), "%s klappt" % offer.id)
+		var reaction := DialogueData.pick("gnarl", "workshop")
+		check(reaction != null and reaction.requires_flags.has(offer.sets_flag), "Gnarl reagiert auf %s" % offer.id)
+		if reaction:
+			WorldState.set_flag(reaction.said_flag("gnarl"))

@@ -20,3 +20,4 @@ gives_amount = 0
 reward = SubResource("Resource_upgrade")
 description_key = "UPGRADE_CAULDRON_2_DESC"
 requires_flags = Array[String](["gnarl_moved"])
+sets_flag = "gnarl_upgraded_cauldron"

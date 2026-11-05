@@ -532,6 +532,9 @@ DLG_GNARL_WORKSHOP_1,"Proper walls. Proper bench. Still the cough, but less.","R
 DLG_GNARL_WORKSHOP_2,The village children watch through the window. I carve them faces. They run.,Die Dorfkinder gucken durchs Fenster. Ich schnitz ihnen Gesichter. Sie rennen.
 DLG_GNARL_WORKSHOP_3,Blighted wood is honest. It shows you exactly where it's sick.,"Befallenes Holz ist ehrlich. Es zeigt dir genau, wo es krank ist."
 DLG_GNARL_SMALLTALK,The roots hum tonight. Not a good hum.,Die Wurzeln summen heute. Kein gutes Summen.
+DLG_GNARL_UPGRADED_STAFF,"There. The crystal sits deep now. Your strong spell will not stop at the first beetle.","So. Der Kristall sitzt jetzt tief. Dein starker Zauber hält nicht mehr am ersten Käfer an."
+DLG_GNARL_UPGRADED_SICKLE,"The bud's bitterness is in the blade. It knows the vines now, and they know it.","Die Bitterkeit der Knospe steckt in der Klinge. Sie kennt jetzt die Ranken, und die Ranken kennen sie."
+DLG_GNARL_UPGRADED_CAULDRON,"A crystal ring round the rim. Four will fit now. Do not ask me what to put in.","Ein Kristallring um den Rand. Jetzt passen vier hinein. Frag mich nicht, was."
 MSG_TRADE_MISSING,You do not have enough %s.,Dir fehlt %s.
 NPC_UGO,Ugo,Ugo
 NPC_UGO_ROLE,Toad merchant. Sells what others throw away.,"Krötenhändler. Verkauft, was andere wegwerfen."
