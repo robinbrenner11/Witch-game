@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/blight_beetle.tscn" id="k_beetle"]
 [ext_resource type="PackedScene" path="res://scenes/world/blight_beetle_horned.tscn" id="k_beetle_horned"]
 [ext_resource type="Script" path="res://scripts/world/blight_patch.gd" id="k_patch"]
+[ext_resource type="PackedScene" path="res://scenes/npcs/gnarl.tscn" id="n_gnarl"]
 
 [node name="Forest" type="Node2D"]
 script = ExtResource("1_level")
@@ -631,3 +632,11 @@ target_scene = "res://scenes/world/lakewood.tscn"
 target_exit = "ToForest"
 size = Vector2(96, 32)
 spawn_offset = Vector2(0, 52)
+
+[node name="Spots" type="Node2D" parent="."]
+
+[node name="GnarlCamp" type="Marker2D" parent="Spots"]
+position = Vector2(368, 640)
+
+[node name="Gnarl" parent="Objects" instance=ExtResource("n_gnarl")]
+position = Vector2(368, 640)

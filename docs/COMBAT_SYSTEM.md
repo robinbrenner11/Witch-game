@@ -78,6 +78,14 @@ UI
 
 Die Sichel schneidet im Kampf Wildgras und Unkraut, das im Bogen steht (Ertrag wie beim Ernten). Leichte Hiebe schwingen abwechselnd von links und rechts.
 
+### Upgrades bei Gnarl (03.11.2026)
+
+Höhere Stufen einer Form sind eigene Dateien: `data/digitalis/upgrades/<form>_<stufe>.tres` (Kopie der Grundform mit anderen Werten). `DigitalisForm.at_level(id, stufe)` lädt die passende Stufe, `Combat._refresh_forms()` fragt `Grimoire.upgrade_level(id)` und lädt neu, sobald sich das Grimoire ändert. Freigeschaltet wird über einen Tausch bei Gnarl mit `RewardData`-Typ `UPGRADE`.
+
+- **Stab II** (2× Höhlenkristall, 3× Bitterblütenblatt): Der starke Zauber durchschlägt einen Gegner (`AttackData.pierce = 1`) und platzt am nächsten. Wer durchschlagen wurde, bekommt beim Platzen keinen zweiten Treffer.
+- **Sichel II** (3× Glutmorchel, 2× Weidenrinde, 1× Blütenknospe): beide Hiebe schneiden ruhige Bitterblüten-Ranken (`AttackData.cuts_vines`). Ein `Gate` mit `cut_open` (Gruppe `cuttable`, Methode `on_cut()`) öffnet sich dann für immer; S4 im Seewald v2 geht so als zweiter Weg neben der Glutbombe.
+- **Kessel mit 4 Plätzen** (3× Höhlenkristall, 1× Weidenrinde): `Brewing.raise_capacity(4)`. Vierer-Rezepte gibt es noch keine (Akt 2).
+
 ### Formwechsel
 Sofort, ohne Wartezeit (Kombos erlaubt), mit 1–4 oder dem Mausrad. Ein laufendes Ausholen verfällt dabei. Kurzer Funke an der Spitze.
 

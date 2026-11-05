@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "cave_crystal"
+page_group = "beyond"
+order = 13
+title_key = "ITEM_CAVE_CRYSTAL"
+item_ids = Array[String](["cave_crystal"])
+discover_on = "forage/cave_crystal"
+facts = Array[String](["ENTRY_CAVE_CRYSTAL_1", "ENTRY_CAVE_CRYSTAL_2", "ENTRY_CAVE_CRYSTAL_3"])
+fact_triggers = Array[String](["", "forage/cave_crystal:2", "forage/cave_crystal:5"])

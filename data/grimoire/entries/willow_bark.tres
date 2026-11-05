@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="Resource_reward"]
+script = ExtResource("2_reward")
+type = 4
+target_id = "wildcraft"
+value = 60
+
+[resource]
+script = ExtResource("1_entry")
+id = "willow_bark"
+page_group = "beyond"
+order = 11
+title_key = "ITEM_WILLOW_BARK"
+item_ids = Array[String](["willow_bark"])
+discover_on = "forage/willow_bark"
+facts = Array[String](["ENTRY_WILLOW_BARK_1", "ENTRY_WILLOW_BARK_2", "ENTRY_WILLOW_BARK_3"])
+fact_triggers = Array[String](["", "forage/willow_bark:2", "forage/willow_bark:5"])
+page_reward = SubResource("Resource_reward")

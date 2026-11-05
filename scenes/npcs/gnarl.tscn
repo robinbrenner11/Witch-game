@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/npcs/npc.tscn" id="1_npc"]
+[ext_resource type="Resource" path="res://data/npcs/gnarl.tres" id="2_data"]
+
+[node name="Gnarl" instance=ExtResource("1_npc")]
+data = ExtResource("2_data")
+
+[node name="Outline" parent="Figure" index="0"]
+offset_left = -8.0
+offset_top = -32.0
+offset_right = 8.0
+
+[node name="Coat" parent="Figure" index="1"]
+offset_left = -7.0
+offset_top = -24.0
+offset_right = 7.0
+color = Color(0.31, 0.2, 0.16, 1)
+
+[node name="Face" parent="Figure" index="2"]
+offset_left = -4.0
+offset_top = -29.0
+offset_right = 4.0
+offset_bottom = -24.0
+color = Color(0.55, 0.52, 0.4, 1)
+
+[node name="Brim" parent="Figure" index="3"]
+offset_left = -5.0
+offset_top = -32.0
+offset_right = 5.0
+offset_bottom = -29.0
+color = Color(0.76, 0.19, 0.48, 1)

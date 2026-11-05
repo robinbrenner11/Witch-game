@@ -20,9 +20,20 @@ extends Resource
 ## Gilt nur in diesen Mondphasen (Moon.Phase), z. B. der Halbmondmarkt.
 ## Leer = jede Nacht.
 @export var moon_phases: Array[int] = []
+## Gilt nur mit all diesen Flags bzw. ohne jedes dieser Flags, z. B. ein NPC,
+## der nach einer Hilfe an einen anderen Ort zieht. Leer = egal.
+@export var requires_flags: Array[String] = []
+@export var blocked_by_flags: Array[String] = []
 
 
 ## Minuten seit Beginn der Nacht (18:00). So liegt ein Block um 2:00 hinter
 ## einem um 23:00, obwohl dazwischen Mitternacht ist.
 func night_minute() -> float:
 	return NpcData.to_night_minute(start_hour * 60.0 + start_minute)
+
+
+## Gilt der Block heute (Mond, Flags)? Die Uhrzeit prüft NpcData.entry_at.
+func applies() -> bool:
+	if not moon_phases.is_empty() and Moon.phase() not in moon_phases:
+		return false
+	return WorldState.has_all(requires_flags) and WorldState.has_none(blocked_by_flags)

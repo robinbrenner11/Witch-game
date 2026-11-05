@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/dialogue_data.gd" id="1_dialogue"]
+
+[resource]
+script = ExtResource("1_dialogue")
+id = "workshop_3"
+lines = Array[String](["DLG_GNARL_WORKSHOP_3"])
+priority = 5
+requires_flags = Array[String](["gnarl_moved"])
+topic = "workshop"
