@@ -11,7 +11,7 @@ extends SceneTree
 ##     flags=gnarl_moved,met_gnarl items=cave_crystal:2 book=digitalis
 ##
 ## scene=res://… nimmt statt des Spiels eine andere Szene (z. B. den Titel).
-## lang=de stellt die Sprache um. garden=demo pflanzt Beete mit allen Pflanzen,
+## lang=de stellt die Sprache um, name=Nyx gibt der Hexe einen Namen. garden=demo pflanzt Beete mit allen Pflanzen,
 ## brew=1 öffnet das Brau-Fenster, message=SCHLÜSSEL zeigt eine Meldung,
 ## press=aktion,… drückt Tasten, say=SCHLÜSSEL zeigt eine Zeile in der Dialogbox,
 ## interact=Pfad/im/Ort löst E an diesem Objekt aus, spawn=szene@x,y;… setzt Szenen,
@@ -44,6 +44,8 @@ func _initialize() -> void:
 			grimoire.report(action[0], {"id": action[1]})
 	if args.get("garden", "") == "demo":
 		_plant_demo_garden()
+	if args.has("name"):
+		grimoire.witch_name = String(args["name"])
 	if args.has("lang"):
 		TranslationServer.set_locale(String(args["lang"]))
 	if args.has("hour"):

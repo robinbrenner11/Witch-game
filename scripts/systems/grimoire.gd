@@ -14,6 +14,8 @@ signal page_found(page_id: String)
 signal level_up(discipline_id: String, level: int)
 signal milestone_ready(discipline_id: String, level: int)
 
+# So lang darf der Name der Hexe höchstens sein (passt dann überall hin).
+const NAME_MAX_LENGTH := 14
 # Die ersten Ziele auf dem Innendeckel, in der Reihenfolge von Vesperas Notiz.
 # Reihenfolge wie im Spiel: erst Erde wecken, dann pflanzen, brauen, schlafen.
 const GOALS: Array[String] = ["wake", "plant", "brew", "sleep"]
@@ -23,6 +25,9 @@ const GOALS: Array[String] = ["wake", "plant", "brew", "sleep"]
 const START_FORMS: Array[String] = ["staff", "sickle"]
 
 var has_book := false
+# Der Name, den die Spielerin ihrer Hexe im Intro gibt ("" = keiner). Steht
+# hier, weil das Buch der Hexe gehört und ihren Weg festhält.
+var witch_name := ""
 var _done_goals: Array[String] = []
 # Seiten-ID -> {"parts": [Fragment-Nummern], "restored": bool, "rewarded": bool}.
 # Wer drinsteht, ist gefunden (bei Fragmenten: mindestens ein Teil).
@@ -471,6 +476,12 @@ func roll_stat(stat: String) -> bool:
 # --- Digitalis-Formen -----------------------------------------------------------
 
 ## Formen, zwischen denen die Hexe im Kampf wechseln kann (Combat).
+## Ein Name, wie er gespeichert und angezeigt wird: ohne Ränder, ohne
+## Zeilenumbrüche, höchstens NAME_MAX_LENGTH Zeichen.
+static func clean_name(text: String) -> String:
+	return text.replace("\n", " ").strip_edges().left(NAME_MAX_LENGTH)
+
+
 ## Stufe einer Digitalis-Form oder des Kessels (1 = nicht verbessert).
 func upgrade_level(target: String) -> int:
 	return int(_upgrades.get(target, 1))
@@ -567,11 +578,13 @@ func get_save_data() -> Dictionary:
 		"firsts": _firsts, "taught": _taught, "counts": _counts,
 		"completed_groups": _completed_groups, "claimed": _claimed, "forms": _forms,
 		"upgrades": _upgrades.duplicate(),
+		"witch_name": witch_name,
 	}
 
 
 func load_save_data(data: Dictionary) -> void:
 	has_book = bool(data.get("has_book", false))
+	witch_name = clean_name(String(data.get("witch_name", "")))
 	_done_goals.assign(data.get("goals", []))
 	_pages = data.get("pages", {}).duplicate(true)
 	_hints = data.get("hints", {}).duplicate(true)

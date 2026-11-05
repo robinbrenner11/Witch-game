@@ -48,7 +48,14 @@ func _build_note(page: Control) -> void:
 	signature.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	page.add_child(signature)
 	# Darunter antwortet die neue Besitzerin, in ihrer eigenen Tinte.
-	page.add_child(BookStyle.label("COVER_OWNER", BookStyle.INK_PLAYER, text_width))
+	# Hat sie einen Namen, unterschreibt sie darunter wie Vespera mit "V.":
+	# Die Unterschrift sagt "jetzt meins" und bleibt immer eine Zeile.
+	if Grimoire.witch_name != "":
+		var owner_signature := BookStyle.label(Grimoire.witch_name, BookStyle.INK_PLAYER, text_width)
+		owner_signature.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		page.add_child(owner_signature)
+	else:
+		page.add_child(BookStyle.label("COVER_OWNER", BookStyle.INK_PLAYER, text_width))
 
 
 func _build_overview(page: Control) -> void:

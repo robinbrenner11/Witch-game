@@ -10,6 +10,8 @@ INTRO_LINE_2,The villagers keep it at bay. Barely.,Die Dorfbewohner halten sie i
 INTRO_LINE_3,The old witch they now call Mother Blight fled and never returned.,"Die alte Hexe, die sie heute Mother Blight nennen, floh und kam nie zurück."
 INTRO_LINE_4,Her garden has been waiting ever since.,Ihr Garten wartet seitdem.
 INTRO_CONTINUE,Press any key,Weiter mit einer Taste
+INTRO_NAME_PROMPT,And you? What is your name?,Und du? Wie heißt du?
+INTRO_NAME_HINT,Type a name and press %s,Name eingeben und %s drücken
 MSG_BAG_FULL,No more room in your bag.,Kein Platz mehr in der Tasche.
 MSG_SOIL_WAITS,The soil is waiting for a seed.,Die Erde wartet auf Samen.
 MSG_PLANT_HELD_BACK,Something is holding it back.,Etwas hält sie zurück.
