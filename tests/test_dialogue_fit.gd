@@ -29,3 +29,25 @@ func test_all_dialogue_lines_fit() -> void:
 	TranslationServer.set_locale(old_locale)
 	box.queue_free()
 	await tree.process_frame
+
+
+## Jedes Tauschangebot passt in eine Zeile der Antwort-Auswahl.
+func test_all_trade_labels_fit() -> void:
+	var box := (load("res://scenes/ui/dialogue_box.tscn") as PackedScene).instantiate() as DialogueBox
+	tree.root.add_child(box)
+	await tree.process_frame
+	var font := box.text_label.get_theme_font("font")
+	var size := box.text_label.get_theme_font_size("font_size")
+	# Auswahlzeile: Textfeld minus Einzug für den Zeiger (siehe DialogueBox).
+	var width := box.text_label.size.x - 6.0
+	var old_locale := TranslationServer.get_locale()
+	for locale in ["en", "de"]:
+		TranslationServer.set_locale(locale)
+		for folder in DirAccess.get_directories_at("res://data/trades/"):
+			for offer in TradeOffer.all_for(folder):
+				var label := offer.label()
+				var needed := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x
+				check(needed <= width, "%s/%s (%s): %d px > %d px: %s" % [folder, offer.id, locale, needed, width, label])
+	TranslationServer.set_locale(old_locale)
+	box.queue_free()
+	await tree.process_frame
