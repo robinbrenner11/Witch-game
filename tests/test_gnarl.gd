@@ -84,6 +84,9 @@ func test_scenes_have_spots() -> void:
 	check(village.get_node_or_null("Spots/Workshop") != null, "Spot an der Werkstatt")
 	check(village.get_node_or_null("Objects/Gnarl") is Npc, "Gnarl im Dorf")
 	check(village.get_node_or_null("Objects/GnarlWorkshop") != null, "Werkstatt-Laterne")
+	var lit_by_gnarl: Array = village.find_children("*", "Node2D", true, false).filter(
+			func(n: Node) -> bool: return n is GrayboxBuilding and n.lit_flag == "gnarl_moved")
+	check(lit_by_gnarl.size() == 1 and lit_by_gnarl[0].name == "Workshop", "Nur die Werkstatt leuchtet, wenn Gnarl einzieht")
 	village.free()
 
 
