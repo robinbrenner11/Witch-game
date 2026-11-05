@@ -9,7 +9,7 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 **Tragende Mechaniken:** Garten → Kessel → Tränke öffnen Wege (Gates) und helfen im Kampf; Grimoire als Fortschritt (Disziplinen, Herbarium, Rezepte, jetzt Digitalis); Nacht-Rhythmus mit Mond.
 
 **Wie ich teste:**
-- Logik: `godot --headless --script res://tests/run_tests.gd` (Exit-Code 0 = grün).
+- Logik: `godot --headless --script res://tests/run_tests.gd` (Exit-Code 0 = grün). `test_play_start` spielt die ersten Minuten mit simulierten Tasten.
 - Bild: `bash tools/qa/shot.sh out=<png> level=… pos=x,y hour=… flags=… items=… book=…` rendert das echte Spiel unter Xvfb (OpenGL über llvmpipe) und speichert einen Screenshot. Kein Ton (Dummy-Audio), keine Eingaben – Spielgefühl und Steuerung kann ich nicht selbst prüfen.
 
 ## Abgeschlossene Änderungen
@@ -28,11 +28,13 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 11 | Erster Eindruck: Titelbildschirm mit Stimmung (Mondsichel, Hügelkante, Fingerhut, zwei flackernde Kerzen mit warmen Lichtinseln, aufsteigende magenta Funken), alles aus Palettenfarben gezeichnet | ✅ `TitleAmbience`, Screenshot geprüft (erste Fassung: Licht wirkte grau, nachgebessert) |
 | 12 | Werkzeug: `garden=demo`, `brew=1` | ✅ Garten mit allen Pflanzen und Brau-Fenster per Screenshot geprüft, keine Auffälligkeiten |
 | 13 | QA: Kern-Kreislauf als Durchspiel-Test (säen → Nächte → ernten → brauen → Trank abholen) mit Speichern/Laden über JSON; `SaveGame.collect()`, damit Tests nie die echte Spielstand-Datei überschreiben | ✅ `test_core_loop.gd` (3) |
+| 14 | NPCs als Personen: People-Kapitel statt fünf ewiger „???“. Einträge für alle 4 NPCs, beim ersten Gespräch entdeckt, 3 Eindrücke in der Tinte der Spielerin (nach 3 und 6 Gesprächen), kleine Porträt-Platzhalter in Palettenfarben | ✅ Test `test_people.gd` (3), Layout-Test deckt das Kapitel mit ab, Screenshot (Deutsch) geprüft. Bewusst ohne Herzen/Geschenke (Freundschaftssystem fehlt noch) |
+| 15 | QA mit echten Eingaben: die ersten Minuten über simulierte Tasten in `main.tscn` (zum Pult laufen, E, Buch-Taste, Tür, Gartentor, Schnippen, säen) | ✅ `test_play_start.gd`. Gefundene „Fehler“ lagen am Test (Blickrichtung, Zaun), nicht am Spiel |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 54/54 grün, Testlauf ohne SCRIPT ERROR.
+- 05.11.: alle Tests 58/58 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
 - 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen
@@ -43,4 +45,5 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 ## Nächste Schritte (priorisiert)
 
 1. Rückmeldung beim Ernten/Sammeln prüfen (sieht man, was man bekommt?).
-2. People-Kapitel (Vorschlag im Backlog) – größerer Schritt, eher nach Robins Feedback.
+2. Gnarls Upgrades sind ohne Seewald v2 (wartet auf Robins Test) praktisch nicht erreichbar – bleibt offen bis zur Freigabe.
+3. Neue Vorschläge sammeln, sobald Robin Rückmeldung gibt.
