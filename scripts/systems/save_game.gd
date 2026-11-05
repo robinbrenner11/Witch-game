@@ -41,8 +41,11 @@ func new_game() -> void:
 	Requests.reset()
 
 
-func save_game() -> void:
-	var data := {
+## Alles, was gespeichert wird, als ein Dictionary (so landet es als JSON in
+## der Datei). Eigene Funktion, damit Tests den Spielstand prüfen können,
+## ohne die echte Datei zu überschreiben.
+func collect() -> Dictionary:
+	return {
 		"version": VERSION,
 		"day_cycle": DayCycle.get_save_data(),
 		"inventory": Inventory.get_save_data(),
@@ -53,6 +56,10 @@ func save_game() -> void:
 		"world": WorldState.get_save_data(),
 		"requests": Requests.get_save_data(),
 	}
+
+
+func save_game() -> void:
+	var data := collect()
 	# JSON statt Binärformat: Man kann die Datei beim Testen einfach lesen.
 	var text := JSON.stringify(data, "\t")
 	var file := FileAccess.open(TEMP_PATH, FileAccess.WRITE)

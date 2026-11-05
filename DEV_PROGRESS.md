@@ -27,11 +27,12 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 10 | Kampf lohnt mehr: Dornkäfer lassen mit 30 % eine Blütenknospe fallen (bisher nur 1/Nacht bei Ugo, gebraucht für Sichel II und Reinigungsnebel) | ✅ Test `test_beetle_drops.gd`. Balancing-Annahme: 30 % bei 2–4 Dornkäfern pro Neumond-Flut ≈ 1 Knospe pro Flut; nicht gespielt |
 | 11 | Erster Eindruck: Titelbildschirm mit Stimmung (Mondsichel, Hügelkante, Fingerhut, zwei flackernde Kerzen mit warmen Lichtinseln, aufsteigende magenta Funken), alles aus Palettenfarben gezeichnet | ✅ `TitleAmbience`, Screenshot geprüft (erste Fassung: Licht wirkte grau, nachgebessert) |
 | 12 | Werkzeug: `garden=demo`, `brew=1` | ✅ Garten mit allen Pflanzen und Brau-Fenster per Screenshot geprüft, keine Auffälligkeiten |
+| 13 | QA: Kern-Kreislauf als Durchspiel-Test (säen → Nächte → ernten → brauen → Trank abholen) mit Speichern/Laden über JSON; `SaveGame.collect()`, damit Tests nie die echte Spielstand-Datei überschreiben | ✅ `test_core_loop.gd` (3) |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 51/51 grün, Testlauf ohne SCRIPT ERROR.
+- 05.11.: alle Tests 54/54 grün, Testlauf ohne SCRIPT ERROR.
 - 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen
