@@ -58,7 +58,7 @@ func test_save_roundtrip_keeps_everything() -> void:
 	WorldState.set_flag("gnarl_moved")
 	WorldState.set_flag_next_night("test_pending")
 	Grimoire.grant(load("res://data/trades/gnarl/b_staff_2.tres").reward)
-	Brewing.raise_capacity(4)
+	Grimoire.grant(load("res://data/trades/gnarl/d_cauldron_2.tres").reward)
 	var before := SaveGame.collect()
 	_save_and_load()
 	check_eq(Inventory.count("cave_crystal"), 2, "Tasche")

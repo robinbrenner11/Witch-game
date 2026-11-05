@@ -30,11 +30,13 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 13 | QA: Kern-Kreislauf als Durchspiel-Test (säen → Nächte → ernten → brauen → Trank abholen) mit Speichern/Laden über JSON; `SaveGame.collect()`, damit Tests nie die echte Spielstand-Datei überschreiben | ✅ `test_core_loop.gd` (3) |
 | 14 | NPCs als Personen: People-Kapitel statt fünf ewiger „???“. Einträge für alle 4 NPCs, beim ersten Gespräch entdeckt, 3 Eindrücke in der Tinte der Spielerin (nach 3 und 6 Gesprächen), kleine Porträt-Platzhalter in Palettenfarben | ✅ Test `test_people.gd` (3), Layout-Test deckt das Kapitel mit ab, Screenshot (Deutsch) geprüft. Bewusst ohne Herzen/Geschenke (Freundschaftssystem fehlt noch) |
 | 15 | QA mit echten Eingaben: die ersten Minuten über simulierte Tasten in `main.tscn` (zum Pult laufen, E, Buch-Taste, Tür, Gartentor, Schnippen, säen) | ✅ `test_play_start.gd`. Gefundene „Fehler“ lagen am Test (Blickrichtung, Zaun), nicht am Spiel |
+| 16 | Entdeckung: Der Nachtwächter erzählt von einer Kerze tief im Wald, wo jemand schnitzt (solange man Gnarl nicht kennt), und bemerkt später das Licht in der Werkstatt | ✅ 2 Gespräche als Daten, Test in `test_gnarl.gd` |
+| 17 | Wackeltest behoben: `test_first_minutes` scheiterte ca. 1×/6, wenn zufälliges Unkraut auf der gewählten Zelle stand | ✅ Zellwahl nutzt die Prüfung des Spiels; danach 10/10 Läufe grün |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 58/58 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
+- 05.11.: alle Tests 59/59 grün (ca. 10 s), 4 Gesamtläufe hintereinander stabil, Testlauf ohne SCRIPT ERROR.
 - 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen

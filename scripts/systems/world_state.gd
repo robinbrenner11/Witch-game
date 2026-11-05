@@ -51,6 +51,11 @@ func set_flag_next_night(flag: String) -> void:
 		_next_night.append(flag)
 
 
+## Wartet das Flag auf die nächste Nacht (set_flag_next_night)?
+func is_pending(flag: String) -> bool:
+	return _next_night.has(flag)
+
+
 func has_flag(flag: String) -> bool:
 	return _flags.has(flag)
 

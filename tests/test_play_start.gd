@@ -48,16 +48,25 @@ func test_first_minutes() -> void:
 
 	# 4. Vor einem freien Stück Gartenerde die Erde wecken und säen.
 	if String(main.level.name) == "Garden":
-		var spot := _free_soil_spot()
-		check(spot != Vector2.INF, "Freie Gartenerde gefunden")
-		if spot != Vector2.INF:
+		var gate := main.level.get_node("Objects/GateShelter") as Node2D
+		var spots := _free_soil_spots(gate.global_position)
+		check(not spots.is_empty(), "Freie Gartenerde gefunden")
+		if not spots.is_empty():
 			# Durchs Gartentor, wie eine Spielerin auch (der Zaun ist sonst zu).
-			var gate := main.level.get_node("Objects/GateShelter") as Node2D
 			await _walk_to(gate.global_position + Vector2(0, -14), 4.0, 6.0)
 			check(await _walk_to(gate.global_position + Vector2(0, 30), 4.0, 6.0), "Hexe geht durchs Gartentor")
-			var reached := await _walk_to(spot + Vector2(0, 30), 4.0, 10.0)
+			# Erst den Weg hinunter, dann seitlich zum Beet: Blumenbänder und
+			# Deko am Rand sind Hindernisse, quer hindurch kommt sie nicht.
+			# Mehrere Kandidaten, falls Deko eine Stelle versperrt.
+			var reached := false
+			for candidate: Vector2 in spots.slice(0, 6):
+				var stand := candidate + Vector2(0, 30)
+				await _walk_to(Vector2(gate.global_position.x, stand.y), 4.0, 6.0)
+				if await _walk_to(stand, 4.0, 6.0):
+					reached = true
+					break
 			if not reached:
-				print("DBG Garten: Hexe bei ", player.global_position, " Ziel ", spot + Vector2(0, 30))
+				print("DBG Garten: Hexe bei ", player.global_position)
 			check(reached, "Hexe kommt zur Gartenerde")
 			await _face(Vector2.UP)
 			var cell := Garden.cell_at(player.interaction_area.global_position)
@@ -135,15 +144,25 @@ func _press(action: String) -> void:
 	await _frames(2)
 
 
-## Eine Zelle Gartenerde ohne Beet und ohne Pflanze, mit freier Zelle darunter
-## zum Hinstellen.
-func _free_soil_spot() -> Vector2:
-	var level := main.level as Level
-	for x in range(10, 30):
-		for y in range(8, 16):
+## Zellen Gartenerde ohne Beet und ohne Pflanze, mit freier Zelle darunter
+## zum Hinstellen, die nächsten zum Gartentor zuerst.
+func _free_soil_spots(near: Vector2) -> Array[Vector2]:
+	var earth: Node = player.get_node("EarthMagic")
+	var spots: Array[Vector2] = []
+	for x in range(0, 60):
+		for y in range(-10, 40):
 			var cell := Vector2i(x, y)
 			var below := cell + Vector2i(0, 1)
-			if level.allows_bed_at(cell) and not Garden.has_bed(cell) and not Garden.has_bed(below) \
-					and level.allows_bed_at(below):
-				return Vector2(cell * Garden.TILE_SIZE) + Vector2.ONE * Garden.TILE_SIZE / 2.0
-	return Vector2.INF
+			# Dieselbe Prüfung wie das Spiel (auch zufällig gewachsenes Unkraut),
+			# und darunter Platz zum Hinstellen.
+			if earth.can_wake_at(cell) and earth.can_wake_at(below) and not _has_wild(below):
+				spots.append(Vector2(cell * Garden.TILE_SIZE) + Vector2.ONE * Garden.TILE_SIZE / 2.0)
+	spots.sort_custom(func(a: Vector2, b: Vector2) -> bool: return a.distance_to(near) < b.distance_to(near))
+	return spots
+
+
+func _has_wild(cell: Vector2i) -> bool:
+	for node in tree.get_nodes_in_group("wild"):
+		if Garden.cell_at(node.global_position) == cell:
+			return true
+	return false
