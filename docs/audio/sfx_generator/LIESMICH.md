@@ -70,6 +70,7 @@ python docs/audio/sfx_generator/sfx.py --preview    # alle + docs/audio/sfx_vors
 | `ui/hover` | 0.08 s | – | mono |
 | `ui/item_drop` | 0.15 s | – | mono |
 | `ui/item_get` | 0.55 s | – | mono |
+| `ui/level_up` | 1.60 s | – | mono, Disziplin steigt auf (05.11.) |
 | `ui/item_pick` | 0.12 s | – | mono |
 | `ui/open` | 0.45 s | – | mono |
 | `ui/page_turn` | 0.40 s | – | mono |

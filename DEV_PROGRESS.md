@@ -42,12 +42,14 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 25 | Kampf im Bild (Werkzeug `spawn=`, `freeze=`): Käfer läuft an, trifft, Lebensbalken sinkt, Digitalis wird gezogen. Anlauf-Spur: „!“ über dem Käfer, erst schwache gestrichelte Spur zur Hexe, kurz vor dem Anlauf fest und hell | ✅ Screenshots beider Phasen geprüft, gut lesbar, keine Änderung nötig |
 | 26 | Eigene Hexe: Die Spielerin gibt ihr im Intro einen Namen (✅ aus `game_design.md`, bisher nicht gebaut). Gespeichert im Grimoire, sie unterschreibt damit auf dem Innendeckel unter Vesperas „V.“ | ✅ `test_witch_name.gd` (3); Layout-Test mit dem längsten Namen (erste Fassung mit Satz lief auf Deutsch über, deshalb Unterschrift). Screenshots: Intro-Frage (erste Fassung: Inhalt zu hoch und graues Standardfeld, nachgebessert), Innendeckel |
 | 28 | Die Welt kennt den Namen: Platzhalter `{witch}` in Gesprächen, zuerst nur beim Nachtwächter in der Dämmerung („Geh nach Hause, Nyx.“), ohne Namen wie bisher „Hexe“ | ✅ Test in `test_witch_name.gd`, `test_dialogue_fit.gd` misst mit dem längsten Namen, Screenshot geprüft. Bewusst sparsam |
+| 29 | QA Dauerlauf (`tools/qa/soak.gd`): alle 8 Orte nacheinander, je einige Sekunden bei 4-facher Zeit, über den Sonnenaufgang, bei Halb- und Vollmond | ✅ keine einzige Fehlermeldung |
+| 30 | Fortschritt spürbar: Stufenaufstieg einer Disziplin bekommt ein Glockenspiel (`ui/level_up`, neu im Generator) und aufsteigende goldene/magenta Funken um die Hexe (`ProgressFeedback`). Vorher nur eine Textzeile | ✅ Test `test_progress_feedback.gd`, Funken per Screenshot geprüft. **Klang nicht gehört** (keine Audioausgabe), nur Länge 1,6 s und Spitze −9 dBFS geprüft |
 | 27 | Inventar-Tafel und lange Meldungen auf Deutsch geprüft | ✅ passt, keine Änderung |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 75/75 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
+- 05.11.: alle Tests 77/77 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
 - 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen
