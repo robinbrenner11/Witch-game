@@ -12,6 +12,11 @@ const POWER_COLOR := Color("#C2307A")
 const POWER_LIGHT := Color("#E458B1")
 const BACK := Color("#0E0A14")
 const FRAME := Color("#4D1230")
+# Kleine Zeichen vor den Leisten, damit man ohne Text weiß, welche was ist:
+# Herz = Leben, Raute = Hexenkraft (kostet jeder Zauber). 5×5 Pixel.
+const ICON_WIDTH := 7
+const HEART := [".X.X.", "XXXXX", "XXXXX", ".XXX.", "..X.."]
+const DIAMOND := ["..X..", ".XXX.", "XXXXX", ".XXX.", "..X.."]
 
 var _player: Player
 var _vitals: Vitals
@@ -20,7 +25,7 @@ var _vitals: Vitals
 func _ready() -> void:
 	add_to_group("clock")
 	position = Vector2(6, 24)
-	size = Vector2(WIDTH + 2, 13)
+	size = Vector2(ICON_WIDTH + WIDTH + 2, 13)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
@@ -37,15 +42,24 @@ func _process(_delta: float) -> void:
 func _draw() -> void:
 	if _vitals == null:
 		return
+	_icon(HEART, 0, HEALTH_LIGHT)
+	_icon(DIAMOND, 7, POWER_LIGHT)
 	_bar(0, float(_vitals.health) / _vitals.max_health, HEALTH_COLOR, HEALTH_LIGHT)
 	_bar(7, _vitals.power / _vitals.max_power(), POWER_COLOR, POWER_LIGHT)
 
 
+func _icon(rows: Array, y: float, color: Color) -> void:
+	for row in rows.size():
+		for column in String(rows[row]).length():
+			if String(rows[row])[column] == "X":
+				draw_rect(Rect2(column, y + row, 1, 1), color)
+
+
 func _bar(y: float, fraction: float, color: Color, light: Color) -> void:
-	var rect := Rect2(0, y, WIDTH + 2, 6)
+	var rect := Rect2(ICON_WIDTH, y, WIDTH + 2, 6)
 	draw_rect(rect, FRAME)
 	draw_rect(rect.grow(-1), BACK)
 	var filled := floorf(WIDTH * clampf(fraction, 0.0, 1.0))
 	if filled > 0:
-		draw_rect(Rect2(1, y + 1, filled, 4), color)
-		draw_rect(Rect2(1, y + 1, filled, 1), light)
+		draw_rect(Rect2(ICON_WIDTH + 1, y + 1, filled, 4), color)
+		draw_rect(Rect2(ICON_WIDTH + 1, y + 1, filled, 1), light)
