@@ -25,6 +25,8 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 7 | Einstieg: Ziele in spielbarer Reihenfolge (Wecken → Pflanzen → Brauen → Schlafen), Taste fürs Schnippen aus der Belegung statt fest „(R)“, Lesepult glimmt magenta mit aufsteigenden Funken, solange Vesperas Buch dort liegt | ✅ Test `test_onboarding.gd` (4, u. a. keine festen Tasten in Texten), Screenshot geprüft. Nebenbei: Buch-Hinweis im HUD nannte „B“ fest |
 | 8 | Fehler: Grimoire-Seiten liefen über (Herbarium mit 4 Gruppen deutlich, Innendeckel, Wildkunde auf Deutsch) | ✅ Belohnung neben dem Gruppennamen, Erklärung der Hexenstärke als Tooltip, „Jäten“ statt „Wildgras räumen“. Neuer Test `test_book_layout.gd` schlägt jedes Kapitel auf Englisch und Deutsch auf und misst. Herbarium-Fix auch auf PR #2 übernommen |
 | 10 | Kampf lohnt mehr: Dornkäfer lassen mit 30 % eine Blütenknospe fallen (bisher nur 1/Nacht bei Ugo, gebraucht für Sichel II und Reinigungsnebel) | ✅ Test `test_beetle_drops.gd`. Balancing-Annahme: 30 % bei 2–4 Dornkäfern pro Neumond-Flut ≈ 1 Knospe pro Flut; nicht gespielt |
+| 11 | Erster Eindruck: Titelbildschirm mit Stimmung (Mondsichel, Hügelkante, Fingerhut, zwei flackernde Kerzen mit warmen Lichtinseln, aufsteigende magenta Funken), alles aus Palettenfarben gezeichnet | ✅ `TitleAmbience`, Screenshot geprüft (erste Fassung: Licht wirkte grau, nachgebessert) |
+| 12 | Werkzeug: `garden=demo`, `brew=1` | ✅ Garten mit allen Pflanzen und Brau-Fenster per Screenshot geprüft, keine Auffälligkeiten |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
@@ -34,11 +36,10 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 
 ## Offene Probleme / Beobachtungen
 
-- Titelbildschirm ist sehr schlicht (nur Schrift und Knöpfe, keine Stimmung).
 - Dorf ist Graybox (Häuser als Farbflächen) – Grafik macht Robin.
 - Nicht prüfbar: Ton, Steuerungsgefühl, Tempo.
 
 ## Nächste Schritte (priorisiert)
 
-1. Titelbildschirm mit etwas Stimmung (z. B. Kerzenlicht, Funken), ohne neue Grafik von Robin vorwegzunehmen.
-2. Weitere Orte auf Lesbarkeit und Hinweise prüfen (Garten mit Beeten, Kessel-Fenster).
+1. Rückmeldung beim Ernten/Sammeln prüfen (sieht man, was man bekommt?).
+2. People-Kapitel (Vorschlag im Backlog) – größerer Schritt, eher nach Robins Feedback.

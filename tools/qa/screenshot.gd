@@ -11,7 +11,8 @@ extends SceneTree
 ##     flags=gnarl_moved,met_gnarl items=cave_crystal:2 book=digitalis
 ##
 ## scene=res://… nimmt statt des Spiels eine andere Szene (z. B. den Titel).
-## lang=de stellt die Sprache um.
+## lang=de stellt die Sprache um. garden=demo pflanzt Beete mit allen Pflanzen,
+## brew=1 öffnet das Brau-Fenster.
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -31,6 +32,8 @@ func _initialize() -> void:
 	for entry in String(args.get("items", "")).split(",", false):
 		var parts := entry.split(":")
 		inventory.add(parts[0], int(parts[1]) if parts.size() > 1 else 1)
+	if args.get("garden", "") == "demo":
+		_plant_demo_garden()
 	if args.has("lang"):
 		TranslationServer.set_locale(String(args["lang"]))
 	if args.has("hour"):
@@ -56,6 +59,8 @@ func _initialize() -> void:
 		grimoire.has_book = true
 		var book := root.get_tree().get_first_node_in_group("grimoire_book")
 		book.open(String(args["book"]))
+	if args.has("brew"):
+		root.get_tree().get_first_node_in_group("brew_window").open()
 	await _shoot(args)
 
 
@@ -67,6 +72,20 @@ func _shoot(args: Dictionary) -> void:
 	image.save_png(out)
 	print("Screenshot gespeichert: %s (%s)" % [out, image.get_size()])
 	quit()
+
+
+## Zwei Reihen Beete mit allen Pflanzen in verschiedenen Stufen, dort wo im
+## Garten die ersten Beete liegen.
+func _plant_demo_garden() -> void:
+	var garden := root.get_node("Garden")
+	var plants := ["mandrake", "ghost_fern", "lantern_berry", "nightshade", "blood_rose", "moon_chalice"]
+	for i in plants.size():
+		for row in 2:
+			var cell: Vector2i = garden.cell_at(Vector2(560 + 32 * i, 304 + 64 * row))
+			garden.add_bed(cell)
+			garden.plant_seed(cell, plants[i])
+			for stage in (row * 2 + 1):
+				garden.grow(cell)
 
 
 func _args() -> Dictionary:
