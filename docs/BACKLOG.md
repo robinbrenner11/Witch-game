@@ -13,6 +13,7 @@ _(leer, siehe „Vorschläge“)_
 
 ## Wartet auf Robin
 
+- ❓ **Warding (Bannkunst) als Disziplin freischalten?** Das Kapitel ist versiegelt (`unlock = "combat"` wird nicht ausgewertet), weil es die Disziplin noch nicht gibt. Fehlt dafür: Pfade bei Stufe 5/10 (`grimoire.md`: Hexblade / Hexcaster, ❓ nach Kampf-Prototyp), Belohnungen je Stufe, wofür es Erfahrung gibt (Reinigen? neue Wesen im Bestiarium?). Das Bestiarium ist seit 05.11. offen und wäre die Grundlage.
 - **Alte Branches löschen?** `combat-overhaul` und `quality-overhaul` sind vollständig in `main`. Löschen nur mit deinem Okay.
 - **Gnarl und Upgrades testen.** Die Upgrades sind gerade praktisch nur über F8 erreichbar, weil Weidenrinde und Höhlenkristall nur im Seewald v2 wachsen.
 - **Seewald v2 testen (F8).** Blockiert: Ausgänge auf `lakewood_v2.tscn` umstellen, alten Seewald entfernen (W5), danach Höhen für Wald, Dorf und Garten.
@@ -31,6 +32,7 @@ _(alle umgesetzt, siehe „Erledigt“ und `DEV_PROGRESS.md`)_
 
 ## Erledigt
 
+- 05.11.2026: Bestiarium öffnet sich nach der ersten Reinigung (Freischaltung wurde nie ausgewertet), Einträge für beide Käferarten. Name der Hexe im Intro. Fortschritt und Entdecken mit Klang und Funken. Anschlagbrett-Seiten passen in die Dialogbox. PR #4.
 - 05.11.2026: People-Kapitel mit Einträgen für Nachtwächter, Mutter Moos, Ugo, Gnarl (entdeckt durch Gespräche, Eindrücke wachsen mit), Titelbildschirm mit Stimmung, Durchspiel-Test des Kern-Kreislaufs. Tests `test_people.gd`, `test_core_loop.gd`. PR #4.
 - 05.11.2026: Dornkäfer lassen mit 30 % eine Blütenknospe fallen (`rare_drop_item`/`rare_drop_chance`). Einstieg (Zielreihenfolge, glimmendes Pult, Tasten aus der Belegung), Grimoire-Seiten laufen nicht mehr über, NPC-Silhouetten. Tests `test_beetle_drops.gd`, `test_onboarding.gd`, `test_book_layout.gd`. PR #4.
 - 05.11.2026: Digitalis-Kapitel im Grimoire (Formen, Stufe als Kerben, Gnarls Bedarf), Screenshot-Werkzeug `tools/qa/`, Gnarl lesbarer (Silhouette, Schnitzkerze), Fix Werkstatt-Licht. Test `test_digitalis_chapter.gd`. Protokoll: `DEV_PROGRESS.md`. PR #4.
