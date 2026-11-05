@@ -40,3 +40,25 @@ func test_watchman_points_to_gnarl() -> void:
 	WorldState.set_flag("gnarl_moved")
 	var line := DialogueData.pick("watchman", "")
 	check(line != null and line.id == "workshop_light", "Wächter bemerkt das Licht in der Werkstatt")
+
+
+## Nach jedem Upgrade hat Gnarl beim nächsten Gespräch etwas dazu zu sagen.
+func test_gnarl_reacts_to_upgrade() -> void:
+	WorldState.set_flag("met_gnarl")
+	WorldState.set_flag("gnarl_helped")
+	WorldState.set_flag("gnarl_moved")
+	# Alle anderen einmaligen Gespräche sind längst erzählt.
+	for dialogue in DialogueData.all_for("gnarl"):
+		if dialogue.once and not dialogue.id.begins_with("upgraded_"):
+			WorldState.set_flag(dialogue.said_flag("gnarl"))
+	for path in ["b_staff_2", "c_sickle_2", "d_cauldron_2"]:
+		var offer := load("res://data/trades/gnarl/%s.tres" % path) as TradeOffer
+		check(offer.sets_flag != "", "%s setzt ein Flag für die Reaktion" % offer.id)
+		Inventory.add(offer.wants_item, offer.wants_amount)
+		if offer.also_wants_item != "":
+			Inventory.add(offer.also_wants_item, offer.also_wants_amount)
+		check(offer.trade("gnarl"), "%s klappt" % offer.id)
+		var reaction := DialogueData.pick("gnarl", "workshop")
+		check(reaction != null and reaction.requires_flags.has(offer.sets_flag), "Gnarl reagiert auf %s" % offer.id)
+		if reaction:
+			WorldState.set_flag(reaction.said_flag("gnarl"))

@@ -35,11 +35,12 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 18 | Reife auf Abstand erkennbar: Bisher leuchteten nur Laternenbeere und Mondkelch, wenn sie reif waren (4 von 6 Pflanzen ohne Signal). Jetzt funkelt über jeder reifen Pflanze ab und zu ein goldener Lichtpunkt (zufällige Pausen, unbeleuchtet) | ✅ Test `test_ripe_sparkle.gd`, Screenshots zu drei Zeitpunkten geprüft |
 | 19 | UI auf Deutsch geprüft: Inventar, Pausemenü, Dialogbox | ✅ keine Überläufe, keine Änderung nötig. Werkzeug: `press=`, `say=` |
 | 20 | Sonne als klare Gefahr: Ab der Morgenwarnung (5 Uhr) pulsiert die Uhr kerzenlichtwarm, am Tag schneller. Bisher nur eine einzelne Meldung um 5 Uhr, die man in einem offenen Fenster verpassen konnte | ✅ Test `test_clock.gd`, Screenshots zweier Pulsstufen geprüft |
+| 21 | Gnarl als Person: nach jedem Upgrade eine eigene, kurze Reaktion direkt nach dem Tausch (Stab, Sichel, Kessel) | ✅ reine Daten (`sets_flag` + Gespräch), Test in `test_upgrades.gd`, Zeilenlänge über `test_gnarl.gd` geprüft |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 61/61 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
+- 05.11.: alle Tests 62/62 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
 - 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen

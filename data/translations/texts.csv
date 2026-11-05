@@ -610,3 +610,43 @@ REQ_CHAPEL_BUD_THANKS,"Sister Ilse left two draughts, blessed and corked.","Schw
 ITEM_POTION_WILL_O_WISP_BRIGHT,Swamp Wisp,Sumpfirrlicht
 ITEM_POTION_WILL_O_WISP_BRIGHT_DESC,A greener light that bites. It does not like the bloom.,"Ein grüneres Licht, das zubeißt. Es mag die Blüte nicht."
 RECIPE_POTION_WILL_O_WISP_BRIGHT_NOTE,"Feed it something from the bog, and it hunts.","Füttere es mit etwas aus dem Moor, dann jagt es."
+ENTRY_BITTERBLOOM_PETAL_1,It falls from blighted creatures once they are cleansed.,"Es fällt von befallenen Wesen, sobald sie gereinigt sind."
+ENTRY_BITTERBLOOM_PETAL_2,"Still bitter. In a brew, it makes everything sharper.","Immer noch bitter. Im Trank macht es alles schärfer."
+ENTRY_BITTERBLOOM_PETAL_3,"With fire or thorns, it becomes something to throw.","Mit Feuer oder Dornen wird es zu etwas, das man wirft."
+BOOK_GROUP_BEYOND,Beyond the Woods,Jenseits des Waldes
+BOOK_GROUP_BLIGHT,Bitterbloom,Bitterblüte
+DIGITALIS_LIGHT,Light: %s,Leicht: %s
+DIGITALIS_HEAVY,Strong: %s,Stark: %s
+DIGITALIS_WORLD,Outside: %s,Draußen: %s
+DIGITALIS_STAFF_UPGRADE_2,the strong spell pierces one enemy.,der starke Zauber durchschlägt einen Gegner.
+DIGITALIS_SICKLE_UPGRADE_2,cuts calm bitterbloom vines.,schneidet ruhige Bitterblüten-Ranken.
+DIGITALIS_GNARL_NEEDS,Gnarl needs for %s:,Gnarl braucht für %s:
+DIGITALIS_FULLY_CARVED,Fully carved. Gnarl has nothing more to add.,Ganz ausgeschnitzt. Gnarl hat nichts mehr hinzuzufügen.
+BOOK_GROUP_MET,Met so far,Bisher getroffen
+MSG_PERSON_DISCOVERED,%s now has a page in your grimoire.,%s hat jetzt eine Seite in deinem Grimoire.
+PEOPLE_WATCHMAN_1,Walks the village every night with his lantern. Look for him at the well or the forest gate.,Geht jede Nacht mit Laterne durchs Dorf. Am Brunnen oder am Waldtor zu finden.
+PEOPLE_WATCHMAN_2,He listens more than he talks. Every rumor ends up with him.,"Er hört mehr zu, als er redet. Jedes Gerücht landet bei ihm."
+PEOPLE_WATCHMAN_3,At the forest gate he always looks the same way. Someone did not come back.,Am Waldtor schaut er immer in dieselbe Richtung. Jemand ist nicht zurückgekommen.
+PEOPLE_MOTHER_MOSS_1,Lives in the hut by the lake. Trades seeds for what the woods give.,"Wohnt in der Hütte am See. Tauscht Samen gegen das, was der Wald hergibt."
+PEOPLE_MOTHER_MOSS_2,She speaks of the woods as family. Some of them are sick.,Sie spricht vom Wald wie von Familie. Manche davon sind krank.
+PEOPLE_MOTHER_MOSS_3,On full moon nights she watches the water longer than usual.,In Vollmondnächten schaut sie länger aufs Wasser als sonst.
+PEOPLE_UGO_1,Trades in the swamp. At half moon he sits at the village market.,Handelt im Sumpf. Bei Halbmond sitzt er auf dem Markt im Dorf.
+PEOPLE_UGO_2,Calls himself Ugo when he talks about himself. Loves muck.,Nennt sich selbst Ugo. Liebt Schlamm.
+PEOPLE_UGO_3,Where do his bloom buds come from? He never says.,Woher hat er die Blütenknospen? Das sagt er nie.
+PEOPLE_GNARL_1,Root carver. I first met him at the blighted corner of the deep woods.,Wurzelschnitzer. Zuerst traf ich ihn an der befallenen Ecke im tiefen Wald.
+PEOPLE_GNARL_2,"The blighted wood makes him cough, and he carves it anyway.","Das befallene Holz lässt ihn husten, und er schnitzt es trotzdem."
+PEOPLE_GNARL_3,Under all the grumbling he is kind. The village children know it too.,Unter dem ganzen Brummen ist er freundlich. Die Dorfkinder wissen das auch.
+TRADE_NEEDS,For %s I need: %s.,Für %s brauche ich: %s.
+TRADE_DO,Do it.,Mach das.
+UPGRADE_STAFF_2_DESC,Crystal in the tip. Your strong spell will punch through the first thing it hits.,"Kristall in die Spitze. Dann schlägt dein starker Zauber durch das Erste, was er trifft."
+UPGRADE_SICKLE_2_DESC,"A bud's bitterness on the blade. Then it cuts the calm blight vines, too.",Die Bitterkeit einer Knospe auf der Klinge. Dann schneidet sie auch ruhige Ranken der Blüte.
+UPGRADE_CAULDRON_2_DESC,A crystal ring for your cauldron. Room for a fourth ingredient.,Ein Kristallring für deinen Kessel. Platz für eine vierte Zutat.
+DLG_GNARL_WAITING,"Still coughing. A mending potion, if you have one.","Ich huste immer noch. Einen Heiltrank, wenn du einen hast."
+DLG_GNARL_HELPED_1,Bitter. Good. My hands are steady again.,Bitter. Gut. Die Hände sind wieder ruhig.
+DLG_GNARL_HELPED_2,There's an empty workshop in the village. From tomorrow night I carve there.,Im Dorf steht eine Werkstatt leer. Ab morgen Nacht schnitze ich dort.
+DLG_GNARL_HELPED_3,Bring that stick of yours by. I can do more than spoons.,Bring deinen Stecken vorbei. Ich kann mehr als Löffel.
+DLG_GNARL_PACKING,Packing. Tomorrow night I'm in the village.,Ich packe. Morgen Nacht bin ich im Dorf.
+DLG_GNARL_SMALLTALK,The roots hum tonight. Not a good hum.,Die Wurzeln summen heute. Kein gutes Summen.
+DLG_GNARL_UPGRADED_STAFF,"There. The crystal sits deep now. Your strong spell will not stop at the first beetle.","So. Der Kristall sitzt jetzt tief. Dein starker Zauber hält nicht mehr am ersten Käfer an."
+DLG_GNARL_UPGRADED_SICKLE,"The bud's bitterness is in the blade. It knows the vines now, and they know it.","Die Bitterkeit der Knospe steckt in der Klinge. Sie kennt jetzt die Ranken, und die Ranken kennen sie."
+DLG_GNARL_UPGRADED_CAULDRON,"A crystal ring round the rim. Four will fit now. Do not ask me what to put in.","Ein Kristallring um den Rand. Jetzt passen vier hinein. Frag mich nicht, was."
