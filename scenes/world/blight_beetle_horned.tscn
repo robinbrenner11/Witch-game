@@ -10,3 +10,5 @@ max_health = 6
 charge_speed = 160.0
 charges = 2
 horned = true
+rare_drop_item = "bloom_bud"
+rare_drop_chance = 0.3

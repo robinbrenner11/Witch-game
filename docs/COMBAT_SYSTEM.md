@@ -78,6 +78,10 @@ UI
 
 Die Sichel schneidet im Kampf Wildgras und Unkraut, das im Bogen steht (Ertrag wie beim Ernten). Leichte Hiebe schwingen abwechselnd von links und rechts.
 
+### Beute (05.11.2026)
+
+Jeder gereinigte Käfer lässt ein Bitterblütenblatt fallen. Seltene Beute zusätzlich über die Exporte `rare_drop_item` und `rare_drop_chance` am Käfer: Der Dornkäfer gibt mit 30 % eine Blütenknospe (Material für Sichel II und Reinigungsnebel). Dornkäfer kommen vor allem in der Neumond-Flut.
+
 ### Formwechsel
 Sofort, ohne Wartezeit (Kombos erlaubt), mit 1–4 oder dem Mausrad. Ein laufendes Ausholen verfällt dabei. Kurzer Funke an der Spitze.
 
