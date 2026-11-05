@@ -50,3 +50,13 @@ func _cover_owner_text() -> String:
 	left.free()
 	right.free()
 	return "\n".join(PackedStringArray(texts))
+
+
+## {witch} in Gesprächszeilen wird zum Namen, ohne Namen zu "Hexe"/"witch".
+func test_dialogue_uses_name() -> void:
+	var line := "Geh nach Hause, {witch}."
+	Grimoire.witch_name = ""
+	check_eq(DialogueBox.fill_in(line), "Geh nach Hause, %s." % tr("WITCH_FALLBACK"), "Ohne Namen: Hexe")
+	Grimoire.witch_name = "Nyx"
+	check_eq(DialogueBox.fill_in(line), "Geh nach Hause, Nyx.", "Mit Namen")
+	check(tr("DLG_WATCHMAN_DAWN_1").contains("{witch}"), "Der Nachtwächter spricht sie in der Dämmerung an")

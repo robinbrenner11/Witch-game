@@ -433,7 +433,8 @@ DLG_WATCHMAN_RUMOR_GNARL_2,Coughs like an old cart. Never comes to the village.,
 DLG_WATCHMAN_WORKSHOP_1,"The old workshop has a light again. Your carver, I hear. About time someone used it.","In der alten Werkstatt brennt wieder Licht. Dein Schnitzer, höre ich. Wurde Zeit, dass sie jemand nutzt."
 DLG_WATCHMAN_BROTHER_1,My brother walked into those woods ten years ago. Said he would be back by dawn.,"Mein Bruder ist vor zehn Jahren in diesen Wald gegangen. Er sagte, er sei bis zum Morgen zurück."
 DLG_WATCHMAN_BROTHER_2,I keep the lantern lit out here. Just in case.,Ich lasse die Laterne hier draußen brennen. Nur für alle Fälle.
-DLG_WATCHMAN_DAWN_1,"The sky is going pale. Go home, witch. The sun has no love for your kind.","Der Himmel wird blass. Geh nach Hause, Hexe. Die Sonne mag deinesgleichen nicht."
+DLG_WATCHMAN_DAWN_1,"The sky is going pale. Go home, {witch}. The sun has no love for your kind.","Der Himmel wird blass. Geh nach Hause, {witch}. Die Sonne mag deinesgleichen nicht."
+WITCH_FALLBACK,witch,Hexe
 DLG_WATCHMAN_NEW_MOON_1,No moon tonight. Darker than usual. Stay near the lanterns.,Kein Mond heute Nacht. Dunkler als sonst. Bleib in der Nähe der Laternen.
 DLG_WATCHMAN_FULL_MOON_1,Full moon. They say the mushroom ring in the woods glows on nights like this.,"Vollmond. Man sagt, der Pilzring im Wald leuchtet in solchen Nächten."
 MSG_RUMOR,A rumor. The grimoire takes note.,Ein Gerücht. Das Grimoire merkt es sich.

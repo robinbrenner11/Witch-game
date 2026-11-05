@@ -56,6 +56,8 @@ GrayboxBuilding scripts/world/graybox_building.gd  Platzhalter-Haus aus Farbflä
 
 **eine Gabe statt Tausch (03.11.):** `TradeOffer` mit leerem `gives_item` erscheint als „1× Heiltrank geben“. `sets_flag` setzt danach ein Flag, `blocked_by_flags` nimmt das Angebot wieder weg. Braucht ein Gespräch genau dieses Flag, antwortet der NPC gleich nach der Gabe damit (`Npc._follow_up`).
 
+**den Namen der Hexe in einer Zeile (05.11.):** `{witch}` im Text, die Dialogbox setzt den Namen ein (ohne Namen „Hexe“/„witch“, `DialogueBox.fill_in`). Sparsam einsetzen, damit es besonders bleibt.
+
 **einen NPC erst später auftauchen lassen:** `appears_flag` in seinen Daten. Laut Design erscheinen neue NPCs nur durch eine Aktion der Spielerin.
 
 ## 3. Der Nachtwächter
