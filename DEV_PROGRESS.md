@@ -20,20 +20,21 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 2 | Prüfwerkzeug: Screenshots ohne Bildschirm | ✅ `tools/qa/screenshot.gd` + `shot.sh` |
 | 3 | Fehler: Kapelle statt Werkstatt leuchtete nach Gnarls Umzug (per Screenshot gefunden) | ✅ behoben, Test ergänzt, auch auf PR #3 übernommen |
 | 4 | Gnarl im dunklen Wald lesbar machen | ✅ Wichtel-Silhouette (spitze Kappe, Augen, Bart, Messer) und Schnitzkerze mit warmem Licht; Screenshot vorher/nachher geprüft |
+| 5 | Ugo und Mutter Moos unterscheidbar und nachts sichtbar | ✅ Ugo: breite Kröte mit Händlerhut, Glubschaugen, grüne Sumpflicht-Laterne. Mutter Moos: gebückt, Moos-Kapuze und -Büschel, Stock mit leuchtendem Mondpilz. Screenshots vorher/nachher geprüft |
+| 6 | Werkzeug: `scene=` für Titel und andere Szenen | ✅ |
 
 ## Durchgeführte Prüfungen
 
 - 05.11.: alle Tests 44/44 grün.
-- 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag) angesehen.
+- 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo) angesehen.
 
 ## Offene Probleme / Beobachtungen
 
-- Im Wald sind Käfer und Gnarl nachts dunkel; NPCs ohne eigenes Licht verschwinden leicht (Mutter Moos, Ugo prüfen).
+- Titelbildschirm ist sehr schlicht (nur Schrift und Knöpfe, keine Stimmung).
 - Dorf ist Graybox (Häuser als Farbflächen) – Grafik macht Robin.
 - Nicht prüfbar: Ton, Steuerungsgefühl, Tempo.
 
 ## Nächste Schritte (priorisiert)
 
-1. Mutter Moos und Ugo im Bild prüfen (Lesbarkeit nachts), ggf. wie Gnarl ein kleines Licht.
-2. Einstieg prüfen: Was sieht eine neue Spielerin in den ersten Minuten (Titel, Unterschlupf, Hinweise)?
-3. Vorschlag 2 aus dem Backlog: Dornkäfer lassen manchmal eine Blütenknospe fallen.
+1. Einstieg prüfen: Was sieht eine neue Spielerin in den ersten Minuten (Titel, Unterschlupf, Hinweise)?
+2. Vorschlag 2 aus dem Backlog: Dornkäfer lassen manchmal eine Blütenknospe fallen.

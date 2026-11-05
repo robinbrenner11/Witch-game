@@ -10,6 +10,7 @@ extends SceneTree
 ##     level=res://scenes/world/forest.tscn exit=ToLakewood hour=22 \
 ##     flags=gnarl_moved,met_gnarl items=cave_crystal:2 book=digitalis
 ##
+## scene=res://… nimmt statt des Spiels eine andere Szene (z. B. den Titel).
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -31,6 +32,11 @@ func _initialize() -> void:
 		inventory.add(parts[0], int(parts[1]) if parts.size() > 1 else 1)
 	if args.has("hour"):
 		day_cycle.minutes = float(args["hour"]) * 60.0
+	if args.has("scene"):
+		# Eine andere Szene als das Spiel, z. B. der Titelbildschirm.
+		root.add_child(load(String(args["scene"])).instantiate())
+		await _shoot(args)
+		return
 	var main: Node = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
 	await process_frame
@@ -47,6 +53,10 @@ func _initialize() -> void:
 		grimoire.has_book = true
 		var book := root.get_tree().get_first_node_in_group("grimoire_book")
 		book.open(String(args["book"]))
+	await _shoot(args)
+
+
+func _shoot(args: Dictionary) -> void:
 	for i in int(args.get("frames", 60)):
 		await process_frame
 	var image := root.get_viewport().get_texture().get_image()
