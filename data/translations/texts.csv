@@ -229,6 +229,24 @@ ENTRY_OWL_FEATHER_3,Old pages ask for feathers like these.,Alte Seiten verlangen
 ENTRY_MOONMOSS_1,Silver tips on old stones.,Silberne Spitzen auf alten Steinen.
 ENTRY_MOONMOSS_2,Each stone gives once per moon.,Jeder Stein gibt einmal pro Mond.
 ENTRY_MOONMOSS_3,Its light keeps in a bottle.,Sein Licht hält sich in einer Flasche.
+ENTRY_WILLOW_BARK_1,"Grey bark that peels off in long, damp strips.","Graue Rinde, die sich in langen, feuchten Streifen löst."
+ENTRY_WILLOW_BARK_2,Only the weeping willows by the lake give it. It grows back after a few nights.,Nur die Trauerweiden am See geben sie. Nach ein paar Nächten wächst sie nach.
+ENTRY_WILLOW_BARK_3,"Brewed with fern and berry, it closes deeper wounds.","Mit Farn und Beere gebraut, schließt sie tiefere Wunden."
+ENTRY_MOON_WATER_1,It keeps shimmering long after the moon has set.,"Es schimmert noch lange, nachdem der Mond untergegangen ist."
+ENTRY_MOON_WATER_2,"The lake gives it only under a full moon, and only three times a night.","Der See gibt es nur bei Vollmond, und nur dreimal pro Nacht."
+ENTRY_MOON_WATER_3,Old pages say it washes bitterness away.,"Alte Seiten sagen, es wäscht Bitterkeit fort."
+ENTRY_CAVE_CRYSTAL_1,"Cold in the hand, yet it glows in the dark.","Kalt in der Hand, und doch glüht er im Dunkeln."
+ENTRY_CAVE_CRYSTAL_2,It grows behind the waterfall. Slowly: four nights for each crystal.,Er wächst hinter dem Wasserfall. Langsam: vier Nächte für jeden Kristall.
+ENTRY_CAVE_CRYSTAL_3,It sharpens whatever it is set into. A skilled hand could use it.,"Er schärft alles, worin man ihn fasst. Eine geschickte Hand wüsste etwas damit anzufangen."
+ENTRY_SWAMP_LIGHT_1,A glowing cap that never sits quite still.,"Ein leuchtender Hut, der nie ganz stillhält."
+ENTRY_SWAMP_LIGHT_2,It sprouts between the bog pools and returns after a few nights.,Er sprießt zwischen den Tümpeln im Moor und kommt nach ein paar Nächten wieder.
+ENTRY_SWAMP_LIGHT_3,Ugo gives a good deal for a handful of them.,Ugo gibt für eine Handvoll davon einiges her.
+ENTRY_BITTERBLOOM_PETAL_1,It falls from blighted creatures once they are cleansed.,"Es fällt von befallenen Wesen, sobald sie gereinigt sind."
+ENTRY_BITTERBLOOM_PETAL_2,"Still bitter. In a brew, it makes everything sharper.","Immer noch bitter. Im Trank macht es alles schärfer."
+ENTRY_BITTERBLOOM_PETAL_3,"With fire or thorns, it becomes something to throw.","Mit Feuer oder Dornen wird es zu etwas, das man wirft."
+ENTRY_BLOOM_BUD_1,"It pulses faintly, like a second heartbeat.","Sie pulsiert leise, wie ein zweiter Herzschlag."
+ENTRY_BLOOM_BUD_2,They say the old tower ruin is full of them.,"Man sagt, die alte Turmruine sei voll davon."
+ENTRY_BLOOM_BUD_3,"With fern and moon water, it clears the blight's mist.","Mit Farn und Mondwasser lichtet sie den Nebel der Blüte."
 ENTRY_WILD_HERB_1,Grows where no one looks.,"Wächst, wo niemand hinsieht."
 ENTRY_WILD_HERB_2,"It comes back slowly, in clumps.","Es kommt langsam wieder, in Büscheln."
 ENTRY_WILD_HERB_3,"Bitter, but the cauldron does not mind.","Bitter, aber den Kessel stört das nicht."
@@ -236,6 +254,8 @@ MSG_ENTRY_DISCOVERED,New in the herbarium: %s.,Neu im Herbarium: %s.
 MSG_PAGE_COMPLETE,A page of the herbarium is complete.,Eine Seite im Herbarium ist vollständig.
 BOOK_GROUP_GARDEN,Garden,Garten
 BOOK_GROUP_WOODS,Woods,Wald
+BOOK_GROUP_BEYOND,Beyond the Woods,Jenseits des Waldes
+BOOK_GROUP_BLIGHT,Bitterbloom,Bitterblüte
 BOOK_ENTRY_UNKNOWN,Not yet discovered.,Noch nicht entdeckt.
 DIGITALIS_STAFF,Staff,Stab
 DIGITALIS_SICKLE,Sickle,Sichel

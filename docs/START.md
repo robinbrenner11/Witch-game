@@ -1,10 +1,10 @@
 # Bitterbloom – Einstieg
 
-Stand: 16.10.2026. **Das hier zuerst lesen**, danach nur die Dokumente, die die Aufgabe braucht. Regeln für die Zusammenarbeit und die technischen Leitplanken stehen in `CLAUDE.md`.
+Stand: 03.11.2026. **Das hier zuerst lesen**, danach nur die Dokumente, die die Aufgabe braucht. Regeln für die Zusammenarbeit und die technischen Leitplanken stehen in `CLAUDE.md`.
 
 ## Stand in einem Absatz
 
-Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen und Hexenpfaden, Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen. Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss und Ugo, Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald v2, Wasserfall-Höhle, Sumpf). Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
+Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen, Hexenpfaden und Herbarium (alle Sammelfunde, Beute und Zutaten haben einen Eintrag), Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen. Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss und Ugo, Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald v2, Wasserfall-Höhle, Sumpf). Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
 
 ## Branches
 
