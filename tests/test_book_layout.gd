@@ -11,6 +11,8 @@ const NUMBER_SPACE := 4.0
 func before_each() -> void:
 	SaveGame.new_game()
 	Grimoire.find_book()
+	# Längster erlaubter Name aus breiten Buchstaben: der ungünstigste Fall.
+	Grimoire.witch_name = "W".repeat(Grimoire.NAME_MAX_LENGTH)
 	WorldState.set_flag("gnarl_moved")
 	for event: String in ["plant/mandrake", "forage/willow_bark", "obtain/bitterbloom_petal"]:
 		var parts: PackedStringArray = event.split("/")
