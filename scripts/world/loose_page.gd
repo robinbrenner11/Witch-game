@@ -21,6 +21,8 @@ var _revealed := true
 
 # Befallene Seiten sehen welk aus, bis es eine eigene Grafik gibt.
 const BLIGHTED_TINT := Color("#7C7C68")
+# Hexenpfad "Sucherin": Seiten glimmen weiter in die Nacht hinaus.
+const SEEKER_GLOW := 2.0
 
 
 func _ready() -> void:
@@ -31,6 +33,8 @@ func _ready() -> void:
 	var page := PageData.from_id(page_id)
 	if page and page.state == PageData.State.BLIGHTED:
 		$Sprite2D.modulate = BLIGHTED_TINT
+	if Grimoire.get_stat("seeker") > 0:
+		($Glimmer as PointLight2D).texture_scale *= SEEKER_GLOW
 	if moonlight_only:
 		_set_revealed(false, true)
 	else:
