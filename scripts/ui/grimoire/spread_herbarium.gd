@@ -1,7 +1,7 @@
 class_name SpreadHerbarium
 extends GrimoireSpread
 
-## Herbarium, People (später auch Bestiary): links die Einträge nach Seiten
+## Herbarium, People, Bestiary: links die Einträge nach Seiten
 ## gruppiert, rechts der gewählte Eintrag mit seinen Fakten. Alles hier hat
 ## die Spielerin selbst entdeckt, deshalb steht es in ihrer Tinte (Magenta).
 ## Noch verborgene Fakten sind Fragezeichen. Volle Seiten bringen eine

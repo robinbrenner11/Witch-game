@@ -14,7 +14,7 @@ func before_each() -> void:
 	# Längster erlaubter Name aus breiten Buchstaben: der ungünstigste Fall.
 	Grimoire.witch_name = "W".repeat(Grimoire.NAME_MAX_LENGTH)
 	WorldState.set_flag("gnarl_moved")
-	for event: String in ["plant/mandrake", "forage/willow_bark", "obtain/bitterbloom_petal"]:
+	for event: String in ["plant/mandrake", "forage/willow_bark", "obtain/bitterbloom_petal", "cleanse/blight_beetle", "talk/watchman"]:
 		var parts: PackedStringArray = event.split("/")
 		Grimoire.report(parts[0], {"id": parts[1]})
 

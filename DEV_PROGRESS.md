@@ -45,12 +45,13 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 29 | QA Dauerlauf (`tools/qa/soak.gd`): alle 8 Orte nacheinander, je einige Sekunden bei 4-facher Zeit, über den Sonnenaufgang, bei Halb- und Vollmond | ✅ keine einzige Fehlermeldung |
 | 30 | Fortschritt spürbar: Stufenaufstieg einer Disziplin bekommt ein Glockenspiel (`ui/level_up`, neu im Generator) und aufsteigende goldene/magenta Funken um die Hexe (`ProgressFeedback`). Vorher nur eine Textzeile | ✅ Test `test_progress_feedback.gd`, Funken per Screenshot geprüft. **Klang nicht gehört** (keine Audioausgabe), nur Länge 1,6 s und Spitze −9 dBFS geprüft |
 | 31 | Entdecken spürbar: neuer Eintrag im Herbarium oder bei den Leuten → Seitenrascheln (vorhandener Klang) und ein paar magenta Funken; neues Signal `Grimoire.entry_discovered` | ✅ Test in `test_progress_feedback.gd` |
+| 32 | Fehler + Inhalt: Das Bestiarium konnte sich nie öffnen (Freischaltung „first_fight“ wurde nicht ausgewertet). Jetzt offen nach der ersten Reinigung, mit Einträgen für befallenen Käfer und Dornkäfer (Verhalten, Schwäche mit Spieltipp zur Anlauf-Spur, Beute), eigene Meldung und Bildchen | ✅ `test_bestiary.gd` (4), Layout-Test deckt das Kapitel ab, Screenshot auf Deutsch geprüft |
 | 27 | Inventar-Tafel und lange Meldungen auf Deutsch geprüft | ✅ passt, keine Änderung |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 78/78 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
+- 05.11.: alle Tests 82/82 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
 - 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen

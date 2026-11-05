@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+[ext_resource type="Texture2D" path="res://assets/ui/bestiary/blight_beetle_horned.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "bestiary_blight_beetle_horned"
+chapter = "bestiary"
+page_group = "woods"
+order = 1
+title_key = "BEAST_BLIGHT_BEETLE_HORNED"
+icon = ExtResource("2_icon")
+discover_on = "cleanse/blight_beetle_horned"
+facts = Array[String](["BEAST_BLIGHT_BEETLE_HORNED_1", "BEAST_BLIGHT_BEETLE_HORNED_2", "BEAST_BLIGHT_BEETLE_HORNED_3"])
+fact_triggers = Array[String](["", "cleanse/blight_beetle_horned:3", "cleanse/blight_beetle_horned:8"])

@@ -82,6 +82,7 @@ Behalten aus dem alten Buch:
   - später: Verbindung zur Blüte.
 
 ### Herbarium und Bestiary
+- **Umsetzungsstand Bestiary 05.11.2026:** öffnet sich mit dem ersten gereinigten Wesen (`unlock = "first_fight"`, vorher nie erfüllbar). Einträge `bestiary_<gegner>.tres` für befallenen Käfer und Dornkäfer, entdeckt bei der ersten Reinigung, Fakten Verhalten / Schwäche / Beute nach 3 und 8 Reinigungen. Bildchen aus `docs/art/ui_generator/bestiary_icons.py`. Noch keine Belohnung für die volle Seite (gehört später zu Warding).
 - ✅ Einträge mit Fakten, die nach und nach aufgedeckt werden (Fundort, Mondphase, beste Qualität; bei Wesen: befallen/gereinigt, Schwächen, Beute).
 - ✅ Belohnung für volle Seiten (z. B. seltene Samen, Wurftrank-Rezept).
 

@@ -18,6 +18,8 @@ signal milestone_ready(discipline_id: String, level: int)
 
 # So lang darf der Name der Hexe höchstens sein (passt dann überall hin).
 const NAME_MAX_LENGTH := 14
+# Meldung beim Entdecken eines Eintrags, je Kapitel (sonst Herbarium).
+const DISCOVERY_MESSAGES := {"people": "MSG_PERSON_DISCOVERED", "bestiary": "MSG_CREATURE_DISCOVERED"}
 # Die ersten Ziele auf dem Innendeckel, in der Reihenfolge von Vesperas Notiz.
 # Reihenfolge wie im Spiel: erst Erde wecken, dann pflanzen, brauen, schlafen.
 const GOALS: Array[String] = ["wake", "plant", "brew", "sleep"]
@@ -222,7 +224,7 @@ func report(action: String, details: Dictionary = {}) -> void:
 	_firsts[first_key] = true
 	for entry in EntryData.all():
 		if entry.discover_on == first_key and not was_discovered.has(entry.id):
-			var message := "MSG_PERSON_DISCOVERED" if entry.chapter == "people" else "MSG_ENTRY_DISCOVERED"
+			var message: String = DISCOVERY_MESSAGES.get(entry.chapter, "MSG_ENTRY_DISCOVERED")
 			Messages.post(tr(message) % tr(entry.title_key))
 			entry_discovered.emit(entry)
 	_check_completed_groups()
@@ -519,6 +521,14 @@ func is_unlocked(chapter: ChapterData) -> bool:
 	match chapter.unlock:
 		"":
 			return has_book
+		"first_fight":
+			# Das Bestiarium öffnet sich mit dem ersten gereinigten Wesen.
+			if not has_book:
+				return false
+			for entry in EntryData.in_chapter("bestiary"):
+				if is_discovered(entry):
+					return true
+			return false
 		"journal_page":
 			for page_id: String in _pages:
 				var page := PageData.from_id(page_id)
