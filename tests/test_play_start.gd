@@ -138,12 +138,20 @@ func _press(action: String) -> void:
 ## Eine Zelle Gartenerde ohne Beet und ohne Pflanze, mit freier Zelle darunter
 ## zum Hinstellen.
 func _free_soil_spot() -> Vector2:
-	var level := main.level as Level
+	var earth: Node = player.get_node("EarthMagic")
 	for x in range(10, 30):
 		for y in range(8, 16):
 			var cell := Vector2i(x, y)
 			var below := cell + Vector2i(0, 1)
-			if level.allows_bed_at(cell) and not Garden.has_bed(cell) and not Garden.has_bed(below) \
-					and level.allows_bed_at(below):
+			# Dieselbe Prüfung wie das Spiel (auch zufällig gewachsenes Unkraut),
+			# und darunter Platz zum Hinstellen.
+			if earth.can_wake_at(cell) and earth.can_wake_at(below) and not _has_wild(below):
 				return Vector2(cell * Garden.TILE_SIZE) + Vector2.ONE * Garden.TILE_SIZE / 2.0
 	return Vector2.INF
+
+
+func _has_wild(cell: Vector2i) -> bool:
+	for node in tree.get_nodes_in_group("wild"):
+		if Garden.cell_at(node.global_position) == cell:
+			return true
+	return false

@@ -137,3 +137,21 @@ func test_lines_fit() -> void:
 func _pick(topic: String) -> String:
 	var dialogue := DialogueData.pick("gnarl", topic)
 	return dialogue.id if dialogue else ""
+
+
+## Der Nachtwächter weist auf die Kerze im Wald hin, solange man Gnarl nicht
+## kennt, und bemerkt später das Licht in der Werkstatt.
+func test_watchman_points_to_gnarl() -> void:
+	WorldState.set_flag("met_watchman")
+	WorldState.set_flag("dlg_watchman_first_meeting")
+	# Gerüchte über Rezepte haben Vorrang; hier sind sie schon erzählt.
+	for rumor in ["rumor_mending", "rumor_ember", "rumor_growth"]:
+		WorldState.set_flag("dlg_watchman_" + rumor)
+	var rumor := DialogueData.pick("watchman", "rumor")
+	check(rumor != null and rumor.id == "rumor_gnarl", "Gerücht über die Kerze im Wald")
+	WorldState.set_flag("met_gnarl")
+	rumor = DialogueData.pick("watchman", "rumor")
+	check(rumor == null or rumor.id != "rumor_gnarl", "Kein Gerücht mehr, wenn man Gnarl kennt")
+	WorldState.set_flag("gnarl_moved")
+	var line := DialogueData.pick("watchman", "")
+	check(line != null and line.id == "workshop_light", "Wächter bemerkt das Licht in der Werkstatt")
