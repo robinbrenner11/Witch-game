@@ -14,7 +14,7 @@ extends SceneTree
 ## lang=de stellt die Sprache um. garden=demo pflanzt Beete mit allen Pflanzen,
 ## brew=1 öffnet das Brau-Fenster, message=SCHLÜSSEL zeigt eine Meldung,
 ## press=aktion,… drückt Tasten, say=SCHLÜSSEL zeigt eine Zeile in der Dialogbox,
-## interact=Pfad/im/Ort löst E an diesem Objekt aus.
+## interact=Pfad/im/Ort löst E an diesem Objekt aus, spawn=szene@x,y;… setzt Szenen.
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -62,6 +62,13 @@ func _initialize() -> void:
 	if args.has("pos"):
 		var xy := String(args["pos"]).split(",")
 		main.player.global_position = Vector2(float(xy[0]), float(xy[1]))
+	# spawn=res://scenes/world/blight_beetle.tscn@400,600 setzt eine Szene in den Ort.
+	for entry in String(args.get("spawn", "")).split(";", false):
+		var parts := entry.split("@")
+		var node: Node2D = load(parts[0]).instantiate()
+		main.level.objects.add_child(node)
+		var xy := parts[1].split(",")
+		node.global_position = Vector2(float(xy[0]), float(xy[1]))
 	main.player.camera.reset_smoothing()
 	if args.has("book"):
 		grimoire.has_book = true
