@@ -288,12 +288,10 @@ func _make_spread(chapter: ChapterData) -> GrimoireSpread:
 			return SpreadRecipes.new(self, chapter)
 		"journal":
 			return SpreadJournal.new(self, chapter)
-		"herbarium", "bestiary":
+		"herbarium", "bestiary", "people":
 			return SpreadHerbarium.new(self, chapter)
 		"digitalis":
 			return SpreadDigitalis.new(self, chapter)
-		"people":
-			return SpreadSilhouettes.new(self, chapter)
 	if chapter.template == ChapterData.Template.DISCIPLINE and DisciplineData.from_id(chapter.id):
 		return SpreadDiscipline.new(self, chapter)
 	return SpreadBlank.new(self, chapter)

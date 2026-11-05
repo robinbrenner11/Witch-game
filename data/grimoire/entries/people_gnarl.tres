@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+[ext_resource type="Texture2D" path="res://assets/ui/people/gnarl.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "people_gnarl"
+chapter = "people"
+page_group = "met"
+order = 3
+title_key = "NPC_GNARL"
+icon = ExtResource("2_icon")
+discover_on = "talk/gnarl"
+facts = Array[String](["PEOPLE_GNARL_1", "PEOPLE_GNARL_2", "PEOPLE_GNARL_3"])
+fact_triggers = Array[String](["", "talk/gnarl:3", "talk/gnarl:6"])

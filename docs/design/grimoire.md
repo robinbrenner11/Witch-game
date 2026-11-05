@@ -71,6 +71,7 @@ Behalten aus dem alten Buch:
 - ✅ Rechts: Form groß, Linksklick, Rechtsklick, Overworld-Nutzen, Upgrade-Stufe als Kerben, was Gnarl für die nächste Stufe braucht.
 
 ### People
+- **Umsetzungsstand 05.11.2026:** Einträge wie im Herbarium (`data/grimoire/entries/people_<npc>.tres`, `chapter = "people"`), entdeckt beim ersten Gespräch (`talk/<npc>`), drei Eindrücke in der Tinte der Spielerin, die sich nach 3 und 6 Gesprächen aufdecken. Platzhalter-Bildchen `assets/ui/people/` (Generator `docs/art/ui_generator/people_icons.py`). Noch nicht: Herzen, Geschenke, Vorlieben (brauchen das Freundschaftssystem; die Auslöser lassen sich dann umstellen).
 - ✅ Links Porträts im Dialog-Porträtrahmen; Unbekannte als vorhandene `?`-Silhouette.
 - ✅ Rechts:
   - Name und wo man sie findet;

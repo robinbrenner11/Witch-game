@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+[ext_resource type="Texture2D" path="res://assets/ui/people/watchman.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "people_watchman"
+chapter = "people"
+page_group = "met"
+order = 0
+title_key = "NPC_WATCHMAN"
+icon = ExtResource("2_icon")
+discover_on = "talk/watchman"
+facts = Array[String](["PEOPLE_WATCHMAN_1", "PEOPLE_WATCHMAN_2", "PEOPLE_WATCHMAN_3"])
+fact_triggers = Array[String](["", "talk/watchman:3", "talk/watchman:6"])

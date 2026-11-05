@@ -1,7 +1,7 @@
 class_name SpreadHerbarium
 extends GrimoireSpread
 
-## Herbarium (später auch Bestiary): links die Einträge nach Seiten
+## Herbarium, People (später auch Bestiary): links die Einträge nach Seiten
 ## gruppiert, rechts der gewählte Eintrag mit seinen Fakten. Alles hier hat
 ## die Spielerin selbst entdeckt, deshalb steht es in ihrer Tinte (Magenta).
 ## Noch verborgene Fakten sind Fragezeichen. Volle Seiten bringen eine
@@ -116,7 +116,9 @@ func _group_reward(group: String) -> RewardData:
 
 ## Ohne eigenes Bild nimmt der Eintrag das Icon seines ersten Items.
 func _icon_of(entry: EntryData) -> Texture2D:
-	return entry.icon if entry.icon else Inventory.icon_for(entry.item_ids[0])
+	if entry.icon:
+		return entry.icon
+	return Inventory.icon_for(entry.item_ids[0]) if not entry.item_ids.is_empty() else BookSlot.UNKNOWN_ICON
 
 
 func _build_detail(page: Control, entry: EntryData) -> void:

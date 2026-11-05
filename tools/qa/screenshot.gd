@@ -12,7 +12,7 @@ extends SceneTree
 ##
 ## scene=res://… nimmt statt des Spiels eine andere Szene (z. B. den Titel).
 ## lang=de stellt die Sprache um. garden=demo pflanzt Beete mit allen Pflanzen,
-## brew=1 öffnet das Brau-Fenster.
+## brew=1 öffnet das Brau-Fenster, message=SCHLÜSSEL zeigt eine Meldung.
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -32,6 +32,12 @@ func _initialize() -> void:
 	for entry in String(args.get("items", "")).split(",", false):
 		var parts := entry.split(":")
 		inventory.add(parts[0], int(parts[1]) if parts.size() > 1 else 1)
+	# events=talk/gnarl:3,forage/moonmoss meldet Ereignisse ans Grimoire (so oft wie angegeben).
+	for entry in String(args.get("events", "")).split(",", false):
+		var parts := entry.split(":")
+		var action := parts[0].split("/")
+		for i in (int(parts[1]) if parts.size() > 1 else 1):
+			grimoire.report(action[0], {"id": action[1]})
 	if args.get("garden", "") == "demo":
 		_plant_demo_garden()
 	if args.has("lang"):
@@ -59,6 +65,8 @@ func _initialize() -> void:
 		grimoire.has_book = true
 		var book := root.get_tree().get_first_node_in_group("grimoire_book")
 		book.open(String(args["book"]))
+	if args.has("message"):
+		root.get_node("Messages").post(TranslationServer.translate(String(args["message"])))
 	if args.has("brew"):
 		root.get_tree().get_first_node_in_group("brew_window").open()
 	await _shoot(args)

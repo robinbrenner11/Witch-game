@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+[ext_resource type="Texture2D" path="res://assets/ui/people/mother_moss.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "people_mother_moss"
+chapter = "people"
+page_group = "met"
+order = 1
+title_key = "NPC_MOTHER_MOSS"
+icon = ExtResource("2_icon")
+discover_on = "talk/mother_moss"
+facts = Array[String](["PEOPLE_MOTHER_MOSS_1", "PEOPLE_MOTHER_MOSS_2", "PEOPLE_MOTHER_MOSS_3"])
+fact_triggers = Array[String](["", "talk/mother_moss:3", "talk/mother_moss:6"])

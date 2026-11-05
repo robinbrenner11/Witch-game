@@ -215,7 +215,8 @@ func report(action: String, details: Dictionary = {}) -> void:
 	_firsts[first_key] = true
 	for entry in EntryData.all():
 		if entry.discover_on == first_key and not was_discovered.has(entry.id):
-			Messages.post(tr("MSG_ENTRY_DISCOVERED") % tr(entry.title_key))
+			var message := "MSG_PERSON_DISCOVERED" if entry.chapter == "people" else "MSG_ENTRY_DISCOVERED"
+			Messages.post(tr(message) % tr(entry.title_key))
 	_check_completed_groups()
 	changed.emit()
 
