@@ -15,7 +15,8 @@ signal level_up(discipline_id: String, level: int)
 signal milestone_ready(discipline_id: String, level: int)
 
 # Die ersten Ziele auf dem Innendeckel, in der Reihenfolge von Vesperas Notiz.
-const GOALS: Array[String] = ["plant", "brew", "sleep", "wake"]
+# Reihenfolge wie im Spiel: erst Erde wecken, dann pflanzen, brauen, schlafen.
+const GOALS: Array[String] = ["wake", "plant", "brew", "sleep"]
 # Digitalis-Formen, die die Hexe von Anfang an kennt (IDs in data/digitalis/).
 # Die Sichel ist von Anfang an da (Werkzeug für Gras und Unkraut, entschieden
 # 16.10., welt_und_items.md U-b); Gnarl macht nur die Upgrades.

@@ -20,10 +20,10 @@ func _ready() -> void:
 	add_to_group("clock")
 	position = Vector2(6, 6)
 	size = Vector2(30, 16)
-	tooltip_text = "BOOK_INDICATOR"
+	tooltip_text = tr("BOOK_INDICATOR") % InputHints.key_for("book")
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	var key := Label.new()
-	key.text = "B"
+	key.text = InputHints.key_for("book")
 	key.position = Vector2(18, -1)
 	key.add_theme_color_override("font_color", BookStyle.LABEL_DIM)
 	key.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -31,6 +31,11 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	# Das Buch hängt den Hinweis ins HUD; ist das Buch weg (z. B. beim
+	# Szenenwechsel), räumt er sich selbst auf.
+	if not is_instance_valid(book):
+		queue_free()
+		return
 	modulate.a = 1.0 if Grimoire.has_book and not book.visible else 0.0
 	_since_check += delta
 	if _since_check >= CHECK_INTERVAL and Grimoire.has_book:

@@ -21,12 +21,15 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 3 | Fehler: Kapelle statt Werkstatt leuchtete nach Gnarls Umzug (per Screenshot gefunden) | ✅ behoben, Test ergänzt, auch auf PR #3 übernommen |
 | 4 | Gnarl im dunklen Wald lesbar machen | ✅ Wichtel-Silhouette (spitze Kappe, Augen, Bart, Messer) und Schnitzkerze mit warmem Licht; Screenshot vorher/nachher geprüft |
 | 5 | Ugo und Mutter Moos unterscheidbar und nachts sichtbar | ✅ Ugo: breite Kröte mit Händlerhut, Glubschaugen, grüne Sumpflicht-Laterne. Mutter Moos: gebückt, Moos-Kapuze und -Büschel, Stock mit leuchtendem Mondpilz. Screenshots vorher/nachher geprüft |
-| 6 | Werkzeug: `scene=` für Titel und andere Szenen | ✅ |
+| 6 | Werkzeug: `scene=` für Titel und andere Szenen, `lang=de` | ✅ |
+| 7 | Einstieg: Ziele in spielbarer Reihenfolge (Wecken → Pflanzen → Brauen → Schlafen), Taste fürs Schnippen aus der Belegung statt fest „(R)“, Lesepult glimmt magenta mit aufsteigenden Funken, solange Vesperas Buch dort liegt | ✅ Test `test_onboarding.gd` (4, u. a. keine festen Tasten in Texten), Screenshot geprüft. Nebenbei: Buch-Hinweis im HUD nannte „B“ fest |
+| 8 | Fehler: Grimoire-Seiten liefen über (Herbarium mit 4 Gruppen deutlich, Innendeckel, Wildkunde auf Deutsch) | ✅ Belohnung neben dem Gruppennamen, Erklärung der Hexenstärke als Tooltip, „Jäten“ statt „Wildgras räumen“. Neuer Test `test_book_layout.gd` schlägt jedes Kapitel auf Englisch und Deutsch auf und misst. Herbarium-Fix auch auf PR #2 übernommen |
+| 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 44/44 grün.
-- 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo) angesehen.
+- 05.11.: alle Tests 49/49 grün, Testlauf ohne SCRIPT ERROR.
+- 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen
 
@@ -36,5 +39,6 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 
 ## Nächste Schritte (priorisiert)
 
-1. Einstieg prüfen: Was sieht eine neue Spielerin in den ersten Minuten (Titel, Unterschlupf, Hinweise)?
-2. Vorschlag 2 aus dem Backlog: Dornkäfer lassen manchmal eine Blütenknospe fallen.
+1. Vorschlag 2 aus dem Backlog: Dornkäfer lassen manchmal eine Blütenknospe fallen.
+2. Titelbildschirm mit etwas Stimmung (z. B. Kerzenlicht, Funken), ohne neue Grafik von Robin vorwegzunehmen.
+3. Weitere Orte auf Lesbarkeit und Hinweise prüfen (Garten mit Beeten, Kessel-Fenster).
