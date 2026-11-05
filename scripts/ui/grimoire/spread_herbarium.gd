@@ -66,10 +66,22 @@ func _build_index(page: Control, entries: Array[EntryData]) -> void:
 			groups.append(entry.page_group)
 	for group in groups:
 		var complete := Grimoire.is_group_complete(chapter.id, group)
-		page.add_child(BookStyle.label("BOOK_GROUP_" + group.to_upper(), BookStyle.GOLD_DARK if complete else BookStyle.INK))
+		# Name links, Belohnung knapp rechts daneben (ganzer Satz als Tooltip):
+		# Eine eigene Zeile pro Belohnung ließ die Seite ab vier Gruppen
+		# überlaufen, auf Deutsch deutlich.
+		var row := HBoxContainer.new()
+		row.custom_minimum_size.x = text_width
+		row.add_child(BookStyle.label("BOOK_GROUP_" + group.to_upper(), BookStyle.GOLD_DARK if complete else BookStyle.INK))
 		var reward := _group_reward(group)
 		if reward and not complete:
-			page.add_child(BookStyle.label(tr("BOOK_PAGE_REWARD") % SpreadDiscipline.reward_text(reward), BookStyle.INK_FAINT, text_width))
+			var gap := Control.new()
+			gap.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			row.add_child(gap)
+			var reward_label := BookStyle.label(SpreadDiscipline.reward_text(reward), BookStyle.INK_FAINT)
+			reward_label.tooltip_text = tr("BOOK_PAGE_REWARD") % SpreadDiscipline.reward_text(reward)
+			reward_label.mouse_filter = Control.MOUSE_FILTER_PASS
+			row.add_child(reward_label)
+		page.add_child(row)
 		var grid := GridContainer.new()
 		grid.columns = COLUMNS
 		grid.add_theme_constant_override("h_separation", 4)
