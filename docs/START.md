@@ -53,4 +53,6 @@ Gilt bei Widersprüchen: das neuere Dokument. `welt_und_items.md` (16.10.) vor `
 - `docs/art/`: Palette `hexen_palette.gpl`, Grafik-Generatoren (Python), Referenzen und Vorschauen
 - `tools/world_builder/`: Builder und Baupläne
 - Debug-Tasten: F3–F5 Grimoire, F7 Höhen-Test, F8 Seewald v2
+- `tools/qa/`: Screenshots aus dem laufenden Spiel ohne Bildschirm (`shot.sh`, unter Xvfb)
+- `DEV_PROGRESS.md` (im Projektordner): Protokoll der selbstständigen Iterationen
 - `tests/`: Tests im Repo (Hilfsskripte in `tests/helpers/`), headless mit `godot --headless --script res://tests/run_tests.gd`. In der Cloud vorher `bash tools/setup_godot.sh` (Details: `CLAUDE.md` Abschnitt 13). Ältere Prüfskripte (Schritte 1–6) lagen nicht im Repo.

@@ -2,6 +2,11 @@
 
 [ext_resource type="PackedScene" path="res://scenes/npcs/npc.tscn" id="1_npc"]
 [ext_resource type="Resource" path="res://data/npcs/gnarl.tres" id="2_data"]
+[ext_resource type="Script" path="res://scripts/systems/night_light.gd" id="3_light"]
+[ext_resource type="Texture2D" path="res://assets/effects/lights/light_round_64.png" id="4_light_texture"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_unshaded"]
+light_mode = 1
 
 [node name="Gnarl" instance=ExtResource("1_npc")]
 data = ExtResource("2_data")
@@ -30,3 +35,93 @@ offset_top = -32.0
 offset_right = 5.0
 offset_bottom = -29.0
 color = Color(0.76, 0.19, 0.48, 1)
+
+[node name="CapTip" type="ColorRect" parent="Figure"]
+offset_left = -3.0
+offset_top = -35.0
+offset_right = 3.0
+offset_bottom = -32.0
+mouse_filter = 2
+color = Color(0.76, 0.19, 0.48, 1)
+
+[node name="CapPoint" type="ColorRect" parent="Figure"]
+offset_left = 1.0
+offset_top = -38.0
+offset_right = 4.0
+offset_bottom = -35.0
+mouse_filter = 2
+color = Color(0.76, 0.19, 0.48, 1)
+
+[node name="Beard" type="ColorRect" parent="Figure"]
+offset_left = -5.0
+offset_top = -25.0
+offset_right = 5.0
+offset_bottom = -18.0
+mouse_filter = 2
+color = Color(0.62, 0.52, 0.4, 1)
+
+[node name="BeardTip" type="ColorRect" parent="Figure"]
+offset_left = -2.0
+offset_top = -18.0
+offset_right = 2.0
+offset_bottom = -15.0
+mouse_filter = 2
+color = Color(0.62, 0.52, 0.4, 1)
+
+[node name="EyeLeft" type="ColorRect" parent="Figure"]
+offset_left = -3.0
+offset_top = -28.0
+offset_right = -1.0
+offset_bottom = -27.0
+mouse_filter = 2
+color = Color(0.917647, 0.87451, 0.796078, 1)
+
+[node name="EyeRight" type="ColorRect" parent="Figure"]
+offset_left = 1.0
+offset_top = -28.0
+offset_right = 3.0
+offset_bottom = -27.0
+mouse_filter = 2
+color = Color(0.917647, 0.87451, 0.796078, 1)
+
+[node name="KnifeHandle" type="ColorRect" parent="Figure"]
+offset_left = 7.0
+offset_top = -12.0
+offset_right = 9.0
+offset_bottom = -8.0
+mouse_filter = 2
+color = Color(0.168627, 0.0862745, 0.2, 1)
+
+[node name="KnifeBlade" type="ColorRect" parent="Figure"]
+offset_left = 7.0
+offset_top = -17.0
+offset_right = 8.0
+offset_bottom = -12.0
+mouse_filter = 2
+color = Color(0.917647, 0.87451, 0.796078, 1)
+
+[node name="Candle" type="ColorRect" parent="Figure"]
+offset_left = -13.0
+offset_top = -6.0
+offset_right = -10.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.917647, 0.87451, 0.796078, 1)
+
+[node name="CandleFlame" type="ColorRect" parent="Figure"]
+material = SubResource("CanvasItemMaterial_unshaded")
+offset_left = -12.0
+offset_top = -9.0
+offset_right = -11.0
+offset_bottom = -6.0
+mouse_filter = 2
+color = Color(1, 0.709804, 0.4, 1)
+
+[node name="CandleLight" type="PointLight2D" parent="Figure"]
+position = Vector2(-11, -8)
+color = Color(1, 0.709804, 0.4, 1)
+texture = ExtResource("4_light_texture")
+texture_scale = 1.1
+script = ExtResource("3_light")
+base_energy = 0.9
+flicker = 0.15
