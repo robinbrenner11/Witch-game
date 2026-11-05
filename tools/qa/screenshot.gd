@@ -12,7 +12,8 @@ extends SceneTree
 ##
 ## scene=res://… nimmt statt des Spiels eine andere Szene (z. B. den Titel).
 ## lang=de stellt die Sprache um. garden=demo pflanzt Beete mit allen Pflanzen,
-## brew=1 öffnet das Brau-Fenster, message=SCHLÜSSEL zeigt eine Meldung.
+## brew=1 öffnet das Brau-Fenster, message=SCHLÜSSEL zeigt eine Meldung,
+## press=aktion,… drückt Tasten, say=SCHLÜSSEL zeigt eine Zeile in der Dialogbox.
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -67,6 +68,18 @@ func _initialize() -> void:
 		book.open(String(args["book"]))
 	if args.has("message"):
 		root.get_node("Messages").post(TranslationServer.translate(String(args["message"])))
+	# press=inventory,ui_cancel drückt Tasten (Aktionen) nacheinander.
+	for action in String(args.get("press", "")).split(",", false):
+		for pressed in [true, false]:
+			var event := InputEventAction.new()
+			event.action = action
+			event.pressed = pressed
+			root.push_input(event)
+			await process_frame
+	# say=SCHLÜSSEL zeigt eine Zeile in der Dialogbox (Sprecher: Nachtwächter).
+	if args.has("say"):
+		var lines: Array[String] = [String(args["say"])]
+		root.get_tree().get_first_node_in_group("dialogue_box").show_lines("NPC_WATCHMAN", lines)
 	if args.has("brew"):
 		root.get_tree().get_first_node_in_group("brew_window").open()
 	await _shoot(args)
