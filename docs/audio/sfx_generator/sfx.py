@@ -912,6 +912,18 @@ def book_pickup(rng):
     return add_reverb(lp(out, 6500), rng, wet=0.3, sec=1.5, decay=0.6)
 
 
+def level_up(rng):
+    """Eine Disziplin steigt auf: aufsteigende Glöckchen in D-dorisch über
+    einem warmen Akkord, kurz und hell, wie ein kleiner Lichtschein."""
+    sec = 1.4
+    n = int(SR * sec)
+    out = 0.25 * pad((D4, A4, D5), sec, rng, attack=0.08, tau=0.5)
+    for i, freq in enumerate((D5, F5, A5, D6)):
+        place(out, bell(freq, 0.9, rng, tau=0.35), 0.02 + i * 0.09, 0.28 - i * 0.03)
+    place(out, glass_hit(A6, rng, tau=0.12, sec=0.5), 0.36, 0.12)
+    return add_reverb(lp(out, 7500), rng, wet=0.28, sec=1.2, decay=0.45)
+
+
 def travel(rng):
     """Ortswechsel beim Abblenden: weicher Luftzug."""
     sec = 1.0
@@ -1098,6 +1110,7 @@ _add("ui/item_pick", ui_item_pick, level=-6)
 _add("ui/item_drop", ui_item_drop, level=-6)
 _add("ui/item_get", ui_item_get, level=-2, max_sec=0.55)
 _add("ui/denied", ui_denied, level=-4)
+_add("ui/level_up", level_up, level=-1, max_sec=1.6)
 
 _add("world/night_ambience_loop", night_ambience_loop, loop=True, level=-6)
 _add("world/forest_ambience_loop", forest_ambience_loop, loop=True, level=-6)
