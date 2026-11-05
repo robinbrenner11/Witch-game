@@ -197,4 +197,5 @@ Legende in den Design-Dokumenten: ✅ entschieden · 💡 Idee von Robin, späte
 - Alle Tests: `godot --headless --script res://tests/run_tests.gd`, eine Datei: `… -- test_smoke`. Exit-Code 0 = grün.
 - Tests liegen **im Repo** in `tests/test_<thema>.gd` und erben von `TestCase` (`check()`, `check_eq()`). Für jede neue Funktion die Prüfungen als Testdatei dazulegen, nicht als Wegwerf-Skript.
 - `test_smoke` prüft bei jeder Änderung: alles lädt, Verweise stimmen, Texte vollständig (en/de, keine Doppelten), Items und Rezepte passen zusammen.
-- Was sich headless nicht prüfen lässt (Aussehen, Spielgefühl), unter „Zum Testen“ für mich aufschreiben.
+- Aussehen prüfen ohne Bildschirm: `bash tools/qa/shot.sh out=<png> level=… pos=x,y hour=… flags=… items=… book=…` rendert das Spiel unter Xvfb und speichert einen Screenshot (Details in `tools/qa/screenshot.gd`).
+- Was sich so nicht prüfen lässt (Spielgefühl, Ton, Steuerung), unter „Zum Testen“ für mich aufschreiben.
