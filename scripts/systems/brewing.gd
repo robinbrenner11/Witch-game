@@ -34,6 +34,8 @@ var _brewing: Array[String] = []
 # (Boni aus dem Grimoire können mehr als einen ergeben).
 var _finished: String = ""
 var _finished_count := 1
+# Gemerktes Rezept (Ergebnis-ID), das HUD zeigt seine Zutaten (RecipePin).
+var pinned := ""
 
 
 func _ready() -> void:
@@ -59,6 +61,9 @@ func can_start() -> bool:
 
 func start(ingredients: Array[String]) -> void:
 	_brewing = ingredients.duplicate()
+	# Gemerktes Rezept angesetzt: Ziel erreicht, der Merker verschwindet.
+	if pinned != "" and RecipeData.result_for(ingredients) == pinned:
+		pinned = ""
 	changed.emit()
 
 
@@ -102,13 +107,26 @@ func learn(ingredients: Array[String], result_item_id: String) -> void:
 	_known[_key(ingredients)] = result_item_id
 
 
+## Ein Rezept merken (oder mit derselben ID wieder vergessen).
+func toggle_pin(result_item_id: String) -> void:
+	pinned = "" if pinned == result_item_id else result_item_id
+	changed.emit()
+
+
+func pinned_recipe() -> RecipeData:
+	for recipe in RecipeData.all():
+		if recipe.result_item_id == pinned:
+			return recipe
+	return null
+
+
 ## Neues Spiel: leerer Kessel, nichts bekannt, Startkapazität.
 func reset() -> void:
 	load_save_data({})
 
 
 func get_save_data() -> Dictionary:
-	return {"known": _known, "brewing": _brewing, "finished": _finished, "finished_count": _finished_count, "counts": _brew_counts}
+	return {"known": _known, "brewing": _brewing, "finished": _finished, "finished_count": _finished_count, "counts": _brew_counts, "pinned": pinned}
 
 
 func load_save_data(data: Dictionary) -> void:
@@ -133,6 +151,9 @@ func load_save_data(data: Dictionary) -> void:
 		push_warning("Spielstand: unbekannter Trank %s im Kessel entfernt" % _finished)
 		_finished = ""
 	_finished_count = int(data.get("finished_count", 1))
+	pinned = String(data.get("pinned", ""))
+	if pinned != "" and pinned_recipe() == null:
+		pinned = ""
 	_brew_counts.clear()
 	var counts: Dictionary = data.get("counts", {})
 	for key in counts:

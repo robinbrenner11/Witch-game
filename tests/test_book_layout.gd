@@ -79,3 +79,33 @@ func test_every_entry_fits_fully_revealed() -> void:
 	book.close()
 	book.queue_free()
 	await tree.process_frame
+
+
+## Jede Rezeptseite passt ganz bekannt, mit Merken-Knopf und (am Kessel)
+## „Brau das“, auf Englisch und Deutsch.
+func test_every_recipe_fits_with_buttons() -> void:
+	for recipe in RecipeData.all():
+		Brewing.learn(recipe.ingredients, recipe.result_item_id)
+	var book := (load("res://scenes/ui/grimoire_book.tscn") as PackedScene).instantiate() as GrimoireBook
+	tree.root.add_child(book)
+	await tree.process_frame
+	book.open("cover")
+	book.opened_from_cauldron = true
+	var room := BookStyle.RIGHT_PAGE.size.y - BookStyle.PAGE_MARGIN * 2 - NUMBER_SPACE
+	var old_locale := TranslationServer.get_locale()
+	for locale in ["en", "de"]:
+		TranslationServer.set_locale(locale)
+		book.go_to("recipes")
+		var spread := book._current_spread()
+		for recipe in RecipeData.all():
+			spread.selected = recipe
+			book.refresh()
+			await tree.process_frame
+			await tree.process_frame
+			var boxes := book._pages.get_children().filter(func(n: Node) -> bool: return n is VBoxContainer)
+			var needed: float = (boxes[1] as VBoxContainer).get_combined_minimum_size().y
+			check(needed <= room, "%s (%s): %d px > %d px" % [recipe.result_item_id, locale, needed, room])
+	TranslationServer.set_locale(old_locale)
+	book.close()
+	book.queue_free()
+	await tree.process_frame

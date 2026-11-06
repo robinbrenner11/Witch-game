@@ -64,7 +64,7 @@ Behalten aus dem alten Buch:
 - ✅ Rechte Seite: Zutaten mit Bestand (`2/1`, fehlende rot), Ergebnis, Trankart, Wirkung, „Brewed 2x“, beste Qualität (Sterne), Vesperas Randnotiz.
 - ✅ **Klick auf eine Zutat springt zum Herbarium-Eintrag** (Fundort). Fehlende Zutat wird als Link angezeigt („Missing: Nightshade >“).
 - ✅ Im **Brau-Fenster** öffnet ein Knopf das Rezeptbuch; **„Brew this“** legt die Zutaten automatisch in den Kessel. Experimentieren von Hand bleibt möglich.
-- 💡 **Rezept merken (Pin):** zeigt klein im HUD, welche Zutaten fehlen.
+- ✅ 06.11. **Rezept merken (Pin):** Knopf „Rezept merken“ auf jeder bekannten Rezeptseite; rechts oben unter Uhr und Mond stehen dann Trank und Zutaten mit Bestand (fehlende rot, alles da = Trank golden). Gespeichert (`Brewing.pinned`), verschwindet beim Ansetzen genau dieses Rezepts, ausgeblendet bei offenem Buch/Fenster. `scripts/ui/recipe_pin.gd`
 
 ### Digitalis
 - ✅ Links Raster der Formen (Staff, Sickle, Thornwhip, Rootmaul). Unbekannte Formen als Silhouette mit Hinweis (z. B. „Gnarl knows more.“).
