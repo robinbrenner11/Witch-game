@@ -53,7 +53,7 @@ func _sleep(player: Player) -> void:
 	var dream := Grimoire.take_pending_dream()
 	# Erst nach dem Wachstum über Nacht speichern, damit der Stand zum
 	# Aufwachen passt.
-	SaveGame.save_game()
+	var saved := SaveGame.save_game()
 	if lines.is_empty():
 		await get_tree().create_timer(DARK_TIME).timeout
 	else:
@@ -73,5 +73,7 @@ func _sleep(player: Player) -> void:
 	player.show()
 	player.set_controls_enabled(true)
 	_sleeping = false
+	if not saved:
+		Messages.deny(tr("MSG_SAVE_FAILED"))
 	# Bewusst kein Text am Morgen: Was über den Tag passiert ist, soll man
 	# selbst im Garten entdecken. Die Bilanz davor zeigt nur die vergangene Nacht.

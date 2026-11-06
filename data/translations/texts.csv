@@ -691,3 +691,7 @@ RING_TRAVEL_TO,To the %s,Zum %s
 RING_STAY,Stay,Bleiben
 RING_GARDEN,garden,Garten
 RING_FOREST,deep woods,tiefen Wald
+BEAST_BLOOM_HEART,Bloom Heart,Blütenherz
+BEAST_BLOOM_HEART_2,"Cleansed, it is only a pale husk. Something warm still glows inside.","Gereinigt ist es nur noch eine bleiche Hülle. Darin glimmt noch etwas Warmes."
+STAT_WARD_HEALTH,+%d max health,+%d Lebenspunkte
+MSG_SAVE_FAILED,Saving failed. Your game was not saved.,Speichern fehlgeschlagen. Der Spielstand wurde nicht gesichert.

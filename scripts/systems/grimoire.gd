@@ -633,6 +633,9 @@ func get_save_data() -> Dictionary:
 		"upgrades": _upgrades.duplicate(),
 		"dreams_pending": _dreams_pending.duplicate(), "dreams_seen": _dreams_seen.duplicate(),
 		"witch_name": witch_name,
+		# Abschwächung bei Wiederholung gilt pro Nacht, auch über Speichern
+		# hinweg (sonst setzt Fortsetzen sie zurück).
+		"repeats": _repeats.duplicate(), "repeats_day": DayCycle.day,
 	}
 
 
@@ -673,5 +676,11 @@ func load_save_data(data: Dictionary) -> void:
 			# Unbekanntes (entfernte Formen) fällt weg.
 			if DigitalisForm.from_id(String(target_id)) != null or UPGRADE_TOOLS.has(String(target_id)):
 				_upgrades[String(target_id)] = maxi(int(upgrades[target_id]), 1)
+	# Nur zurücksetzen, wenn der Stand aus einer anderen Nacht stammt. DayCycle
+	# ist zu diesem Zeitpunkt schon geladen (SaveGame._apply).
 	_repeats.clear()
+	var repeats: Variant = data.get("repeats", {})
+	if repeats is Dictionary and int(data.get("repeats_day", -1)) == DayCycle.day:
+		for action in repeats:
+			_repeats[String(action)] = maxi(int(repeats[action]), 0)
 	changed.emit()

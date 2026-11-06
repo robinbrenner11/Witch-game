@@ -11,6 +11,10 @@ Stand: 03.11.2026. Aufgabenliste für Sessions, die ohne Robin laufen (Regeln: `
 
 _(leer, siehe „Vorschläge“)_
 
+## Erledigt aus der Code-Prüfung (06.11.)
+
+Alle fünf Befunde der externen Prüfung behoben und getestet (`tests/test_save_robustness.gd`), Details in `DEV_PROGRESS.md` Zeile 47. Noch offen aus derselben Prüfung (Vorschläge, nicht dringend): CI-Workflow, der die Tests bei jedem Push laufen lässt; Platzhalter-Zeichnungen aus Gameplay-Skripten lösen (Käfer, Grimoire), wenn die echten Grafiken kommen.
+
 ## Wartet auf Robin
 
 - ❓ **Hexenpfade ohne Wirkung:** „Mondblut“ (`rare_variants`, seltene Varianten) und „Pfadfinderin“ (`pathfinder`, Abkürzungen) versprechen etwas, das es noch nicht gibt. („Seitenfinderin“ wirkt seit 06.11.: Der lange Schatten zeigt in jeder Mondphase auf lose Seiten.) Bauen (eigene Systeme) oder den Kartentext vorerst ehrlich machen („… sobald es … gibt“, wie bei Potenz und Qualität)?

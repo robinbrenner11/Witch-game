@@ -102,11 +102,13 @@ func _on_witch_defeated() -> void:
 	player.facing = Vector2.DOWN
 	player.camera.reset_smoothing()
 	DayCycle.sleep_until_night(SUN_WAKE_TIME if by_sun else DayCycle.NIGHT_START)
-	SaveGame.save_game()
+	var saved := SaveGame.save_game()
 	await get_tree().create_timer(1.0).timeout
 	await ScreenFade.fade_in()
 	player.set_controls_enabled(true)
 	_travelling = false
+	if not saved:
+		Messages.deny(tr("MSG_SAVE_FAILED"))
 	if by_sun:
 		Messages.post(tr("MSG_SUN_COLLAPSE"))
 	elif lost.is_empty():
