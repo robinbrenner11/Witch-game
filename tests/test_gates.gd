@@ -62,3 +62,26 @@ func test_lakewood_gates_have_looks() -> void:
 				check(look.find_children("*", "ColorRect").is_empty(), "%s/%s ohne Farbflächen" % [gate_name, state])
 	check(lakewood.get_node("MoonBridge/Closed/Glimmer") is Shimmer, "Geschlossener Mondsteg schimmert")
 	lakewood.free()
+
+
+## Am Höhlenspalt (S2) und in der Höhle tropft es hörbar, aber nur in Hörweite.
+func test_cave_drips() -> void:
+	var lakewood := (load("res://scenes/world/lakewood.tscn") as PackedScene).instantiate()
+	check(lakewood.get_node_or_null("CaveGate/Drips") is DripSounds, "Spalt hat Tropfen")
+	lakewood.free()
+	var cave := (load("res://scenes/world/waterfall_cave.tscn") as PackedScene).instantiate()
+	check(not cave.find_children("*", "", true, false).filter(func(n: Node) -> bool: return n is DripSounds).is_empty(), "Höhle tropft")
+	cave.free()
+	check(Sfx._find_variants("world/cave_drip").size() == 3, "Drei Tropfen-Varianten")
+	var drips := DripSounds.new()
+	tree.root.add_child(drips)
+	var player := Node2D.new()
+	player.add_to_group("player")
+	tree.root.add_child(player)
+	player.global_position = Vector2(1000, 0)
+	check(not drips.player_in_range(), "Weit weg: still")
+	player.global_position = Vector2(100, 0)
+	check(drips.player_in_range(), "Nah dran: tropft")
+	drips.queue_free()
+	player.queue_free()
+	await tree.process_frame

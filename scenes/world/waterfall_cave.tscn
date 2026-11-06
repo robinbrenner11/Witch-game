@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/exit.tscn" id="r3"]
 [ext_resource type="Script" path="res://scripts/world/wild_growth.gd" id="r4"]
 [ext_resource type="PackedScene" path="res://scenes/world/wild/cave_crystal.tscn" id="r5"]
+[ext_resource type="Script" path="res://scripts/world/drip_sounds.gd" id="d1"]
 
 [node name="WaterfallCave" type="Node2D" unique_id=1374307624]
 script = ExtResource("r1")
@@ -52,6 +53,20 @@ regrow = 3
 terrains = Array[int]([4])
 area = Rect2(96, 128, 576, 224)
 clearance = 40.0
+
+[node name="DripsWest" type="Node2D" parent="."]
+position = Vector2(200, 170)
+script = ExtResource("d1")
+hearing_distance = 420.0
+min_wait = 2.0
+max_wait = 5.0
+
+[node name="DripsEast" type="Node2D" parent="."]
+position = Vector2(560, 250)
+script = ExtResource("d1")
+hearing_distance = 420.0
+min_wait = 2.5
+max_wait = 6.0
 
 [node name="ToOutside" parent="." unique_id=1720679242 instance=ExtResource("r3")]
 position = Vector2(384, 432)

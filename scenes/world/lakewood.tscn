@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" path="res://assets/environment/gates/swamp_vines_open.png" id="g2"]
 [ext_resource type="Texture2D" path="res://assets/environment/gates/moon_bridge.png" id="g3"]
 [ext_resource type="Script" path="res://scripts/world/shimmer.gd" id="g4"]
+[ext_resource type="Script" path="res://scripts/world/drip_sounds.gd" id="g7"]
 [ext_resource type="Texture2D" path="res://assets/effects/lights/light_round_64.png" id="g5"]
 [ext_resource type="Script" path="res://scripts/systems/night_light.gd" id="g6"]
 [ext_resource type="TileSet" path="res://assets/environment/cliffs/cliff_tileset.tres" id="3_voatl"]
@@ -245,6 +246,9 @@ script = ExtResource("r9")
 active_effects = Array[String](["wisp", "moonlight"])
 locked_message = "MSG_TOO_DARK"
 look_message = "LOOK_CAVE_SLIT"
+
+[node name="Drips" type="Node2D" parent="CaveGate"]
+script = ExtResource("g7")
 
 [node name="MoonBridge" type="StaticBody2D" parent="." unique_id=1638053942]
 position = Vector2(576, 400)
