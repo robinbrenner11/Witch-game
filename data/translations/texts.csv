@@ -653,3 +653,22 @@ DLG_GNARL_SMALLTALK,The roots hum tonight. Not a good hum.,Die Wurzeln summen he
 DLG_GNARL_UPGRADED_STAFF,"There. The crystal sits deep now. Your strong spell will not stop at the first beetle.","So. Der Kristall sitzt jetzt tief. Dein starker Zauber hält nicht mehr am ersten Käfer an."
 DLG_GNARL_UPGRADED_SICKLE,"The bud's bitterness is in the blade. It knows the vines now, and they know it.","Die Bitterkeit der Knospe steckt in der Klinge. Sie kennt jetzt die Ranken, und die Ranken kennen sie."
 DLG_GNARL_UPGRADED_CAULDRON,"A crystal ring round the rim. Four will fit now. Do not ask me what to put in.","Ein Kristallring um den Rand. Jetzt passen vier hinein. Frag mich nicht, was."
+MSG_CREATURE_DISCOVERED,New in the bestiary: %s.,Neu im Bestiarium: %s.
+BEAST_BLIGHT_BEETLE_1,"A beetle with a bitterbloom on its back. It pauses, then charges.","Ein Käfer mit einer Bitterblüte auf dem Rücken. Er hält inne, dann rennt er los."
+BEAST_BLIGHT_BEETLE_2,"Before it charges, a trail lights up on the ground. Step aside, then strike.","Bevor er losrennt, leuchtet eine Spur am Boden auf. Zur Seite treten, dann zuschlagen."
+BEAST_BLIGHT_BEETLE_3,"Cleansed, it scuttles off and leaves a bitterbloom petal behind.",Gereinigt krabbelt er davon und lässt ein Bitterblütenblatt zurück.
+BEAST_BLIGHT_BEETLE_HORNED_1,"A thicker shell and two horns. It charges twice in a row.",Dickerer Panzer und zwei Hörner. Er rennt zweimal hintereinander los.
+BEAST_BLIGHT_BEETLE_HORNED_2,It comes out mostly when the moon is gone.,"Er kommt vor allem, wenn der Mond fehlt."
+BEAST_BLIGHT_BEETLE_HORNED_3,Sometimes a bloom bud falls from its shell.,Manchmal fällt eine Blütenknospe von seinem Panzer.
+NIGHTLOG_TITLE,Night %d · %s,Nacht %d · %s
+NIGHTLOG_GATHERED,Gathered: %s,Gesammelt: %s
+NIGHTLOG_BREWED,Brewed: %s,Gebraut: %s
+NIGHTLOG_PLANTED,Planted: %d seeds,Gepflanzt: %d Samen
+NIGHTLOG_CLEANSED,Cleansed: %d blighted creatures,Gereinigt: %d befallene Wesen
+NIGHTLOG_MET,Spoke with: %s,Gesprochen mit: %s
+NIGHTLOG_DISCOVERED,New in the grimoire: %s,Neu im Grimoire: %s
+NIGHTLOG_PAGES,loose pages ×%d,lose Seiten ×%d
+NIGHTLOG_XP,Grew in: %s,Gewachsen in: %s
+NIGHTLOG_LEVEL,(level %d),(Stufe %d)
+NIGHTLOG_MORE,and %d more,und %d weitere
+NIGHTLOG_CONTINUE,%s  Sleep,%s  Schlafen

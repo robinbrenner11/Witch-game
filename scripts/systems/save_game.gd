@@ -39,6 +39,7 @@ func new_game() -> void:
 	WorldState.reset()
 	# Nach DayCycle, damit die ersten Zettel zu Nacht 1 gehören.
 	Requests.reset()
+	NightLog.reset()
 
 
 ## Alles, was gespeichert wird, als ein Dictionary (so landet es als JSON in
@@ -139,6 +140,7 @@ func _apply(data: Dictionary) -> void:
 	WorldState.load_save_data(data.get("world", {}))
 	# Ältere Spielstände haben noch keine Gesuche: dann hängen neue Zettel.
 	Requests.load_save_data(data.get("requests", {}))
+	NightLog.reset()
 
 
 ## Benennt from in to um und ersetzt dabei eine vorhandene Datei.
