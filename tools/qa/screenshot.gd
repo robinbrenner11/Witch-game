@@ -17,7 +17,7 @@ extends SceneTree
 ## interact=Pfad/im/Ort löst E an diesem Objekt aus, spawn=szene@x,y;… setzt Szenen,
 ## freeze=0.3 hält eingesetzte Käfer im Innehalten vor dem Anlauf fest,
 ## call=Pfad:methode:arg ruft eine Methode an einem Node unter main.tscn auf.
-## day=N stellt die Nacht ein (und damit die Mondphase).
+## map=1 zeigt den ganzen Ort auf einmal. day=N stellt die Nacht ein (und damit die Mondphase).
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -85,6 +85,18 @@ func _initialize() -> void:
 			node._notice(0.45, main.player.global_position - node.global_position)
 			node._timer = float(args["freeze"])
 			node.set_physics_process(false)
+	# map=1 zeigt den ganzen Ort auf einmal (Überblick für Leveldesign),
+	# ohne HUD-Rücksicht; die Nachtfärbung bleibt.
+	if args.has("map"):
+		var rect: Rect2 = main.level.pixel_rect()
+		var cam: Camera2D = main.player.camera
+		for side in ["limit_left", "limit_top", "limit_right", "limit_bottom"]:
+			cam.set(side, 10000000 if side in ["limit_right", "limit_bottom"] else -10000000)
+		var view := Vector2(main.get_viewport().get_visible_rect().size)
+		var fit := minf(view.x / rect.size.x, view.y / rect.size.y)
+		cam.zoom = Vector2(fit, fit)
+		main.player.global_position = rect.get_center()
+		cam.position_smoothing_enabled = false
 	main.player.camera.reset_smoothing()
 	if args.has("book"):
 		grimoire.has_book = true
