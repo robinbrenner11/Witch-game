@@ -595,6 +595,9 @@ func get_save_data() -> Dictionary:
 		"completed_groups": _completed_groups, "claimed": _claimed, "forms": _forms,
 		"upgrades": _upgrades.duplicate(),
 		"witch_name": witch_name,
+		# Abschwächung bei Wiederholung gilt pro Nacht, auch über Speichern
+		# hinweg (sonst setzt Fortsetzen sie zurück).
+		"repeats": _repeats.duplicate(), "repeats_day": DayCycle.day,
 	}
 
 
@@ -624,5 +627,11 @@ func load_save_data(data: Dictionary) -> void:
 	if upgrades is Dictionary:
 		for target in upgrades:
 			_upgrades[String(target)] = maxi(int(upgrades[target]), 1)
+	# Nur zurücksetzen, wenn der Stand aus einer anderen Nacht stammt. DayCycle
+	# ist zu diesem Zeitpunkt schon geladen (SaveGame._apply).
 	_repeats.clear()
+	var repeats: Variant = data.get("repeats", {})
+	if repeats is Dictionary and int(data.get("repeats_day", -1)) == DayCycle.day:
+		for action in repeats:
+			_repeats[String(action)] = maxi(int(repeats[action]), 0)
 	changed.emit()

@@ -74,6 +74,9 @@ func select_next() -> void:
 	if ids.size() <= 1:
 		return
 	selected_id = ids[(ids.find(selected_id) + 1) % ids.size()]
+	# Wechsel mitten im Zielen: Zielen endet, sonst würde beim Loslassen die
+	# neue Sorte geworfen (auch ein Heiltrank) und der alte Kreis stünde noch.
+	_cancel_aim()
 	Sfx.play("ui/item_pick")
 	changed.emit()
 
@@ -149,7 +152,9 @@ func _throw() -> void:
 	var item := ItemData.from_id(selected_id)
 	var target := target_point()
 	_cancel_aim()
-	if item == null or not Inventory.remove(item.id):
+	# Nur Wurftränke fliegen; alles andere hat Standard-Wurfwerte, die nie
+	# wirken dürfen.
+	if item == null or item.use != ItemData.Use.THROW or not Inventory.remove(item.id):
 		return
 	var level := get_tree().get_first_node_in_group("level") as Level
 	if level == null:

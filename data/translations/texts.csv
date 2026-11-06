@@ -603,3 +603,4 @@ PATH_WARDING_HEXBLADE,Hexblade,Hexenklinge
 PATH_WARDING_HEXBLADE_DESC,Close-range strikes hit one point harder.,Hiebe aus der Nähe treffen einen Punkt härter.
 PATH_WARDING_HEXCASTER,Hexcaster,Hexenwirkerin
 PATH_WARDING_HEXCASTER_DESC,Witch power returns half again as fast.,Hexenkraft kehrt anderthalbmal so schnell zurück.
+MSG_SAVE_FAILED,Saving failed. Your game was not saved.,Speichern fehlgeschlagen. Der Spielstand wurde nicht gesichert.
