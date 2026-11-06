@@ -117,6 +117,13 @@ func apply_camera_limits(camera: Camera2D) -> void:
 
 
 ## Ausgang mit diesem Namen, oder null.
+## Ankunftsort beim Reisen: ein Ausgang oder alles andere mit
+## spawn_position() (z. B. ein Hexenring).
+func find_spawn(spawn_name: String) -> Node2D:
+	var node := find_child(spawn_name, true, false) as Node2D
+	return node if node and node.has_method("spawn_position") else null
+
+
 func find_exit(exit_name: String) -> Exit:
 	return find_child(exit_name, true, false) as Exit
 

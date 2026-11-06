@@ -49,9 +49,9 @@ func travel(scene_path: String, exit_name: String) -> void:
 	Sfx.play("world/travel")
 	await ScreenFade.fade_out()
 	_load_level(scene_path)
-	var exit := level.find_exit(exit_name)
+	var exit := level.find_spawn(exit_name)
 	if exit:
-		player.global_position = exit.spawn_position()
+		player.global_position = exit.call("spawn_position")
 	else:
 		push_warning("Ausgang %s gibt es in %s nicht" % [exit_name, scene_path])
 	player.camera.reset_smoothing()

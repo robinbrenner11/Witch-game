@@ -127,7 +127,7 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
   2. **Bewohner oder Funktion**: ein NPC, Händler oder Lehrer, eine Quelle für stärkere Tränke, ein Wildbeet.
   3. **Mondereignis**, das nur dort passiert.
   4. **Kompendium-Einträge**, nur dort und nur in bestimmten Mondphasen.
-  5. **Hexenring als Schnellreise**, der durch die Heilung erwacht.
+  5. **Hexenring als Schnellreise**, der durch die Heilung erwacht. ✅ 06.11.: Ringe im tiefen Wald und im Garten (neben dem Unterschlupf) erwachen mit dem ersten Blütenherz; E am Ring wählt das Ziel. Netz als Daten in `scripts/world/witch_ring.gd` (`NETWORK`), neue Ringe = Eintrag + Szene `scenes/world/witch_ring.tscn` im Ort.
   6. **Kleine Rückfälle** bei Neumond: optional, kurz, mit verdorbenen Zutaten.
   7. **Pflegen**: Mit ausgebrachter Wildsaat wird das Gebiet über die Zeit reicher.
 

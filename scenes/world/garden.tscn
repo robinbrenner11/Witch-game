@@ -20,7 +20,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/hollow_tree.tscn" id="18_hollow_tree"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/mushroom_moon.tscn" id="19_7754p"]
 [ext_resource type="PackedScene" path="res://scenes/world/firefly.tscn" id="19_firefly"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/mushroom_ring.tscn" id="20_n07r5"]
+[ext_resource type="PackedScene" path="res://scenes/world/witch_ring.tscn" id="20_n07r5"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/lantern_post.tscn" id="33_r0opt"]
 [ext_resource type="TileSet" path="res://assets/environment/cliffs/cliff_tileset.tres" id="c_cliffs"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/tree_oak.tscn" id="d0_tree_oak"]
@@ -475,9 +475,9 @@ flip = true
 position = Vector2(1178, 296)
 flip = true
 
-[node name="MushroomRing_106" parent="Objects/Decor" unique_id=1320615364 instance=ExtResource("20_n07r5")]
+[node name="WitchRing_garden" parent="Objects" unique_id=1320615364 instance=ExtResource("20_n07r5")]
 position = Vector2(656, 600)
-flip = true
+ring_id = "garden"
 
 [node name="GrassTuft3_107" parent="Objects/Decor" unique_id=875590944 instance=ExtResource("t_tuft_3")]
 position = Vector2(598, 673)
