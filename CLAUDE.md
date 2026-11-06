@@ -22,13 +22,11 @@ Soll-Einstellungen in Godot (bei Abweichung kurz Bescheid sagen):
 
 Grundlegende technische Entscheidungen nicht stillschweigend ändern. Bei größeren Architekturentscheidungen kurz erklären: (1) Was ist das Problem? (2) Welche Lösung schlägst du vor? (3) Warum passt sie zu diesem Spiel?
 
-## 3. Über mich (wichtig für deine Erklärungen)
+## 3. Über mich
 
 - Ich kenne Python aus dem Studium, aber **kaum/keine Erfahrung mit Godot und GDScript**.
-- Ich will Godot und GDScript wirklich lernen, nicht nur fertigen Code bekommen.
-- Neue Godot-Konzepte (Nodes, Szenen, Signale, Groups, Resources usw.) beim ersten Auftreten kurz und verständlich erklären und sagen, warum wir sie brauchen.
-- Nicht jede offensichtliche Codezeile erklären. Erklärungen kurz halten.
-- Keine unnötig komplizierte Architektur.
+- Ich will gerade vor allem ausprobieren, was du kannst und wo deine Grenzen liegen. Neuen Code musst du mir nicht erklären; es reicht, was er im Spiel bewirkt.
+- Wenn eine Lösung eine komplexere Architektur braucht, ist das in Ordnung. Sie soll trotzdem nachvollziehbar bleiben.
 
 ## 4. Visuelle Identität (verbindlich)
 
@@ -75,6 +73,8 @@ Klein bauen, aber mit Zukunft:
 
 Für den Prototyp ist eine einfache Lösung okay. Wenn eine Entscheidung aber sehr wahrscheinlich später zu einem Rewrite führt, weise mich darauf hin.
 
+Diese Philosophie ist eine Richtung, keine Bremse: Wenn eine neue Funktion oder Technik großen Aufwand braucht, sich aber lohnt, dann bauen.
+
 ## 6. Ordnerstruktur
 
 ```text
@@ -89,7 +89,7 @@ Struktur darf wachsen, aber nicht für jede Kleinigkeit neue Ordner oder Abstrak
 
 ## 7. Code-Regeln
 
-- Idiomatisches, gut lesbares GDScript. Verständlich vor clever.
+- Idiomatisches GDScript. Es darf auch clever sein (z. B. Lambdas, typisierte Collections, Shader, Generatoren), solange es lesbar bleibt.
 - Keine Design Patterns nur um Patterns zu haben.
 - **Kommentare auf Deutsch**: erklären das *Warum*, ungewöhnliche Entscheidungen, wichtige Zusammenhänge. Keine Kommentare für Offensichtliches.
 - Code-Namen auf **Englisch** nach Godot-Konvention (`player_position`, `growth_stage`, `interact()`, `harvest()`), keine künstlich deutschen Variablennamen.
@@ -141,7 +141,7 @@ Zum Testen:
 
 5. Nach jedem funktionierenden Schritt committen (kurze deutsche Commit-Message).
 
-Größere Vorhaben immer in kleine, einzeln spielbare Schritte teilen und vorher kurz den Plan nennen.
+Bei größeren Vorhaben vorher kurz den Plan nennen. Sie müssen nicht in einzeln spielbare Schritte geteilt werden, wenn sie am Stück besser gelingen.
 
 ### Git und Branches
 
