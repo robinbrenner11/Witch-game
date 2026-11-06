@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="TradeOffer" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/trade_offer.gd" id="1_trade"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="Resource_upgrade"]
+script = ExtResource("2_reward")
+type = 7
+target_id = "cauldron"
+value = 2
+
+[resource]
+script = ExtResource("1_trade")
+id = "d_cauldron_2"
+wants_item = "cave_crystal"
+wants_amount = 3
+more_wants = Dictionary[String, int]({"willow_bark": 1})
+gives_item = ""
+gives_amount = 0
+reward = SubResource("Resource_upgrade")
+description_key = "UPGRADE_CAULDRON_2_DESC"
+requires_flags = Array[String](["gnarl_moved"])
+sets_flag = "gnarl_upgraded_cauldron"

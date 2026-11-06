@@ -60,8 +60,13 @@ func _check_hits() -> void:
 		if _in_arc(point, ENEMY_RADIUS):
 			_hit[id] = true
 			var push := (point - global_position).normalized()
-			enemy.take_hit(attack.damage, push * attack.knockback)
+			# Hexenpfad „Hexblade“: Nahkampf trifft härter.
+			enemy.take_hit(attack.damage + Grimoire.get_stat("hexblade"), push * attack.knockback)
 			CombatFx.sparks(get_parent(), point, attack.color, 8, 40.0)
+	if attack.cuts_vines:
+		for gate in get_tree().get_nodes_in_group("cuttable"):
+			if _in_arc((gate as Node2D).global_position, (gate as Gate).size.length() / 2.0):
+				(gate as Gate).on_cut()
 	if attack.cuts_wild:
 		for node in get_tree().get_nodes_in_group("wild"):
 			if node is Weed and _in_arc((node as Node2D).global_position + Vector2(0, -6), 6.0):

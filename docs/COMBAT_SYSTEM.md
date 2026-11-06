@@ -78,6 +78,18 @@ UI
 
 Die Sichel schneidet im Kampf Wildgras und Unkraut, das im Bogen steht (Ertrag wie beim Ernten). Leichte Hiebe schwingen abwechselnd von links und rechts.
 
+### Beute (05.11.2026)
+
+Jeder gereinigte Käfer lässt ein Bitterblütenblatt fallen. Seltene Beute zusätzlich über die Exporte `rare_drop_item` und `rare_drop_chance` am Käfer: Der Dornkäfer gibt mit 30 % eine Blütenknospe (Material für Sichel II und Reinigungsnebel). Dornkäfer kommen vor allem in der Neumond-Flut.
+
+### Upgrades bei Gnarl (03.11.2026)
+
+Höhere Stufen einer Form sind eigene Dateien: `data/digitalis/upgrades/<form>_<stufe>.tres` (Kopie der Grundform mit anderen Werten). `DigitalisForm.at_level(id, stufe)` lädt die passende Stufe, `Combat._refresh_forms()` fragt `Grimoire.upgrade_level(id)` und lädt neu, sobald sich das Grimoire ändert. Freigeschaltet wird über einen Tausch bei Gnarl mit `RewardData`-Typ `UPGRADE`.
+
+- **Stab II** (2× Höhlenkristall, 3× Bitterblütenblatt): Der starke Zauber durchschlägt einen Gegner (`AttackData.pierce = 1`) und platzt am nächsten. Wer durchschlagen wurde, bekommt beim Platzen keinen zweiten Treffer.
+- **Sichel II** (3× Glutmorchel, 2× Weidenrinde, 1× Blütenknospe): beide Hiebe schneiden ruhige Bitterblüten-Ranken (`AttackData.cuts_vines`). Ein `Gate` mit `cut_open` (Gruppe `cuttable`, Methode `on_cut()`) öffnet sich dann für immer; S4 im Seewald v2 geht so als zweiter Weg neben der Glutbombe.
+- **Kessel mit 4 Plätzen** (3× Höhlenkristall, 1× Weidenrinde): `Brewing.raise_capacity(4)`. Vierer-Rezepte gibt es noch keine (Akt 2).
+
 ### Formwechsel
 Sofort, ohne Wartezeit (Kombos erlaubt), mit 1–4 oder dem Mausrad. Ein laufendes Ausholen verfällt dabei. Kurzer Funke an der Spitze.
 
@@ -193,6 +205,11 @@ Nicht automatisch geprüft: wie sich der Kampf anfühlt (Tempo, Schwierigkeit) u
 - **Sichel in der Overworld**: Unkraut schneiden ohne Kampfmodus, mit eigener Bedienung (laut Design später getrennt vom Kampf).
 - **Weitere Gegner mit eigenem Telegraph**: eine befallene Pflanze, die Sporen spuckt (Kreis am Boden vor dem Einschlag); Motten im Schwarm, die nur bei Licht angreifen.
 - **Blütenherz (Boss)**: mehrere Phasen, jede mit eigenem, gut lesbarem Telegraph; darf fordernd sein.
+  - ✅ 06.11. **Erstes Blütenherz** (`scripts/world/bloom_heart.gd`, Turmruine): 36 Leben, erwacht bei Nähe (170 px) oder Treffer. Angriffe sind Bodenflächen (`BloomHazard`) mit pulsierendem Umriss, der sich füllt, dann Schlag (1 Schaden):
+    - Phase 1: Sporenkreise unter und neben der Hexe (alle 2,6 s, Warnung 1,1 s).
+    - Phase 2 (ab 2/3 Leben): abwechselnd Sporen und 6 Dornenstrahlen aus dem Herz; beim Wechsel zwei Käfer.
+    - Phase 3 (ab 1/3): 8 Strahlen plus Spore, schneller (1,7 s / 0,85 s); drei Schildknospen (`BloomBud`, je 3 Leben) kreisen ums Herz, solange eine lebt, nimmt es keinen Schaden.
+    - Gereinigt: Flag `bloom_heart_1_cleansed`, Blütennebel S5 für immer offen, Befall im tiefen Wald weg, dort neue Käfer nur noch bei Neumond, Schlüsselseite `page_journal_02` (Mother Blight), 3 Blütenknospen, Bestiarium-Eintrag, NPC-Reaktionen. Alle Werte sind Annahmen, nicht gespielt.
 - **Irrlicht hilft im Kampf** (Idee vom 09.10.): kleiner Funke auf nahe Gegner.
 - **Kleine Synergien statt Kombo-System**: z. B. ein gestaggerter Käfer nimmt von der Sichel +1 Schaden. Nur wenn es sich im Test lohnt.
 - **Weitere Wurftränke**: Reinigungsnebel, Giftwolke (aus der Kandidatenliste vom 10.10.).

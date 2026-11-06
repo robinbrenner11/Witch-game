@@ -44,6 +44,8 @@ func _on_body_entered(body: Node2D) -> void:
 	# "+1 …" meldet das Inventar selbst (Hotbar), hier nur der Klang.
 	if Inventory.add(item_id, amount):
 		Sfx.play("ui/item_get")
+		# Beute (z. B. Bitterblütenblatt) entdeckt so ihren Herbarium-Eintrag.
+		Grimoire.report("obtain", {"id": item_id})
 		queue_free()
 	else:
 		Messages.deny(tr("MSG_BAG_FULL"))

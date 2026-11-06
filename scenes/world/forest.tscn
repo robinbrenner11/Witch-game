@@ -1,5 +1,13 @@
 [gd_scene format=4]
 
+[ext_resource type="Script" path="res://scripts/world/gate.gd" id="s5_gate"]
+[ext_resource type="PackedScene" path="res://scenes/world/witch_ring.tscn" id="s5_ring"]
+[ext_resource type="Script" path="res://scripts/world/unlockable.gd" id="s5_unlockable"]
+[ext_resource type="Texture2D" path="res://assets/environment/gates/bloom_mist_1.png" id="s5_mist1"]
+[ext_resource type="Texture2D" path="res://assets/environment/gates/bloom_mist_2.png" id="s5_mist2"]
+[ext_resource type="Script" path="res://scripts/world/shimmer.gd" id="s5_shimmer"]
+[ext_resource type="Texture2D" path="res://assets/effects/lights/light_round_64.png" id="s5_light"]
+[ext_resource type="Script" path="res://scripts/systems/night_light.gd" id="s5_night_light"]
 [ext_resource type="Script" path="res://scripts/world/level.gd" id="1_level"]
 [ext_resource type="TileSet" path="res://assets/environment/ground/ground_tileset.tres" id="2_ground"]
 [ext_resource type="PackedScene" path="res://scenes/world/exit.tscn" id="3_exit"]
@@ -11,7 +19,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/loose_page.tscn" id="o10_loose_page"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/mushroom_ember.tscn" id="o11_mushroom_ember"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/mushroom_moon.tscn" id="o12_mushroom_moon"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/mushroom_ring.tscn" id="o13_mushroom_ring"]
 [ext_resource type="PackedScene" path="res://scenes/world/owl.tscn" id="o14_owl"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/rock_1.tscn" id="o15_rock_1"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/rock_2.tscn" id="o16_rock_2"]
@@ -35,6 +42,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/blight_beetle.tscn" id="k_beetle"]
 [ext_resource type="PackedScene" path="res://scenes/world/blight_beetle_horned.tscn" id="k_beetle_horned"]
 [ext_resource type="Script" path="res://scripts/world/blight_patch.gd" id="k_patch"]
+[ext_resource type="PackedScene" path="res://scenes/npcs/gnarl.tscn" id="n_gnarl"]
 
 [node name="Forest" type="Node2D"]
 script = ExtResource("1_level")
@@ -208,8 +216,9 @@ position = Vector2(606, 655)
 position = Vector2(455, 665)
 flip = true
 
-[node name="MushroomRing1" parent="Objects/Decor" instance=ExtResource("o13_mushroom_ring")]
+[node name="WitchRing_forest" parent="Objects" instance=ExtResource("s5_ring")]
 position = Vector2(224, 376)
+ring_id = "forest"
 
 [node name="Owl1" parent="Objects" instance=ExtResource("o14_owl")]
 position = Vector2(786, 497)
@@ -604,7 +613,11 @@ clearance = 28.0
 position = Vector2(578, 704)
 page_id = "page_journal_01"
 
-[node name="BlightPatch" type="Node2D" parent="."]
+[node name="BlightArea" type="Node2D" parent="."]
+script = ExtResource("s5_unlockable")
+hidden_by_flag = "bloom_heart_1_cleansed"
+
+[node name="BlightPatch" type="Node2D" parent="BlightArea"]
 position = Vector2(400, 560)
 script = ExtResource("k_patch")
 size = Vector2(320, 170)
@@ -624,6 +637,7 @@ area = Rect2(400, 560, 320, 170)
 clearance = 36.0
 surge_extra = 2
 surge_kinds = Array[PackedScene]([ExtResource("k_beetle"), ExtResource("k_beetle_horned")])
+blocked_by_flag = "bloom_heart_1_cleansed"
 
 [node name="ToLakewood" parent="." instance=ExtResource("3_exit")]
 position = Vector2(528, 16)
@@ -631,3 +645,50 @@ target_scene = "res://scenes/world/lakewood.tscn"
 target_exit = "ToForest"
 size = Vector2(96, 32)
 spawn_offset = Vector2(0, 52)
+
+[node name="BloomMist" type="StaticBody2D" parent="."]
+position = Vector2(560, 700)
+script = ExtResource("s5_gate")
+size = Vector2(128, 48)
+required_flag = "bloom_heart_1_cleansed"
+open_with_item = "potion_cleansing_mist"
+item_opens_tonight = true
+locked_message = "MSG_BLOOM_MIST"
+look_message = "LOOK_BLOOM_MIST"
+
+[node name="Closed" type="Node2D" parent="BloomMist"]
+z_index = 2
+
+[node name="MistA" type="Sprite2D" parent="BloomMist/Closed"]
+modulate = Color(1, 1, 1, 0.85)
+texture = ExtResource("s5_mist1")
+
+[node name="MistB" type="Sprite2D" parent="BloomMist/Closed"]
+texture = ExtResource("s5_mist2")
+script = ExtResource("s5_shimmer")
+min_alpha = 0.0
+max_alpha = 0.85
+period = 6.0
+
+[node name="Glow" type="PointLight2D" parent="BloomMist/Closed"]
+color = Color(0.760784, 0.188235, 0.478431, 1)
+texture = ExtResource("s5_light")
+texture_scale = 3.0
+script = ExtResource("s5_night_light")
+base_energy = 0.7
+flicker = 0.1
+
+[node name="ToTowerRuin" parent="." instance=ExtResource("3_exit")]
+position = Vector2(560, 816)
+target_scene = "res://scenes/world/tower_ruin.tscn"
+target_exit = "ToForest"
+size = Vector2(96, 32)
+spawn_offset = Vector2(0, -60)
+
+[node name="Spots" type="Node2D" parent="."]
+
+[node name="GnarlCamp" type="Marker2D" parent="Spots"]
+position = Vector2(368, 640)
+
+[node name="Gnarl" parent="Objects" instance=ExtResource("n_gnarl")]
+position = Vector2(368, 640)

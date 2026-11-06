@@ -64,13 +64,14 @@ Behalten aus dem alten Buch:
 - ✅ Rechte Seite: Zutaten mit Bestand (`2/1`, fehlende rot), Ergebnis, Trankart, Wirkung, „Brewed 2x“, beste Qualität (Sterne), Vesperas Randnotiz.
 - ✅ **Klick auf eine Zutat springt zum Herbarium-Eintrag** (Fundort). Fehlende Zutat wird als Link angezeigt („Missing: Nightshade >“).
 - ✅ Im **Brau-Fenster** öffnet ein Knopf das Rezeptbuch; **„Brew this“** legt die Zutaten automatisch in den Kessel. Experimentieren von Hand bleibt möglich.
-- 💡 **Rezept merken (Pin):** zeigt klein im HUD, welche Zutaten fehlen.
+- ✅ 06.11. **Rezept merken (Pin):** Knopf „Rezept merken“ auf jeder bekannten Rezeptseite; rechts oben unter Uhr und Mond stehen dann Trank und Zutaten mit Bestand (fehlende rot, alles da = Trank golden). Gespeichert (`Brewing.pinned`), verschwindet beim Ansetzen genau dieses Rezepts, ausgeblendet bei offenem Buch/Fenster. `scripts/ui/recipe_pin.gd`
 
 ### Digitalis
 - ✅ Links Raster der Formen (Staff, Sickle, Thornwhip, Rootmaul). Unbekannte Formen als Silhouette mit Hinweis (z. B. „Gnarl knows more.“).
 - ✅ Rechts: Form groß, Linksklick, Rechtsklick, Overworld-Nutzen, Upgrade-Stufe als Kerben, was Gnarl für die nächste Stufe braucht.
 
 ### People
+- **Umsetzungsstand 05.11.2026:** Einträge wie im Herbarium (`data/grimoire/entries/people_<npc>.tres`, `chapter = "people"`), entdeckt beim ersten Gespräch (`talk/<npc>`), drei Eindrücke in der Tinte der Spielerin, die sich nach 3 und 6 Gesprächen aufdecken. Platzhalter-Bildchen `assets/ui/people/` (Generator `docs/art/ui_generator/people_icons.py`). Noch nicht: Herzen, Geschenke, Vorlieben (brauchen das Freundschaftssystem; die Auslöser lassen sich dann umstellen).
 - ✅ Links Porträts im Dialog-Porträtrahmen; Unbekannte als vorhandene `?`-Silhouette.
 - ✅ Rechts:
   - Name und wo man sie findet;
@@ -81,6 +82,7 @@ Behalten aus dem alten Buch:
   - später: Verbindung zur Blüte.
 
 ### Herbarium und Bestiary
+- **Umsetzungsstand Bestiary 05.11.2026:** öffnet sich mit dem ersten gereinigten Wesen (`unlock = "first_fight"`, vorher nie erfüllbar). Einträge `bestiary_<gegner>.tres` für befallenen Käfer und Dornkäfer, entdeckt bei der ersten Reinigung, Fakten Verhalten / Schwäche / Beute nach 3 und 8 Reinigungen. Bildchen aus `docs/art/ui_generator/bestiary_icons.py`. Noch keine Belohnung für die volle Seite (gehört später zu Warding).
 - ✅ Einträge mit Fakten, die nach und nach aufgedeckt werden (Fundort, Mondphase, beste Qualität; bei Wesen: befallen/gereinigt, Schwächen, Beute).
 - ✅ Belohnung für volle Seiten (z. B. seltene Samen, Wurftrank-Rezept).
 
@@ -172,7 +174,7 @@ Behalten aus dem alten Buch:
 | Herbalism | A **Wildheart** (mehr Ertrag) · B **Rootwise** (mehr Qualität) | Overgrowth (Wachstum breitet sich aus) / Seedkeeper (mehr Samen) | Moonblood (seltene Varianten) / Nightshade Tamer (keine Strafe unter der Kuppel, Nachtschatten nützlich) |
 | Brewing | A **Twin Brew** (2 Tränke pro Brauen) · B **Potent** (stärkere Wirkung) | Cauldron Chorus (3 auf einmal) / Patient Fire (Chance auf Bonus-Trank über Nacht) | Lingering (längere Dauer) / Volatile (größere Wurftränke) |
 | Wildcraft | A **Forager** (mehr Funde, schneller nachwachsen) · B **Seeker** (Seiten/Verstecke glimmen weiter) | Bountiful / Moonpicker (Mondmoos auch außerhalb Vollmond) | Pathfinder (Abkürzungen) / Pagefinder (Fragmente auf der Karte) |
-| Warding | A **Hexblade** (Nahkampfformen) · B **Hexcaster** (Fernzauber, Hexenkraft) | ❓ nach Kampf-Prototyp | ❓ nach Kampf-Prototyp |
+| Warding | A **Hexblade** (Nahkampfformen) · B **Hexcaster** (Fernzauber, Hexenkraft) · ✅ 06.11. gebaut: Hexenklinge = Sichelhiebe +1 Schaden, Hexenwirkerin = Hexenkraft +50 % Regeneration | ❓ nach Kampf-Test | ❓ nach Kampf-Test |
 | Bonding | ❓ hängt von den Fähigkeiten der Katze ab | | |
 
 ### Hexenstärke
@@ -290,8 +292,8 @@ Bezug: Mockups `grimoire_mockup_A_2x.png` (Pergament, gewählt) und `grimoire_mo
 Gebaut (G1–G6), alles mit **Platzhalter-Grafiken aus Code** (Farben aus der Palette, Maße aus Abschnitt 4). Die echten Grafiken aus Abschnitt 6 ersetzen später nur die Zeichnungen in `scripts/ui/grimoire/` (`BookFrame`, `BookTab`, `BookSlot`, Ranken in `BookStyle.draw_blight`, Hand in `SpreadCover`).
 
 - **Autoload `Grimoire`** (`scripts/systems/grimoire.gd`) ersetzt `Journal`. Alte Spielstände werden **nicht** übernommen (Absprache: Spielstände sind Testdaten).
-- **Daten** in `data/grimoire/`: `chapters/` (12 inkl. Innendeckel), `pages/` (2 Rezeptseiten, 1 befallene Beispiel-Journalseite im Wald), `disciplines/` (Herbalism, Brewing, Wildcraft), `paths/` (18 Pfade laut Tabelle), `entries/` (Herbarium: 6 Pflanzen, 5 Waldfunde). Klassen in `scripts/grimoire/`.
-- **Ereignisse:** `Grimoire.report(aktion, {"id": …})` mit den Aktionen `plant`, `harvest`, `brew`, `brew_experiment`, `forage`, `clear`, `visit`, `page`. Boni über `Grimoire.get_stat()`: `harvest_bonus`, `seed_bonus`, `brew_bonus`, `brew_count`, `forage_bonus`, `moonpicker` wirken schon; `quality_bonus`, `potency`, `lingering`, `volatile`, `seeker`, `pathfinder`, `pagefinder`, `rare_variants`, `nightshade_tamer` werden gespeichert, wirken aber erst, wenn es das System dazu gibt.
+- **Daten** in `data/grimoire/`: `chapters/` (12 inkl. Innendeckel), `pages/` (2 Rezeptseiten, 1 befallene Beispiel-Journalseite im Wald), `disciplines/` (Herbalism, Brewing, Wildcraft), `paths/` (18 Pfade laut Tabelle), `entries/` (Herbarium: 6 Pflanzen, 5 Waldfunde; seit 03.11. dazu 4 Funde „Jenseits des Waldes“ und 2 „Bitterblüte“). Klassen in `scripts/grimoire/`.
+- **Ereignisse:** `Grimoire.report(aktion, {"id": …})` mit den Aktionen `plant`, `harvest`, `brew`, `brew_experiment`, `forage`, `clear`, `visit`, `page` (später dazu: `cleanse`, `deliver`, `talk`, `trade`, `obtain` = Item durch Tausch oder als Beute bekommen, entdeckt Herbarium-Einträge, und `upgrade` = Gnarl hat etwas verbessert). Boni über `Grimoire.get_stat()`: `harvest_bonus`, `seed_bonus`, `brew_bonus`, `brew_count`, `forage_bonus`, `moonpicker` wirken schon; seit 05.11. auch `volatile` (Wurfradius ×1,25), `lingering` (Zonen ×1,5 Dauer), `nightshade_tamer` (Kuppel hemmt nicht) und `seeker` (Seiten glimmen doppelt so weit); seit 06.11. `pagefinder` (der lange Schatten zeigt in jeder Mondphase auf lose Seiten, Kartentext angepasst). `quality_bonus`, `potency`, `pathfinder`, `rare_variants` werden gespeichert, wirken aber erst, wenn es das System dazu gibt.
 - **Kapitel:** Innendeckel, Recipes (Raster, Filter, 3 Zustände, ready to brew, Brew this am Kessel), Disziplinen (Stufen, Ranke, Pfade, Pfadwechsel am Lesepult), Journal (Stummel, befallen, Fragmente, Tinte kehrt zurück), Herbarium (Fakten, volle Seiten). Digitalis und People als Silhouetten, Warding, Bonding und Bestiary versiegelt.
 - **Lesepult:** Opfer-Ansicht mit Drag & Drop aus dem Inventar, Mondbedingung, Pfadwechsel gegen 3 Owl Feather + 2 Moonmoss.
 - **Debug:** F3 +100 Erfahrung je Disziplin, F4 alle Seiten, F5 ganzes Herbarium.

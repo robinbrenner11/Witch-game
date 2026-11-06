@@ -160,6 +160,9 @@ func is_waiting_for_full_moon(cell: Vector2i) -> bool:
 func is_growth_blocked(cell: Vector2i) -> bool:
 	if not has_plant(cell):
 		return false
+	# Hexenpfad "Nachtschatten-Bändigerin": Die Kuppel schadet nicht mehr.
+	if Grimoire.get_stat("nightshade_tamer") > 0:
+		return false
 	for source_cell in active_aura_cells(PlantData.AuraEffect.BLOCK_GROWTH):
 		if _aura_reaches(source_cell, cell):
 			return true

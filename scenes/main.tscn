@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/chest_window.tscn" id="10_chest_window"]
 [ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="11_dialogue_box"]
 [ext_resource type="Script" path="res://scripts/ui/vitals_bar.gd" id="20_vitals"]
+[ext_resource type="Script" path="res://scripts/ui/recipe_pin.gd" id="21_recipe_pin"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_script")
@@ -33,6 +34,18 @@ mouse_filter = 2
 script = ExtResource("20_vitals")
 
 [node name="Clock" parent="UI" instance=ExtResource("5_clock")]
+
+[node name="RecipePin" type="HBoxContainer" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -420.0
+offset_top = 68.0
+offset_right = -8.0
+offset_bottom = 100.0
+grow_horizontal = 0
+mouse_filter = 2
+script = ExtResource("21_recipe_pin")
 
 [node name="InventoryWindow" parent="UI" instance=ExtResource("6_inventory_window")]
 

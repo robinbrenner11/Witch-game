@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TradeOffer" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/trade_offer.gd" id="1_trade"]
+
+[resource]
+script = ExtResource("1_trade")
+id = "a_help_mending"
+wants_item = "potion_mending"
+wants_amount = 1
+gives_item = ""
+gives_amount = 0
+requires_flags = Array[String](["met_gnarl"])
+blocked_by_flags = Array[String](["gnarl_helped"])
+sets_flag = "gnarl_helped"
+sets_flag_next_night = "gnarl_moved"

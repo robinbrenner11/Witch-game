@@ -42,12 +42,14 @@ Legende: ✅ solide · 🟡 funktioniert, Prototyp oder Platzhalter · ⚪ vorbe
 
 Jede Gruppe ist ein eigener Commit auf `quality-overhaul`, also einzeln nachvollziehbar und einzeln rückgängig zu machen.
 
-### A. Spielstand kann nicht mehr kaputtgehen (`7ba7741`)
+### A. Spielstand robuster speichern und laden (`7ba7741`)
+
+> **Korrektur 06.11.2026:** Die frühere Überschrift „Spielstand kann nicht mehr kaputtgehen“ war zu optimistisch. Eine externe Code-Prüfung fand: Speichern meldete Fehler nicht zurück (das Pausemenü beendete trotzdem), die Prüfung vor dem Laden ließ falsche Datentypen durch, Leben, Hexenkraft und Trankwirkungen fehlten im Spielstand, und der XP-Zähler pro Nacht wurde beim Laden zurückgesetzt. Das ist seit 06.11. behoben und mit `tests/test_save_robustness.gd` abgesichert. Geprüft ist damit die Struktur (Typen der Teile); ob jedes System jeden falschen Einzelwert abfängt, ist nicht vollständig getestet.
 **Problem:** `save_game()` schrieb direkt in `savegame.json`. Absturz oder volle Platte mitten im Schreiben = Spielstand weg. „Fortsetzen“ mit kaputtem Stand tat einfach nichts. Ein umbenanntes Item oder eine entfernte Pflanze hätte beim Laden leere Icons bzw. einen Absturz beim nächsten Nachtwechsel erzeugt.
 
 **Lösung:**
 - Schreiben in `savegame.json.tmp`, prüfen, dann umbenennen. Der vorige Stand bleibt als `savegame.json.bak`.
-- Laden prüft die Datei komplett, **bevor** ein System etwas übernimmt. Ist der letzte Stand kaputt, wird der vorletzte geladen.
+- Laden prüft die Datei, **bevor** ein System etwas übernimmt (seit 06.11.: Pflichtteile und Typ jedes Teils; vorher nur, ob die Pflichtteile da sind). Ist der letzte Stand kaputt, wird der vorletzte geladen.
 - Unbekannte Items, Pflanzen, Tränke im Kessel und Wildwuchs-Szenen werden beim Laden aussortiert (mit Warnung im Protokoll), Wachstumsstufen auf gültige Werte begrenzt.
 - Titel: Ist gar kein Stand lesbar, steht auf dem Knopf „Spielstand nicht lesbar“ und der Fokus springt zu „Neues Spiel“.
 - Nebenbei: Ein Spielstand ohne Brau-Teil übernahm bisher den Kessel der vorigen Sitzung; jetzt startet er leer. Die „Ewige Nacht“ blieb nach dem Laden hängen; jetzt nicht mehr.

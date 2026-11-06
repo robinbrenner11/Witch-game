@@ -10,4 +10,4 @@ group = 2
 order = 23
 tab_color = Color(0.4706, 0.549, 0.7255, 1)
 template = 2
-unlock = "combat"
+unlock = "first_fight"

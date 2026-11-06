@@ -1,10 +1,10 @@
 # Bitterbloom – Einstieg
 
-Stand: 16.10.2026. **Das hier zuerst lesen**, danach nur die Dokumente, die die Aufgabe braucht. Regeln für die Zusammenarbeit und die technischen Leitplanken stehen in `CLAUDE.md`.
+Stand: 03.11.2026. **Das hier zuerst lesen**, danach nur die Dokumente, die die Aufgabe braucht. Regeln für die Zusammenarbeit und die technischen Leitplanken stehen in `CLAUDE.md`.
 
 ## Stand in einem Absatz
 
-Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen und Hexenpfaden, Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen. Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss und Ugo, Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald v2, Wasserfall-Höhle, Sumpf). Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
+Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen, Hexenpfaden und Herbarium (alle Sammelfunde, Beute und Zutaten haben einen Eintrag), Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen (mit Nachtbuch: Bilanz der vergangenen Nacht). Ende Akt 1: Blütennebel am Südrand des tiefen Waldes (Reinigungsnebel lichtet ihn für eine Nacht), dahinter die Turmruine mit dem ersten Blütenherz (Bosskampf in drei Phasen, gereinigt heilt der Wald). Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss und Ugo, Gnarl (Wurzelschnitzer, zieht nach einem Heiltrank vom Wald in die Dorf-Werkstatt und macht dort Upgrades: Stab II, Sichel II, Kessel mit 4 Plätzen), Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald v2, Wasserfall-Höhle, Sumpf). Wasser ist animiert (Platzhalter-Frames). Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
 
 ## Branches
 
@@ -19,9 +19,8 @@ Nach `main` wird nur mit Robins Okay gemergt und gepusht.
 ## Nächste Schritte
 
 **Aufgaben für Sessions ohne Robin: `docs/BACKLOG.md`** (bereit / wartet auf Robin). Der Plan dahinter steht in `docs/design/welt_und_items.md`, Abschnitt 10. Kurz:
-1. Schritt 7: Gnarl und Upgrades (neuer `RewardData`-Typ `UPGRADE`)
-2. Schritt 8: Turmruine, Sperre S5, erstes Blütenherz (Boss braucht einen eigenen Entwurf)
-3. Nach Robins Test von Seewald v2 (F8): Ausgänge umstellen, alten Seewald entfernen, Höhen für Wald, Dorf und Garten
+1. Robins Test von Schritt 8 (Blütenherz, Hexenring-Schnellreise); danach Apprentice (Story)
+2. Höhen für tiefen Wald, Dorf und Garten (Seewald v2 ist seit 06.11. der echte Seewald)
 
 ## Welches Dokument für welche Frage
 
@@ -53,5 +52,8 @@ Gilt bei Widersprüchen: das neuere Dokument. `welt_und_items.md` (16.10.) vor `
 
 - `docs/art/`: Palette `hexen_palette.gpl`, Grafik-Generatoren (Python), Referenzen und Vorschauen
 - `tools/world_builder/`: Builder und Baupläne
-- Debug-Tasten: F3–F5 Grimoire, F7 Höhen-Test, F8 Seewald v2
-- `tests/`: Tests im Repo, headless mit `godot --headless --script res://tests/run_tests.gd`. In der Cloud vorher `bash tools/setup_godot.sh` (Details: `CLAUDE.md` Abschnitt 13). Ältere Prüfskripte (Schritte 1–6) lagen nicht im Repo.
+- Debug-Tasten: F3–F5 Grimoire, F7 Höhen-Test
+- `tools/qa/`: Screenshots aus dem laufenden Spiel ohne Bildschirm (`shot.sh`, unter Xvfb)
+- `DEV_PROGRESS.md` (im Projektordner): Protokoll der selbstständigen Iterationen
+- `docs/design/ideen_claude.md`: Ideensammlung (06.11.), daraus wählt Claude selbstständig aus
+- `tests/`: Tests im Repo (Hilfsskripte in `tests/helpers/`), headless mit `godot --headless --script res://tests/run_tests.gd`. In der Cloud vorher `bash tools/setup_godot.sh` (Details: `CLAUDE.md` Abschnitt 13). Ältere Prüfskripte (Schritte 1–6) lagen nicht im Repo.

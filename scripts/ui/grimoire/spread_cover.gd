@@ -36,6 +36,9 @@ func _build_note(page: Control) -> void:
 	var text := tr(NOTE_KEY)
 	for goal in Grimoire.GOALS:
 		var line := tr(GOAL_KEYS[goal])
+		if goal == "wake":
+			# Taste nie fest im Text: Sie stimmt dann auch nach dem Umbelegen.
+			line = line % InputHints.key_for("snap")
 		if Grimoire.is_goal_done(goal):
 			line = "[s][color=#%s]%s[/color][/s]" % [BookStyle.INK_FAINT.to_html(false), line]
 		text += "\n· " + line
@@ -45,7 +48,14 @@ func _build_note(page: Control) -> void:
 	signature.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	page.add_child(signature)
 	# Darunter antwortet die neue Besitzerin, in ihrer eigenen Tinte.
-	page.add_child(BookStyle.label("COVER_OWNER", BookStyle.INK_PLAYER, text_width))
+	# Hat sie einen Namen, unterschreibt sie darunter wie Vespera mit "V.":
+	# Die Unterschrift sagt "jetzt meins" und bleibt immer eine Zeile.
+	if Grimoire.witch_name != "":
+		var owner_signature := BookStyle.label(Grimoire.witch_name, BookStyle.INK_PLAYER, text_width)
+		owner_signature.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		page.add_child(owner_signature)
+	else:
+		page.add_child(BookStyle.label("COVER_OWNER", BookStyle.INK_PLAYER, text_width))
 
 
 func _build_overview(page: Control) -> void:
@@ -55,6 +65,9 @@ func _build_overview(page: Control) -> void:
 	top.add_theme_constant_override("separation", 8)
 	var hand := WitchHand.new()
 	hand.stage = _hand_stage(strength)
+	# Der Satz zur Bedeutung steht als Tooltip an der Hand: Als Text unter der
+	# Zahl ließ er die Seite überlaufen.
+	hand.tooltip_text = "BOOK_STRENGTH_TOOLTIP"
 	top.add_child(hand)
 	var info := VBoxContainer.new()
 	info.add_theme_constant_override("separation", 0)
@@ -69,10 +82,12 @@ func _build_overview(page: Control) -> void:
 	# Alle Disziplinen mit ihrer Farbe und Stufe.
 	for chapter in ChapterData.all():
 		var discipline := DisciplineData.from_id(chapter.id)
-		if discipline == null:
+		# Versiegelte Disziplinen (z. B. Bannkunst vor dem ersten Kampf) noch nicht.
+		if discipline == null or not Grimoire.is_unlocked(chapter):
 			continue
 		page.add_child(_overview_row(chapter.title_key, tr("BOOK_LEVEL") % Grimoire.level(discipline.id), chapter.tab_color))
-	page.add_child(BookStyle.rule_plain(text_width))
+	# Keine Linie zwischen Disziplinen und Übersicht: Mit vier Disziplinen
+	# wird die Seite sonst zu voll.
 	var pages := PageData.all().size()
 	var found := 0
 	for page_id: String in PageData.all():
@@ -85,7 +100,6 @@ func _build_overview(page: Control) -> void:
 	page.add_child(_overview_row("BOOK_OVERVIEW_PAGES", "%d/%d" % [found, pages], Color.TRANSPARENT))
 	page.add_child(_overview_row("BOOK_OVERVIEW_RECIPES", "%d/%d" % [known, recipes.size()], Color.TRANSPARENT))
 	page.add_child(_overview_row("BOOK_OVERVIEW_HERBARIUM", "%d/%d" % [discovered, entries.size()], Color.TRANSPARENT))
-	page.add_child(BookStyle.rule_plain(text_width))
 	var until_full := Moon.nights_until(Moon.Phase.FULL)
 	var moon_text := tr("BOOK_MOON_FULL_NOW") if until_full == 0 else tr("BOOK_MOON_FULL_IN") % until_full
 	page.add_child(_overview_row(Moon.phase_name(), moon_text, Color.TRANSPARENT))
@@ -138,7 +152,7 @@ class WitchHand:
 
 	func _ready() -> void:
 		custom_minimum_size = Vector2(44, 70)
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		mouse_filter = Control.MOUSE_FILTER_PASS
 
 	func _draw() -> void:
 		# Handfläche mit abgerundeten Ecken.

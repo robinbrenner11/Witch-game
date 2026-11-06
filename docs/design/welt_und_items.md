@@ -115,13 +115,13 @@ Lage nach der KI-Karte. Höhe: 0 tief, 1 normal, 2 hoch (wie im Höhen-Test).
 |---|---|---|---|---|---|
 | Unterschlupf | innen | ✅ `shelter.tscn` | – | – | Nacht 1 |
 | Garten | 2 (Plateau, Stützmauer nach Süden) | ✅ `garden.tscn`, bekommt Höhe | Gartenpflanzen | – | Nacht 1 |
-| Seewald | 1, See und Insel 0 | ✅ `lakewood.tscn`, bekommt Höhe | 🆕 Weidenrinde (Trauerweiden), 🆕 Mondwasser (am See, nur Vollmond) | 🔮 Mother Moss in der Uferhütte | Nacht 1 |
+| Seewald | 1, See und Insel 0 | ✅ `lakewood.tscn` mit Höhen (seit 06.11.) | 🆕 Weidenrinde (Trauerweiden), 🆕 Mondwasser (am See, nur Vollmond) | 🔮 Mother Moss in der Uferhütte | Nacht 1 |
 | Insel im See | 0 | Teil des Seewalds | wilde Mondkelch-Samen, eine Grimoire-Seite | – | erster Vollmond |
 | Wasserfall-Höhle | innen, dunkel | 🆕 klein | 🆕 Höhlenkristall | – | mit Irrlicht |
 | Dorf | 1 | ✅ `village.tscn` | Gesuche, Kräutergärtchen (Wildkraut) | ✅ Nachtwächter, 🔮 Gnarl (Werkstatt) | Nacht 1 |
 | Tiefer Wald | 1 | ✅ `forest.tscn` | Glutmorchel, Dämmerbeeren, Eulenfeder, Mondmoos, Blüten-Zutaten | ✅ Eule | Nacht 1 |
 | Sumpf | 0 | 🆕 | 🆕 Sumpflicht (Irrlicht-Pilz), wilder Nachtschatten | 🔮 Ugo (Halbmond) | Zyklus 1–2 |
-| Turmruine | 1 | 🆕 | Blüten-Zutaten (stark) | Blütenherz 1 | Ende Akt 1 |
+| Turmruine | 1 (Turmfundament 2) | ✅ `tower_ruin.tscn` (06.11.) | Blüten-Zutaten (stark) | Blütenherz 1 | Ende Akt 1 |
 | Friedhof | 1 | 🆕 (Akt 2) | 🆕 Grabmoos | ❓ | Akt 2 |
 | Ruinen, Berge, Moor | 2 / 2 / 0 | 🆕 (Akt 2) | Seiten / Sternensplitter / ❓ | ❓ | Akt 2 |
 
@@ -168,7 +168,7 @@ Neue Verwendungen fett, neue Items mit 🆕.
 | Eulenfeder | tiefer Wald, selten | Pfadwechsel, **Opfer am Lesepult**, **Thornwhip-Upgrade (Akt 2)** |
 | Mondmoos | tiefer Wald, Vollmond | Pfadwechsel, **Flüssiges Mondlicht (neues Rezept)**, **Opfer mit Mondbedingung** |
 | Bitterblütenblatt | Käfer reinigen | Glutbombe, Dornennebel, **Gnarl** |
-| 🆕 Blütenknospe | stärkere Wesen, Turmruine | **Reinigungsnebel**, **Gnarl (Stufe II)** |
+| 🆕 Blütenknospe | stärkere Wesen (✅ 05.11.: Dornkäfer, 30 % pro Reinigung), Ugo, Turmruine | **Reinigungsnebel**, **Gnarl (Stufe II)** |
 | 🆕 Weidenrinde | Seewald, Trauerweiden, alle 3 Nächte | **Heiltrank II** (stärker), **Gnarl** (Griff), **Gesuche** |
 | 🆕 Mondwasser | Seewald, am See, nur Vollmond | **Reinigungsnebel**, **Opfer mit Mondbedingung** |
 | 🆕 Höhlenkristall | Wasserfall-Höhle, wächst langsam nach | **Gnarl: Upgrades**, **Kessel-Upgrade** |
@@ -318,17 +318,20 @@ Offen und bewusst nicht hier: Mondeffekte für die Nächte 2–3 und 5–7, Craf
 | 1 | ✅ 16.10. | `Gate` (`scripts/world/gate.gd`), `PotionEffects.is_active()`, Würfe melden sich bei der Gruppe `potion_target`, Gießen per E am Gate, `Level.darkness`. **S2 als Test:** Spalt hinter dem Wasserfall im Höhen-Test, offen nur mit Irrlicht oder Flüssigem Mondlicht, sonst „Zu dunkel“. Dahinter `scenes/world/waterfall_cave.tscn` (aus Bauplan, drinnen, dunkel) mit 3 Höhlenkristallen, die nach 4 Nächten nachwachsen. Neues Item `cave_crystal` (Platzhalter-Grafik) |
 | 2 | ✅ 16.10. | **Gesuche am Anschlagbrett:** Autoload `Requests` (im Spielstand), Daten `RequestData` in `data/requests/`. Neues Spiel: 2 Zettel, danach jede Nacht einer mehr bis höchstens 3, jeder hängt 3 Nächte. Von jeder Person höchstens ein Zettel. Gezogen nach Gewicht, aber fest pro Nacht. E am Brett liest die Zettel (mit „du hast x“ und Lohn) oder gibt ab, wenn etwas passt. Belohnungen: Items, Rezept, Erfahrung, Gerücht, größere Truhe. 10 Gesuche von 5 unsichtbaren Dorfbewohnern: Schwester Ilse (Kapelle), Hanne (Bäckerin), Brack (Zimmermann, Kette über 3 Zettel → Truhe 16 → 24), die Kinder vom Brunnen, die alte Mara (Mondmoos nur bei Gibbous und Vollmond) |
 | 3 | ✅ 16.10. | **Rezepte und Items:** Irrlicht = Laternenbeere + Dämmerbeeren, Flüssiges Mondlicht = Laternenbeere + Mondmoos + Mondkelch. Neu: Reinigungsnebel (Wurf), Dämmertrank (Trinken, Käfer sehen nur halb so weit), Weidenheiltrank (+8 Leben, im Kampf nutzbar). Neue Zutaten als Daten mit Platzhalter-Icon: Weidenrinde, Mondwasser, Sumpflicht, Blütenknospe. Ältere Spielstände vergessen gelernte Mischungen, deren Rezept sich geändert hat |
-| 4 | ✅ 16.10. | **Seewald v2** `scenes/world/lakewood_v2.tscn` aus Bauplan, im Spiel mit **F8** (Debug), der alte Seewald bleibt aktiv bis zu Robins Okay. Felskante im Nordwesten mit Wasserfall und dem Spalt zur Höhle (die Höhle hängt jetzt am Seewald, nicht mehr am Höhen-Test). See mit Insel, **Mondsteg S1** (offen bei Vollmond oder mit Flüssigem Mondlicht), auf der Insel ein wilder Mondkelch (Samen, wächst nach 8 Nächten nach). **Mondwasser** am Südufer, nur bei Vollmond, 3 pro Nacht. **Weidenrinde** wächst unter den Weiden nach (3 Nächte). Hütte für Mother Moss (Graybox, noch leer). **Ranken-Treppe S4** im Südwesten: Glutbombe brennt sie weg, dahinter eine Senke (Ausgang zum Sumpf kommt mit Schritt 6). Ausgänge wie im alten Seewald. Der Builder kann jetzt Wasser (`water.png`) |
+| 4 | ✅ 16.10. | **Seewald v2** `scenes/world/lakewood_v2.tscn` (seit 06.11. `lakewood.tscn`, der alte ist entfernt) aus Bauplan, im Spiel mit **F8** (Debug), der alte Seewald bleibt aktiv bis zu Robins Okay. Felskante im Nordwesten mit Wasserfall und dem Spalt zur Höhle (die Höhle hängt jetzt am Seewald, nicht mehr am Höhen-Test). See mit Insel, **Mondsteg S1** (offen bei Vollmond oder mit Flüssigem Mondlicht), auf der Insel ein wilder Mondkelch (Samen, wächst nach 8 Nächten nach). **Mondwasser** am Südufer, nur bei Vollmond, 3 pro Nacht. **Weidenrinde** wächst unter den Weiden nach (3 Nächte). Hütte für Mother Moss (Graybox, noch leer). **Ranken-Treppe S4** im Südwesten: Glutbombe brennt sie weg, dahinter eine Senke (Ausgang zum Sumpf kommt mit Schritt 6). Ausgänge wie im alten Seewald. Der Builder kann jetzt Wasser (`water.png`) |
 | 5 | ✅ 16.10. | **Mutter Moos (Mother Moss)** im Seewald v2 an ihrer Hütte (18 Uhr Tür, 22 Uhr Ufer, 2 Uhr Tür, 5:40 drinnen). Erstes Gespräch, Vollmond-Hinweis auf den Mondsteg, Alltagszeilen. **Tausch:** Nach dem Gespräch kommt die Auswahl; 4 Wildkraut → 2 Alraunensamen, 3 Dämmerbeeren → 2 Blutrosensamen, 2 Weidenrinde → 1 Mondkelchsamen (einmal pro Nacht). Neu dafür: **Antwort-Auswahl in der Dialogbox** (`DialogueBox.choose()`, 3 Zeilen sichtbar, rollt, Tasten, Maus, Esc) und Tauschangebote als Daten (`TradeOffer`, `data/trades/<npc>/`) |
 | 6 | ✅ 16.10. | **Sumpf** `scenes/world/swamp.tscn` aus Bauplan (Tümpel, flaches Wasser, Sumpflichter wachsen nach, 2 Käfer, keine sichere Zone), erreichbar aus der Senke im Seewald v2 (Ausgang `ToSwamp`, nach dem Wegbrennen der Ranken). **Ugo** (Krötenhändler): im Sumpf, bei Halbmond auf dem Markt im Dorf. Tausch: 3 Hexenschlamm → 2 Mondmoos, 2 Sumpflicht → 1 Nachtschattensamen, 1 Heiltrank → 1 Blütenknospe (1× pro Nacht), bei Halbmond 2 Dämmerbeeren → 1 Eulenfeder. **Halbmondmarkt:** Stand im Dorf (`Unlockable`, nur bei Halbmond sichtbar). Neu: `ScheduleEntry.moon_phases`, `scripts/world/unlockable.gd`. Achtung: `village.tscn` wurde dafür ergänzt (Ugo, Spot `UgoMarket`, Stand) |
-| 7–8 | offen | – |
+| Herbarium | ✅ 03.11. | **Herbarium-Einträge für die neuen Items:** Seite „Jenseits des Waldes“ (Weidenrinde, Mondwasser, Höhlenkristall, Sumpflicht; volle Seite +60 Wildcraft) und Seite „Bitterblüte“ (Bitterblütenblatt, Blütenknospe; volle Seite +60 Wildcraft), je 3 Fakten. Sammelfunde werden über `forage` entdeckt, Tausch und aufgehobene Beute melden neu `Grimoire.report("obtain", {"id": item})`. Test: `tests/test_herbarium.gd` (jedes Item außer Tränken und Werkzeug hat einen Eintrag) |
+| 7a | ✅ 03.11. | **Gnarl** im tiefen Wald (Spot `GnarlCamp`), will einen Heiltrank (Gabe statt Tausch), zieht ab der nächsten Nacht in die Werkstatt im Dorf (Fenster leuchten, Laterne). Neu: `ScheduleEntry.requires_flags`/`blocked_by_flags`, `WorldState.set_flag_next_night()`, `TradeOffer` ohne Gegenleistung mit `sets_flag`/`sets_flag_next_night`/`blocked_by_flags`, Antwort direkt nach der Gabe. Test: `tests/test_gnarl.gd` |
+| 7b | ✅ 03.11. | **Upgrades bei Gnarl** in der Werkstatt, als Tausch mit Bestätigung: Stab II (2 Höhlenkristall + 3 Bitterblütenblatt, starker Zauber durchschlägt einen Gegner), Sichel II (3 Glutmorchel + 2 Weidenrinde + 1 Blütenknospe, schneidet die ruhigen Ranken an S4 als zweiter Weg), Kessel mit 4 Plätzen (3 Höhlenkristall + 1 Weidenrinde). Neu: `RewardData.UPGRADE`, `Grimoire.upgrade_level()` (gespeichert), Stufen als Dateien `data/digitalis/upgrades/`, `TradeOffer.more_wants`/`reward`/`description_key`, `Gate.cut_open`. Test: `tests/test_upgrades.gd`. Thornwhip (Akt 2) und Truhe 24 (Zimmermann-Kette, schon gebaut) nicht hier |
+| 8 | offen | – |
 
 ### Nächste Schritte (Stand 16.10., Abbruch wegen Nutzungslimit)
 
-1. **Schritt 7: Gnarl und Upgrades** (Abschnitt 6): Gnarl im tiefen Wald, zieht nach Hilfe in die Dorf-Werkstatt; Upgrades als Tausch mit neuem `RewardData`-Typ `UPGRADE` (Stab II, Sichel II, Kessel 4 Plätze). Höhlenkristall und Blütenknospe bekommen damit ihre Verwendung.
-2. **Schritt 8: Turmruine, Blütennebel S5, Blütenherz 1** (Boss, eigener Entwurf nötig).
-3. **Robins Test** von Seewald v2 (F8), danach Ausgänge von Garten, Wald und Dorf auf `lakewood_v2.tscn` umstellen und den alten Seewald entfernen (W5). Danach tiefer Wald, Dorf, Garten mit Höhen (Spielstand-Frage beim Garten, `overworld_plan.md` Abschnitt 7).
-4. Offen: Herbarium-Einträge für die neuen Items, echte Grafiken (Robin, mit dem Plugin), Wasser-Animation.
+1. ~~Schritt 7: Gnarl und Upgrades~~ ✅ 03.11. (7a, 7b in der Tabelle oben).
+2. ✅ 06.11. **Schritt 8: Turmruine, Blütennebel S5, Blütenherz 1** (Entwurf von Claude, Robins Auftrag). Details in `docs/COMBAT_SYSTEM.md` (Blütenherz). Hexenring-Schnellreise ✅ 06.11. (Garten ↔ tiefer Wald). Noch offen: Apprentice.
+3. ~~Seewald v2 freigeben~~ ✅ 06.11.: ist jetzt `lakewood.tscn`, alter Seewald entfernt, F8 entfällt. Als Nächstes tiefer Wald, Dorf, Garten mit Höhen (Spielstand-Frage beim Garten, `overworld_plan.md` Abschnitt 7).
+4. Offen: echte Grafiken (Robin, mit dem Plugin), Wasser-Animation.
 
 
 Tests (headless, Prüfskripte nicht im Repo): Gate zu ohne Licht mit Meldung, E zeigt Hinweis, offen mit Irrlicht und mit Mondlicht, wieder zu ohne Licht, Höhle betreten und verlassen, Höhle dunkel und sonnensicher, Kristalle wachsen, pflücken und nachwachsen, Glutbombe öffnet ein Wurf-Gate dauerhaft, Wachstumstrank öffnet ein Gieß-Gate, falscher Trank tut nichts: 25 / 25. Höhen-Test weiter 24 / 24, alle 323 Szenen, Scripts und Ressourcen laden.
@@ -343,4 +346,4 @@ Tests Schritt 5: 16 / 16 (Routine, erstes Gespräch, Auswahl mit 3 Angeboten, Ze
 
 Tests Schritt 6: 18 / 18 (Senke → Sumpf → zurück, Ugo im Sumpf und bei Halbmond auf dem Markt, Angebote 3 bzw. 4, Stand nur bei Halbmond, Sumpflichter nie im Wasser, Tümpel blockiert, Tausch, Nachtwächter-Streife erreicht den Markt).
 
-Noch nicht: Der Kristall hat noch keine Verwendung (kommt mit Gnarl in Schritt 7) und keinen Herbarium-Eintrag.
+Noch nicht: Der Kristall hat noch keine Verwendung (kommt mit Gnarl in Schritt 7). Herbarium-Eintrag: ✅ 03.11.

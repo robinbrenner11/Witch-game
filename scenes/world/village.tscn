@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/exit.tscn" id="r28"]
 [ext_resource type="PackedScene" path="res://scenes/npcs/ugo.tscn" id="u2"]
 [ext_resource type="Script" path="res://scripts/world/unlockable.gd" id="u1"]
+[ext_resource type="PackedScene" path="res://scenes/npcs/gnarl.tscn" id="g1"]
 
 [node name="Village" type="Node2D"]
 script = ExtResource("r1")
@@ -116,6 +117,7 @@ roof_rows = 2
 door_column = 2
 window_columns = PackedInt32Array(1, 3)
 lit = false
+lit_flag = "gnarl_moved"
 
 [node name="House5" type="Node2D" parent="Objects/Buildings"]
 position = Vector2(704, 672)
@@ -702,3 +704,17 @@ door_column = -1
 window_columns = PackedInt32Array()
 wall_color = Color(0.3, 0.24, 0.18, 1)
 roof_color = Color(0.36, 0.38, 0.18, 1)
+
+[node name="Workshop" type="Marker2D" parent="Spots"]
+position = Vector2(496, 760)
+
+[node name="Gnarl" parent="Objects" instance=ExtResource("g1")]
+position = Vector2(496, 760)
+
+[node name="GnarlWorkshop" type="Node2D" parent="Objects"]
+y_sort_enabled = true
+script = ExtResource("u1")
+required_flag = "gnarl_moved"
+
+[node name="WorkshopLantern" parent="Objects/GnarlWorkshop" instance=ExtResource("r9")]
+position = Vector2(448, 752)

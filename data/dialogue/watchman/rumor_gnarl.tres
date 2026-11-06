@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DialogueData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/dialogue_data.gd" id="1_dialogue"]
+
+[resource]
+script = ExtResource("1_dialogue")
+id = "rumor_gnarl"
+lines = Array[String](["DLG_WATCHMAN_RUMOR_GNARL_1", "DLG_WATCHMAN_RUMOR_GNARL_2"])
+priority = 19
+once = true
+requires_flags = Array[String](["met_watchman"])
+blocked_by_flags = Array[String](["met_gnarl"])
+topic = "rumor"
+once_per_night = "rumor"

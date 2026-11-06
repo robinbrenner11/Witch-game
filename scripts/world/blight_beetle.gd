@@ -57,6 +57,10 @@ const SURGE_SIGHT := 1.25
 @export var notice_time: float = 0.45
 @export var recover_time: float = 0.8
 @export var contact_damage: int = 1
+## Seltene Beute zusätzlich zum Blütenblatt (leer = keine), z. B. beim
+## Dornkäfer eine Blütenknospe. Chance 0–1 pro Reinigung.
+@export var rare_drop_item: String = ""
+@export_range(0.0, 1.0) var rare_drop_chance: float = 0.0
 ## So viele Anläufe hintereinander, bevor er verschnauft (Dornkäfer: 2).
 @export var charges: int = 1
 ## Hörner und Dornen am Panzer (Dornkäfer), damit man ihn an der Form erkennt.
@@ -301,13 +305,20 @@ func _cleanse() -> void:
 	petals.global_position = global_position + Vector2(0, -6)
 	petals.emitting = true
 	petals.finished.connect(petals.queue_free)
-	var drop := DroppedItem.new()
-	drop.item_id = DROP_ITEM
-	get_parent().add_child(drop)
-	drop.global_position = global_position
+	_drop(DROP_ITEM, Vector2.ZERO)
+	if rare_drop_item != "" and randf() < rare_drop_chance:
+		# Etwas versetzt, damit beide Funde einzeln zu sehen sind.
+		_drop(rare_drop_item, Vector2(10, 2))
 	Sfx.play_at("combat/cleanse", global_position)
 	Grimoire.report("cleanse", {"id": enemy_id})
 	collected.emit()
+
+
+func _drop(item_id: String, offset: Vector2) -> void:
+	var drop := DroppedItem.new()
+	drop.item_id = item_id
+	get_parent().add_child(drop)
+	drop.global_position = global_position + offset
 
 
 func _petal_colors() -> Gradient:

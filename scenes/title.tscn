@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/title.gd" id="1_script"]
 [ext_resource type="Theme" path="res://assets/ui/menu_theme.tres" id="2_theme"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_menu.tscn" id="3_settings"]
+[ext_resource type="Script" path="res://scripts/ui/title_ambience.gd" id="9_ambience"]
 
 [node name="Title" type="Control"]
 layout_mode = 3
@@ -28,6 +29,13 @@ offset_right = 320.0
 offset_bottom = 180.0
 scale = Vector2(2, 2)
 mouse_filter = 2
+
+[node name="Ambience" type="Control" parent="Scaled"]
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 180.0
+mouse_filter = 2
+script = ExtResource("9_ambience")
 
 [node name="Menu" type="CenterContainer" parent="Scaled"]
 layout_mode = 1

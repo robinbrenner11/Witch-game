@@ -35,6 +35,9 @@ enum Kind { BOLT, SLASH }
 @export var radius: float = 3.0
 # 0 = trifft nur, was es berührt; sonst platzt es in diesem Umkreis.
 @export var burst_radius: float = 0.0
+# So viele Gegner durchschlägt das Geschoss, bevor es am nächsten platzt
+# (Stab II). Wände halten es immer auf.
+@export var pierce: int = 0
 
 @export_group("Slash")
 # Reichweite des Hiebs von der Hexe aus (Pixel).
@@ -45,3 +48,5 @@ enum Kind { BOLT, SLASH }
 @export var active_time: float = 0.14
 # Schneidet Wildgras und Unkraut, das im Bogen steht (Sichel).
 @export var cuts_wild: bool = false
+# Schneidet ruhige Bitterblüten-Ranken (Gate mit cut_open, Sichel II).
+@export var cuts_vines: bool = false

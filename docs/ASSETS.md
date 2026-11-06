@@ -323,7 +323,7 @@ Reine Atmosphäre, kein Gameplay. Die Tiere werden per Script bewegt, die Grafik
 | `moth.png`, `moth_dark.png` | 8×8 | 4 | `fly` 0-1-2-3, 12 FPS, Loop | Mitte | Kreisen um Lichtquellen (Laterne, Glutpilz, Lagerfeuer): Ellipse ca. 10×6 px, leicht unregelmäßig. Ohne Kontur. Zwei Farbvarianten mischen |
 | `bat.png` | 16×12 | 4 | `fly` 0-1-2-3, 10 FPS, Loop | Mitte | Fliegt ab und zu quer durchs Bild (Wellenlinie), nur nachts, z. B. alle 30–90 s. Feine Mondlicht-Kante oben auf den Flügeln, damit man sie nachts erkennt |
 | `owl.png` (+`_glow`) | 16×18 | 5 | `idle` 0 · `blink` 0-1-0 · `look_left` 2 · `look_right` 3 · `ruffle` 0-4-4-0 (Gefieder aufplustern), per Script zufällig wechseln | Krallen unten Mitte |
-| `owl_fly.png` (+`_glow`) | 32×20 | 4 | `takeoff` 0, dann `fly` 1-2-3 im Loop, 8 FPS | Mitte | Abflug: breite Flügel mit gespreizten Schwungfedern. Beim Wegfliegen Position per Tween nach oben/außen | Sitzt auf dem toten Baum: Fußpunkt Baum **+ (18, −69)** = rechter Ast. Augen-Glow unbeleuchtet (wie bei den Pilzen), nachts sieht man fast nur die Augen. Optional: fliegt weg, wenn die Hexe sehr nah kommt |
+| `owl_fly.png` (+`_glow`) | 32×20 | 4 | `takeoff` 0, dann `fly` 1-2-3 im Loop, 8 FPS | Mitte | Abflug: breite Flügel mit gespreizten Schwungfedern. Beim Wegfliegen Position per Tween nach oben/außen | Sitzt auf dem toten Baum: Fußpunkt Baum **+ (18, −69)** = rechter Ast. Augen-Glow unbeleuchtet (wie bei den Pilzen), nachts sieht man fast nur die Augen. Fliegt weg, wenn die Hexe sehr nah kommt (✅ eingebaut 06.11.: unter 56 px zum Baumfuß, nach 20 s und Abstand wieder auf dem Ast) |
 | `toad.png` | 16×16 | 8 | `idle` 0-1, 2 FPS · `croak` 0-2-2-0, 4 FPS · `hop` 3-4-5-6-7, 10 FPS (Ducken, Absprung, Luft hoch, Luft sinkend, Landung; während 4–6 ca. 9 px vorwärts) | unten Mitte | Garten und Grasinseln. Sitzt meist, quakt manchmal, hüpft weg, wenn die Hexe nah kommt. Frame 4 = in der Luft, der Schatten bleibt am Boden |
 
 - Alle außer der Motte haben eine Aubergine-Kontur.
@@ -520,7 +520,8 @@ Schnelle Platzhalter in Magenta-Violett; die echte Grafik kommt später von Robi
 
 ## Wasser und Weidenrinde – Platzhalter (16.10.2026)
 
-- `assets/environment/water/water_placeholder.png` (128×32): 4 Felder tief, Ufer, flach, Durchgang. Raster in `water_layout.json`, TileSet `water_tileset.tres` (von `tools/world_builder/make_cliff_tileset.gd` gebaut, Kollision auf Layer 4). Generator `docs/art/cliff_generator/water.py`.
+- `assets/environment/water/water_placeholder.png` (512×32 seit 03.11.): 4 Felder tief, Ufer, flach, Durchgang, je **4 Animations-Frames**. Frame 0 = Spalten 0–3 (wie vorher), Frame 1 = Spalten 4–7, Frame 2 = 8–11, Frame 3 = 12–15, jeweils in derselben Reihenfolge. 0,3 s pro Frame, Schleife. Raster in `water_layout.json` (`frames`, `frame_duration`), TileSet `water_tileset.tres` (von `tools/world_builder/make_cliff_tileset.gd` gebaut, nur Wasser: `… -- water`, Kollision auf Layer 4). Generator `docs/art/cliff_generator/water.py`.
+- **Für Robins echte Grafik:** dasselbe Raster übermalen (4 Felder × 4 Frames). Andere Frame-Anzahl oder Dauer: Werte in `water_layout.json` ändern und `make_cliff_tileset.gd -- water` laufen lassen. Orte müssen dafür nicht neu gebaut werden, sie zeigen nur auf Frame 0.
 - `assets/environment/forage/forage_bark.png` (20×12): Weidenrinde zum Sammeln. Der wilde Mondkelch auf der Insel nutzt `flora/flowers_moon.png`.
 
 ## Referenzen – `docs/art/`
@@ -564,3 +565,20 @@ Der Stab ist ein Fingerhut: Goldgriff mit Golddraht-Wicklung und Magenta-Stein a
   - 🔮 Später: ein kleines Hand-Overlay (schwarze Finger, goldener Armreif) über dem Griff, damit man das Halten auch ohne Arm-Animation sieht.
 - Noch nicht gebaut: Garten-Version („wartet im Garten“), Grimoire-Abbildung groß, weitere Formen (Sickle, Thornwhip, Rootmaul).
 
+
+## Sperren im Seewald – `assets/environment/gates/` (06.11.2026, Platzhalter)
+
+Erzeugt mit `docs/art/world_generator/gates.py`. Echte Grafiken kommen später von Robin, gleiche Größe, dann nur die PNGs ersetzen.
+
+- `swamp_vines.png` (64×64): Ranken-Treppe S4 zu. Dichtes Geflecht aus Bitterblüten-Ranken mit Dornen und fünf geschlossenen Magenta-Knospen; im Spiel mit schwachem Magenta-Licht.
+- `swamp_vines_open.png` (64×64): nach Glutbombe oder Sichel II. Verkohlte Stümpfe an den Rändern, Asche auf den Stufen.
+- `moon_bridge.png` (192×32): Mondsteg S1, Planken aus Mondlicht (Silber-Mondlicht, Kanten Geisterblau). Offen mit 85 % Deckkraft und kühlem Licht; zu nur als Schimmer (8–25 % Deckkraft, `scripts/world/shimmer.gd`), damit man schon vorher sieht, dass hier ein Weg zur Insel ist.
+- Beim Öffnen blenden alle Gates in 0,8 s von zu nach offen über (`Gate.FADE_TIME`).
+
+## Blütennebel und Blütenherz – `assets/environment/gates/bloom_mist_*.png`, `assets/environment/bloom_heart/` (06.11.2026, Platzhalter)
+
+- `bloom_mist_1/2.png` (128×64): dichte violette Schwaden mit Magenta-Knospen, zwei Varianten überblenden (wabert). Generator `docs/art/world_generator/gates.py --mist`.
+- `bloom_heart_1/2/3.png` (64×64, Fußpunkt unten Mitte): Phase 1 geschlossene fleischige Knospe im Ranken-Korsett, Phase 2 bricht oben auf, Phase 3 offen mit Stacheln und leuchtendem Kern. `bloom_heart_cleansed.png`: bleiche Hülle, warmer Kern, abgefallene Ranken. `bloom_bud.png` (16×16): Schildknospe. Generator `docs/art/world_generator/bloom_heart.py`. Robins große Grafik (`docs/auftraege/grafik_auftrag_bitterbloom.md`) ersetzt sie später.
+- `assets/ui/bestiary/bloom_heart.png` (16×16): verkleinert aus Phase 3.
+- Turmruine: Bauplan `tools/world_builder/plans/tower_ruin/` (erzeugt mit `docs/art/world_generator/tower_ruin_plan.py`).
+- Klänge: `combat/heart_beat_loop` (Doppelschlag), `combat/heart_awaken` (Generator `sfx.py`). Nicht gehört.

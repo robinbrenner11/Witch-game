@@ -184,6 +184,14 @@ func _build_detail(page: Control, recipe: RecipeData) -> void:
 	page.add_child(BookStyle.label(potion.description, BookStyle.INK, text_width))
 	if recipe.margin_note_key != "":
 		page.add_child(BookStyle.margin_note(recipe.margin_note_key, text_width))
+	# Merken: das HUD zeigt dann, welche Zutaten noch fehlen.
+	var is_pinned := Brewing.pinned == recipe.result_item_id
+	var pin := BookStyle.text_button("BOOK_UNPIN" if is_pinned else "BOOK_PIN", BookStyle.INK_PLAYER)
+	pin.tooltip_text = "BOOK_PIN_TOOLTIP"
+	pin.pressed.connect(func() -> void:
+		Brewing.toggle_pin(recipe.result_item_id)
+		book.refresh())
+	page.add_child(pin)
 	if book.opened_from_cauldron:
 		var brew := BookStyle.button("BOOK_BREW_THIS")
 		brew.disabled = not missing.is_empty()

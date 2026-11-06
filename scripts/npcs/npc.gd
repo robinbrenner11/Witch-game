@@ -234,7 +234,25 @@ func _offer_trades(box: DialogueBox) -> void:
 		var picked := await box.choose(data.name_key, options, data.portrait)
 		if picked < 0 or picked >= offers.size():
 			return
-		offers[picked].trade(data.id)
+		var offer := offers[picked]
+		if offer.needs_confirm():
+			await box.show_lines(data.name_key, offer.detail_lines(), data.portrait)
+			var confirm: Array[String] = ["TRADE_DO", "TRADE_NOTHING"]
+			var answer := await box.choose(data.name_key, confirm, data.portrait)
+			if answer != 0:
+				continue
+		if offer.trade(data.id) and offer.sets_flag != "":
+			await _follow_up(box, offer.sets_flag)
+
+
+## Hat ein Tausch etwas freigeschaltet (z. B. Gnarl bekommt seinen Heiltrank),
+## antwortet der NPC gleich darauf, statt erst beim nächsten Ansprechen.
+func _follow_up(box: DialogueBox, flag: String) -> void:
+	var dialogue := DialogueData.pick(data.id, _entry.topic if _entry else "")
+	if dialogue == null or not dialogue.requires_flags.has(flag):
+		return
+	await box.show_lines(data.name_key, dialogue.lines, data.portrait)
+	_after_talk(dialogue)
 
 
 func _after_talk(dialogue: DialogueData) -> void:
