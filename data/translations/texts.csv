@@ -168,7 +168,7 @@ PATH_WILDCRAFT_MOONPICKER_DESC,"Moonmoss opens for you in any phase, once per mo
 PATH_WILDCRAFT_PATHFINDER,Pathfinder,Pfadfinderin
 PATH_WILDCRAFT_PATHFINDER_DESC,You find shortcuts through the woods.,Du findest Abkürzungen durch den Wald.
 PATH_WILDCRAFT_PAGEFINDER,Pagefinder,Seitenfinderin
-PATH_WILDCRAFT_PAGEFINDER_DESC,Page fragments show on your map.,Seitenfragmente erscheinen auf deiner Karte.
+PATH_WILDCRAFT_PAGEFINDER_DESC,"In every moon phase, your shadow points to loose pages nearby.","In jeder Mondphase zeigt dein Schatten auf lose Seiten in der Nähe."
 MSG_LEVEL_UP,%s rose to level %d.,%s ist auf Stufe %d gestiegen.
 BOOK_LEVEL,Level %d,Stufe %d
 BOOK_LEVEL_MAX,"Level %d, mastered","Stufe %d, gemeistert"

@@ -21,6 +21,7 @@ func _ready() -> void:
 		queue_free()
 		return
 	add_to_group(LongShadow.GROUP)
+	add_to_group(LongShadow.PAGE_GROUP)
 	var page := PageData.from_id(page_id)
 	if page and page.state == PageData.State.BLIGHTED:
 		$Sprite2D.modulate = BLIGHTED_TINT

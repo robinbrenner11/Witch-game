@@ -18,7 +18,7 @@ Robin hat am 06.11. freigegeben, dass Claude daraus selbstständig wie ein Spiel
 - 🔮 **Dreiviertelmond (5–7) „Spiegelnächte“:** Wasser zeigt, was nicht da ist (Geister, Vespera-Spuren). Bereitet den Vollmond vor, Erzählkanal.
 - Ⓡ **Unkraut bekommt Sinn** (offene Frage 7): Komposthaufen → Dünger (Qualität, nicht Tempo), oder Unkraut lockt Nützlinge an.
 - Ⓡ **Kessel-Crafting** (offene Frage 2): neben Tränken Tinte, Kerzen, Saatkugeln, Firnis für Gnarl.
-- 🔮 **Drei wirkungslose Hexenpfade:** Seitenfinderin → Karte im Grimoire, die sich beim Erkunden zeichnet; Mondblut → seltene Farbvarianten beim Sammeln; Pfadfinderin → Einbahn-Abkürzungen.
+- 🔮 **Drei wirkungslose Hexenpfade:** Seitenfinderin ✅ 06.11. anders gelöst: Der lange Schatten zeigt in jeder Mondphase auf lose Seiten; Mondblut → seltene Farbvarianten beim Sammeln; Pfadfinderin → Einbahn-Abkürzungen.
 
 ## B. Mechaniken
 

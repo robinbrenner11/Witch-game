@@ -12,6 +12,9 @@ extends Node2D
 
 ## Wer in diese Gruppe kommt, braucht is_secret() -> bool.
 const GROUP := "long_shadow_lure"
+## Lose Seiten zusätzlich hier: Mit dem Hexenpfad „Seitenfinderin“ zeigt der
+## Schatten in jeder Mondphase auf sie (nur auf sie).
+const PAGE_GROUP := "long_shadow_page"
 const RANGE := 360.0
 # Ab hier ist man da, der Schatten zieht sich zurück.
 const NEAR := 36.0
@@ -42,7 +45,7 @@ func _process(delta: float) -> void:
 	_search_wait -= delta
 	if _search_wait <= 0.0:
 		_search_wait = SEARCH_INTERVAL
-		target = find_target() if is_active() else null
+		target = find_target(GROUP if Moon.phase() == Moon.Phase.WAXING else PAGE_GROUP) if is_active() else null
 	var want := 0.0
 	if target and is_instance_valid(target):
 		var distance := global_position.distance_to(target.global_position)
@@ -51,18 +54,19 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 
-## Nur draußen und nur bei zunehmendem Mond.
+## Nur draußen, und nur bei zunehmendem Mond (oder für Seiten mit dem Pfad
+## „Seitenfinderin“).
 func is_active() -> bool:
-	if Moon.phase() != Moon.Phase.WAXING:
+	if Moon.phase() != Moon.Phase.WAXING and Grimoire.get_stat("pagefinder") <= 0:
 		return false
 	var level := get_tree().get_first_node_in_group("level") as Level
 	return level == null or not level.indoors
 
 
-func find_target() -> Node2D:
+func find_target(group: String = GROUP) -> Node2D:
 	var best: Node2D = null
 	var best_distance := RANGE
-	for node in get_tree().get_nodes_in_group(GROUP):
+	for node in get_tree().get_nodes_in_group(group):
 		var lure := node as Node2D
 		if lure == null or not lure.is_inside_tree() or not lure.call("is_secret"):
 			continue
