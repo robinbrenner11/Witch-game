@@ -329,7 +329,7 @@ Offen und bewusst nicht hier: Mondeffekte für die Nächte 2–3 und 5–7, Craf
 ### Nächste Schritte (Stand 16.10., Abbruch wegen Nutzungslimit)
 
 1. ~~Schritt 7: Gnarl und Upgrades~~ ✅ 03.11. (7a, 7b in der Tabelle oben).
-2. ✅ 06.11. **Schritt 8: Turmruine, Blütennebel S5, Blütenherz 1** (Entwurf von Claude, Robins Auftrag). Details in `docs/COMBAT_SYSTEM.md` (Blütenherz). Noch offen: Hexenring-Schnellreise, Apprentice.
+2. ✅ 06.11. **Schritt 8: Turmruine, Blütennebel S5, Blütenherz 1** (Entwurf von Claude, Robins Auftrag). Details in `docs/COMBAT_SYSTEM.md` (Blütenherz). Hexenring-Schnellreise ✅ 06.11. (Garten ↔ tiefer Wald). Noch offen: Apprentice.
 3. ~~Seewald v2 freigeben~~ ✅ 06.11.: ist jetzt `lakewood.tscn`, alter Seewald entfernt, F8 entfällt. Als Nächstes tiefer Wald, Dorf, Garten mit Höhen (Spielstand-Frage beim Garten, `overworld_plan.md` Abschnitt 7).
 4. Offen: echte Grafiken (Robin, mit dem Plugin), Wasser-Animation.
 

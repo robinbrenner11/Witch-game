@@ -18,7 +18,7 @@ _(leer, siehe „Vorschläge“)_
 - **Alte Branches löschen?** `combat-overhaul` und `quality-overhaul` sind vollständig in `main`. Löschen nur mit deinem Okay.
 - **Gnarl und Upgrades testen.** Seit 06.11. ist Seewald v2 der echte Seewald, Weidenrinde und Höhlenkristall sind also im normalen Spiel erreichbar.
 - **`overworld` nach `main` mergen.** `overworld` ist rund 30 Commits vor `main`. Nach Robins Test mergen, damit es wieder einen stabilen Stand gibt.
-- **Schritt 8 testen: Turmruine, Blütennebel S5, erstes Blütenherz** (gebaut 06.11. auf Robins Auftrag „Lücke im Gameplay füllen“, Entwurf von Claude): Bosskampf spielen, Schwierigkeit und Lesbarkeit der Angriffe bewerten. Offen danach: Hexenring als Schnellreise, Apprentice erscheint (Story), echte Grafiken.
+- **Schritt 8 testen: Turmruine, Blütennebel S5, erstes Blütenherz** (gebaut 06.11. auf Robins Auftrag „Lücke im Gameplay füllen“, Entwurf von Claude): Bosskampf spielen, Schwierigkeit und Lesbarkeit der Angriffe bewerten. Hexenring-Schnellreise (Garten ↔ tiefer Wald) ist seit 06.11. gebaut. Offen: Apprentice erscheint (Story), echte Grafiken.
 - ❓ **Garten und Seewald zusammenlegen?** (`overworld_plan.md`, offene Fragen)
 - ❓ **Alte Spielstände beim Garten-Umbau** (`overworld_plan.md` Abschnitt 7)
 - **Grimoire mit echten Grafiken** (`docs/auftraege/auftrag_grimoire_umbau.md`), wartet auf Robins Grafik-Paket.

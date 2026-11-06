@@ -1,6 +1,7 @@
 [gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/world/gate.gd" id="s5_gate"]
+[ext_resource type="PackedScene" path="res://scenes/world/witch_ring.tscn" id="s5_ring"]
 [ext_resource type="Script" path="res://scripts/world/unlockable.gd" id="s5_unlockable"]
 [ext_resource type="Texture2D" path="res://assets/environment/gates/bloom_mist_1.png" id="s5_mist1"]
 [ext_resource type="Texture2D" path="res://assets/environment/gates/bloom_mist_2.png" id="s5_mist2"]
@@ -18,7 +19,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/loose_page.tscn" id="o10_loose_page"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/mushroom_ember.tscn" id="o11_mushroom_ember"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/mushroom_moon.tscn" id="o12_mushroom_moon"]
-[ext_resource type="PackedScene" path="res://scenes/world/decor/mushroom_ring.tscn" id="o13_mushroom_ring"]
 [ext_resource type="PackedScene" path="res://scenes/world/owl.tscn" id="o14_owl"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/rock_1.tscn" id="o15_rock_1"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/rock_2.tscn" id="o16_rock_2"]
@@ -216,8 +216,9 @@ position = Vector2(606, 655)
 position = Vector2(455, 665)
 flip = true
 
-[node name="MushroomRing1" parent="Objects/Decor" instance=ExtResource("o13_mushroom_ring")]
+[node name="WitchRing_forest" parent="Objects" instance=ExtResource("s5_ring")]
 position = Vector2(224, 376)
+ring_id = "forest"
 
 [node name="Owl1" parent="Objects" instance=ExtResource("o14_owl")]
 position = Vector2(786, 497)

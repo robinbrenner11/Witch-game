@@ -19,7 +19,7 @@ Nach `main` wird nur mit Robins Okay gemergt und gepusht.
 ## Nächste Schritte
 
 **Aufgaben für Sessions ohne Robin: `docs/BACKLOG.md`** (bereit / wartet auf Robin). Der Plan dahinter steht in `docs/design/welt_und_items.md`, Abschnitt 10. Kurz:
-1. Robins Test von Schritt 8 (Blütenherz); danach Hexenring als Schnellreise und Apprentice
+1. Robins Test von Schritt 8 (Blütenherz, Hexenring-Schnellreise); danach Apprentice (Story)
 2. Höhen für tiefen Wald, Dorf und Garten (Seewald v2 ist seit 06.11. der echte Seewald)
 
 ## Welches Dokument für welche Frage

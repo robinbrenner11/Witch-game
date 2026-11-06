@@ -590,3 +590,10 @@ DLG_WATCHMAN_HEART_2,The mist is gone. I walked to the tower myself. Thank you.,
 DLG_MOSS_HEART_1,"You felt it stop, didn't you? The lake did. It has been holding its breath for ten years.","Du hast gespürt, wie es aufhörte, nicht wahr? Der See auch. Er hat zehn Jahre den Atem angehalten."
 DLG_MOSS_HEART_2,"That was one heart, child. Only one.","Das war ein Herz, Kind. Nur eines."
 DLG_GNARL_HEART_1,"Hm. Wood stopped weeping in the south. Good work, witch.","Hm. Das Holz im Süden weint nicht mehr. Gute Arbeit, Hexe."
+PROMPT_RING_TRAVEL,Step into the ring,In den Ring treten
+LOOK_RING_DORMANT,"The mushrooms sleep. Beneath them, something still throbs with the blight.","Die Pilze schlafen. Unter ihnen pocht noch etwas vom Befall."
+RING_NAME,Witch Ring,Hexenring
+RING_TRAVEL_TO,To the %s,Zum %s
+RING_STAY,Stay,Bleiben
+RING_GARDEN,garden,Garten
+RING_FOREST,deep woods,tiefen Wald
