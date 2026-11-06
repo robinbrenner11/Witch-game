@@ -876,6 +876,21 @@ def sleep_sound(rng):
     return add_reverb(lp(out, 4500), rng, wet=0.2, sec=1.0, decay=0.35)
 
 
+def cave_drip(rng, variant):
+    """Tropfen im Höhlenspalt (S2, „man hört Tropfen“): kurzes helles Plink,
+    das nach oben gleitet, mit hohlem Nachhall. Je Variante eine andere Höhe."""
+    sec = 1.0
+    n = int(SR * sec)
+    out = np.zeros(n)
+    base = (900, 1150, 780)[variant - 1] * rng.uniform(0.97, 1.03)
+    m = int(SR * 0.09)
+    plink = osc(glide(base, base * 1.9, 0.09, glide_sec=0.05)) * env_exp(m, 0.022, 0.001)
+    place(out, plink, 0.0, 0.6)
+    for delay, gain in ((0.11, 0.25), (0.23, 0.1)):
+        place(out, lp(plink, 2500), delay, gain)
+    return add_reverb(out, rng, wet=0.45, sec=0.9, decay=0.4, bright=2200)
+
+
 def well_splash(rng):
     """Etwas fällt in den Brunnen: tiefes Platschen, Echo von unten."""
     sec = 1.2
@@ -1117,6 +1132,8 @@ _add("world/forest_ambience_loop", forest_ambience_loop, loop=True, level=-6)
 _add("world/shelter_ambience_loop", shelter_ambience_loop, loop=True, level=-7)
 _add("world/campfire_loop", campfire_loop, loop=True, level=-6)
 _add("world/waterfall_loop", waterfall_loop, loop=True, level=-8)
+for v in (1, 2, 3):
+    _add(f"world/cave_drip_{v}", lambda r, v=v: cave_drip(r, v), level=-5)
 _add("world/fast_forward", fast_forward, level=-2, max_sec=1.4)
 _add("world/sleep", sleep_sound, max_sec=2.6)
 _add("world/well_splash", well_splash, max_sec=1.4)
