@@ -72,3 +72,18 @@ func test_mother_moss_hints_on_waxing_moon() -> void:
 	DayCycle.day = 2
 	var talk := DialogueData.pick("mother_moss", "")
 	check(talk != null and talk.id == "moon_waxing", "Mother Moss erzählt bei zunehmendem Mond vom Schatten")
+
+
+## Hexenpfad „Seitenfinderin“: Schatten zeigt in jeder Phase auf Seiten, aber
+## nicht auf Sammelbares (das bleibt dem zunehmenden Mond).
+func test_pagefinder_points_to_pages_every_night() -> void:
+	var page := _lure(Vector2(0, 200))
+	page.add_to_group(LongShadow.PAGE_GROUP)
+	var _herb := _lure(Vector2(0, 80))
+	check(not shadow.is_active(), "Ohne Pfad bei Neumond nichts")
+	var path := PathData.from_id("wildcraft_pagefinder")
+	Grimoire.add_xp("wildcraft", 100000)
+	Grimoire.choose_path(PathData.from_id(path.requires_path_id))
+	Grimoire.choose_path(path)
+	check(shadow.is_active(), "Mit Seitenfinderin auch bei Neumond aktiv")
+	check_eq(shadow.find_target(LongShadow.PAGE_GROUP), page, "Nur Seiten, nicht das nähere Kraut")
