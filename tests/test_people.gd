@@ -48,3 +48,11 @@ func test_book_shows_people_like_herbarium() -> void:
 	check(labels.has(tr("PEOPLE_WATCHMAN_1")), "Erster Eindruck vom Nachtwächter steht rechts")
 	left.free()
 	right.free()
+
+
+## Unter dem Namen steht, wer die Person ist (Rollentext aus den NPC-Daten).
+func test_entry_shows_role() -> void:
+	for npc: NpcData in DataFolder.load_all("res://data/npcs/"):
+		var entry: EntryData = EntryData.in_chapter("people").filter(
+				func(e: EntryData) -> bool: return e.discover_on == "talk/" + npc.id)[0]
+		check_eq(entry.subtitle_key, npc.role_key, "Rolle von %s" % npc.id)

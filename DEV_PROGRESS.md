@@ -48,12 +48,13 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 32 | Fehler + Inhalt: Das Bestiarium konnte sich nie öffnen (Freischaltung „first_fight“ wurde nicht ausgewertet). Jetzt offen nach der ersten Reinigung, mit Einträgen für befallenen Käfer und Dornkäfer (Verhalten, Schwäche mit Spieltipp zur Anlauf-Spur, Beute), eigene Meldung und Bildchen | ✅ `test_bestiary.gd` (4), Layout-Test deckt das Kapitel ab, Screenshot auf Deutsch geprüft |
 | 33 | Entscheidungen mit Gewicht: 4 Hexenpfade versprachen etwas, das nicht passierte. Jetzt wirken Volatil (Wurftränke platzen weiter, ×1,25), Nachhall (Dornennebel hält länger, ×1,5), Nachtschatten-Bändigerin (Kuppel hemmt eigene Pflanzen nicht), Sucherin (lose Seiten glimmen doppelt so weit) | ✅ `test_paths_effects.gd` (3). Werte sind Annahmen, nicht gespielt. Drei weitere Pfade brauchen neue Systeme → Frage im Backlog |
 | 34 | Welt reagiert: Die Eule fliegt mit ihrer (bisher ungenutzten) Abflug-Animation davon, wenn die Hexe zu nah an ihren Baum kommt, und sitzt nach einer Weile wieder dort, wenn die Hexe weg ist. Suche nach ungenutzten Assets: alle Klänge werden benutzt; ungenutzt sind sonst nur die Katze (💡 später) und das Nachtschatten-Debuff-Symbol | ✅ `test_owl.gd`, Screenshot vor/während des Abflugs geprüft |
+| 35 | Ungenutzte Rollentexte der NPCs (`NPC_*_ROLE`) stehen jetzt als Unterzeile unter dem Namen im People-Kapitel (neues Feld `EntryData.subtitle_key`). Dadurch doppelte Angaben in ersten Eindrücken gekürzt | ✅ Test in `test_people.gd`; neuer Layout-Test misst **jeden** Eintrag ganz aufgedeckt im echten Buch (fand Gnarl auf Deutsch 11 px zu lang, behoben). Screenshot geprüft |
 | 27 | Inventar-Tafel und lange Meldungen auf Deutsch geprüft | ✅ passt, keine Änderung |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 86/86 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
+- 05.11.: alle Tests 88/88 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
 - 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen

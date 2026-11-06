@@ -45,3 +45,37 @@ func test_every_chapter_fits() -> void:
 	book.close()
 	book.queue_free()
 	await tree.process_frame
+
+
+## Jeder Eintrag (Herbarium, Leute, Bestiarium) passt auch ganz aufgedeckt
+## auf die rechte Seite, auf Englisch und Deutsch. Gemessen im echten Buch
+## (eigene Schrift und Abstände).
+func test_every_entry_fits_fully_revealed() -> void:
+	for entry in EntryData.all():
+		Grimoire._counts[entry.discover_on] = 99
+		for trigger in entry.fact_triggers:
+			if trigger != "":
+				Grimoire._counts[trigger.split(":")[0]] = 99
+	var book := (load("res://scenes/ui/grimoire_book.tscn") as PackedScene).instantiate() as GrimoireBook
+	tree.root.add_child(book)
+	await tree.process_frame
+	book.open("cover")
+	var room := BookStyle.RIGHT_PAGE.size.y - BookStyle.PAGE_MARGIN * 2 - NUMBER_SPACE
+	var old_locale := TranslationServer.get_locale()
+	for locale in ["en", "de"]:
+		TranslationServer.set_locale(locale)
+		for chapter_id in ["herbarium", "people", "bestiary"]:
+			book.go_to(chapter_id)
+			var spread := book._current_spread() as SpreadHerbarium
+			for entry in EntryData.in_chapter(chapter_id):
+				spread.selected = entry
+				book.refresh()
+				await tree.process_frame
+				await tree.process_frame
+				var boxes := book._pages.get_children().filter(func(n: Node) -> bool: return n is VBoxContainer)
+				var needed: float = (boxes[1] as VBoxContainer).get_combined_minimum_size().y
+				check(needed <= room, "%s (%s): %d px > %d px" % [entry.id, locale, needed, room])
+	TranslationServer.set_locale(old_locale)
+	book.close()
+	book.queue_free()
+	await tree.process_frame

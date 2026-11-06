@@ -10,6 +10,7 @@ chapter = "people"
 page_group = "met"
 order = 1
 title_key = "NPC_MOTHER_MOSS"
+subtitle_key = "NPC_MOTHER_MOSS_ROLE"
 icon = ExtResource("2_icon")
 discover_on = "talk/mother_moss"
 facts = Array[String](["PEOPLE_MOTHER_MOSS_1", "PEOPLE_MOTHER_MOSS_2", "PEOPLE_MOTHER_MOSS_3"])

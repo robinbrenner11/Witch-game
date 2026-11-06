@@ -123,6 +123,8 @@ func _icon_of(entry: EntryData) -> Texture2D:
 
 func _build_detail(page: Control, entry: EntryData) -> void:
 	page.add_child(BookStyle.heading(entry.title_key, BookStyle.INK_PLAYER, text_width))
+	if entry.subtitle_key != "":
+		page.add_child(BookStyle.label(entry.subtitle_key, BookStyle.INK_FAINT, text_width))
 	var row := HBoxContainer.new()
 	row.add_child(BookStyle.icon(_icon_of(entry)))
 	page.add_child(row)
