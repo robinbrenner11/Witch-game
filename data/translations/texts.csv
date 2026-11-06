@@ -597,3 +597,9 @@ RING_TRAVEL_TO,To the %s,Zum %s
 RING_STAY,Stay,Bleiben
 RING_GARDEN,garden,Garten
 RING_FOREST,deep woods,tiefen Wald
+ACTION_CLEANSE,cleansing the blighted,Befallene reinigen
+STAT_WARD_HEALTH,+%d max health,+%d Lebenspunkte
+PATH_WARDING_HEXBLADE,Hexblade,Hexenklinge
+PATH_WARDING_HEXBLADE_DESC,Close-range strikes hit one point harder.,Hiebe aus der Nähe treffen einen Punkt härter.
+PATH_WARDING_HEXCASTER,Hexcaster,Hexenwirkerin
+PATH_WARDING_HEXCASTER_DESC,Witch power returns half again as fast.,Hexenkraft kehrt anderthalbmal so schnell zurück.

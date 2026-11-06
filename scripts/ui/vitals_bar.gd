@@ -44,7 +44,7 @@ func _draw() -> void:
 		return
 	_icon(HEART, 0, HEALTH_LIGHT)
 	_icon(DIAMOND, 7, POWER_LIGHT)
-	_bar(0, float(_vitals.health) / _vitals.max_health, HEALTH_COLOR, HEALTH_LIGHT)
+	_bar(0, float(_vitals.health) / _vitals.max_hp(), HEALTH_COLOR, HEALTH_LIGHT)
 	_bar(7, _vitals.power / _vitals.max_power(), POWER_COLOR, POWER_LIGHT)
 
 

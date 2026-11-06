@@ -82,10 +82,12 @@ func _build_overview(page: Control) -> void:
 	# Alle Disziplinen mit ihrer Farbe und Stufe.
 	for chapter in ChapterData.all():
 		var discipline := DisciplineData.from_id(chapter.id)
-		if discipline == null:
+		# Versiegelte Disziplinen (z. B. Bannkunst vor dem ersten Kampf) noch nicht.
+		if discipline == null or not Grimoire.is_unlocked(chapter):
 			continue
 		page.add_child(_overview_row(chapter.title_key, tr("BOOK_LEVEL") % Grimoire.level(discipline.id), chapter.tab_color))
-	page.add_child(BookStyle.rule_plain(text_width))
+	# Keine Linie zwischen Disziplinen und Übersicht: Mit vier Disziplinen
+	# wird die Seite sonst zu voll.
 	var pages := PageData.all().size()
 	var found := 0
 	for page_id: String in PageData.all():
@@ -98,7 +100,6 @@ func _build_overview(page: Control) -> void:
 	page.add_child(_overview_row("BOOK_OVERVIEW_PAGES", "%d/%d" % [found, pages], Color.TRANSPARENT))
 	page.add_child(_overview_row("BOOK_OVERVIEW_RECIPES", "%d/%d" % [known, recipes.size()], Color.TRANSPARENT))
 	page.add_child(_overview_row("BOOK_OVERVIEW_HERBARIUM", "%d/%d" % [discovered, entries.size()], Color.TRANSPARENT))
-	page.add_child(BookStyle.rule_plain(text_width))
 	var until_full := Moon.nights_until(Moon.Phase.FULL)
 	var moon_text := tr("BOOK_MOON_FULL_NOW") if until_full == 0 else tr("BOOK_MOON_FULL_IN") % until_full
 	page.add_child(_overview_row(Moon.phase_name(), moon_text, Color.TRANSPARENT))

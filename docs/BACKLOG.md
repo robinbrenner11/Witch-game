@@ -14,7 +14,7 @@ _(leer, siehe „Vorschläge“)_
 ## Wartet auf Robin
 
 - ❓ **Hexenpfade ohne Wirkung:** „Mondblut“ (`rare_variants`, seltene Varianten) und „Pfadfinderin“ (`pathfinder`, Abkürzungen) versprechen etwas, das es noch nicht gibt. („Seitenfinderin“ wirkt seit 06.11.: Der lange Schatten zeigt in jeder Mondphase auf lose Seiten.) Bauen (eigene Systeme) oder den Kartentext vorerst ehrlich machen („… sobald es … gibt“, wie bei Potenz und Qualität)?
-- ❓ **Warding (Bannkunst) als Disziplin freischalten?** Das Kapitel ist versiegelt (`unlock = "combat"` wird nicht ausgewertet), weil es die Disziplin noch nicht gibt. Fehlt dafür: Pfade bei Stufe 5/10 (`grimoire.md`: Hexblade / Hexcaster, ❓ nach Kampf-Prototyp), Belohnungen je Stufe, wofür es Erfahrung gibt (Reinigen? neue Wesen im Bestiarium?). Das Bestiarium ist seit 05.11. offen und wäre die Grundlage.
+- **Bannkunst testen** (gebaut 06.11.): öffnet sich mit dem ersten gereinigten Wesen; Erfahrung fürs Reinigen (erstes Wesen jeder Art viel), Stufen: Heiltränke, Glutbomben, +2 Lebenspunkte (Stufe 2/4/7/9), Reinigungsnebel; Stufe 5: Hexenklinge oder Hexenwirkerin. ❓ Pfade auf Stufe 10 noch offen. Die Schlüsselseite des Blütenherzens gibt 150 Bannkunst-Erfahrung.
 - **Alte Branches löschen?** `combat-overhaul` und `quality-overhaul` sind vollständig in `main`. Löschen nur mit deinem Okay.
 - **Gnarl und Upgrades testen.** Seit 06.11. ist Seewald v2 der echte Seewald, Weidenrinde und Höhlenkristall sind also im normalen Spiel erreichbar.
 - **`overworld` nach `main` mergen.** `overworld` ist rund 30 Commits vor `main`. Nach Robins Test mergen, damit es wieder einen stabilen Stand gibt.

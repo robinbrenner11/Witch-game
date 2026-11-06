@@ -174,7 +174,7 @@ Behalten aus dem alten Buch:
 | Herbalism | A **Wildheart** (mehr Ertrag) · B **Rootwise** (mehr Qualität) | Overgrowth (Wachstum breitet sich aus) / Seedkeeper (mehr Samen) | Moonblood (seltene Varianten) / Nightshade Tamer (keine Strafe unter der Kuppel, Nachtschatten nützlich) |
 | Brewing | A **Twin Brew** (2 Tränke pro Brauen) · B **Potent** (stärkere Wirkung) | Cauldron Chorus (3 auf einmal) / Patient Fire (Chance auf Bonus-Trank über Nacht) | Lingering (längere Dauer) / Volatile (größere Wurftränke) |
 | Wildcraft | A **Forager** (mehr Funde, schneller nachwachsen) · B **Seeker** (Seiten/Verstecke glimmen weiter) | Bountiful / Moonpicker (Mondmoos auch außerhalb Vollmond) | Pathfinder (Abkürzungen) / Pagefinder (Fragmente auf der Karte) |
-| Warding | A **Hexblade** (Nahkampfformen) · B **Hexcaster** (Fernzauber, Hexenkraft) | ❓ nach Kampf-Prototyp | ❓ nach Kampf-Prototyp |
+| Warding | A **Hexblade** (Nahkampfformen) · B **Hexcaster** (Fernzauber, Hexenkraft) · ✅ 06.11. gebaut: Hexenklinge = Sichelhiebe +1 Schaden, Hexenwirkerin = Hexenkraft +50 % Regeneration | ❓ nach Kampf-Test | ❓ nach Kampf-Test |
 | Bonding | ❓ hängt von den Fähigkeiten der Katze ab | | |
 
 ### Hexenstärke
