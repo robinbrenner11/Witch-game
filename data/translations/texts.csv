@@ -572,3 +572,21 @@ DLG_MOSS_MOON_WAXING,"The moon is growing. Watch your shadow tonight, child. It 
 BOOK_PIN,Pin recipe,Rezept merken
 BOOK_UNPIN,Unpin,Nicht mehr merken
 BOOK_PIN_TOOLTIP,Shows the ingredients you still need at the top of the screen.,"Zeigt oben am Bildschirmrand, welche Zutaten noch fehlen."
+MSG_BLOOM_MIST,"The mist is thick and sweet. It pushes you back, like a hand on your chest.","Der Nebel ist dicht und süßlich. Er drückt dich zurück, wie eine Hand auf der Brust."
+LOOK_BLOOM_MIST,"Magenta buds glow inside the mist. Something cleansing might part it, at least for a night.","Im Nebel glimmen Magenta-Knospen. Etwas Reinigendes könnte ihn teilen, wenigstens für eine Nacht."
+MSG_HEART_AWAKENS,The heart beats faster. It has noticed you.,Das Herz schlägt schneller. Es hat dich bemerkt.
+MSG_HEART_SHIELDED,The buds shield the heart. Burst them first.,Die Knospen schützen das Herz. Erst müssen sie platzen.
+MSG_HEART_CLEANSED,"The heart falls silent. Around you, the woods breathe out.",Das Herz verstummt. Um dich herum atmet der Wald aus.
+PAGE_JOURNAL_02_LORE,"It beat in time with mine. I called it Mother, because it gave me time. Mother Blight. What I gave her in return, I will not write down.","Es schlug in meinem Takt. Ich nannte es Mutter, weil es mir Zeit schenkte. Mother Blight. Was ich ihr dafür gab, schreibe ich nicht auf."
+PAGE_JOURNAL_02_STUB,It b,Es s
+BEAST_BLOOM_HEART,Bloom Heart,Blütenherz
+BEAST_BLOOM_HEART_1,"The heart of the blight in the tower ruin. It beat, and the woods sickened to its rhythm.","Das Herz des Befalls in der Turmruine. Es schlug, und der Wald erkrankte in seinem Takt."
+BEAST_BLOOM_HEART_2,"Cleansed, it is only a pale husk. Something warm still glows inside.","Gereinigt ist es nur noch eine bleiche Hülle. Darin glimmt noch etwas Warmes."
+DLG_WATCHMAN_RUMOR_MIST_1,"South of the beetle hollow the path runs into a mist. Sweet, thick, glowing from inside.","Südlich der Käfersenke läuft der Weg in einen Nebel. Süßlich, dick, von innen leuchtend."
+DLG_WATCHMAN_RUMOR_MIST_2,"Behind it stood the old tower. My grandmother said the blight has its heart there.","Dahinter stand der alte Turm. Meine Großmutter sagte, dort schlägt das Herz des Befalls."
+DLG_WATCHMAN_RUMOR_MIST_3,"Fight bloom with bloom, she used to say. Whatever that means.","Blüte gegen Blüte, hat sie immer gesagt. Was immer das heißt."
+DLG_WATCHMAN_HEART_1,"{witch}. The woods were quiet tonight. Not afraid-quiet. Resting.","{witch}. Der Wald war heute still. Nicht ängstlich still. Ruhig."
+DLG_WATCHMAN_HEART_2,The mist is gone. I walked to the tower myself. Thank you.,Der Nebel ist weg. Ich bin selbst bis zum Turm gegangen. Danke.
+DLG_MOSS_HEART_1,"You felt it stop, didn't you? The lake did. It has been holding its breath for ten years.","Du hast gespürt, wie es aufhörte, nicht wahr? Der See auch. Er hat zehn Jahre den Atem angehalten."
+DLG_MOSS_HEART_2,"That was one heart, child. Only one.","Das war ein Herz, Kind. Nur eines."
+DLG_GNARL_HEART_1,"Hm. Wood stopped weeping in the south. Good work, witch.","Hm. Das Holz im Süden weint nicht mehr. Gute Arbeit, Hexe."

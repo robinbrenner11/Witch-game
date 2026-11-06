@@ -44,6 +44,10 @@ const FADE_TIME := 0.8
 ## Lässt sich mit einer Sichel aufschneiden, die Ranken schneidet
 ## (AttackData.cuts_vines). Braucht required_flag.
 @export var cut_open: bool = false
+## Der Trank (open_with_item) öffnet nur für die laufende Nacht, nicht für
+## immer (Blütennebel S5: Reinigungsnebel lichtet ihn, er zieht wieder zu).
+## Für immer offen bleibt es dann nur über required_flag.
+@export var item_opens_tonight: bool = false
 ## Meldung, solange zu (Text-Schlüssel).
 @export var locked_message: String = "MSG_PATH_LOCKED"
 ## Was E zeigt, wenn man den passenden Trank nicht in der Hand hat
@@ -95,6 +99,8 @@ func _draw() -> void:
 func is_open() -> bool:
 	if required_flag != "" and WorldState.has_flag(required_flag):
 		return true
+	if item_opens_tonight and WorldState.did_tonight(tonight_key()):
+		return true
 	if moon_phase >= 0 and Moon.phase() == moon_phase:
 		return true
 	for effect in active_effects:
@@ -136,8 +142,15 @@ func _effect_active(effect: String) -> bool:
 
 
 func _open_for_good() -> void:
-	WorldState.set_flag(required_flag)
+	if item_opens_tonight:
+		WorldState.mark_tonight(tonight_key())
+	else:
+		WorldState.set_flag(required_flag)
 	_apply(true, false)
+
+
+func tonight_key() -> String:
+	return "gate/%s/%s" % [name, open_with_item]
 
 
 func _apply(open: bool, instant: bool) -> void:

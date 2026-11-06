@@ -11,6 +11,7 @@ const LEVELS := [
 	"res://scenes/world/forest.tscn",
 	"res://scenes/world/village.tscn", "res://scenes/world/lakewood.tscn",
 	"res://scenes/world/waterfall_cave.tscn", "res://scenes/world/swamp.tscn",
+	"res://scenes/world/tower_ruin.tscn",
 ]
 
 

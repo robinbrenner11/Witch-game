@@ -147,5 +147,42 @@ def main():
     moon_bridge().save(os.path.join(out, "moon_bridge.png"))
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and "--mist" not in sys.argv:
     main()
+
+
+def bloom_mist(seed):
+    """Blütennebel S5 (128x64): schwere, olive-violette Schwaden aus
+    Pixelklumpen, darin Magenta-Knospen, die durchglimmen. Zwei Varianten
+    (seed) zum Überblenden, damit der Nebel wabert."""
+    rng = random.Random(seed)
+    c = Canvas(128, 64)
+    blobs = []
+    for _ in range(48):
+        blobs.append((rng.uniform(0, 128), rng.uniform(8, 56), rng.uniform(10, 20), rng.uniform(6, 10)))
+    for y in range(64):
+        for x in range(128):
+            v = 0.0
+            for bx, by, rx, ry in blobs:
+                v = max(v, 1 - (((x - bx) / rx) ** 2 + ((y - by) / ry) ** 2))
+            # Ränder ausfransen, oben und unten dünner
+            edge = min(min(y, 63 - y) / 8.0, min(x, 127 - x) / 14.0)
+            v *= min(1.0, edge)
+            if v > 0.5:
+                c.put(x, y, "p")
+            elif v > 0.2:
+                c.put(x, y, "i")
+            elif v > 0.05 and (x + y) % 2 == 0:
+                c.put(x, y, "i")
+    for _ in range(7):
+        x, y = rng.randint(8, 119), rng.randint(14, 50)
+        for dx, dy in ((0, 0), (1, 0), (0, 1), (1, 1), (0, -1)):
+            c.put(x + dx, y + dy, "m")
+        c.put(x, y - 1, "M")
+    return c.image()
+
+
+if __name__ == "__main__" and "--mist" in sys.argv:
+    out = sys.argv[1]
+    bloom_mist(5).save(os.path.join(out, "bloom_mist_1.png"))
+    bloom_mist(9).save(os.path.join(out, "bloom_mist_2.png"))

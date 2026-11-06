@@ -121,7 +121,7 @@ Lage nach der KI-Karte. Höhe: 0 tief, 1 normal, 2 hoch (wie im Höhen-Test).
 | Dorf | 1 | ✅ `village.tscn` | Gesuche, Kräutergärtchen (Wildkraut) | ✅ Nachtwächter, 🔮 Gnarl (Werkstatt) | Nacht 1 |
 | Tiefer Wald | 1 | ✅ `forest.tscn` | Glutmorchel, Dämmerbeeren, Eulenfeder, Mondmoos, Blüten-Zutaten | ✅ Eule | Nacht 1 |
 | Sumpf | 0 | 🆕 | 🆕 Sumpflicht (Irrlicht-Pilz), wilder Nachtschatten | 🔮 Ugo (Halbmond) | Zyklus 1–2 |
-| Turmruine | 1 | 🆕 | Blüten-Zutaten (stark) | Blütenherz 1 | Ende Akt 1 |
+| Turmruine | 1 (Turmfundament 2) | ✅ `tower_ruin.tscn` (06.11.) | Blüten-Zutaten (stark) | Blütenherz 1 | Ende Akt 1 |
 | Friedhof | 1 | 🆕 (Akt 2) | 🆕 Grabmoos | ❓ | Akt 2 |
 | Ruinen, Berge, Moor | 2 / 2 / 0 | 🆕 (Akt 2) | Seiten / Sternensplitter / ❓ | ❓ | Akt 2 |
 
@@ -329,7 +329,7 @@ Offen und bewusst nicht hier: Mondeffekte für die Nächte 2–3 und 5–7, Craf
 ### Nächste Schritte (Stand 16.10., Abbruch wegen Nutzungslimit)
 
 1. ~~Schritt 7: Gnarl und Upgrades~~ ✅ 03.11. (7a, 7b in der Tabelle oben).
-2. **Schritt 8: Turmruine, Blütennebel S5, Blütenherz 1** (Boss, eigener Entwurf nötig).
+2. ✅ 06.11. **Schritt 8: Turmruine, Blütennebel S5, Blütenherz 1** (Entwurf von Claude, Robins Auftrag). Details in `docs/COMBAT_SYSTEM.md` (Blütenherz). Noch offen: Hexenring-Schnellreise, Apprentice.
 3. ~~Seewald v2 freigeben~~ ✅ 06.11.: ist jetzt `lakewood.tscn`, alter Seewald entfernt, F8 entfällt. Als Nächstes tiefer Wald, Dorf, Garten mit Höhen (Spielstand-Frage beim Garten, `overworld_plan.md` Abschnitt 7).
 4. Offen: echte Grafiken (Robin, mit dem Plugin), Wasser-Animation.
 

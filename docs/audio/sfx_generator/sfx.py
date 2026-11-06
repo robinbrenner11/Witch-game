@@ -891,6 +891,30 @@ def cave_drip(rng, variant):
     return add_reverb(out, rng, wet=0.45, sec=0.9, decay=0.4, bright=2200)
 
 
+def heart_beat_loop(rng):
+    """Blütenherz: dumpfer Doppelschlag, feucht, 1,2 s pro Schlag. 2,4 s, nahtlos."""
+    sec = 2.4
+    n = int(SR * sec)
+    out = np.zeros(n)
+    for beat in (0.0, 1.2):
+        for offset, gain in ((0.0, 1.0), (0.22, 0.7)):
+            m = int(SR * 0.35)
+            thump = osc(glide(70, 42, 0.35, glide_sec=0.12)) * env_exp(m, 0.09, 0.004)
+            thump += 0.3 * lp(rng.normal(size=m), 300) * env_exp(m, 0.05, 0.002)
+            place(out, thump, beat + offset, gain * 0.9)
+    return add_reverb(lp(out, 900), rng, wet=0.25, sec=0.6, decay=0.2, circular=True)
+
+
+def heart_awaken(rng):
+    """Das Herz erwacht: tiefes Anschwellen, darüber ein feuchtes Reißen."""
+    sec = 2.0
+    n = int(SR * sec)
+    out = 0.5 * osc(glide(40, 85, sec, glide_sec=1.6)) * env_swell(n, 0.7, 0.3)
+    out += 0.35 * bp(rng.normal(size=n), 200, 1400) * env_swell(n, 0.8, 0.2)
+    place(out, burst(int(SR * 0.4), rng, 300, 3000, 0.12), 1.2, 0.6)
+    return add_reverb(lp(out, 4000), rng, wet=0.35, sec=1.2, decay=0.35)
+
+
 def well_splash(rng):
     """Etwas fällt in den Brunnen: tiefes Platschen, Echo von unten."""
     sec = 1.2
@@ -1132,6 +1156,8 @@ _add("world/forest_ambience_loop", forest_ambience_loop, loop=True, level=-6)
 _add("world/shelter_ambience_loop", shelter_ambience_loop, loop=True, level=-7)
 _add("world/campfire_loop", campfire_loop, loop=True, level=-6)
 _add("world/waterfall_loop", waterfall_loop, loop=True, level=-8)
+_add("combat/heart_beat_loop", heart_beat_loop, loop=True, level=-6)
+_add("combat/heart_awaken", heart_awaken, level=-4, max_sec=2.5)
 for v in (1, 2, 3):
     _add(f"world/cave_drip_{v}", lambda r, v=v: cave_drip(r, v), level=-5)
 _add("world/fast_forward", fast_forward, level=-2, max_sec=1.4)

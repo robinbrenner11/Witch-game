@@ -48,6 +48,10 @@ enum Regrow { STEADY, RESPAWN, CHANCE, NONE }
 # Sie stehen nicht im Spielstand und sind am nächsten Abend wieder weg.
 @export var surge_extra: int = 0
 @export var surge_kinds: Array[PackedScene] = []
+## Ist dieses Flag gesetzt, wächst hier nichts mehr (gereinigtes Gebiet nach
+## dem Blütenherz). Neumond-Stücke (surge_extra) kommen trotzdem: kleine
+## Rückfälle (game_design.md, Abschnitt 4).
+@export var blocked_by_flag: String = ""
 
 # Wie viele Neumond-Stücke pro Ort in dieser Nacht schon eingesammelt bzw.
 # gereinigt sind ({Ort: {"day": Nacht, "count": n}}), damit sie beim
@@ -71,6 +75,12 @@ func _ready() -> void:
 	# freien Plätze noch nicht bekannt.
 	await get_tree().process_frame
 	var items := Wilds.items(_place)
+	if blocked_by_flag != "" and WorldState.has_flag(blocked_by_flag):
+		items.clear()
+		Wilds.take_pending(_place)
+		if surge_extra > 0 and Moon.blight_surges():
+			_grow_surge()
+		return
 	for id: String in items.keys():
 		var item: Dictionary = items[id]
 		var scene_path := String(item.get("scene", ""))

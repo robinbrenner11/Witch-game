@@ -574,3 +574,11 @@ Erzeugt mit `docs/art/world_generator/gates.py`. Echte Grafiken kommen später v
 - `swamp_vines_open.png` (64×64): nach Glutbombe oder Sichel II. Verkohlte Stümpfe an den Rändern, Asche auf den Stufen.
 - `moon_bridge.png` (192×32): Mondsteg S1, Planken aus Mondlicht (Silber-Mondlicht, Kanten Geisterblau). Offen mit 85 % Deckkraft und kühlem Licht; zu nur als Schimmer (8–25 % Deckkraft, `scripts/world/shimmer.gd`), damit man schon vorher sieht, dass hier ein Weg zur Insel ist.
 - Beim Öffnen blenden alle Gates in 0,8 s von zu nach offen über (`Gate.FADE_TIME`).
+
+## Blütennebel und Blütenherz – `assets/environment/gates/bloom_mist_*.png`, `assets/environment/bloom_heart/` (06.11.2026, Platzhalter)
+
+- `bloom_mist_1/2.png` (128×64): dichte violette Schwaden mit Magenta-Knospen, zwei Varianten überblenden (wabert). Generator `docs/art/world_generator/gates.py --mist`.
+- `bloom_heart_1/2/3.png` (64×64, Fußpunkt unten Mitte): Phase 1 geschlossene fleischige Knospe im Ranken-Korsett, Phase 2 bricht oben auf, Phase 3 offen mit Stacheln und leuchtendem Kern. `bloom_heart_cleansed.png`: bleiche Hülle, warmer Kern, abgefallene Ranken. `bloom_bud.png` (16×16): Schildknospe. Generator `docs/art/world_generator/bloom_heart.py`. Robins große Grafik (`docs/auftraege/grafik_auftrag_bitterbloom.md`) ersetzt sie später.
+- `assets/ui/bestiary/bloom_heart.png` (16×16): verkleinert aus Phase 3.
+- Turmruine: Bauplan `tools/world_builder/plans/tower_ruin/` (erzeugt mit `docs/art/world_generator/tower_ruin_plan.py`).
+- Klänge: `combat/heart_beat_loop` (Doppelschlag), `combat/heart_awaken` (Generator `sfx.py`). Nicht gehört.

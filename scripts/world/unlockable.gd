@@ -10,6 +10,9 @@ extends Node2D
 @export var required_flag: String = ""
 ## Nur in diesen Mondphasen (Moon.Phase), leer = egal.
 @export var moon_phases: Array[int] = []
+## Verschwindet, sobald dieses Flag gesetzt ist (z. B. Befall, der nach dem
+## Blütenherz weicht). Leer = egal.
+@export var hidden_by_flag: String = ""
 
 
 func _ready() -> void:
@@ -20,6 +23,8 @@ func _ready() -> void:
 
 func is_unlocked() -> bool:
 	if required_flag != "" and not WorldState.has_flag(required_flag):
+		return false
+	if hidden_by_flag != "" and WorldState.has_flag(hidden_by_flag):
 		return false
 	return moon_phases.is_empty() or Moon.phase() in moon_phases
 

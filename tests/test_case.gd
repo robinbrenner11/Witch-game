@@ -27,6 +27,12 @@ func before_each() -> void:
 	pass
 
 
+## Wird nach jedem Test aufgerufen (darf await nutzen), z. B. zum Aufräumen von
+## Nodes, damit sie nicht in spätere Tests hineinwirken.
+func after_each() -> void:
+	pass
+
+
 func take_failures() -> PackedStringArray:
 	var result := _failures
 	_failures = []

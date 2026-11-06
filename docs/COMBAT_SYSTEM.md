@@ -205,6 +205,11 @@ Nicht automatisch geprüft: wie sich der Kampf anfühlt (Tempo, Schwierigkeit) u
 - **Sichel in der Overworld**: Unkraut schneiden ohne Kampfmodus, mit eigener Bedienung (laut Design später getrennt vom Kampf).
 - **Weitere Gegner mit eigenem Telegraph**: eine befallene Pflanze, die Sporen spuckt (Kreis am Boden vor dem Einschlag); Motten im Schwarm, die nur bei Licht angreifen.
 - **Blütenherz (Boss)**: mehrere Phasen, jede mit eigenem, gut lesbarem Telegraph; darf fordernd sein.
+  - ✅ 06.11. **Erstes Blütenherz** (`scripts/world/bloom_heart.gd`, Turmruine): 36 Leben, erwacht bei Nähe (170 px) oder Treffer. Angriffe sind Bodenflächen (`BloomHazard`) mit pulsierendem Umriss, der sich füllt, dann Schlag (1 Schaden):
+    - Phase 1: Sporenkreise unter und neben der Hexe (alle 2,6 s, Warnung 1,1 s).
+    - Phase 2 (ab 2/3 Leben): abwechselnd Sporen und 6 Dornenstrahlen aus dem Herz; beim Wechsel zwei Käfer.
+    - Phase 3 (ab 1/3): 8 Strahlen plus Spore, schneller (1,7 s / 0,85 s); drei Schildknospen (`BloomBud`, je 3 Leben) kreisen ums Herz, solange eine lebt, nimmt es keinen Schaden.
+    - Gereinigt: Flag `bloom_heart_1_cleansed`, Blütennebel S5 für immer offen, Befall im tiefen Wald weg, dort neue Käfer nur noch bei Neumond, Schlüsselseite `page_journal_02` (Mother Blight), 3 Blütenknospen, Bestiarium-Eintrag, NPC-Reaktionen. Alle Werte sind Annahmen, nicht gespielt.
 - **Irrlicht hilft im Kampf** (Idee vom 09.10.): kleiner Funke auf nahe Gegner.
 - **Kleine Synergien statt Kombo-System**: z. B. ein gestaggerter Käfer nimmt von der Sichel +1 Schaden. Nur wenn es sich im Test lohnt.
 - **Weitere Wurftränke**: Reinigungsnebel, Giftwolke (aus der Kandidatenliste vom 10.10.).

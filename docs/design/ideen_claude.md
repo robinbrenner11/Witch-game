@@ -6,7 +6,7 @@ Robin hat am 06.11. freigegeben, dass Claude daraus selbstständig wie ein Spiel
 
 ## Top 5 (größte Wirkung)
 
-1. Ⓡ **Akt-1-Ziel: Turmruine + erstes Blütenherz.** Dem Spiel fehlt ein Zielpunkt. Boss braucht Robins Entwurf.
+1. ✅ 06.11. **Akt-1-Ziel: Turmruine + erstes Blütenherz** (Entwurf und Bau von Claude).
 2. Ⓡ **Mondnächte 2–3 und 5–7 füllen** (offene Frage 1). Fünf von acht Nächten haben keinen Charakter.
 3. 🔮 **Kerzen und Licht als Mechanik:** Die Hexe setzt selbst Lichtinseln in die dunkle Welt.
 4. ✅ 06.11. **Morgenbilanz beim Schlafen** (gebaut als Nachtbuch, `NightLog` + `NightJournal`): sichtbarer Fortschritt, Lust auf die nächste Nacht.

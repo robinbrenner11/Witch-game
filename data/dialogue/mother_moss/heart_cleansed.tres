@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/dialogue_data.gd" id="1_dialogue"]
+
+[resource]
+script = ExtResource("1_dialogue")
+id = "heart_cleansed"
+lines = Array[String](["DLG_MOSS_HEART_1", "DLG_MOSS_HEART_2"])
+priority = 60
+once = true
+requires_flags = Array[String](["met_mother_moss", "bloom_heart_1_cleansed"])
