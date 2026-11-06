@@ -66,6 +66,7 @@ func _ready() -> void:
 	# Treffer und Heilen sichtbar machen (Aufblitzen, Wackeln, Funken).
 	add_child(VitalsFeedback.new())
 	add_child(ProgressFeedback.new())
+	add_child(LongShadow.new())
 	# Trank-Schnellzugriff im Kampf (Q, R). Braucht Combat und Vitals, die als
 	# Kinder aus player.tscn hier schon bereit sind.
 	var potions := CombatPotions.new()

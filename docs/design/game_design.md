@@ -140,7 +140,7 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 | Nacht | Phase | Effekt |
 |---|---|---|
 | 1 | 🌑 New Moon | ✅ Die Blüte ist am stärksten (mehr Befall, Rückfälle, verdorbene Zutaten) |
-| 2–3 | 🌒 Waxing | ❓ offen. ❌ nicht „Pflanzen wachsen besser“. Darf auch ohne Effekt bleiben. |
+| 2–3 | 🌒 Waxing | ✅ 06.11. (Claude, mit Robins Freigabe): **Lange Schatten.** Draußen streckt sich der Schatten der Hexe (gedämpftes Magenta) zur nächsten losen Seite oder zu Reifem, das sie noch nie gesammelt hat. Mother Moss deutet es an. `scripts/player/long_shadow.gd` |
 | 4 | 🌓 Half Moon | ✅ Halbmondmarkt, Händler und Wanderer |
 | 5–7 | 🌔 Gibbous | ❓ offen. ❌ nicht „Sammelobjekte leuchten“. |
 | 8 | 🌕 Full Moon | ✅ Mondkelch reif, Hexenring aktiv, manchmal ein Fest |

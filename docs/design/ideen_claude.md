@@ -14,7 +14,7 @@ Robin hat am 06.11. freigegeben, dass Claude daraus selbstständig wie ein Spiel
 
 ## A. Lücken im Kern
 
-- 🔮 **Zunehmender Mond (2–3) „Lange Schatten“:** Der Schatten der Hexe löst sich kurz und zeigt auf Verstecktes (Seiten, seltene Pflanzen, Durchgänge).
+- ✅ 06.11. **Zunehmender Mond (2–3) „Lange Schatten“:** Der Schatten der Hexe löst sich kurz und zeigt auf Verstecktes (Seiten, seltene Pflanzen, Durchgänge).
 - 🔮 **Dreiviertelmond (5–7) „Spiegelnächte“:** Wasser zeigt, was nicht da ist (Geister, Vespera-Spuren). Bereitet den Vollmond vor, Erzählkanal.
 - Ⓡ **Unkraut bekommt Sinn** (offene Frage 7): Komposthaufen → Dünger (Qualität, nicht Tempo), oder Unkraut lockt Nützlinge an.
 - Ⓡ **Kessel-Crafting** (offene Frage 2): neben Tränken Tinte, Kerzen, Saatkugeln, Firnis für Gnarl.
