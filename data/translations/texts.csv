@@ -569,3 +569,6 @@ NIGHTLOG_LEVEL,(level %d),(Stufe %d)
 NIGHTLOG_MORE,and %d more,und %d weitere
 NIGHTLOG_CONTINUE,%s  Sleep,%s  Schlafen
 DLG_MOSS_MOON_WAXING,"The moon is growing. Watch your shadow tonight, child. It points at what the woods have not yet told you.","Der Mond wächst. Achte heute Nacht auf deinen Schatten, Kind. Er zeigt auf das, was dir der Wald noch nicht verraten hat."
+BOOK_PIN,Pin recipe,Rezept merken
+BOOK_UNPIN,Unpin,Nicht mehr merken
+BOOK_PIN_TOOLTIP,Shows the ingredients you still need at the top of the screen.,"Zeigt oben am Bildschirmrand, welche Zutaten noch fehlen."

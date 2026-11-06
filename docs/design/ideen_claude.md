@@ -52,5 +52,5 @@ Robin hat am 06.11. freigegeben, dass Claude daraus selbstständig wie ein Spiel
 
 - ✅ 06.11. Nachtbuch beim Schlafen.
 - 🔮 Musik: Es gibt einen Loop („Mondgarten“, normal und Vollmond). Denkbar: Ebenen je Ort (Beat aus im Unterschlupf, wie in `docs/audio/garten_loop/LIESMICH.md` geplant).
-- Ⓡ Rezept merken (Pin im HUD).
+- ✅ 06.11. Rezept merken (Pin im HUD).
 - 🔮 Kleine Lebendigkeit: Fußspuren im Tau, Laternen spiegeln sich im Wasser, Gewand bewegt sich im Stand.
