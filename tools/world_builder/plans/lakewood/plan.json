@@ -1,5 +1,5 @@
 {
- "scene": "res://scenes/world/lakewood_v2.tscn",
+ "scene": "res://scenes/world/lakewood.tscn",
  "levels": 3,
  "default_level": 1,
  "default_ground": "meadow",

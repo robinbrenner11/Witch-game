@@ -8,8 +8,8 @@ extends SceneTree
 
 const LEVELS := [
 	"res://scenes/world/shelter.tscn", "res://scenes/world/garden.tscn",
-	"res://scenes/world/lakewood.tscn", "res://scenes/world/forest.tscn",
-	"res://scenes/world/village.tscn", "res://scenes/world/lakewood_v2.tscn",
+	"res://scenes/world/forest.tscn",
+	"res://scenes/world/village.tscn", "res://scenes/world/lakewood.tscn",
 	"res://scenes/world/waterfall_cave.tscn", "res://scenes/world/swamp.tscn",
 ]
 

@@ -16,8 +16,7 @@ _(leer, siehe „Vorschläge“)_
 - ❓ **Hexenpfade ohne Wirkung:** „Mondblut“ (`rare_variants`, seltene Varianten), „Pfadfinderin“ (`pathfinder`, Abkürzungen) und „Seitenfinderin“ (`pagefinder`, Karte) versprechen etwas, das es noch nicht gibt. Bauen (eigene Systeme) oder den Kartentext vorerst ehrlich machen („… sobald es … gibt“, wie bei Potenz und Qualität)?
 - ❓ **Warding (Bannkunst) als Disziplin freischalten?** Das Kapitel ist versiegelt (`unlock = "combat"` wird nicht ausgewertet), weil es die Disziplin noch nicht gibt. Fehlt dafür: Pfade bei Stufe 5/10 (`grimoire.md`: Hexblade / Hexcaster, ❓ nach Kampf-Prototyp), Belohnungen je Stufe, wofür es Erfahrung gibt (Reinigen? neue Wesen im Bestiarium?). Das Bestiarium ist seit 05.11. offen und wäre die Grundlage.
 - **Alte Branches löschen?** `combat-overhaul` und `quality-overhaul` sind vollständig in `main`. Löschen nur mit deinem Okay.
-- **Gnarl und Upgrades testen.** Die Upgrades sind gerade praktisch nur über F8 erreichbar, weil Weidenrinde und Höhlenkristall nur im Seewald v2 wachsen.
-- **Seewald v2 testen (F8).** Blockiert: Ausgänge auf `lakewood_v2.tscn` umstellen, alten Seewald entfernen (W5), danach Höhen für Wald, Dorf und Garten.
+- **Gnarl und Upgrades testen.** Seit 06.11. ist Seewald v2 der echte Seewald, Weidenrinde und Höhlenkristall sind also im normalen Spiel erreichbar.
 - **`overworld` nach `main` mergen.** `overworld` ist rund 30 Commits vor `main`. Nach Robins Test mergen, damit es wieder einen stabilen Stand gibt.
 - **Schritt 8: Turmruine, Blütennebel S5, erstes Blütenherz.** Der Boss braucht erst einen Entwurf (Aussehen, Ablauf, Belohnung).
 - ❓ **Garten und Seewald zusammenlegen?** (`overworld_plan.md`, offene Fragen)

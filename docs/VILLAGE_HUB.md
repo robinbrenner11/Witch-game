@@ -18,7 +18,7 @@ Kurz: Ins Dorf (Graybox) kommt man nur über den **Seewald**, einen friedlichen,
         [Tiefer Wald]  Befall, Käfer
 ```
 
-- **Seewald** (`scenes/world/lakewood.tscn`, Node `Lakewood`): offener Wald, Wiese, See als Graybox (`Lake`, Pixelblöcke, Mondspiegelung je nach Mondphase), Trauerweiden, Kröten, Glühwürmchen. Keine Gegner, keine NPCs (vorerst).
+- **Seewald** (`scenes/world/lakewood.tscn`, Node `Lakewood`): seit 06.11. aus dem Bauplan gebaut (Höhen, See mit Insel und Mondsteg, Wasserfall mit Höhle, Ranken-Treppe zum Sumpf, Hütte von Mother Moss), Trauerweiden, Kröten, Glühwürmchen. Keine Gegner.
 - **Dorf**: unregelmäßiger Waldrand, geschwungene Pflasterstraße vom Waldweg zum unregelmäßigen Platz, Gassen aus Trampelpfad, gemauerter Markt im Osten, Häuser versetzt. Beide Eingänge im Westen, passend zur Richtung, aus der man kommt.
 - Erzeugt wurden Boden und Deko beider Orte mit einem Hilfsskript (nicht im Repo). Von Hand weiterbauen im Editor geht ganz normal.
 

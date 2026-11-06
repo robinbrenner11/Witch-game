@@ -146,7 +146,7 @@ func test_sickle_cuts_vines() -> void:
 
 
 func test_swamp_vines_can_be_cut() -> void:
-	var lakewood := (load("res://scenes/world/lakewood_v2.tscn") as PackedScene).instantiate()
+	var lakewood := (load("res://scenes/world/lakewood.tscn") as PackedScene).instantiate()
 	var vines := lakewood.get_node_or_null("SwampVines") as Gate
 	check(vines != null and vines.cut_open, "S4 lässt sich mit Sichel II schneiden")
 	check(vines != null and vines.open_with_item == "potion_ember_bomb", "Glutbombe geht weiter")

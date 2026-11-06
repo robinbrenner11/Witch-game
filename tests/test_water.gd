@@ -4,7 +4,7 @@
 extends TestCase
 
 const WATER_DIR := "res://assets/environment/water/"
-const SCENES_WITH_WATER := ["res://scenes/world/lakewood_v2.tscn", "res://scenes/world/swamp.tscn",
+const SCENES_WITH_WATER := ["res://scenes/world/lakewood.tscn", "res://scenes/world/swamp.tscn",
 		"res://scenes/world/waterfall_cave.tscn", "res://scenes/world/test/height_test.tscn"]
 
 
@@ -64,7 +64,7 @@ func test_scenes_use_base_tiles() -> void:
 		var water := level.get_node_or_null("Water") as TileMapLayer
 		check(water != null, "%s hat eine Wasser-Ebene" % path.get_file())
 		if water:
-			if path.get_file() in ["lakewood_v2.tscn", "swamp.tscn"]:
+			if path.get_file() in ["lakewood.tscn", "swamp.tscn"]:
 				check(water.get_used_cells().size() > 0, "%s hat Wasser" % path.get_file())
 			for cell in water.get_used_cells():
 				var coords := water.get_cell_atlas_coords(cell)
