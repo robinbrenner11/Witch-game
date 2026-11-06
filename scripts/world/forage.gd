@@ -42,6 +42,7 @@ func _ready() -> void:
 	add_child(interactable)
 	# Der Tag kann auch vergehen, während man hier steht.
 	DayCycle.day_passed.connect(_on_day_passed)
+	add_to_group(LongShadow.GROUP)
 	# Erst nach dem Einsetzen kennt es seinen Platz in Wilds.
 	_update_look.call_deferred()
 
@@ -55,6 +56,12 @@ func is_ripe() -> bool:
 		var moon_ok := Moon.is_full() or Grimoire.get_stat("moonpicker") > 0
 		return moon_ok and int(state.get("picked_cycle", -1)) != Moon.cycle()
 	return int(state.get("regrow_in", 0)) <= 0
+
+
+## Lange Schatten (zunehmender Mond) zeigen auf Reifes, das noch nie
+## gesammelt wurde, also noch keinen Herbarium-Eintrag hat.
+func is_secret() -> bool:
+	return is_ripe() and Grimoire.count_of("forage/" + drop_item_id) == 0
 
 
 ## Text für den Interaktions-Hinweis (siehe Interactable).
