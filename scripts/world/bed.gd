@@ -43,12 +43,21 @@ func _sleep(player: Player) -> void:
 	await get_tree().create_timer(FALL_ASLEEP_TIME).timeout
 	await ScreenFade.fade_out()
 
+	# Bilanz der vergangenen Nacht, bevor der neue Tag sie zurücksetzt.
+	var lines := NightLog.summary_lines()
+	var title := tr("NIGHTLOG_TITLE") % [DayCycle.day, Moon.phase_name()]
 	DayCycle.sleep_until_night()
 	Grimoire.complete_goal("sleep")
 	# Erst nach dem Wachstum über Nacht speichern, damit der Stand zum
 	# Aufwachen passt.
 	SaveGame.save_game()
-	await get_tree().create_timer(DARK_TIME).timeout
+	if lines.is_empty():
+		await get_tree().create_timer(DARK_TIME).timeout
+	else:
+		var journal := NightJournal.new()
+		get_tree().root.add_child(journal)
+		await journal.show_lines(title, lines)
+		journal.queue_free()
 
 	await ScreenFade.fade_in()
 	await get_tree().create_timer(WAKE_UP_TIME).timeout
@@ -59,4 +68,4 @@ func _sleep(player: Player) -> void:
 	player.set_controls_enabled(true)
 	_sleeping = false
 	# Bewusst kein Text am Morgen: Was über den Tag passiert ist, soll man
-	# selbst im Garten entdecken.
+	# selbst im Garten entdecken. Die Bilanz davor zeigt nur die vergangene Nacht.

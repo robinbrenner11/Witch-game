@@ -4,7 +4,7 @@ Stand: 03.11.2026. **Das hier zuerst lesen**, danach nur die Dokumente, die die 
 
 ## Stand in einem Absatz
 
-Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen, Hexenpfaden und Herbarium (alle Sammelfunde, Beute und Zutaten haben einen Eintrag), Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen. Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss und Ugo, Gnarl (Wurzelschnitzer, zieht nach einem Heiltrank vom Wald in die Dorf-Werkstatt und macht dort Upgrades: Stab II, Sichel II, Kessel mit 4 Plätzen), Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald v2, Wasserfall-Höhle, Sumpf). Wasser ist animiert (Platzhalter-Frames). Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
+Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen, Hexenpfaden und Herbarium (alle Sammelfunde, Beute und Zutaten haben einen Eintrag), Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen (mit Nachtbuch: Bilanz der vergangenen Nacht). Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss und Ugo, Gnarl (Wurzelschnitzer, zieht nach einem Heiltrank vom Wald in die Dorf-Werkstatt und macht dort Upgrades: Stab II, Sichel II, Kessel mit 4 Plätzen), Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald v2, Wasserfall-Höhle, Sumpf). Wasser ist animiert (Platzhalter-Frames). Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
 
 ## Branches
 
@@ -55,4 +55,5 @@ Gilt bei Widersprüchen: das neuere Dokument. `welt_und_items.md` (16.10.) vor `
 - Debug-Tasten: F3–F5 Grimoire, F7 Höhen-Test
 - `tools/qa/`: Screenshots aus dem laufenden Spiel ohne Bildschirm (`shot.sh`, unter Xvfb)
 - `DEV_PROGRESS.md` (im Projektordner): Protokoll der selbstständigen Iterationen
+- `docs/design/ideen_claude.md`: Ideensammlung (06.11.), daraus wählt Claude selbstständig aus
 - `tests/`: Tests im Repo (Hilfsskripte in `tests/helpers/`), headless mit `godot --headless --script res://tests/run_tests.gd`. In der Cloud vorher `bash tools/setup_godot.sh` (Details: `CLAUDE.md` Abschnitt 13). Ältere Prüfskripte (Schritte 1–6) lagen nicht im Repo.

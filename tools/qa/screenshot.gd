@@ -17,7 +17,7 @@ extends SceneTree
 ## interact=Pfad/im/Ort löst E an diesem Objekt aus, spawn=szene@x,y;… setzt Szenen,
 ## freeze=0.3 hält eingesetzte Käfer im Innehalten vor dem Anlauf fest,
 ## call=Pfad:methode:arg ruft eine Methode an einem Node unter main.tscn auf.
-## map=1 zeigt den ganzen Ort auf einmal. day=N stellt die Nacht ein (und damit die Mondphase).
+## journal=1 zeigt die Nachtbilanz. map=1 zeigt den ganzen Ort auf einmal. day=N stellt die Nacht ein (und damit die Mondphase).
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -130,6 +130,13 @@ func _initialize() -> void:
 		root.get_tree().get_first_node_in_group("dialogue_box").show_lines("NPC_WATCHMAN", lines)
 	if args.has("brew"):
 		root.get_tree().get_first_node_in_group("brew_window").open()
+	# journal=1 zeigt die Nachtbilanz wie beim Einschlafen (mit events=… füllen).
+	if args.has("journal"):
+		var night_log := root.get_node("NightLog")
+		var journal: CanvasLayer = load("res://scripts/ui/night_journal.gd").new()
+		root.add_child(journal)
+		var title := TranslationServer.translate("NIGHTLOG_TITLE") % [day_cycle.day, root.get_node("Moon").phase_name()]
+		journal.show_lines(title, night_log.summary_lines())
 	await _shoot(args)
 
 

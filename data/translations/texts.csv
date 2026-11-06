@@ -556,3 +556,15 @@ DLG_UGO_FIRST_3,At half moon Ugo sits at the village market. The humans pretend 
 DLG_UGO_MARKET,"Half moon! Ugo's favourite. Even the baker buys, after dark.","Halbmond! Ugos Liebling. Sogar die Bäckerin kauft, nach Einbruch der Dunkelheit."
 DLG_UGO_SMALLTALK_1,You brew muck? Wonderful muck. Ugo takes all of it.,Du braust Schlamm? Herrlicher Schlamm. Ugo nimmt alles.
 DLG_UGO_SMALLTALK_2,"The buds from the blight? Ugo knows nothing. Ugo has some, though.",Die Knospen von der Blüte? Ugo weiß von nichts. Ugo hat aber welche.
+NIGHTLOG_TITLE,Night %d · %s,Nacht %d · %s
+NIGHTLOG_GATHERED,Gathered: %s,Gesammelt: %s
+NIGHTLOG_BREWED,Brewed: %s,Gebraut: %s
+NIGHTLOG_PLANTED,Planted: %d seeds,Gepflanzt: %d Samen
+NIGHTLOG_CLEANSED,Cleansed: %d blighted creatures,Gereinigt: %d befallene Wesen
+NIGHTLOG_MET,Spoke with: %s,Gesprochen mit: %s
+NIGHTLOG_DISCOVERED,New in the grimoire: %s,Neu im Grimoire: %s
+NIGHTLOG_PAGES,loose pages ×%d,lose Seiten ×%d
+NIGHTLOG_XP,Grew in: %s,Gewachsen in: %s
+NIGHTLOG_LEVEL,(level %d),(Stufe %d)
+NIGHTLOG_MORE,and %d more,und %d weitere
+NIGHTLOG_CONTINUE,%s  Sleep,%s  Schlafen

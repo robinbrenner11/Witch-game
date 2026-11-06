@@ -14,6 +14,8 @@ signal page_found(page_id: String)
 signal level_up(discipline_id: String, level: int)
 # Ein Eintrag im Herbarium oder bei den Leuten ist neu entdeckt.
 signal entry_discovered(entry: EntryData)
+## Jede gemeldete Aktion (für die Nachtbilanz, NightLog).
+signal reported(action: String, subject: String)
 signal milestone_ready(discipline_id: String, level: int)
 
 # So lang darf der Name der Hexe höchstens sein (passt dann überall hin).
@@ -228,6 +230,7 @@ func report(action: String, details: Dictionary = {}) -> void:
 			Messages.post(tr(message) % tr(entry.title_key))
 			entry_discovered.emit(entry)
 	_check_completed_groups()
+	reported.emit(action, subject)
 	changed.emit()
 
 
