@@ -2,9 +2,9 @@
 
 Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln: `CLAUDE.md`. Aufgabenliste: `docs/BACKLOG.md`. Branch: `claude/autopilot` (baut auf PR #2 und #3 auf).
 
-## Stand (05.11.2026)
+## Stand (06.11.2026)
 
-**Spielbar:** Unterschlupf (Bett, Truhe, Lesepult/Grimoire), Garten (Beete, Wachstum über Nacht, Nachtschatten-Aura), Kessel (Brauen über Nacht, 5+ Rezepte), Tränke trinken/gießen/werfen, Sammeln mit Nachwachsen, Seewald (alt) + Seewald v2 (F8) mit Höhle, Insel, Sumpf, tiefer Wald mit Käfern (Kampf mit Stab und Sichel), Dorf mit Nachtwächter, Gesuchen, Ugo (Halbmond), Gnarl (Wald → Werkstatt, Upgrades), Mondphasen, Sonne ab 6 Uhr, Speichern beim Schlafen.
+**Spielbar:** Unterschlupf (Bett, Truhe, Lesepult/Grimoire), Garten (Beete, Wachstum über Nacht, Nachtschatten-Aura), Kessel (Brauen über Nacht, 5+ Rezepte), Tränke trinken/gießen/werfen, Sammeln mit Nachwachsen, Seewald mit Höhen (seit 06.11. der Bau aus dem Bauplan) mit Höhle, Insel, Sumpf, tiefer Wald mit Käfern (Kampf mit Stab und Sichel), Dorf mit Nachtwächter, Gesuchen, Ugo (Halbmond), Gnarl (Wald → Werkstatt, Upgrades), Mondphasen, Sonne ab 6 Uhr, Speichern beim Schlafen.
 
 **Tragende Mechaniken:** Garten → Kessel → Tränke öffnen Wege (Gates) und helfen im Kampf; Grimoire als Fortschritt (Disziplinen, Herbarium, Rezepte, jetzt Digitalis); Nacht-Rhythmus mit Mond.
 
@@ -39,6 +39,8 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 22 | QA Kampf: Regressionstest für Treffer, Taumeln, Reinigung mit Beute und Grimoire-Meldung, keine doppelte Beute, Dornkäfer zäher, Schaden über Zeit ohne Taumeln, alle Angriffe (Stufe I und II) mit Schaden/Kosten/Abklingzeit, Unverwundbarkeit der Hexe | ✅ `test_combat.gd` (5), alles grün, kein Fehler gefunden |
 | 23 | Fehler am Anschlagbrett (per Screenshot gefunden): Zettel-Text plus „Gesucht/Lohn“ brauchte 4 (en) bzw. 5 (de) Zeilen, die Box fasst 3 – der Lohn lief unten heraus. Jetzt zwei Seiten pro Zettel | ✅ `test_notice_board.gd` misst jede Seite in der echten Box; neuer `test_dialogue_fit.gd` prüft alle Gesprächszeilen aller NPCs (alle passen). Screenshot beider Seiten auf Deutsch geprüft |
 | 24 | HUD verständlicher: Herz vor dem Lebensbalken, magenta Raute vor der Hexenkraft (vorher zwei Balken ohne Kennzeichnung) | ✅ Screenshot geprüft |
+| 36 | Robin hat Seewald v2 freigegeben: er ist jetzt `lakewood.tscn`, der alte Seewald ist gelöscht, F8 entfällt. Garten, Wald und Dorf führen dorthin; Höhle und Sumpf führen zurück. Damit sind Weidenrinde und Höhlenkristall (Gnarls Upgrades) im normalen Spiel erreichbar. Dazu CLAUDE.md nach Robins Wunsch angepasst | ✅ neuer `test_exits.gd`: jeder Ausgang jedes Ortes hat ein Ziel und einen Rückweg (Gegenprobe mit kaputtem Ziel schlug an). Soak über alle Orte ohne Fehler, Ankunft an allen 4 Seewald-Eingängen im Bild geprüft |
+| 37 | Sperren im Seewald sichtbar und stimmig: Die Ranken-Treppe war ein gelber Kasten mit zwei Magenta-Quadraten, der Mondsteg war geschlossen unsichtbar und offen ein heller Balken. Jetzt eigene Pixel-Grafiken (dornige Ranken mit glimmenden Knospen, verkohlte Stümpfe, Planken aus Mondlicht), der geschlossene Steg schimmert schwach als Hinweis („die Spiegelung zeigt schon auf die Insel“), und jedes Gate blendet beim Öffnen über. Screenshot-Werkzeug kann jetzt `day=` (Mondphase) | ✅ `test_gates.gd` (3); Screenshots Ranken, Steg bei Neumond und Vollmond angesehen |
 | 25 | Kampf im Bild (Werkzeug `spawn=`, `freeze=`): Käfer läuft an, trifft, Lebensbalken sinkt, Digitalis wird gezogen. Anlauf-Spur: „!“ über dem Käfer, erst schwache gestrichelte Spur zur Hexe, kurz vor dem Anlauf fest und hell | ✅ Screenshots beider Phasen geprüft, gut lesbar, keine Änderung nötig |
 | 26 | Eigene Hexe: Die Spielerin gibt ihr im Intro einen Namen (✅ aus `game_design.md`, bisher nicht gebaut). Gespeichert im Grimoire, sie unterschreibt damit auf dem Innendeckel unter Vesperas „V.“ | ✅ `test_witch_name.gd` (3); Layout-Test mit dem längsten Namen (erste Fassung mit Satz lief auf Deutsch über, deshalb Unterschrift). Screenshots: Intro-Frage (erste Fassung: Inhalt zu hoch und graues Standardfeld, nachgebessert), Innendeckel |
 | 28 | Die Welt kennt den Namen: Platzhalter `{witch}` in Gesprächen, zuerst nur beim Nachtwächter in der Dämmerung („Geh nach Hause, Nyx.“), ohne Namen wie bisher „Hexe“ | ✅ Test in `test_witch_name.gd`, `test_dialogue_fit.gd` misst mit dem längsten Namen, Screenshot geprüft. Bewusst sparsam |
@@ -47,12 +49,15 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 | 31 | Entdecken spürbar: neuer Eintrag im Herbarium oder bei den Leuten → Seitenrascheln (vorhandener Klang) und ein paar magenta Funken; neues Signal `Grimoire.entry_discovered` | ✅ Test in `test_progress_feedback.gd` |
 | 32 | Fehler + Inhalt: Das Bestiarium konnte sich nie öffnen (Freischaltung „first_fight“ wurde nicht ausgewertet). Jetzt offen nach der ersten Reinigung, mit Einträgen für befallenen Käfer und Dornkäfer (Verhalten, Schwäche mit Spieltipp zur Anlauf-Spur, Beute), eigene Meldung und Bildchen | ✅ `test_bestiary.gd` (4), Layout-Test deckt das Kapitel ab, Screenshot auf Deutsch geprüft |
 | 33 | Entscheidungen mit Gewicht: 4 Hexenpfade versprachen etwas, das nicht passierte. Jetzt wirken Volatil (Wurftränke platzen weiter, ×1,25), Nachhall (Dornennebel hält länger, ×1,5), Nachtschatten-Bändigerin (Kuppel hemmt eigene Pflanzen nicht), Sucherin (lose Seiten glimmen doppelt so weit) | ✅ `test_paths_effects.gd` (3). Werte sind Annahmen, nicht gespielt. Drei weitere Pfade brauchen neue Systeme → Frage im Backlog |
+| 34 | Welt reagiert: Die Eule fliegt mit ihrer (bisher ungenutzten) Abflug-Animation davon, wenn die Hexe zu nah an ihren Baum kommt, und sitzt nach einer Weile wieder dort, wenn die Hexe weg ist. Suche nach ungenutzten Assets: alle Klänge werden benutzt; ungenutzt sind sonst nur die Katze (💡 später) und das Nachtschatten-Debuff-Symbol | ✅ `test_owl.gd`, Screenshot vor/während des Abflugs geprüft |
+| 35 | Ungenutzte Rollentexte der NPCs (`NPC_*_ROLE`) stehen jetzt als Unterzeile unter dem Namen im People-Kapitel (neues Feld `EntryData.subtitle_key`). Dadurch doppelte Angaben in ersten Eindrücken gekürzt | ✅ Test in `test_people.gd`; neuer Layout-Test misst **jeden** Eintrag ganz aufgedeckt im echten Buch (fand Gnarl auf Deutsch 11 px zu lang, behoben). Screenshot geprüft |
 | 27 | Inventar-Tafel und lange Meldungen auf Deutsch geprüft | ✅ passt, keine Änderung |
 | 9 | Absturzmeldung: Buch-Hinweis griff auf ein gelöschtes Buch zu | ✅ räumt sich selbst auf |
 
 ## Durchgeführte Prüfungen
 
-- 05.11.: alle Tests 85/85 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
+- 06.11.: alle Tests 93/93 grün, Soak ohne Fehler. Screenshots Seewald-Eingänge, Ranken-Treppe, Mondsteg zu/offen.
+- 05.11.: alle Tests 88/88 grün (ca. 10 s), Testlauf ohne SCRIPT ERROR.
 - 05.11.: Screenshots Unterschlupf, Garten, Wald, Dorf, Digitalis-Kapitel (vor/nach Upgrade-Flag), Titel, Seewald v2 (Mutter Moos), Sumpf (Ugo), Spielstart (Pult glimmt), Innendeckel und Herbarium auf Deutsch angesehen.
 
 ## Offene Probleme / Beobachtungen
@@ -62,5 +67,5 @@ Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln:
 
 ## Nächste Schritte (priorisiert)
 
-1. Robins Test von Seewald v2 (F8) abwarten: Erst danach sind Höhlenkristall und Weidenrinde im normalen Spiel erreichbar und damit Gnarls Upgrades.
+1. Höhen für tiefen Wald, Dorf und Garten aus Bauplänen (Garten: Spielstand-Frage, `overworld_plan.md` Abschnitt 7).
 2. Freundschaftssystem (Herzen, Geschenke) erst nach Robins Entscheidung zum Umfang; das People-Kapitel ist darauf vorbereitet.

@@ -17,6 +17,7 @@ extends SceneTree
 ## interact=Pfad/im/Ort löst E an diesem Objekt aus, spawn=szene@x,y;… setzt Szenen,
 ## freeze=0.3 hält eingesetzte Käfer im Innehalten vor dem Anlauf fest,
 ## call=Pfad:methode:arg ruft eine Methode an einem Node unter main.tscn auf.
+## day=N stellt die Nacht ein (und damit die Mondphase).
 ## Alle Angaben sind optional. pos=x,y setzt die Hexe direkt an eine Stelle.
 ## frames=N wartet so viele Frames vor dem Bild (Standard 60).
 
@@ -50,6 +51,9 @@ func _initialize() -> void:
 		TranslationServer.set_locale(String(args["lang"]))
 	if args.has("hour"):
 		day_cycle.minutes = float(args["hour"]) * 60.0
+	# day=5 springt in diese Nacht (Mondphase folgt daraus: 1 Neumond, 4 Halbmond, 8 Vollmond).
+	if args.has("day"):
+		day_cycle.day = int(args["day"])
 	if args.has("scene"):
 		# Eine andere Szene als das Spiel, z. B. der Titelbildschirm.
 		root.add_child(load(String(args["scene"])).instantiate())
