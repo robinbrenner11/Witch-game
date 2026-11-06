@@ -565,3 +565,12 @@ Der Stab ist ein Fingerhut: Goldgriff mit Golddraht-Wicklung und Magenta-Stein a
   - 🔮 Später: ein kleines Hand-Overlay (schwarze Finger, goldener Armreif) über dem Griff, damit man das Halten auch ohne Arm-Animation sieht.
 - Noch nicht gebaut: Garten-Version („wartet im Garten“), Grimoire-Abbildung groß, weitere Formen (Sickle, Thornwhip, Rootmaul).
 
+
+## Sperren im Seewald – `assets/environment/gates/` (06.11.2026, Platzhalter)
+
+Erzeugt mit `docs/art/world_generator/gates.py`. Echte Grafiken kommen später von Robin, gleiche Größe, dann nur die PNGs ersetzen.
+
+- `swamp_vines.png` (64×64): Ranken-Treppe S4 zu. Dichtes Geflecht aus Bitterblüten-Ranken mit Dornen und fünf geschlossenen Magenta-Knospen; im Spiel mit schwachem Magenta-Licht.
+- `swamp_vines_open.png` (64×64): nach Glutbombe oder Sichel II. Verkohlte Stümpfe an den Rändern, Asche auf den Stufen.
+- `moon_bridge.png` (192×32): Mondsteg S1, Planken aus Mondlicht (Silber-Mondlicht, Kanten Geisterblau). Offen mit 85 % Deckkraft und kühlem Licht; zu nur als Schimmer (8–25 % Deckkraft, `scripts/world/shimmer.gd`), damit man schon vorher sieht, dass hier ein Weg zur Insel ist.
+- Beim Öffnen blenden alle Gates in 0,8 s von zu nach offen über (`Gate.FADE_TIME`).

@@ -1,5 +1,11 @@
 [gd_scene format=4]
 
+[ext_resource type="Texture2D" path="res://assets/environment/gates/swamp_vines.png" id="g1"]
+[ext_resource type="Texture2D" path="res://assets/environment/gates/swamp_vines_open.png" id="g2"]
+[ext_resource type="Texture2D" path="res://assets/environment/gates/moon_bridge.png" id="g3"]
+[ext_resource type="Script" path="res://scripts/world/shimmer.gd" id="g4"]
+[ext_resource type="Texture2D" path="res://assets/effects/lights/light_round_64.png" id="g5"]
+[ext_resource type="Script" path="res://scripts/systems/night_light.gd" id="g6"]
 [ext_resource type="TileSet" path="res://assets/environment/cliffs/cliff_tileset.tres" id="3_voatl"]
 [ext_resource type="TileSet" path="res://assets/environment/water/water_tileset.tres" id="4_tnxfw"]
 [ext_resource type="PackedScene" path="res://scenes/world/decor/rock_2.tscn" id="12_6m1dt"]
@@ -249,13 +255,27 @@ active_effects = Array[String](["moonlight"])
 locked_message = "MSG_MOONBRIDGE_CLOSED"
 look_message = "LOOK_MOONBRIDGE"
 
-[node name="Open" type="ColorRect" parent="MoonBridge" unique_id=1094507388]
+[node name="Closed" type="Node2D" parent="MoonBridge"]
 z_index = -7
-offset_left = -96.0
-offset_top = -10.0
-offset_right = 96.0
-offset_bottom = 10.0
-color = Color(0.917647, 0.87451, 0.796078, 0.45)
+
+[node name="Glimmer" type="Sprite2D" parent="MoonBridge/Closed"]
+texture = ExtResource("g3")
+script = ExtResource("g4")
+
+[node name="Open" type="Node2D" parent="MoonBridge"]
+z_index = -7
+
+[node name="Planks" type="Sprite2D" parent="MoonBridge/Open"]
+modulate = Color(1, 1, 1, 0.85)
+texture = ExtResource("g3")
+
+[node name="Light" type="PointLight2D" parent="MoonBridge/Open"]
+color = Color(0.839216, 0.909804, 0.870588, 1)
+texture = ExtResource("g5")
+texture_scale = 3.0
+script = ExtResource("g6")
+base_energy = 0.6
+flicker = 0.04
 
 [node name="SwampVines" type="StaticBody2D" parent="." unique_id=1702729712]
 position = Vector2(96, 608)
@@ -267,29 +287,25 @@ cut_open = true
 locked_message = "MSG_SWAMP_VINES"
 look_message = "LOOK_SWAMP_VINES"
 
-[node name="Closed" type="Node2D" parent="SwampVines" unique_id=68171065]
+[node name="Closed" type="Node2D" parent="SwampVines"]
 z_index = -8
 
-[node name="VinesA" type="ColorRect" parent="SwampVines/Closed" unique_id=295010163]
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
-color = Color(0.36, 0.38, 0.18, 0.85)
+[node name="Vines" type="Sprite2D" parent="SwampVines/Closed"]
+texture = ExtResource("g1")
 
-[node name="Bud1" type="ColorRect" parent="SwampVines/Closed" unique_id=1831991012]
-offset_left = -18.0
-offset_top = -12.0
-offset_right = -10.0
-offset_bottom = -4.0
-color = Color(0.76, 0.19, 0.48, 1)
+[node name="BudGlow" type="PointLight2D" parent="SwampVines/Closed"]
+color = Color(0.760784, 0.188235, 0.478431, 1)
+texture = ExtResource("g5")
+texture_scale = 1.5
+script = ExtResource("g6")
+base_energy = 0.5
+flicker = 0.08
 
-[node name="Bud2" type="ColorRect" parent="SwampVines/Closed" unique_id=18839793]
-offset_left = 10.0
-offset_top = 8.0
-offset_right = 18.0
-offset_bottom = 16.0
-color = Color(0.76, 0.19, 0.48, 1)
+[node name="Open" type="Node2D" parent="SwampVines"]
+z_index = -8
+
+[node name="Stumps" type="Sprite2D" parent="SwampVines/Open"]
+texture = ExtResource("g2")
 
 [node name="MoonWater" type="Node2D" parent="." unique_id=96864495]
 z_index = -7

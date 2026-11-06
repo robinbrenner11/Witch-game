@@ -27,6 +27,8 @@ const PLAYER_LAYER := 1
 const CLIFF_LAYER := 8
 # So oft höchstens kommt die Meldung, wenn man dagegenläuft.
 const MESSAGE_COOLDOWN := 2.0
+# Überblenden zwischen zu und offen, in Sekunden.
+const FADE_TIME := 0.8
 
 ## Größe des Hindernisses in Pixeln, Mitte = Ursprung.
 @export var size: Vector2 = Vector2(64, 32):
@@ -51,6 +53,7 @@ const MESSAGE_COOLDOWN := 2.0
 var _open := false
 var _message_wait := 0.0
 var _shape: CollisionShape2D
+var _fade_tween: Tween
 
 
 func _ready() -> void:
@@ -143,13 +146,36 @@ func _apply(open: bool, instant: bool) -> void:
 	_shape.set_deferred("disabled", open)
 	var closed_node := get_node_or_null("Closed") as CanvasItem
 	var open_node := get_node_or_null("Open") as CanvasItem
-	if closed_node:
-		closed_node.visible = not open
-	if open_node:
-		open_node.visible = open
+	if instant or open == was_open:
+		if closed_node:
+			closed_node.visible = not open
+		if open_node:
+			open_node.visible = open
+	else:
+		# Sichtbar überblenden, damit man merkt, dass sich hier gerade etwas
+		# verändert (Ranken vergehen, der Mondsteg erscheint).
+		_fade(open_node if open else closed_node, closed_node if open else open_node)
 	if open and not was_open and not instant:
 		Sfx.play_at("garden/grow_magic", global_position)
 		opened.emit()
+
+
+func _fade(appearing: CanvasItem, vanishing: CanvasItem) -> void:
+	# Kippt der Zustand mitten im Überblenden zurück (Trankwirkung endet),
+	# geht es von der aktuellen Deckkraft aus weiter.
+	if _fade_tween:
+		_fade_tween.kill()
+	_fade_tween = create_tween().set_parallel()
+	if appearing:
+		if not appearing.visible:
+			appearing.modulate.a = 0.0
+		appearing.visible = true
+		_fade_tween.tween_property(appearing, "modulate:a", 1.0, FADE_TIME)
+	if vanishing:
+		_fade_tween.tween_property(vanishing, "modulate:a", 0.0, FADE_TIME)
+		_fade_tween.chain().tween_callback(func() -> void:
+			vanishing.visible = false
+			vanishing.modulate.a = 1.0)
 
 
 ## Etwas größer als das Hindernis: merkt, wenn die Hexe dagegenläuft.
