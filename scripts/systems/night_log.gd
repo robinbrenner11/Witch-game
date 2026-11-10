@@ -53,39 +53,24 @@ func get_save_data() -> Dictionary:
 ## sind beim Laden schon dran gewesen), sonst beginnt die Bilanz leer.
 func load_save_data(data: Dictionary) -> void:
 	reset()
-	if int(data.get("day", -1)) != DayCycle.day:
+	if SaveRead.as_int(data.get("day"), -1) != DayCycle.day:
 		return
-	var events: Variant = data.get("events", {})
-	if events is Dictionary:
-		for action in events:
-			if not action is String or not events[action] is Dictionary:
-				continue
-			var by_subject := {}
-			for subject in events[action]:
-				var n: Variant = events[action][subject]
-				if subject is String and (n is float or n is int) and int(n) > 0:
-					by_subject[subject] = int(n)
-			if not by_subject.is_empty():
-				_events[action] = by_subject
-	var xp: Variant = data.get("xp_at_start", {})
-	if xp is Dictionary:
-		for id: String in _xp_at_start:
-			if xp.get(id) is float or xp.get(id) is int:
-				# Nie mehr als der heutige Stand: sonst gäbe es „negative“ Erfahrung.
-				_xp_at_start[id] = clampi(int(xp[id]), 0, Grimoire.xp(id))
-	var levels: Variant = data.get("levels", {})
-	if levels is Dictionary:
-		for id in levels:
-			if id is String and _xp_at_start.has(id) and (levels[id] is float or levels[id] is int):
-				_levels[id] = int(levels[id])
-	var discovered: Variant = data.get("discovered", [])
-	if discovered is Array:
-		for key in discovered:
-			if key is String and key != "":
-				_discovered.append(key)
-	var pages: Variant = data.get("pages", 0)
-	if pages is float or pages is int:
-		_pages = maxi(int(pages), 0)
+	var events := SaveRead.as_dict(data.get("events"))
+	for action: Variant in events:
+		var by_subject := SaveRead.counts(events[action], 1)
+		if action is String and not by_subject.is_empty():
+			_events[action] = by_subject
+	var xp := SaveRead.counts(data.get("xp_at_start"))
+	for id: String in _xp_at_start:
+		if xp.has(id):
+			# Nie mehr als der heutige Stand: sonst gäbe es „negative“ Erfahrung.
+			_xp_at_start[id] = clampi(xp[id], 0, Grimoire.xp(id))
+	var levels := SaveRead.counts(data.get("levels"), 1)
+	for id: String in levels:
+		if _xp_at_start.has(id):
+			_levels[id] = levels[id]
+	_discovered.assign(SaveRead.strings(data.get("discovered")))
+	_pages = maxi(SaveRead.as_int(data.get("pages")), 0)
 
 
 func count(action: String, subject: String = "") -> int:

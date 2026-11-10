@@ -166,16 +166,16 @@ func get_save_data() -> Dictionary:
 func load_save_data(data: Dictionary) -> void:
 	_active.clear()
 	_done.clear()
-	var active: Variant = data.get("active", [])
-	if active is Array:
-		for note: Variant in active:
-			if note is Dictionary and _all.has(String(note.get("id", ""))):
-				_active.append({"id": String(note["id"]), "posted": int(note.get("posted", DayCycle.day))})
-	var done: Variant = data.get("done", {})
-	if done is Dictionary:
-		for id: Variant in done:
-			if _all.has(String(id)):
-				_done[String(id)] = int(done[id])
+	for note: Variant in SaveRead.as_array(data.get("active")):
+		var entry := SaveRead.as_dict(note)
+		var id := SaveRead.as_string(entry.get("id"))
+		# Zettel, die es nicht mehr gibt, und doppelte fallen weg.
+		if _all.has(id) and not active_ids().has(id):
+			_active.append({"id": id, "posted": maxi(SaveRead.as_int(entry.get("posted"), DayCycle.day), 1)})
+	var done := SaveRead.counts(data.get("done"), 1)
+	for id: String in done:
+		if _all.has(id):
+			_done[id] = done[id]
 	# Älterer Spielstand ohne Gesuche: wie ein neues Spiel, damit Zettel hängen.
 	if not data.has("active"):
 		for i in START_NOTES:

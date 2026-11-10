@@ -163,8 +163,9 @@ func delete_save() -> void:
 
 ## Liest und prüft eine Spielstand-Datei. Leer, wenn sie fehlt, beschädigt ist
 ## oder ein altes Format hat. Geprüft werden Version, Pflichtteile und der Typ
-## jedes Teils (is_valid), bevor irgendein System etwas übernimmt. Einzelwerte
-## in den Teilen prüfen die Systeme selbst beim Laden (data.get mit Standard).
+## jedes Teils (is_valid), bevor irgendein System etwas übernimmt. Die Werte
+## innerhalb der Teile liest jedes System über SaveRead: Ein falscher Typ
+## kostet nur den betroffenen Eintrag (abgesichert durch tests/test_save_fuzz.gd).
 func _read(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):
 		return {}

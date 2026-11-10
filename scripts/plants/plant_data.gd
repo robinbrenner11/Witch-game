@@ -48,9 +48,17 @@ enum AuraEffect { NONE, BLOCK_GROWTH }
 @export var glow_offset: Vector2 = Vector2.ZERO
 
 
+# ID -> PlantData (oder null), siehe ItemData._cache: load() allein merkt
+# sich eine Datei nur, solange sie jemand festhält.
+static var _cache: Dictionary = {}
+
+
 ## Lädt eine Pflanzenart über ihre ID. Funktioniert, weil jede Art unter
-## data/plants/<id>.tres liegt – load() merkt sich geladene Dateien, das
-## ist also auch bei häufigem Aufruf billig. null, wenn es die Art nicht gibt.
+## data/plants/<id>.tres liegt. null, wenn es die Art nicht gibt.
 static func from_id(plant_id: String) -> PlantData:
-	var path := "res://data/plants/%s.tres" % plant_id
-	return load(path) if plant_id != "" and ResourceLoader.exists(path) else null
+	if plant_id == "":
+		return null
+	if not _cache.has(plant_id):
+		var path := "res://data/plants/%s.tres" % plant_id
+		_cache[plant_id] = load(path) if ResourceLoader.exists(path) else null
+	return _cache[plant_id]

@@ -28,14 +28,30 @@ const DIRECTORY := "res://data/digitalis/%s.tres"
 @export var level: int = 1
 
 
+# Höher wird keine Stufe gesucht (auch nicht aus einem kaputten Spielstand).
+const MAX_LEVEL := 9
+
+# "id/stufe" -> DigitalisForm (oder null), damit nicht jeder Aufruf von der
+# Platte liest (siehe ItemData._cache).
+static var _cache: Dictionary = {}
+
+
 ## Die Form in dieser Stufe. Gibt es die Stufe nicht als Datei, die nächst-
 ## niedrigere. null, wenn es die Form gar nicht gibt.
 static func from_id(form_id: String, at_level: int = 1) -> DigitalisForm:
 	if form_id == "":
 		return null
-	for step in range(at_level, 1, -1):
-		var upgraded := DIRECTORY % ("%s_%d" % [form_id, step])
-		if ResourceLoader.exists(upgraded):
-			return load(upgraded)
-	var path := DIRECTORY % form_id
-	return load(path) if ResourceLoader.exists(path) else null
+	at_level = clampi(at_level, 1, MAX_LEVEL)
+	var key := "%s/%d" % [form_id, at_level]
+	if not _cache.has(key):
+		var form: DigitalisForm = null
+		for step in range(at_level, 1, -1):
+			var upgraded := DIRECTORY % ("%s_%d" % [form_id, step])
+			if ResourceLoader.exists(upgraded):
+				form = load(upgraded)
+				break
+		if form == null:
+			var path := DIRECTORY % form_id
+			form = load(path) if ResourceLoader.exists(path) else null
+		_cache[key] = form
+	return _cache[key]

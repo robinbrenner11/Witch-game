@@ -36,6 +36,7 @@ func _initialize() -> void:
 			failed += 1
 			continue
 		suite.tree = self
+		suite.catcher = catcher
 		print("\n%s" % file_name)
 		for method in suite.get_method_list():
 			var test_name: String = method.name
@@ -46,7 +47,10 @@ func _initialize() -> void:
 			await suite.call(test_name)
 			await suite.after_each()
 			var failures: PackedStringArray = suite.take_failures()
-			failures.append_array(_unexpected(catcher.take(), suite.take_expected_errors()))
+			var logged := catcher.take()
+			if suite.take_warnings_allowed():
+				logged = logged.filter(func(entry: Dictionary) -> bool: return not entry["warning"])
+			failures.append_array(_unexpected(logged, suite.take_expected_errors()))
 			if failures.is_empty():
 				passed += 1
 				print("  ✓ %s" % test_name)
