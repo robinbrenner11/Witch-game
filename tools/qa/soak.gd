@@ -1,10 +1,13 @@
 extends SceneTree
 
 ## Dauerlauf: Neues Spiel, dann jeden Ort laden und dort eine Weile laufen
-## lassen (Käfer, NPCs, Wildwuchs, Uhr). Fehler erscheinen im Protokoll als
-## SCRIPT ERROR / ERROR. Läuft headless:
+## lassen (Käfer, NPCs, Wildwuchs, Uhr). Alles, was dabei als Fehler oder
+## Warnung protokolliert wird, zählt der Lauf selbst (ErrorCatcher) und endet
+## dann mit Exit-Code 1. Läuft headless:
 ##   godot --headless --script res://tools/qa/soak.gd
 ## Optional: -- frames=300 hour=22 day=8 (Frames pro Ort, Startzeit, Nacht für die Mondphase)
+
+const ErrorCatcher := preload("res://tests/helpers/error_catcher.gd")
 
 const LEVELS := [
 	"res://scenes/world/shelter.tscn", "res://scenes/world/garden.tscn",
@@ -17,6 +20,9 @@ const LEVELS := [
 
 func _initialize() -> void:
 	await process_frame
+	var catcher := ErrorCatcher.new()
+	OS.add_logger(catcher)
+	var problems := 0
 	var args := {}
 	for arg in OS.get_cmdline_user_args():
 		var parts := arg.split("=", true, 1)
@@ -33,5 +39,8 @@ func _initialize() -> void:
 		print("SOAK Ort: %s (%02d:%02d)" % [path.get_file(), day_cycle.hour(), day_cycle.minute()])
 		for i in int(args.get("frames", 300)):
 			await physics_frame
-	print("SOAK fertig, Hexe lebt: %s" % str(main.player.get_node("Vitals").health > 0))
-	quit()
+		for entry in catcher.take():
+			problems += 1
+			print("SOAK PROBLEM in %s: %s" % [path.get_file(), ErrorCatcher.describe(entry)])
+	print("SOAK fertig, Hexe lebt: %s, Probleme: %d" % [str(main.player.get_node("Vitals").health > 0), problems])
+	quit(1 if problems > 0 else 0)

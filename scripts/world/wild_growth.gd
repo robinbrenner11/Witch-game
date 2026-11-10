@@ -53,12 +53,6 @@ enum Regrow { STEADY, RESPAWN, CHANCE, NONE }
 ## Rückfälle (game_design.md, Abschnitt 4).
 @export var blocked_by_flag: String = ""
 
-# Wie viele Neumond-Stücke pro Ort in dieser Nacht schon eingesammelt bzw.
-# gereinigt sind ({Ort: {"day": Nacht, "count": n}}), damit sie beim
-# erneuten Betreten nicht wiederkommen. "static": gilt für alle Orte, ohne
-# Autoload; muss nicht gespeichert werden, weil Schlafen die Nacht beendet.
-static var _surge_taken: Dictionary = {}
-
 var _place := ""
 var _level: Level
 
@@ -100,8 +94,9 @@ func _ready() -> void:
 
 ## Neumond-Stücke einzeln an freien Stellen, nur für heute Nacht.
 func _grow_surge() -> void:
-	var taken: Dictionary = _surge_taken.get(_place, {})
-	var gone := int(taken.get("count", 0)) if taken.get("day", -1) == DayCycle.day else 0
+	# Was heute Nacht schon eingesammelt oder gereinigt ist, kommt beim
+	# erneuten Betreten nicht wieder (auch nicht nach Speichern und Fortsetzen).
+	var gone := WorldState.times_tonight(_surge_key())
 	var scenes := surge_kinds if not surge_kinds.is_empty() else kinds
 	for i in surge_extra - gone:
 		var cells := _free_cells()
@@ -117,11 +112,11 @@ func _grow_surge() -> void:
 
 
 func _on_surge_taken() -> void:
-	var taken: Dictionary = _surge_taken.get(_place, {})
-	if taken.get("day", -1) != DayCycle.day:
-		taken = {"day": DayCycle.day, "count": 0}
-	taken["count"] += 1
-	_surge_taken[_place] = taken
+	WorldState.add_tonight(_surge_key())
+
+
+func _surge_key() -> String:
+	return "surge/" + _place
 
 
 ## Ein neues Büschel an einer freien Stelle: meist eine Sorte, ab und zu eine

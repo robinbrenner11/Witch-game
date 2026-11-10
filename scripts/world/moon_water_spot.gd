@@ -1,4 +1,5 @@
 @tool
+class_name MoonWaterSpot
 extends Node2D
 
 ## Eine Stelle am Seeufer, an der sich der Mond spiegelt. Nur bei Vollmond

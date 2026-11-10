@@ -178,6 +178,11 @@ func _fade(appearing: CanvasItem, vanishing: CanvasItem) -> void:
 	# geht es von der aktuellen Deckkraft aus weiter.
 	if _fade_tween:
 		_fade_tween.kill()
+		_fade_tween = null
+	# Ein Gate ohne eigenes Aussehen (z. B. der Höhlenspalt) hat nichts zu
+	# blenden; ein leerer Tween wäre ein Engine-Fehler.
+	if appearing == null and vanishing == null:
+		return
 	_fade_tween = create_tween().set_parallel()
 	if appearing:
 		if not appearing.visible:

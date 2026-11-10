@@ -31,7 +31,7 @@ const PART_TYPES := {
 	"garden": [TYPE_DICTIONARY, TYPE_ARRAY], "brewing": [TYPE_DICTIONARY],
 	"grimoire": [TYPE_DICTIONARY], "wilds": [TYPE_DICTIONARY],
 	"world": [TYPE_DICTIONARY], "requests": [TYPE_DICTIONARY],
-	"player": [TYPE_DICTIONARY],
+	"player": [TYPE_DICTIONARY], "night_log": [TYPE_DICTIONARY],
 }
 
 # Die Pfade als Variablen, damit Tests eigene Dateien nutzen können, ohne den
@@ -80,6 +80,7 @@ func collect() -> Dictionary:
 		"world": WorldState.get_save_data(),
 		"requests": Requests.get_save_data(),
 		"player": player_data(),
+		"night_log": NightLog.get_save_data(),
 	}
 
 
@@ -208,7 +209,8 @@ func _apply(data: Dictionary) -> void:
 	WorldState.load_save_data(data.get("world", {}))
 	# Ältere Spielstände haben noch keine Gesuche: dann hängen neue Zettel.
 	Requests.load_save_data(data.get("requests", {}))
-	NightLog.reset()
+	# Nach DayCycle und Grimoire: Die Bilanz gilt nur für dieselbe Nacht.
+	NightLog.load_save_data(data.get("night_log", {}))
 	_player_data = data.get("player", {})
 
 

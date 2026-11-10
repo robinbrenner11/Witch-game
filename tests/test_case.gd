@@ -8,6 +8,7 @@ extends RefCounted
 var tree: SceneTree
 
 var _failures: PackedStringArray = []
+var _expected_errors: PackedStringArray = []
 
 
 ## Prüft eine Bedingung. Schlägt sie fehl, wird der Test rot, läuft aber weiter,
@@ -31,6 +32,19 @@ func before_each() -> void:
 ## Nodes, damit sie nicht in spätere Tests hineinwirken.
 func after_each() -> void:
 	pass
+
+
+## Kündigt an, dass dieser Test absichtlich einen Fehler oder eine Warnung
+## auslöst, deren Text `part` enthält (z. B. beim Laden eines kaputten
+## Spielstands). Alles andere, was protokolliert wird, macht den Test rot.
+func expect_error(part: String) -> void:
+	_expected_errors.append(part)
+
+
+func take_expected_errors() -> PackedStringArray:
+	var result := _expected_errors
+	_expected_errors = []
+	return result
 
 
 func take_failures() -> PackedStringArray:
