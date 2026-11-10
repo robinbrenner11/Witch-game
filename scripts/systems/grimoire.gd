@@ -602,36 +602,83 @@ func get_save_data() -> Dictionary:
 
 
 func load_save_data(data: Dictionary) -> void:
-	has_book = bool(data.get("has_book", false))
-	witch_name = clean_name(String(data.get("witch_name", "")))
-	_done_goals.assign(data.get("goals", []))
-	_pages = data.get("pages", {}).duplicate(true)
-	_hints = data.get("hints", {}).duplicate(true)
-	_seen = data.get("seen", {}).duplicate(true)
-	_xp = data.get("xp", {}).duplicate(true)
-	_paths = data.get("paths", {}).duplicate(true)
-	_firsts = data.get("firsts", {}).duplicate(true)
-	_taught.assign(data.get("taught", []))
-	_counts = data.get("counts", {}).duplicate(true)
-	_completed_groups.assign(data.get("completed_groups", []))
-	_claimed = data.get("claimed", {}).duplicate(true)
+	# Jeder Wert geht durch SaveRead: Ein falscher Typ an einer Stelle kostet
+	# nur diesen Eintrag (tests/test_save_fuzz.gd).
+	has_book = SaveRead.as_bool(data.get("has_book"))
+	witch_name = clean_name(SaveRead.as_string(data.get("witch_name")))
+	_done_goals.assign(SaveRead.strings(data.get("goals")))
+	_pages = _clean_pages(data.get("pages"))
+	_hints.clear()
+	var hints := SaveRead.as_dict(data.get("hints"))
+	for result_id: Variant in hints:
+		var known := SaveRead.strings(hints[result_id])
+		if result_id is String and not known.is_empty():
+			# Untypisiert wie in hint_ingredient(), damit beide Wege gleich aussehen.
+			_hints[result_id] = Array(known)
+	_seen = SaveRead.flags(data.get("seen"))
+	_xp = SaveRead.counts(data.get("xp"))
+	_paths = _clean_paths(data.get("paths"))
+	_firsts = SaveRead.flags(data.get("firsts"))
+	_taught.assign(SaveRead.strings(data.get("taught")))
+	_counts = SaveRead.counts(data.get("counts"), 1)
+	_completed_groups.assign(SaveRead.strings(data.get("completed_groups")))
+	_claimed = SaveRead.flags(data.get("claimed"))
 	# Ältere Spielstände kennen noch keine Formen: dann die Startformen.
 	_forms.clear()
-	for form_id in data.get("forms", START_FORMS):
-		if DigitalisForm.from_id(String(form_id)) != null and not _forms.has(String(form_id)):
-			_forms.append(String(form_id))
+	for form_id in SaveRead.strings(data.get("forms")):
+		if DigitalisForm.from_id(form_id) != null:
+			_forms.append(form_id)
 	if _forms.is_empty():
 		_forms.assign(START_FORMS)
-	_upgrades.clear()
-	var upgrades: Variant = data.get("upgrades", {})
-	if upgrades is Dictionary:
-		for target in upgrades:
-			_upgrades[String(target)] = maxi(int(upgrades[target]), 1)
-	# Nur zurücksetzen, wenn der Stand aus einer anderen Nacht stammt. DayCycle
+	_upgrades = SaveRead.counts(data.get("upgrades"), 1)
+	for target: String in _upgrades:
+		_upgrades[target] = mini(_upgrades[target], DigitalisForm.MAX_LEVEL)
+	# Nur übernehmen, wenn der Stand aus genau dieser Nacht stammt. DayCycle
 	# ist zu diesem Zeitpunkt schon geladen (SaveGame._apply).
 	_repeats.clear()
-	var repeats: Variant = data.get("repeats", {})
-	if repeats is Dictionary and int(data.get("repeats_day", -1)) == DayCycle.day:
-		for action in repeats:
-			_repeats[String(action)] = maxi(int(repeats[action]), 0)
+	if SaveRead.as_int(data.get("repeats_day"), -1) == DayCycle.day:
+		_repeats = SaveRead.counts(data.get("repeats"))
 	changed.emit()
+
+
+## Gefundene Seiten: {Seite: {"parts": [Teil-Nummern], "restored", "rewarded"}}.
+## Seiten, die es nicht mehr gibt, fallen weg (sonst zählt found_page_count()
+## etwas, das im Buch nirgends steht).
+func _clean_pages(value: Variant) -> Dictionary:
+	var result := {}
+	var saved := SaveRead.as_dict(value)
+	for page_id: Variant in saved:
+		if not page_id is String or PageData.from_id(page_id) == null:
+			continue
+		var entry := SaveRead.as_dict(saved[page_id])
+		var parts: Array = []
+		for part: Variant in SaveRead.as_array(entry.get("parts")):
+			if (part is float or part is int) and int(part) >= 0 and not parts.has(int(part)):
+				parts.append(int(part))
+		result[page_id] = {
+			"parts": parts,
+			"restored": SaveRead.as_bool(entry.get("restored")),
+			"rewarded": SaveRead.as_bool(entry.get("rewarded")),
+		}
+	return result
+
+
+## Gewählte Hexenpfade: {Disziplin: {"5": Pfad-ID}}. Nur Pfade, die es gibt
+## und die zu Disziplin und Stufe passen.
+func _clean_paths(value: Variant) -> Dictionary:
+	var result := {}
+	var saved := SaveRead.as_dict(value)
+	for discipline_id: Variant in saved:
+		if not discipline_id is String:
+			continue
+		var chosen := {}
+		var by_level := SaveRead.as_dict(saved[discipline_id])
+		for milestone: Variant in by_level:
+			var path := PathData.from_id(SaveRead.as_string(by_level[milestone]))
+			# Ohne die Stufe dafür gilt keine Wahl (_xp ist hier schon geladen).
+			if milestone is String and path != null and path.discipline_id == discipline_id \
+					and str(path.level) == milestone and level(discipline_id) >= path.level:
+				chosen[milestone] = path.id
+		if not chosen.is_empty():
+			result[discipline_id] = chosen
+	return result

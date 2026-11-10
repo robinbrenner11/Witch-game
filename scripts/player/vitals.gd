@@ -43,8 +43,8 @@ func get_save_data() -> Dictionary:
 ## Leer = volle Werte (neues Spiel). Mindestens 1 Leben: Mit 0 hätte die
 ## Hexe gar nicht speichern können.
 func load_save_data(data: Dictionary) -> void:
-	health = clampi(int(data.get("health", max_hp())), 1, max_hp())
-	power = clampf(float(data.get("power", max_power())), 0.0, max_power())
+	health = clampi(SaveRead.as_int(data.get("health"), max_hp()), 1, max_hp())
+	power = clampf(SaveRead.as_float(data.get("power"), max_power()), 0.0, max_power())
 	changed.emit()
 
 

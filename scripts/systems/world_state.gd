@@ -118,11 +118,8 @@ func load_save_data(data: Dictionary) -> void:
 				_next_night.append(flag)
 	# Nur wenn der Stand aus genau dieser Nacht stammt (DayCycle ist beim
 	# Laden schon dran gewesen, siehe SaveGame._apply).
-	var tonight: Variant = data.get("tonight", {})
-	if tonight is Dictionary and int(data.get("tonight_day", -1)) == DayCycle.day:
-		for key in tonight:
-			if key is String and (tonight[key] is float or tonight[key] is int) and int(tonight[key]) > 0:
-				_tonight[key] = int(tonight[key])
+	if SaveRead.as_int(data.get("tonight_day"), -1) == DayCycle.day:
+		_tonight = SaveRead.counts(data.get("tonight"), 1)
 	var flags: Variant = data.get("flags", [])
 	if not flags is Array:
 		push_warning("WorldState: Flags im Spielstand sind keine Liste")

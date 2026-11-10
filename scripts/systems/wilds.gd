@@ -16,6 +16,9 @@ extends Node
 # "chance"  Jede Nacht mit Wahrscheinlichkeit "chance" ein neues Stück (Federn, Sträucher).
 # "none"    Es kommt nichts Neues dazu (Moos-Steine; die tragen nur selbst neu).
 const MODES: Array[String] = ["steady", "respawn", "chance", "none"]
+# Mehr neue Büschel stauen sich pro Ort nicht an (auch nicht aus einem
+# kaputten Spielstand).
+const MAX_PENDING := 20
 
 # Name -> {
 #   "items": {id: {"scene": Pfad, "x": int, "y": int, "state": {}}},
@@ -91,8 +94,72 @@ func get_save_data() -> Dictionary:
 	return _places.duplicate(true)
 
 
+## Baut jeden Ort aus dem Spielstand neu auf, statt ihn ungeprüft zu
+## übernehmen: Was nicht die erwartete Form hat, fällt weg oder bekommt den
+## Standardwert. Die Orte (WildGrowth, Forage) verlassen sich danach darauf.
 func load_save_data(data: Dictionary) -> void:
-	_places = data.duplicate(true)
+	_places.clear()
+	for place: Variant in data:
+		if not place is String or not data[place] is Dictionary:
+			continue
+		var saved: Dictionary = data[place]
+		var items := {}
+		var highest_id := -1
+		var saved_items := SaveRead.as_dict(saved.get("items"))
+		for id: Variant in saved_items:
+			var item := SaveRead.as_dict(saved_items[id])
+			var scene := SaveRead.as_string(item.get("scene"))
+			if not id is String or scene == "":
+				continue
+			items[id] = {
+				"scene": scene,
+				"x": SaveRead.as_int(item.get("x")), "y": SaveRead.as_int(item.get("y")),
+				"state": _clean_state(item.get("state")),
+			}
+			if (id as String).is_valid_int():
+				highest_id = maxi(highest_id, (id as String).to_int())
+		var timers: Array = []
+		for timer: Variant in SaveRead.as_array(saved.get("timers")):
+			if (timer is float or timer is int) and SaveRead.as_int(timer) > 0:
+				timers.append(SaveRead.as_int(timer))
+		_places[place] = {
+			"items": items,
+			# Nie eine ID vergeben, die es schon gibt.
+			"next_id": maxi(SaveRead.as_int(saved.get("next_id")), highest_id + 1),
+			"pending": clampi(SaveRead.as_int(saved.get("pending")), 0, MAX_PENDING),
+			"nights_since_clear": maxi(SaveRead.as_int(saved.get("nights_since_clear")), 0),
+			"timers": timers,
+			"rules": _clean_rules(saved.get("rules")),
+		}
+
+
+## Regeln, wie sie WildGrowth anmeldet. Bis der Ort wieder besucht wird (dann
+## kommen frische Regeln), rechnet _on_day_passed mit diesen.
+func _clean_rules(value: Variant) -> Dictionary:
+	var rules := SaveRead.as_dict(value)
+	var mode := SaveRead.as_string(rules.get("mode"), "none")
+	return {
+		"mode": mode if mode in MODES else "none",
+		"max": maxi(SaveRead.as_int(rules.get("max")), 0),
+		"pause": maxi(SaveRead.as_int(rules.get("pause"), 1), 0),
+		"respawn_nights": maxi(SaveRead.as_int(rules.get("respawn_nights"), 1), 1),
+		"chance": clampf(SaveRead.as_float(rules.get("chance")), 0.0, 1.0),
+	}
+
+
+## Eigener Zustand eines Stücks: nur einfache Werte (Zahl, Text, ja/nein).
+func _clean_state(value: Variant) -> Dictionary:
+	var state := {}
+	var saved := SaveRead.as_dict(value)
+	for key: Variant in saved:
+		var entry: Variant = saved[key]
+		if not key is String:
+			continue
+		if entry is float or entry is int:
+			state[key] = SaveRead.as_int(entry)
+		elif entry is String or entry is bool:
+			state[key] = entry
+	return state
 
 
 ## Wie viele beim nächsten Besuch neu kommen, regelt die Regel des Namens.
