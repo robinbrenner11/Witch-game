@@ -5,8 +5,9 @@ extends Node
 ## kurze Bilanz zeigen kann (NightJournal). Nur die vergangene Nacht: Was über
 ## Tag wächst, soll man weiter selbst im Garten entdecken.
 ##
-## Wird nicht gespeichert: Gespeichert wird beim Schlafen, danach beginnt
-## ohnehin eine neue Nacht.
+## Gespeichert wird es zusammen mit der Nacht: Wer mitten in der Nacht über
+## das Pausemenü speichert und später fortsetzt, bekommt beim Schlafen die
+## Bilanz der ganzen Nacht, nicht nur der zweiten Hälfte.
 
 # Was zu „Gesammelt“ zählt, und wie viele Sorten höchstens genannt werden.
 const GATHER_ACTIONS: Array[String] = ["forage", "harvest", "obtain"]
@@ -38,6 +39,53 @@ func reset() -> void:
 	_xp_at_start.clear()
 	for id: String in DisciplineData.all():
 		_xp_at_start[id] = Grimoire.xp(id)
+
+
+func get_save_data() -> Dictionary:
+	return {
+		"day": DayCycle.day, "events": _events.duplicate(true),
+		"xp_at_start": _xp_at_start.duplicate(), "levels": _levels.duplicate(),
+		"discovered": _discovered.duplicate(), "pages": _pages,
+	}
+
+
+## Übernimmt nur einen Stand aus genau dieser Nacht (DayCycle und Grimoire
+## sind beim Laden schon dran gewesen), sonst beginnt die Bilanz leer.
+func load_save_data(data: Dictionary) -> void:
+	reset()
+	if int(data.get("day", -1)) != DayCycle.day:
+		return
+	var events: Variant = data.get("events", {})
+	if events is Dictionary:
+		for action in events:
+			if not action is String or not events[action] is Dictionary:
+				continue
+			var by_subject := {}
+			for subject in events[action]:
+				var n: Variant = events[action][subject]
+				if subject is String and (n is float or n is int) and int(n) > 0:
+					by_subject[subject] = int(n)
+			if not by_subject.is_empty():
+				_events[action] = by_subject
+	var xp: Variant = data.get("xp_at_start", {})
+	if xp is Dictionary:
+		for id: String in _xp_at_start:
+			if xp.get(id) is float or xp.get(id) is int:
+				# Nie mehr als der heutige Stand: sonst gäbe es „negative“ Erfahrung.
+				_xp_at_start[id] = clampi(int(xp[id]), 0, Grimoire.xp(id))
+	var levels: Variant = data.get("levels", {})
+	if levels is Dictionary:
+		for id in levels:
+			if id is String and _xp_at_start.has(id) and (levels[id] is float or levels[id] is int):
+				_levels[id] = int(levels[id])
+	var discovered: Variant = data.get("discovered", [])
+	if discovered is Array:
+		for key in discovered:
+			if key is String and key != "":
+				_discovered.append(key)
+	var pages: Variant = data.get("pages", 0)
+	if pages is float or pages is int:
+		_pages = maxi(int(pages), 0)
 
 
 func count(action: String, subject: String = "") -> int:

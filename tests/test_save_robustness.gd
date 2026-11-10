@@ -4,6 +4,9 @@
 ## 3 Sortenwechsel beim Zielen bricht das Zielen ab, nur Wurftränke fliegen.
 ## 4 Strukturell beschädigte Stände werden vor dem Anwenden abgewiesen.
 ## 5 Die XP-Abschwächung pro Nacht übersteht Speichern und Laden.
+## 6 (eigener Fund, 10.11.) Was „heute Nacht schon war“ übersteht Speichern und
+##   Fortsetzen: Mondwasser-Limit, Tausch-Limits, für die Nacht geöffnete Gates,
+##   Neumond-Käfer, Nachtbuch.
 ## Alle Dateien liegen in user://test_save/, der echte Spielstand bleibt unberührt.
 extends TestCase
 
@@ -51,6 +54,15 @@ func _block(path: String) -> void:
 	file.close()
 
 
+## Wie „Speichern und beenden“ und danach „Fortsetzen“: Der Stand geht einmal
+## durch JSON (dort werden aus ganzen Zahlen Kommazahlen), dazwischen beginnt
+## ein neues Spiel, damit nichts im Speicher überlebt.
+func _save_and_continue() -> void:
+	var text := JSON.stringify(SaveGame.collect())
+	SaveGame.new_game()
+	SaveGame._apply(JSON.parse_string(text))
+
+
 func _player() -> Player:
 	var player := (load("res://scenes/player/player.tscn") as PackedScene).instantiate() as Player
 	_holder.add_child(player)
@@ -65,6 +77,7 @@ func test_save_reports_success_and_failure() -> void:
 	var before := FileAccess.get_file_as_string(SaveGame.save_path)
 	Inventory.add("wild_herb", 3)
 	_block(SaveGame.temp_path)
+	expect_error("Spielstand konnte nicht gespeichert werden")
 	check(not SaveGame.save_game(), "Zwischendatei nicht schreibbar: Fehler gemeldet")
 	check_eq(FileAccess.get_file_as_string(SaveGame.save_path), before, "Alter Stand unverändert")
 
@@ -73,6 +86,7 @@ func test_failed_swap_is_reported_and_keeps_a_save() -> void:
 	check(SaveGame.save_game(), "Erster Stand")
 	SaveGame.save_path = DIR + "blocked"
 	_block(SaveGame.save_path)
+	expect_error("fehlgeschlagen")
 	check(not SaveGame.save_game(), "Tausch scheitert: Fehler statt „gespeichert“")
 
 
@@ -81,6 +95,7 @@ func test_save_and_quit_stays_open_on_failure() -> void:
 	_holder.add_child(menu)
 	await tree.process_frame
 	_block(SaveGame.temp_path)
+	expect_error("Spielstand konnte nicht gespeichert werden")
 	var scene_before := tree.current_scene
 	menu._on_save_quit_button_pressed()
 	await tree.process_frame
@@ -101,10 +116,10 @@ func test_resume_restores_player_state() -> void:
 	var effects := player.get_node("PotionEffects") as PotionEffects
 	effects.load_save_data({"active": ["moonlight", "dusk"]})
 	DayCycle.lengthen_night(1.5)
-	var saved := SaveGame.collect()
+	var text := JSON.stringify(SaveGame.collect())
 	player.free()
 	SaveGame.new_game()
-	SaveGame._apply(saved)
+	SaveGame._apply(JSON.parse_string(text))
 	var again := _player()
 	await tree.process_frame
 	var vitals2 := again.get_node("Vitals") as Vitals
@@ -174,6 +189,8 @@ func test_broken_save_falls_back_to_backup() -> void:
 	file.store_string(JSON.stringify(data))
 	file.close()
 	SaveGame.new_game()
+	expect_error("Teile fehlen oder haben den falschen Typ")
+	expect_error("lade den vorletzten")
 	check(SaveGame.load_game(), "Laden gelingt über das Backup")
 	check_eq(Inventory.count("moonmoss"), 2, "Stand aus dem Backup, nichts halb übernommen")
 
@@ -196,3 +213,93 @@ func test_repeat_penalty_survives_reload() -> void:
 	before = Grimoire.xp("wildcraft")
 	Grimoire.report("forage", {"id": "moonmoss"})
 	check(Grimoire.xp("wildcraft") - before > tired_gain, "Stand aus einer anderen Nacht: wieder volle Erfahrung")
+
+
+# --- 6 ---
+
+func test_moon_water_limit_survives_continue() -> void:
+	DayCycle.day = 8
+	check(Moon.is_full(), "Nacht 8 ist Vollmond")
+	var spot := MoonWaterSpot.new()
+	_holder.add_child(spot)
+	for i in MoonWaterSpot.PER_NIGHT:
+		WorldState.mark_tonight("moon_water/%d" % i)
+	check_eq(spot._left_tonight(), 0, "Alle Portionen geschöpft")
+	_save_and_continue()
+	check_eq(spot._left_tonight(), 0, "Nach dem Fortsetzen in derselben Nacht bleibt es dabei")
+	DayCycle.sleep_until_night()
+	check_eq(spot._left_tonight(), MoonWaterSpot.PER_NIGHT, "In der nächsten Nacht wieder voll")
+
+
+func test_trade_limit_survives_continue() -> void:
+	var offer := load("res://data/trades/mother_moss/c_bark_for_chalice.tres") as TradeOffer
+	check(offer.per_night > 0, "Angebot mit Limit pro Nacht")
+	WorldState.mark_tonight(offer._night_key("mother_moss", 0))
+	check_eq(offer.times_tonight("mother_moss"), 1, "Einmal getauscht")
+	_save_and_continue()
+	check_eq(offer.times_tonight("mother_moss"), 1, "Fortsetzen setzt das Limit nicht zurück")
+
+
+func test_gate_opened_tonight_survives_continue() -> void:
+	var forest := (load("res://scenes/world/forest.tscn") as PackedScene).instantiate()
+	_holder.add_child(forest)
+	await tree.process_frame
+	var mist := forest.get_node("BloomMist") as Gate
+	check(mist.on_potion(ItemData.from_id("potion_cleansing_mist")), "Reinigungsnebel lichtet den Nebel")
+	forest.free()
+	_save_and_continue()
+	var again := (load("res://scenes/world/forest.tscn") as PackedScene).instantiate()
+	_holder.add_child(again)
+	await tree.process_frame
+	check((again.get_node("BloomMist") as Gate).is_open(), "Nach dem Fortsetzen in derselben Nacht noch offen (Trank ist ja verbraucht)")
+	again.free()
+
+
+func test_surge_count_survives_continue() -> void:
+	var growth := WildGrowth.new()
+	growth._place = "forest/beetles"
+	growth._on_surge_taken()
+	growth._on_surge_taken()
+	check_eq(WorldState.times_tonight(growth._surge_key()), 2, "Zwei Neumond-Käfer gereinigt")
+	_save_and_continue()
+	check_eq(WorldState.times_tonight(growth._surge_key()), 2, "Sie kommen nach dem Fortsetzen nicht wieder")
+	growth.free()
+	DayCycle.sleep_until_night()
+	check_eq(WorldState.times_tonight("surge/forest/beetles"), 0, "Neue Nacht, neuer Zähler")
+
+
+func test_night_log_survives_continue() -> void:
+	TranslationServer.set_locale("de")
+	for i in 3:
+		Grimoire.report("forage", {"id": "moonmoss"})
+	Grimoire.report("talk", {"id": "watchman"})
+	var before := NightLog.summary_lines()
+	check(not before.is_empty(), "Bilanz gefüllt")
+	_save_and_continue()
+	check_eq(NightLog.count("forage", "moonmoss"), 3, "Gezähltes bleibt")
+	check_eq(NightLog.summary_lines(), before, "Gleiche Bilanz wie vor dem Speichern")
+	TranslationServer.set_locale("en")
+
+
+func test_tonight_from_another_night_is_dropped() -> void:
+	WorldState.mark_tonight("watchman/rumor")
+	Grimoire.report("forage", {"id": "moonmoss"})
+	var text := JSON.stringify(SaveGame.collect())
+	SaveGame.new_game()
+	var data: Dictionary = JSON.parse_string(text)
+	# Ein Stand, dessen Nacht-Merker nicht zur gespeicherten Nacht passen.
+	data["world"]["tonight_day"] = 99
+	data["night_log"]["day"] = 99
+	SaveGame._apply(data)
+	check(not WorldState.did_tonight("watchman/rumor"), "Merker aus einer anderen Nacht gelten nicht")
+	check(NightLog.is_empty(), "Bilanz aus einer anderen Nacht gilt nicht")
+
+
+func test_old_save_without_night_parts_loads() -> void:
+	var data: Dictionary = JSON.parse_string(JSON.stringify(SaveGame.collect()))
+	data.erase("night_log")
+	data.erase("player")
+	(data["world"] as Dictionary).erase("tonight")
+	check(SaveGame.is_valid(data), "Älterer Stand ohne die neuen Teile ist gültig")
+	SaveGame._apply(data)
+	check(NightLog.is_empty(), "Leere Bilanz")
