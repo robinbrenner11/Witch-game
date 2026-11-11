@@ -48,12 +48,10 @@ enum Regrow { STEADY, RESPAWN, CHANCE, NONE }
 # Sie stehen nicht im Spielstand und sind am nächsten Abend wieder weg.
 @export var surge_extra: int = 0
 @export var surge_kinds: Array[PackedScene] = []
-
-# Wie viele Neumond-Stücke pro Ort in dieser Nacht schon eingesammelt bzw.
-# gereinigt sind ({Ort: {"day": Nacht, "count": n}}), damit sie beim
-# erneuten Betreten nicht wiederkommen. "static": gilt für alle Orte, ohne
-# Autoload; muss nicht gespeichert werden, weil Schlafen die Nacht beendet.
-static var _surge_taken: Dictionary = {}
+## Ist dieses Flag gesetzt, wächst hier nichts mehr (gereinigtes Gebiet nach
+## dem Blütenherz). Neumond-Stücke (surge_extra) kommen trotzdem: kleine
+## Rückfälle (game_design.md, Abschnitt 4).
+@export var blocked_by_flag: String = ""
 
 var _place := ""
 var _level: Level
@@ -71,6 +69,12 @@ func _ready() -> void:
 	# freien Plätze noch nicht bekannt.
 	await get_tree().process_frame
 	var items := Wilds.items(_place)
+	if blocked_by_flag != "" and WorldState.has_flag(blocked_by_flag):
+		items.clear()
+		Wilds.take_pending(_place)
+		if surge_extra > 0 and Moon.blight_surges():
+			_grow_surge()
+		return
 	for id: String in items.keys():
 		var item: Dictionary = items[id]
 		var scene_path := String(item.get("scene", ""))
@@ -90,8 +94,9 @@ func _ready() -> void:
 
 ## Neumond-Stücke einzeln an freien Stellen, nur für heute Nacht.
 func _grow_surge() -> void:
-	var taken: Dictionary = _surge_taken.get(_place, {})
-	var gone := int(taken.get("count", 0)) if taken.get("day", -1) == DayCycle.day else 0
+	# Was heute Nacht schon eingesammelt oder gereinigt ist, kommt beim
+	# erneuten Betreten nicht wieder (auch nicht nach Speichern und Fortsetzen).
+	var gone := WorldState.times_tonight(_surge_key())
 	var scenes := surge_kinds if not surge_kinds.is_empty() else kinds
 	for i in surge_extra - gone:
 		var cells := _free_cells()
@@ -107,11 +112,11 @@ func _grow_surge() -> void:
 
 
 func _on_surge_taken() -> void:
-	var taken: Dictionary = _surge_taken.get(_place, {})
-	if taken.get("day", -1) != DayCycle.day:
-		taken = {"day": DayCycle.day, "count": 0}
-	taken["count"] += 1
-	_surge_taken[_place] = taken
+	WorldState.add_tonight(_surge_key())
+
+
+func _surge_key() -> String:
+	return "surge/" + _place
 
 
 ## Ein neues Büschel an einer freien Stelle: meist eine Sorte, ab und zu eine

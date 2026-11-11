@@ -127,7 +127,7 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
   2. **Bewohner oder Funktion**: ein NPC, Händler oder Lehrer, eine Quelle für stärkere Tränke, ein Wildbeet.
   3. **Mondereignis**, das nur dort passiert.
   4. **Kompendium-Einträge**, nur dort und nur in bestimmten Mondphasen.
-  5. **Hexenring als Schnellreise**, der durch die Heilung erwacht.
+  5. **Hexenring als Schnellreise**, der durch die Heilung erwacht. ✅ 06.11.: Ringe im tiefen Wald und im Garten (neben dem Unterschlupf) erwachen mit dem ersten Blütenherz; E am Ring wählt das Ziel. Netz als Daten in `scripts/world/witch_ring.gd` (`NETWORK`), neue Ringe = Eintrag + Szene `scenes/world/witch_ring.tscn` im Ort.
   6. **Kleine Rückfälle** bei Neumond: optional, kurz, mit verdorbenen Zutaten.
   7. **Pflegen**: Mit ausgebrachter Wildsaat wird das Gebiet über die Zeit reicher.
 
@@ -140,7 +140,7 @@ Jede Disziplin steigt durch Tun auf. Viele Levelsysteme sind gewollt, und alle l
 | Nacht | Phase | Effekt |
 |---|---|---|
 | 1 | 🌑 New Moon | ✅ Die Blüte ist am stärksten (mehr Befall, Rückfälle, verdorbene Zutaten) |
-| 2–3 | 🌒 Waxing | ❓ offen. ❌ nicht „Pflanzen wachsen besser“. Darf auch ohne Effekt bleiben. |
+| 2–3 | 🌒 Waxing | ✅ 06.11. (Claude, mit Robins Freigabe): **Lange Schatten.** Draußen streckt sich der Schatten der Hexe (gedämpftes Magenta) zur nächsten losen Seite oder zu Reifem, das sie noch nie gesammelt hat. Mother Moss deutet es an. `scripts/player/long_shadow.gd` |
 | 4 | 🌓 Half Moon | ✅ Halbmondmarkt, Händler und Wanderer |
 | 5–7 | 🌔 Gibbous | ❓ offen. ❌ nicht „Sammelobjekte leuchten“. |
 | 8 | 🌕 Full Moon | ✅ Mondkelch reif, Hexenring aktiv, manchmal ein Fest |
@@ -304,7 +304,7 @@ Weitere Tränke, Zutaten und wofür sie gebraucht werden: `docs/design/welt_und_
 ## 9. Lore
 
 ### Die Hauptfigur
-- ✅ Eine junge Hexe. **Der Spieler benennt sie zu Beginn selbst.**
+- ✅ Eine junge Hexe. **Der Spieler benennt sie zu Beginn selbst.** (Umgesetzt 05.11.2026: Frage im Intro nach den Textzeilen, gespeichert als `Grimoire.witch_name`, höchstens 14 Zeichen, leer erlaubt. Sie unterschreibt damit auf dem Innendeckel unter Vesperas „V.“. In Dialogen: Platzhalter `{witch}` (ohne Namen „Hexe“), bisher nur beim Nachtwächter in der Morgendämmerung.)
 - ✅ Sie folgt dem **Ruf des Fingerhuts (Digitalis)**, der im verlassenen Garten auf sie wartet.
 - 💡 Sie war ohnehin auf der Suche nach einem Ort für sich.
 - ❓ Warum Digitalis gerade sie gerufen hat, wird im Lauf der Geschichte enthüllt.

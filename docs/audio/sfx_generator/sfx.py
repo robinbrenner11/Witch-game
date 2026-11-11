@@ -876,6 +876,45 @@ def sleep_sound(rng):
     return add_reverb(lp(out, 4500), rng, wet=0.2, sec=1.0, decay=0.35)
 
 
+def cave_drip(rng, variant):
+    """Tropfen im Höhlenspalt (S2, „man hört Tropfen“): kurzes helles Plink,
+    das nach oben gleitet, mit hohlem Nachhall. Je Variante eine andere Höhe."""
+    sec = 1.0
+    n = int(SR * sec)
+    out = np.zeros(n)
+    base = (900, 1150, 780)[variant - 1] * rng.uniform(0.97, 1.03)
+    m = int(SR * 0.09)
+    plink = osc(glide(base, base * 1.9, 0.09, glide_sec=0.05)) * env_exp(m, 0.022, 0.001)
+    place(out, plink, 0.0, 0.6)
+    for delay, gain in ((0.11, 0.25), (0.23, 0.1)):
+        place(out, lp(plink, 2500), delay, gain)
+    return add_reverb(out, rng, wet=0.45, sec=0.9, decay=0.4, bright=2200)
+
+
+def heart_beat_loop(rng):
+    """Blütenherz: dumpfer Doppelschlag, feucht, 1,2 s pro Schlag. 2,4 s, nahtlos."""
+    sec = 2.4
+    n = int(SR * sec)
+    out = np.zeros(n)
+    for beat in (0.0, 1.2):
+        for offset, gain in ((0.0, 1.0), (0.22, 0.7)):
+            m = int(SR * 0.35)
+            thump = osc(glide(70, 42, 0.35, glide_sec=0.12)) * env_exp(m, 0.09, 0.004)
+            thump += 0.3 * lp(rng.normal(size=m), 300) * env_exp(m, 0.05, 0.002)
+            place(out, thump, beat + offset, gain * 0.9)
+    return add_reverb(lp(out, 900), rng, wet=0.25, sec=0.6, decay=0.2, circular=True)
+
+
+def heart_awaken(rng):
+    """Das Herz erwacht: tiefes Anschwellen, darüber ein feuchtes Reißen."""
+    sec = 2.0
+    n = int(SR * sec)
+    out = 0.5 * osc(glide(40, 85, sec, glide_sec=1.6)) * env_swell(n, 0.7, 0.3)
+    out += 0.35 * bp(rng.normal(size=n), 200, 1400) * env_swell(n, 0.8, 0.2)
+    place(out, burst(int(SR * 0.4), rng, 300, 3000, 0.12), 1.2, 0.6)
+    return add_reverb(lp(out, 4000), rng, wet=0.35, sec=1.2, decay=0.35)
+
+
 def well_splash(rng):
     """Etwas fällt in den Brunnen: tiefes Platschen, Echo von unten."""
     sec = 1.2
@@ -910,6 +949,18 @@ def book_pickup(rng):
     out += 0.4 * pad((D4, F4, A4, 523.25, E5), sec, rng, attack=0.3, tau=0.6)
     place(out, bell(A5, 1.0, rng, tau=0.45), 0.25, 0.15)
     return add_reverb(lp(out, 6500), rng, wet=0.3, sec=1.5, decay=0.6)
+
+
+def level_up(rng):
+    """Eine Disziplin steigt auf: aufsteigende Glöckchen in D-dorisch über
+    einem warmen Akkord, kurz und hell, wie ein kleiner Lichtschein."""
+    sec = 1.4
+    n = int(SR * sec)
+    out = 0.25 * pad((D4, A4, D5), sec, rng, attack=0.08, tau=0.5)
+    for i, freq in enumerate((D5, F5, A5, D6)):
+        place(out, bell(freq, 0.9, rng, tau=0.35), 0.02 + i * 0.09, 0.28 - i * 0.03)
+    place(out, glass_hit(A6, rng, tau=0.12, sec=0.5), 0.36, 0.12)
+    return add_reverb(lp(out, 7500), rng, wet=0.28, sec=1.2, decay=0.45)
 
 
 def travel(rng):
@@ -1098,12 +1149,17 @@ _add("ui/item_pick", ui_item_pick, level=-6)
 _add("ui/item_drop", ui_item_drop, level=-6)
 _add("ui/item_get", ui_item_get, level=-2, max_sec=0.55)
 _add("ui/denied", ui_denied, level=-4)
+_add("ui/level_up", level_up, level=-1, max_sec=1.6)
 
 _add("world/night_ambience_loop", night_ambience_loop, loop=True, level=-6)
 _add("world/forest_ambience_loop", forest_ambience_loop, loop=True, level=-6)
 _add("world/shelter_ambience_loop", shelter_ambience_loop, loop=True, level=-7)
 _add("world/campfire_loop", campfire_loop, loop=True, level=-6)
 _add("world/waterfall_loop", waterfall_loop, loop=True, level=-8)
+_add("combat/heart_beat_loop", heart_beat_loop, loop=True, level=-6)
+_add("combat/heart_awaken", heart_awaken, level=-4, max_sec=2.5)
+for v in (1, 2, 3):
+    _add(f"world/cave_drip_{v}", lambda r, v=v: cave_drip(r, v), level=-5)
 _add("world/fast_forward", fast_forward, level=-2, max_sec=1.4)
 _add("world/sleep", sleep_sound, max_sec=2.6)
 _add("world/well_splash", well_splash, max_sec=1.4)

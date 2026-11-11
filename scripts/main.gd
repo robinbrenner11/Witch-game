@@ -16,8 +16,6 @@ const LOST_STACKS := 3
 const SUN_WAKE_TIME := 20 * 60
 # Testszene für Klippen, Treppen und Wasserfall (F7, nur in Debug-Builds).
 const HEIGHT_TEST := "res://scenes/world/test/height_test.tscn"
-# Neuer Seewald mit Höhen, Insel und Höhle (F8, nur Debug), bis er den alten ersetzt.
-const LAKEWOOD_V2 := "res://scenes/world/lakewood_v2.tscn"
 
 var level: Level
 var _travelling := false
@@ -39,8 +37,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	# OS.is_debug_build(): nur im Editor und in Debug-Exporten, wie F1 bis F6.
 	if OS.is_debug_build() and event.is_action_pressed("debug_height_test"):
 		travel(HEIGHT_TEST, "ToGarden")
-	elif OS.is_debug_build() and event.is_action_pressed("debug_lakewood_v2"):
-		travel(LAKEWOOD_V2, "ToGarden")
 
 
 ## Wechsel in einen anderen Ort: abblenden, Ort tauschen, Hexe an den
@@ -53,9 +49,9 @@ func travel(scene_path: String, exit_name: String) -> void:
 	Sfx.play("world/travel")
 	await ScreenFade.fade_out()
 	_load_level(scene_path)
-	var exit := level.find_exit(exit_name)
+	var exit := level.find_spawn(exit_name)
 	if exit:
-		player.global_position = exit.spawn_position()
+		player.global_position = exit.call("spawn_position")
 	else:
 		push_warning("Ausgang %s gibt es in %s nicht" % [exit_name, scene_path])
 	player.camera.reset_smoothing()
@@ -106,11 +102,13 @@ func _on_witch_defeated() -> void:
 	player.facing = Vector2.DOWN
 	player.camera.reset_smoothing()
 	DayCycle.sleep_until_night(SUN_WAKE_TIME if by_sun else DayCycle.NIGHT_START)
-	SaveGame.save_game()
+	var saved := SaveGame.save_game()
 	await get_tree().create_timer(1.0).timeout
 	await ScreenFade.fade_in()
 	player.set_controls_enabled(true)
 	_travelling = false
+	if not saved:
+		Messages.deny(tr("MSG_SAVE_FAILED"))
 	if by_sun:
 		Messages.post(tr("MSG_SUN_COLLAPSE"))
 	elif lost.is_empty():

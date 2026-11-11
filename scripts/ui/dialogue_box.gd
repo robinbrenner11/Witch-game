@@ -268,7 +268,7 @@ func _advance() -> void:
 
 
 func _show_line() -> void:
-	text_label.text = tr(_lines[_index])
+	text_label.text = fill_in(tr(_lines[_index]))
 	_shown = 0.0
 	text_label.visible_characters = 0
 	next_arrow.hide()
@@ -289,3 +289,12 @@ func _close() -> void:
 	get_tree().paused = false
 	Sfx.play("ui/close")
 	finished.emit()
+
+
+## Setzt Platzhalter in Gesprächszeilen ein: {witch} wird zum Namen, den die
+## Spielerin ihrer Hexe gegeben hat, ohne Namen zu "Hexe"/"witch".
+static func fill_in(text: String) -> String:
+	if not text.contains("{witch}"):
+		return text
+	var name: String = Grimoire.witch_name if Grimoire.witch_name != "" else TranslationServer.translate("WITCH_FALLBACK")
+	return text.replace("{witch}", name)

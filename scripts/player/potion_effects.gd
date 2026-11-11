@@ -112,6 +112,29 @@ func is_active(effect: String) -> bool:
 	return false
 
 
+## Welche Trinkwirkungen gerade laufen (alle halten bis zum Ende der Nacht).
+## Ewige Nacht steckt im DayCycle und wird dort gespeichert.
+func get_save_data() -> Dictionary:
+	var active: Array[String] = []
+	for effect in ["wisp", "moonlight", "dusk"]:
+		if is_active(effect):
+			active.append(effect)
+	return {"active": active}
+
+
+## Stellt Wirkungen still wieder her (ohne Klang und Meldung wie beim Trinken).
+func load_save_data(data: Dictionary) -> void:
+	_end_all()
+	var active: Variant = data.get("active", [])
+	if not active is Array:
+		return
+	if active.has("wisp"):
+		_wisp_position = global_position + WISP_OFFSET
+		wisp.show()
+	moonlight.enabled = active.has("moonlight")
+	_dusk = active.has("dusk")
+
+
 func _on_day_passed(_day: int) -> void:
 	_end_all()
 

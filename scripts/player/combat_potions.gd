@@ -16,6 +16,20 @@ signal changed
 
 # Weiter fliegt ein Trank nicht; der Kreis bleibt dann am Rand stehen.
 const MAX_RANGE := 200.0
+# Hexenpfade (Grimoire): "Volatil" lässt Wurftränke weiter platzen,
+# "Nachhall" lässt Zonen (Dornennebel) länger wirken.
+const VOLATILE_RADIUS := 1.25
+const LINGERING_TIME := 1.5
+
+
+## Wirkkreis eines Wurftranks, mit dem Bonus aus dem Hexenpfad "Volatil".
+static func throw_radius(item: ItemData) -> float:
+	return item.throw_radius * (VOLATILE_RADIUS if Grimoire.get_stat("volatile") > 0 else 1.0)
+
+
+## Wirkdauer einer Zone, mit dem Bonus aus dem Hexenpfad "Nachhall".
+static func zone_time(item: ItemData) -> float:
+	return item.zone_time * (LINGERING_TIME if Grimoire.get_stat("lingering") > 0 else 1.0)
 # Wo der Trank die Hand verlässt, relativ zu den Füßen der Hexe.
 const HAND_OFFSET := Vector2(0, -30)
 
@@ -60,6 +74,9 @@ func select_next() -> void:
 	if ids.size() <= 1:
 		return
 	selected_id = ids[(ids.find(selected_id) + 1) % ids.size()]
+	# Wechsel mitten im Zielen: Zielen endet, sonst würde beim Loslassen die
+	# neue Sorte geworfen (auch ein Heiltrank) und der alte Kreis stünde noch.
+	_cancel_aim()
 	Sfx.play("ui/item_pick")
 	changed.emit()
 
@@ -110,7 +127,7 @@ func _use_selected() -> void:
 		_drink(item)
 	else:
 		_aiming = true
-		_aim_circle.radius = item.throw_radius
+		_aim_circle.radius = CombatPotions.throw_radius(item)
 		_aim_circle.color = item.throw_color
 		_aim_circle.visible = true
 		_process(0.0)
@@ -135,7 +152,9 @@ func _throw() -> void:
 	var item := ItemData.from_id(selected_id)
 	var target := target_point()
 	_cancel_aim()
-	if item == null or not Inventory.remove(item.id):
+	# Nur Wurftränke fliegen; alles andere hat Standard-Wurfwerte, die nie
+	# wirken dürfen.
+	if item == null or item.use != ItemData.Use.THROW or not Inventory.remove(item.id):
 		return
 	var level := get_tree().get_first_node_in_group("level") as Level
 	if level == null:
@@ -230,19 +249,19 @@ class ThrownPotion:
 		var parent := get_parent()
 		# Auch die Welt kann auf Würfe reagieren (z. B. Ranken, die brennen).
 		for target in get_tree().get_nodes_in_group("potion_target"):
-			if (target as Node2D).global_position.distance_to(to) <= item.throw_radius + 24.0:
+			if (target as Node2D).global_position.distance_to(to) <= CombatPotions.throw_radius(item) + 24.0:
 				target.on_potion(item)
 		match item.throw_effect:
 			ItemData.ThrowEffect.BURST:
 				# Schaden trifft nur befallene Wesen, nie die Hexe.
 				for enemy in get_tree().get_nodes_in_group("blighted"):
 					var offset: Vector2 = (enemy as Node2D).global_position - to
-					if offset.length() <= item.throw_radius and enemy.has_method("take_hit"):
+					if offset.length() <= CombatPotions.throw_radius(item) and enemy.has_method("take_hit"):
 						enemy.take_hit(item.throw_damage, offset.normalized() * 160.0)
-				var ring := CombatFx.Ring.new(item.throw_radius, item.throw_color)
+				var ring := CombatFx.Ring.new(CombatPotions.throw_radius(item), item.throw_color)
 				parent.add_child(ring)
 				ring.global_position = to
-				CombatFx.sparks(parent, to + Vector2(0, -4), item.throw_color, 30, item.throw_radius * 2.5)
+				CombatFx.sparks(parent, to + Vector2(0, -4), item.throw_color, 30, CombatPotions.throw_radius(item) * 2.5)
 				_flash(parent)
 				Sfx.play_at("combat/burst", to)
 			ItemData.ThrowEffect.ZONE:
@@ -258,7 +277,7 @@ class ThrownPotion:
 		var light := PointLight2D.new()
 		light.texture = preload("res://assets/effects/lights/light_round_64.png")
 		light.color = item.throw_color
-		light.texture_scale = item.throw_radius * 2.5 / 64.0
+		light.texture_scale = CombatPotions.throw_radius(item) * 2.5 / 64.0
 		light.energy = 1.8
 		parent.add_child(light)
 		light.global_position = to
@@ -281,7 +300,7 @@ class ThornZone:
 	var _modifier := ""
 
 	func _ready() -> void:
-		_left = item.zone_time
+		_left = CombatPotions.zone_time(item)
 		_tick = item.zone_tick
 		_modifier = "thorns_%d" % get_instance_id()
 		z_index = Decor.FLAT_Z
@@ -300,7 +319,7 @@ class ThornZone:
 		if tick_now:
 			_tick = item.zone_tick
 		for enemy in get_tree().get_nodes_in_group("blighted"):
-			if (enemy as Node2D).global_position.distance_to(global_position) <= item.throw_radius:
+			if (enemy as Node2D).global_position.distance_to(global_position) <= CombatPotions.throw_radius(item):
 				if enemy.has_method("apply_slow"):
 					enemy.apply_slow(item.zone_slow, 0.25)
 				if tick_now and enemy.has_method("take_hit"):
@@ -308,7 +327,7 @@ class ThornZone:
 		# Effekte treffen auch die Hexe (Entscheidung 10.10.), Schaden nicht.
 		var player := get_tree().get_first_node_in_group("player") as Player
 		if player:
-			if player.global_position.distance_to(global_position) <= item.throw_radius:
+			if player.global_position.distance_to(global_position) <= CombatPotions.throw_radius(item):
 				player.set_speed_modifier(_modifier, item.zone_slow)
 			else:
 				player.remove_speed_modifier(_modifier)
@@ -318,7 +337,7 @@ class ThornZone:
 
 	func _draw() -> void:
 		var alpha := clampf(minf(_time, _left) / FADE, 0.0, 1.0)
-		var r := item.throw_radius
+		var r := CombatPotions.throw_radius(item)
 		var color := item.throw_color
 		draw_circle(Vector2.ZERO, r, Color("#2B3A1E", 0.35 * alpha))
 		draw_arc(Vector2.ZERO, r, 0.0, TAU, 40, Color(color, 0.7 * alpha), 1.0)

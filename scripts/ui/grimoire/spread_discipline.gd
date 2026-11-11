@@ -153,6 +153,8 @@ static func reward_text(reward: RewardData) -> String:
 		RewardData.Type.XP:
 			return TranslationServer.translate("REWARD_XP") % [reward.value,
 					TranslationServer.translate("CHAPTER_" + reward.target_id.to_upper())]
+		RewardData.Type.UPGRADE:
+			return TranslationServer.translate("UPGRADE_%s_%d" % [reward.target_id.to_upper(), reward.value])
 	return ""
 
 

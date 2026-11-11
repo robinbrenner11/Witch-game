@@ -1,7 +1,7 @@
 class_name SpreadHerbarium
 extends GrimoireSpread
 
-## Herbarium (später auch Bestiary): links die Einträge nach Seiten
+## Herbarium, People, Bestiary: links die Einträge nach Seiten
 ## gruppiert, rechts der gewählte Eintrag mit seinen Fakten. Alles hier hat
 ## die Spielerin selbst entdeckt, deshalb steht es in ihrer Tinte (Magenta).
 ## Noch verborgene Fakten sind Fragezeichen. Volle Seiten bringen eine
@@ -66,10 +66,22 @@ func _build_index(page: Control, entries: Array[EntryData]) -> void:
 			groups.append(entry.page_group)
 	for group in groups:
 		var complete := Grimoire.is_group_complete(chapter.id, group)
-		page.add_child(BookStyle.label("BOOK_GROUP_" + group.to_upper(), BookStyle.GOLD_DARK if complete else BookStyle.INK))
+		# Name links, Belohnung knapp rechts daneben (ganzer Satz als Tooltip):
+		# Eine eigene Zeile pro Belohnung ließ die Seite ab vier Gruppen
+		# überlaufen, auf Deutsch deutlich.
+		var row := HBoxContainer.new()
+		row.custom_minimum_size.x = text_width
+		row.add_child(BookStyle.label("BOOK_GROUP_" + group.to_upper(), BookStyle.GOLD_DARK if complete else BookStyle.INK))
 		var reward := _group_reward(group)
 		if reward and not complete:
-			page.add_child(BookStyle.label(tr("BOOK_PAGE_REWARD") % SpreadDiscipline.reward_text(reward), BookStyle.INK_FAINT, text_width))
+			var gap := Control.new()
+			gap.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			row.add_child(gap)
+			var reward_label := BookStyle.label(SpreadDiscipline.reward_text(reward), BookStyle.INK_FAINT)
+			reward_label.tooltip_text = tr("BOOK_PAGE_REWARD") % SpreadDiscipline.reward_text(reward)
+			reward_label.mouse_filter = Control.MOUSE_FILTER_PASS
+			row.add_child(reward_label)
+		page.add_child(row)
 		var grid := GridContainer.new()
 		grid.columns = COLUMNS
 		grid.add_theme_constant_override("h_separation", 4)
@@ -104,11 +116,15 @@ func _group_reward(group: String) -> RewardData:
 
 ## Ohne eigenes Bild nimmt der Eintrag das Icon seines ersten Items.
 func _icon_of(entry: EntryData) -> Texture2D:
-	return entry.icon if entry.icon else Inventory.icon_for(entry.item_ids[0])
+	if entry.icon:
+		return entry.icon
+	return Inventory.icon_for(entry.item_ids[0]) if not entry.item_ids.is_empty() else BookSlot.UNKNOWN_ICON
 
 
 func _build_detail(page: Control, entry: EntryData) -> void:
 	page.add_child(BookStyle.heading(entry.title_key, BookStyle.INK_PLAYER, text_width))
+	if entry.subtitle_key != "":
+		page.add_child(BookStyle.label(entry.subtitle_key, BookStyle.INK_FAINT, text_width))
 	var row := HBoxContainer.new()
 	row.add_child(BookStyle.icon(_icon_of(entry)))
 	page.add_child(row)

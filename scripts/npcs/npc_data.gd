@@ -37,7 +37,7 @@ func entry_at(minutes: float) -> ScheduleEntry:
 		return null
 	var current: ScheduleEntry = null
 	for entry in schedule:
-		if not entry.moon_phases.is_empty() and Moon.phase() not in entry.moon_phases:
+		if not entry.applies():
 			continue
 		if entry.night_minute() <= now and (current == null or entry.night_minute() > current.night_minute()):
 			current = entry

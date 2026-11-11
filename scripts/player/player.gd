@@ -65,12 +65,33 @@ func _ready() -> void:
 	add_child(SunExposure.new())
 	# Treffer und Heilen sichtbar machen (Aufblitzen, Wackeln, Funken).
 	add_child(VitalsFeedback.new())
+	add_child(ProgressFeedback.new())
+	add_child(LongShadow.new())
 	# Trank-Schnellzugriff im Kampf (Q, R). Braucht Combat und Vitals, die als
 	# Kinder aus player.tscn hier schon bereit sind.
 	var potions := CombatPotions.new()
 	# Fester Name, damit die Kampfleiste ihn findet.
 	potions.name = "CombatPotions"
 	add_child(potions)
+	# Fortsetzen: Leben, Hexenkraft und Trankwirkungen wie beim Speichern.
+	load_save_data(SaveGame.take_player_data())
+
+
+## Zustand der Hexe für den Spielstand (SaveGame sammelt ihn ein).
+func get_save_data() -> Dictionary:
+	return {
+		"vitals": ($Vitals as Vitals).get_save_data(),
+		"effects": ($PotionEffects as PotionEffects).get_save_data(),
+	}
+
+
+func load_save_data(data: Dictionary) -> void:
+	var vitals: Variant = data.get("vitals", {})
+	if vitals is Dictionary:
+		($Vitals as Vitals).load_save_data(vitals)
+	var effects: Variant = data.get("effects", {})
+	if effects is Dictionary:
+		($PotionEffects as PotionEffects).load_save_data(effects)
 
 
 func _physics_process(delta: float) -> void:

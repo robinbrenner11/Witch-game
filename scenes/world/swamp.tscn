@@ -146,7 +146,7 @@ position = Vector2(820, 420)
 
 [node name="ToLakewood" parent="." unique_id=504883400 instance=ExtResource("r3")]
 position = Vector2(1072, 208)
-target_scene = "res://scenes/world/lakewood_v2.tscn"
+target_scene = "res://scenes/world/lakewood.tscn"
 target_exit = "ToSwamp"
 size = Vector2(32, 64)
 spawn_offset = Vector2(-48, 0)

@@ -55,13 +55,24 @@ const DOOR_SIZE := Vector2(16, 24)
 		lit = value
 		_rebuild()
 @export var window_light_energy: float = 0.7
+## Brennt erst Licht, sobald dieses Flag gesetzt ist (z. B. wenn jemand
+## einzieht). Leer = es gilt nur „lit“.
+@export var lit_flag: String = ""
 
 var _built := false
 
 
 func _ready() -> void:
 	_built = true
+	if lit_flag != "" and not Engine.is_editor_hint():
+		lit = WorldState.has_flag(lit_flag)
+		WorldState.flag_changed.connect(_on_flag_changed)
 	_rebuild()
+
+
+func _on_flag_changed(flag: String) -> void:
+	if flag == lit_flag:
+		lit = true
 
 
 ## Fenster und Kollision sind eigene Nodes (Fenster leuchten, also unbeleuchtet

@@ -17,6 +17,7 @@ const BASE_MAX_POWER := 8
 # Pro so viel Hexenstärke ein Punkt mehr Hexenkraft.
 const STRENGTH_PER_POWER := 2
 
+## Grundwert; Bannkunst-Stufen geben mehr (max_hp()).
 @export var max_health: int = 10
 # Hexenkraft pro Sekunde, die von selbst zurückkommt.
 @export var power_regen: float = 0.5
@@ -30,16 +31,38 @@ var last_damage_source := ""
 
 
 func _ready() -> void:
-	health = max_health
+	health = max_hp()
 	power = max_power()
 	DayCycle.day_passed.connect(func(_day: int) -> void: restore_all())
+
+
+func get_save_data() -> Dictionary:
+	return {"health": health, "power": power}
+
+
+## Leer = volle Werte (neues Spiel). Mindestens 1 Leben: Mit 0 hätte die
+## Hexe gar nicht speichern können.
+func load_save_data(data: Dictionary) -> void:
+	health = clampi(SaveRead.as_int(data.get("health"), max_hp()), 1, max_hp())
+	power = clampf(SaveRead.as_float(data.get("power"), max_power()), 0.0, max_power())
+	changed.emit()
 
 
 func _process(delta: float) -> void:
 	_invulnerable = maxf(_invulnerable - delta, 0.0)
 	if power < max_power():
-		power = minf(power + power_regen * delta, max_power())
+		power = minf(power + power_regen * regen_factor() * delta, max_power())
 		changed.emit()
+
+
+## Maximale Lebenspunkte: Grundwert plus Bannkunst (Stat "ward_health").
+func max_hp() -> int:
+	return max_health + Grimoire.get_stat("ward_health")
+
+
+## Hexenpfad „Hexcaster“: Hexenkraft füllt sich schneller (Prozent).
+func regen_factor() -> float:
+	return 1.0 + Grimoire.get_stat("hexcaster") / 100.0
 
 
 func max_power() -> int:
@@ -64,7 +87,7 @@ func restore_power(amount: float) -> void:
 func heal(amount: int) -> void:
 	if health <= 0:
 		return
-	health = mini(health + amount, max_health)
+	health = mini(health + amount, max_hp())
 	changed.emit()
 	healed.emit(amount)
 
@@ -93,10 +116,10 @@ func take_damage(amount: int, source: String = "") -> bool:
 
 
 func restore_all() -> void:
-	health = max_health
+	health = max_hp()
 	power = max_power()
 	changed.emit()
 
 
 func is_full() -> bool:
-	return health >= max_health and power >= max_power()
+	return health >= max_hp() and power >= max_power()

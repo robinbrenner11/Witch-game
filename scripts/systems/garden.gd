@@ -160,6 +160,9 @@ func is_waiting_for_full_moon(cell: Vector2i) -> bool:
 func is_growth_blocked(cell: Vector2i) -> bool:
 	if not has_plant(cell):
 		return false
+	# Hexenpfad "Nachtschatten-Bändigerin": Die Kuppel schadet nicht mehr.
+	if Grimoire.get_stat("nightshade_tamer") > 0:
+		return false
 	for source_cell in active_aura_cells(PlantData.AuraEffect.BLOCK_GROWTH):
 		if _aura_reaches(source_cell, cell):
 			return true
@@ -217,24 +220,42 @@ func load_save_data(data: Variant) -> void:
 	var old_beds := _beds.keys()
 	_plants.clear()
 	_beds.clear()
-	for entry in data.get("plants", []):
-		var cell := Vector2i(int(entry["x"]), int(entry["y"]))
-		var plant := PlantData.from_id(String(entry.get("plant_id", "")))
+	var saved := SaveRead.as_dict(data)
+	for entry: Variant in SaveRead.as_array(saved.get("plants")):
+		var cell: Variant = _saved_cell(entry)
+		if cell == null:
+			continue
+		var plant_id := SaveRead.as_string(entry.get("plant_id"))
+		var plant := PlantData.from_id(plant_id)
 		# Arten, die es nicht mehr gibt, würden später jede Aura-Abfrage
 		# stolpern lassen. Lieber das Beet leer lassen.
 		if plant == null:
-			push_warning("Spielstand: unbekannte Pflanze %s entfernt" % entry.get("plant_id", ""))
+			push_warning("Spielstand: unbekannte Pflanze %s entfernt" % plant_id)
 			continue
-		var stage := clampi(int(entry.get("stage", 0)), 0, plant.stage_count - 1)
+		var stage := clampi(SaveRead.as_int(entry.get("stage")), 0, plant.stage_count - 1)
 		_plants[cell] = {"plant_id": plant.id, "stage": stage}
-	for entry in data.get("beds", []):
-		_beds[Vector2i(int(entry["x"]), int(entry["y"]))] = true
-	beds_initialized = bool(data.get("beds_initialized", false))
+	for entry: Variant in SaveRead.as_array(saved.get("beds")):
+		var cell: Variant = _saved_cell(entry)
+		if cell != null:
+			_beds[cell] = true
+	beds_initialized = SaveRead.as_bool(saved.get("beds_initialized"))
 	# Beete und Pflanzen, die gerade angezeigt werden, auf den neuen Stand bringen.
 	for cell in old_beds + _beds.keys():
 		bed_changed.emit(cell)
 	for cell in old_plants + _plants.keys():
 		plant_changed.emit(cell)
+
+
+## Zelle aus einem gespeicherten Eintrag {"x", "y"}; null, wenn der Eintrag
+## kein Dictionary ist oder die Koordinaten fehlen.
+func _saved_cell(entry: Variant) -> Variant:
+	if not entry is Dictionary:
+		return null
+	var x: Variant = entry.get("x")
+	var y: Variant = entry.get("y")
+	if not (x is float or x is int) or not (y is float or y is int):
+		return null
+	return Vector2i(SaveRead.as_int(x), SaveRead.as_int(y))
 
 
 func _on_day_passed(_day: int) -> void:

@@ -11,6 +11,8 @@ extends Node2D
 
 # Befallene Seiten sehen welk aus, bis es eine eigene Grafik gibt.
 const BLIGHTED_TINT := Color("#7C7C68")
+# Hexenpfad "Sucherin": Seiten glimmen weiter in die Nacht hinaus.
+const SEEKER_GLOW := 2.0
 
 
 func _ready() -> void:
@@ -18,9 +20,18 @@ func _ready() -> void:
 	if Grimoire.has_fragment(page_id, fragment):
 		queue_free()
 		return
+	add_to_group(LongShadow.GROUP)
+	add_to_group(LongShadow.PAGE_GROUP)
 	var page := PageData.from_id(page_id)
 	if page and page.state == PageData.State.BLIGHTED:
 		$Sprite2D.modulate = BLIGHTED_TINT
+	if Grimoire.get_stat("seeker") > 0:
+		($Glimmer as PointLight2D).texture_scale *= SEEKER_GLOW
+
+
+## Lange Schatten (zunehmender Mond) zeigen auf jede noch liegende Seite.
+func is_secret() -> bool:
+	return true
 
 
 ## Text für den Interaktions-Hinweis (siehe Interactable).

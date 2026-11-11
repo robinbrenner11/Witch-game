@@ -22,13 +22,11 @@ Soll-Einstellungen in Godot (bei Abweichung kurz Bescheid sagen):
 
 Grundlegende technische Entscheidungen nicht stillschweigend ändern. Bei größeren Architekturentscheidungen kurz erklären: (1) Was ist das Problem? (2) Welche Lösung schlägst du vor? (3) Warum passt sie zu diesem Spiel?
 
-## 3. Über mich (wichtig für deine Erklärungen)
+## 3. Über mich
 
 - Ich kenne Python aus dem Studium, aber **kaum/keine Erfahrung mit Godot und GDScript**.
-- Ich will Godot und GDScript wirklich lernen, nicht nur fertigen Code bekommen.
-- Neue Godot-Konzepte (Nodes, Szenen, Signale, Groups, Resources usw.) beim ersten Auftreten kurz und verständlich erklären und sagen, warum wir sie brauchen.
-- Nicht jede offensichtliche Codezeile erklären. Erklärungen kurz halten.
-- Keine unnötig komplizierte Architektur.
+- Ich will gerade vor allem ausprobieren, was du kannst und wo deine Grenzen liegen. Neuen Code musst du mir nicht erklären; es reicht, was er im Spiel bewirkt.
+- Wenn eine Lösung eine komplexere Architektur braucht, ist das in Ordnung. Sie soll trotzdem nachvollziehbar bleiben.
 
 ## 4. Visuelle Identität (verbindlich)
 
@@ -75,6 +73,8 @@ Klein bauen, aber mit Zukunft:
 
 Für den Prototyp ist eine einfache Lösung okay. Wenn eine Entscheidung aber sehr wahrscheinlich später zu einem Rewrite führt, weise mich darauf hin.
 
+Diese Philosophie ist eine Richtung, keine Bremse: Wenn eine neue Funktion oder Technik großen Aufwand braucht, sich aber lohnt, dann bauen.
+
 ## 6. Ordnerstruktur
 
 ```text
@@ -89,7 +89,7 @@ Struktur darf wachsen, aber nicht für jede Kleinigkeit neue Ordner oder Abstrak
 
 ## 7. Code-Regeln
 
-- Idiomatisches, gut lesbares GDScript. Verständlich vor clever.
+- Idiomatisches GDScript. Es darf auch clever sein (z. B. Lambdas, typisierte Collections, Shader, Generatoren), solange es lesbar bleibt.
 - Keine Design Patterns nur um Patterns zu haben.
 - **Kommentare auf Deutsch**: erklären das *Warum*, ungewöhnliche Entscheidungen, wichtige Zusammenhänge. Keine Kommentare für Offensichtliches.
 - Code-Namen auf **Englisch** nach Godot-Konvention (`player_position`, `growth_stage`, `interact()`, `harvest()`), keine künstlich deutschen Variablennamen.
@@ -141,7 +141,7 @@ Zum Testen:
 
 5. Nach jedem funktionierenden Schritt committen (kurze deutsche Commit-Message).
 
-Größere Vorhaben immer in kleine, einzeln spielbare Schritte teilen und vorher kurz den Plan nennen.
+Bei größeren Vorhaben vorher kurz den Plan nennen. Sie müssen nicht in einzeln spielbare Schritte geteilt werden, wenn sie am Stück besser gelingen.
 
 ### Git und Branches
 
@@ -183,12 +183,12 @@ Legende in den Design-Dokumenten: ✅ entschieden · 💡 Idee von Robin, späte
 - **Truhe**: Truhenplätze liegen im `Inventory` hinter der Tasche (`CHEST_START`, `chest_capacity`). `add`/`remove`/`count`/`has_room_for` sehen nur die Tasche; zwischen beiden Bereichen bewegt `move()` bzw. `transfer()`
 - **Sonne**: draußen ab 6 Uhr Schaden (`SunExposure`), drinnen sicher über `Level.indoors`. Neue Innenräume brauchen `indoors = true`
 - **Spielstand robust laden**: `load_save_data()` liest mit `data.get(…, Standard)` und sortiert Unbekanntes aus (umbenannte Items, entfernte Pflanzen). `SaveGame` schreibt über eine Zwischendatei und hält den vorletzten Stand als `.bak`
-- **Kampf**: Digitalis-Formen und ihre Angriffe sind Daten (`data/digitalis/<form>.tres`, `DigitalisForm` + `AttackData`); eine neue Form ist eine neue Datei plus `Grimoire.learn_form()`. Kampftränke sind Items mit `use = THROW` oder `heal > 0`. Gegner gehören in die Gruppe `blighted` und haben `take_hit(damage, knockback, stagger)`; Angriffe kündigen sich sichtbar an (Telegraph). Neumond-Stärke nur über `Moon.blight_surges()`. Treffer an der Hexe über `Vitals.take_damage()`, die Rückmeldung macht `VitalsFeedback`. Details: `docs/COMBAT_SYSTEM.md`
-- **Welt-Merker**: Was einmal passiert ist und so bleibt (Pforte offen, NPC kennengelernt), ist ein Flag im Autoload `WorldState` (`set_flag()`, `has_flag()`, Signal `flag_changed`; gespeichert). Für „höchstens einmal pro Nacht“ gibt es `mark_tonight()`/`did_tonight()` (nicht gespeichert). Freischaltungen nie fest verdrahten, sondern über Flags
+- **Kampf**: Digitalis-Formen und ihre Angriffe sind Daten (`data/digitalis/<form>.tres`, `DigitalisForm` + `AttackData`); eine neue Form ist eine neue Datei plus `Grimoire.learn_form()`, eine höhere Stufe eine Datei `data/digitalis/upgrades/<form>_<n>.tres` (Stufe nur über `Grimoire.upgrade_level()`). Kampftränke sind Items mit `use = THROW` oder `heal > 0`. Gegner gehören in die Gruppe `blighted` und haben `take_hit(damage, knockback, stagger)`; Angriffe kündigen sich sichtbar an (Telegraph). Neumond-Stärke nur über `Moon.blight_surges()`. Treffer an der Hexe über `Vitals.take_damage()`, die Rückmeldung macht `VitalsFeedback`. Details: `docs/COMBAT_SYSTEM.md`
+- **Welt-Merker**: Was einmal passiert ist und so bleibt (Pforte offen, NPC kennengelernt), ist ein Flag im Autoload `WorldState` (`set_flag()`, `has_flag()`, Signal `flag_changed`; gespeichert). Für „höchstens einmal pro Nacht“ gibt es `mark_tonight()`/`did_tonight()` (nicht gespeichert), für „ab der nächsten Nacht“ `set_flag_next_night()` (gespeichert). Freischaltungen nie fest verdrahten, sondern über Flags
 - **NPCs und Dialoge**: NPC = Daten (`data/npcs/<id>.tres`, `NpcData` mit `ScheduleEntry`-Routine) + geerbte Szene von `scenes/npcs/npc.tscn`; Spots sind `Marker2D` unter `Spots` im Level. Gespräche sind Dateien in `data/dialogue/<npc>/` (`DialogueData`: Priorität, Bedingungen, Folgen). Zeit nur über `DayCycle.minutes`. Dialoge zeigt die `DialogueBox` (Gruppe `dialogue_box`, `await box.show_lines(name_key, lines)`), höchstens 3 Zeilen pro Seite; Auswahl mit `await box.choose(name_key, options)` (Index, -1 bei Esc). Tausch: Angebote als Daten in `data/trades/<npc>/` (`TradeOffer`), der NPC bietet sie nach jedem Gespräch an. Details: `docs/VILLAGE_HUB.md`
 - **Gesperrte Wege**: `Exit` und `GardenGate` haben `required_flag`; ohne das Flag bleiben sie zu und melden `locked_message`
 - **Sperren**: Wege, die man erst später öffnen kann, sind ein `Gate` (`scripts/world/gate.gd`): offen bei Flag, Mondphase, aktiver Trankwirkung (`PotionEffects.is_active("wisp")`) oder wenn der passende Trank daraufgegossen (E) bzw. geworfen wird (Gruppe `potion_target`, Methode `on_potion(item)`). Mit einem Trank geöffnet bleibt es über `required_flag` für immer offen. Vor einem `Exit` platziert, sperrt es einen Ortswechsel. Dunkle Orte über `Level.darkness`
-- **Gesuche**: Zettel am Anschlagbrett sind Daten (`data/requests/<id>.tres`, `RequestData`: Absender, Item, Menge, Belohnungen als `RewardData`, Mondphasen, Flags für Ketten). Der Autoload `Requests` hängt sie auf und speichert sie; neue Gesuche brauchen keinen Code, nur Datei und Texte (`REQ_<ID>`, `REQ_<ID>_THANKS`, höchstens 3 Zeilen inklusive Status). Belohnungen von außerhalb des Buchs über `Grimoire.grant(reward)`
+- **Gesuche**: Zettel am Anschlagbrett sind Daten (`data/requests/<id>.tres`, `RequestData`: Absender, Item, Menge, Belohnungen als `RewardData`, Mondphasen, Flags für Ketten). Der Autoload `Requests` hängt sie auf und speichert sie; neue Gesuche brauchen keinen Code, nur Datei und Texte (`REQ_<ID>`, `REQ_<ID>_THANKS`, je höchstens 3 Zeilen; „Gesucht/Lohn“ zeigt das Brett auf einer eigenen Seite). Belohnungen von außerhalb des Buchs über `Grimoire.grant(reward)`
 - **Höhen und Baupläne**: Höhe ist nur gemalt (wie Stardew): Wände, Ränder und Treppen liegen im TileMapLayer `Cliffs` mit Kollision auf Physik-Layer 4 `cliffs` (Bit 8). Alles, was laufen soll (Hexe, NPCs, Gegner), braucht dieses Bit in `collision_mask`; Zauber und Würfe bewusst nicht. Orte mit Höhen entstehen aus Bauplänen (`tools/world_builder/plans/<ort>/`, 1 Pixel = 1 Kachel) über den World-Builder; er überschreibt nur `Ground`, `Water`, `Depth`, `Cliffs` und `Objects/Generated`, Handarbeit gehört woandershin. Klippen-Grafiken haben ein festes Raster (`assets/environment/cliffs/cliff_layout.json`). Details: `tools/world_builder/LIESMICH.md`
 
 ## 13. Tests
@@ -197,4 +197,5 @@ Legende in den Design-Dokumenten: ✅ entschieden · 💡 Idee von Robin, späte
 - Alle Tests: `godot --headless --script res://tests/run_tests.gd`, eine Datei: `… -- test_smoke`. Exit-Code 0 = grün.
 - Tests liegen **im Repo** in `tests/test_<thema>.gd` und erben von `TestCase` (`check()`, `check_eq()`). Für jede neue Funktion die Prüfungen als Testdatei dazulegen, nicht als Wegwerf-Skript.
 - `test_smoke` prüft bei jeder Änderung: alles lädt, Verweise stimmen, Texte vollständig (en/de, keine Doppelten), Items und Rezepte passen zusammen.
-- Was sich headless nicht prüfen lässt (Aussehen, Spielgefühl), unter „Zum Testen“ für mich aufschreiben.
+- Aussehen prüfen ohne Bildschirm: `bash tools/qa/shot.sh out=<png> level=… pos=x,y hour=… flags=… items=… book=…` rendert das Spiel unter Xvfb und speichert einen Screenshot (Details in `tools/qa/screenshot.gd`).
+- Was sich so nicht prüfen lässt (Spielgefühl, Ton, Steuerung), unter „Zum Testen“ für mich aufschreiben.

@@ -12,16 +12,28 @@ extends Node
 signal changed
 signal page_found(page_id: String)
 signal level_up(discipline_id: String, level: int)
+# Ein Eintrag im Herbarium oder bei den Leuten ist neu entdeckt.
+signal entry_discovered(entry: EntryData)
+## Jede gemeldete Aktion (für die Nachtbilanz, NightLog).
+signal reported(action: String, subject: String)
 signal milestone_ready(discipline_id: String, level: int)
 
+# So lang darf der Name der Hexe höchstens sein (passt dann überall hin).
+const NAME_MAX_LENGTH := 14
+# Meldung beim Entdecken eines Eintrags, je Kapitel (sonst Herbarium).
+const DISCOVERY_MESSAGES := {"people": "MSG_PERSON_DISCOVERED", "bestiary": "MSG_CREATURE_DISCOVERED"}
 # Die ersten Ziele auf dem Innendeckel, in der Reihenfolge von Vesperas Notiz.
-const GOALS: Array[String] = ["plant", "brew", "sleep", "wake"]
+# Reihenfolge wie im Spiel: erst Erde wecken, dann pflanzen, brauen, schlafen.
+const GOALS: Array[String] = ["wake", "plant", "brew", "sleep"]
 # Digitalis-Formen, die die Hexe von Anfang an kennt (IDs in data/digitalis/).
 # VORLÄUFIG beide: Laut game_design.md kommt die Sichel später über Gnarl. Bis
 # es diesen Weg gibt, ist sie zum Testen gleich da. Später nur ["staff"].
 const START_FORMS: Array[String] = ["staff", "sickle"]
 
 var has_book := false
+# Der Name, den die Spielerin ihrer Hexe im Intro gibt ("" = keiner). Steht
+# hier, weil das Buch der Hexe gehört und ihren Weg festhält.
+var witch_name := ""
 var _done_goals: Array[String] = []
 # Seiten-ID -> {"parts": [Fragment-Nummern], "restored": bool, "rewarded": bool}.
 # Wer drinsteht, ist gefunden (bei Fragmenten: mindestens ein Teil).
@@ -49,6 +61,8 @@ var _completed_groups: Array[String] = []
 var _claimed: Dictionary = {}
 # Bekannte Digitalis-Formen in der Reihenfolge, in der man sie bekommen hat.
 var _forms: Array[String] = []
+# Was Gnarl verbessert hat: "staff"/"sickle"/"cauldron" -> Stufe (fehlt = 1).
+var _upgrades: Dictionary = {}
 
 
 func _ready() -> void:
@@ -212,8 +226,11 @@ func report(action: String, details: Dictionary = {}) -> void:
 	_firsts[first_key] = true
 	for entry in EntryData.all():
 		if entry.discover_on == first_key and not was_discovered.has(entry.id):
-			Messages.post(tr("MSG_ENTRY_DISCOVERED") % tr(entry.title_key))
+			var message: String = DISCOVERY_MESSAGES.get(entry.chapter, "MSG_ENTRY_DISCOVERED")
+			Messages.post(tr(message) % tr(entry.title_key))
+			entry_discovered.emit(entry)
 	_check_completed_groups()
+	reported.emit(action, subject)
 	changed.emit()
 
 
@@ -286,6 +303,8 @@ func _apply_reward(reward: RewardData) -> void:
 			add_xp(reward.target_id, reward.value)
 		RewardData.Type.DIGITALIS_FORM:
 			learn_form(reward.target_id)
+		RewardData.Type.UPGRADE:
+			_upgrade(reward.target_id, reward.value)
 
 
 ## Liegt auf dieser Stufe ein Geschenk zum Abholen bereit?
@@ -465,6 +484,28 @@ func roll_stat(stat: String) -> bool:
 # --- Digitalis-Formen -----------------------------------------------------------
 
 ## Formen, zwischen denen die Hexe im Kampf wechseln kann (Combat).
+## Ein Name, wie er gespeichert und angezeigt wird: ohne Ränder, ohne
+## Zeilenumbrüche, höchstens NAME_MAX_LENGTH Zeichen.
+static func clean_name(text: String) -> String:
+	return text.replace("\n", " ").strip_edges().left(NAME_MAX_LENGTH)
+
+
+## Stufe einer Digitalis-Form oder des Kessels (1 = nicht verbessert).
+func upgrade_level(target: String) -> int:
+	return int(_upgrades.get(target, 1))
+
+
+## Upgrades gehen nur nach oben. Formen holen sich ihre Werte selbst
+## (Combat hört auf changed), der Kessel bekommt seine Plätze hier.
+func _upgrade(target: String, new_level: int) -> void:
+	if new_level <= upgrade_level(target):
+		return
+	_upgrades[target] = new_level
+	if target == "cauldron":
+		Brewing.raise_capacity(Brewing.START_CAPACITY + new_level - 1)
+	report("upgrade", {"id": target})
+
+
 func known_forms() -> Array[String]:
 	return _forms.duplicate()
 
@@ -483,6 +524,14 @@ func is_unlocked(chapter: ChapterData) -> bool:
 	match chapter.unlock:
 		"":
 			return has_book
+		"first_fight":
+			# Das Bestiarium öffnet sich mit dem ersten gereinigten Wesen.
+			if not has_book:
+				return false
+			for entry in EntryData.in_chapter("bestiary"):
+				if is_discovered(entry):
+					return true
+			return false
 		"journal_page":
 			for page_id: String in _pages:
 				var page := PageData.from_id(page_id)
@@ -544,28 +593,92 @@ func get_save_data() -> Dictionary:
 		"hints": _hints, "seen": _seen, "xp": _xp, "paths": _paths,
 		"firsts": _firsts, "taught": _taught, "counts": _counts,
 		"completed_groups": _completed_groups, "claimed": _claimed, "forms": _forms,
+		"upgrades": _upgrades.duplicate(),
+		"witch_name": witch_name,
+		# Abschwächung bei Wiederholung gilt pro Nacht, auch über Speichern
+		# hinweg (sonst setzt Fortsetzen sie zurück).
+		"repeats": _repeats.duplicate(), "repeats_day": DayCycle.day,
 	}
 
 
 func load_save_data(data: Dictionary) -> void:
-	has_book = bool(data.get("has_book", false))
-	_done_goals.assign(data.get("goals", []))
-	_pages = data.get("pages", {}).duplicate(true)
-	_hints = data.get("hints", {}).duplicate(true)
-	_seen = data.get("seen", {}).duplicate(true)
-	_xp = data.get("xp", {}).duplicate(true)
-	_paths = data.get("paths", {}).duplicate(true)
-	_firsts = data.get("firsts", {}).duplicate(true)
-	_taught.assign(data.get("taught", []))
-	_counts = data.get("counts", {}).duplicate(true)
-	_completed_groups.assign(data.get("completed_groups", []))
-	_claimed = data.get("claimed", {}).duplicate(true)
+	# Jeder Wert geht durch SaveRead: Ein falscher Typ an einer Stelle kostet
+	# nur diesen Eintrag (tests/test_save_fuzz.gd).
+	has_book = SaveRead.as_bool(data.get("has_book"))
+	witch_name = clean_name(SaveRead.as_string(data.get("witch_name")))
+	_done_goals.assign(SaveRead.strings(data.get("goals")))
+	_pages = _clean_pages(data.get("pages"))
+	_hints.clear()
+	var hints := SaveRead.as_dict(data.get("hints"))
+	for result_id: Variant in hints:
+		var known := SaveRead.strings(hints[result_id])
+		if result_id is String and not known.is_empty():
+			# Untypisiert wie in hint_ingredient(), damit beide Wege gleich aussehen.
+			_hints[result_id] = Array(known)
+	_seen = SaveRead.flags(data.get("seen"))
+	_xp = SaveRead.counts(data.get("xp"))
+	_paths = _clean_paths(data.get("paths"))
+	_firsts = SaveRead.flags(data.get("firsts"))
+	_taught.assign(SaveRead.strings(data.get("taught")))
+	_counts = SaveRead.counts(data.get("counts"), 1)
+	_completed_groups.assign(SaveRead.strings(data.get("completed_groups")))
+	_claimed = SaveRead.flags(data.get("claimed"))
 	# Ältere Spielstände kennen noch keine Formen: dann die Startformen.
 	_forms.clear()
-	for form_id in data.get("forms", START_FORMS):
-		if DigitalisForm.from_id(String(form_id)) != null and not _forms.has(String(form_id)):
-			_forms.append(String(form_id))
+	for form_id in SaveRead.strings(data.get("forms")):
+		if DigitalisForm.from_id(form_id) != null:
+			_forms.append(form_id)
 	if _forms.is_empty():
 		_forms.assign(START_FORMS)
+	_upgrades = SaveRead.counts(data.get("upgrades"), 1)
+	for target: String in _upgrades:
+		_upgrades[target] = mini(_upgrades[target], DigitalisForm.MAX_LEVEL)
+	# Nur übernehmen, wenn der Stand aus genau dieser Nacht stammt. DayCycle
+	# ist zu diesem Zeitpunkt schon geladen (SaveGame._apply).
 	_repeats.clear()
+	if SaveRead.as_int(data.get("repeats_day"), -1) == DayCycle.day:
+		_repeats = SaveRead.counts(data.get("repeats"))
 	changed.emit()
+
+
+## Gefundene Seiten: {Seite: {"parts": [Teil-Nummern], "restored", "rewarded"}}.
+## Seiten, die es nicht mehr gibt, fallen weg (sonst zählt found_page_count()
+## etwas, das im Buch nirgends steht).
+func _clean_pages(value: Variant) -> Dictionary:
+	var result := {}
+	var saved := SaveRead.as_dict(value)
+	for page_id: Variant in saved:
+		if not page_id is String or PageData.from_id(page_id) == null:
+			continue
+		var entry := SaveRead.as_dict(saved[page_id])
+		var parts: Array = []
+		for part: Variant in SaveRead.as_array(entry.get("parts")):
+			if (part is float or part is int) and int(part) >= 0 and not parts.has(int(part)):
+				parts.append(int(part))
+		result[page_id] = {
+			"parts": parts,
+			"restored": SaveRead.as_bool(entry.get("restored")),
+			"rewarded": SaveRead.as_bool(entry.get("rewarded")),
+		}
+	return result
+
+
+## Gewählte Hexenpfade: {Disziplin: {"5": Pfad-ID}}. Nur Pfade, die es gibt
+## und die zu Disziplin und Stufe passen.
+func _clean_paths(value: Variant) -> Dictionary:
+	var result := {}
+	var saved := SaveRead.as_dict(value)
+	for discipline_id: Variant in saved:
+		if not discipline_id is String:
+			continue
+		var chosen := {}
+		var by_level := SaveRead.as_dict(saved[discipline_id])
+		for milestone: Variant in by_level:
+			var path := PathData.from_id(SaveRead.as_string(by_level[milestone]))
+			# Ohne die Stufe dafür gilt keine Wahl (_xp ist hier schon geladen).
+			if milestone is String and path != null and path.discipline_id == discipline_id \
+					and str(path.level) == milestone and level(discipline_id) >= path.level:
+				chosen[milestone] = path.id
+		if not chosen.is_empty():
+			result[discipline_id] = chosen
+	return result

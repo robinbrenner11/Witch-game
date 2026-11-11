@@ -42,6 +42,8 @@ var fast_forward: bool = false
 # Trank "Ewige Nacht": Bis zum Morgen läuft die Zeit um diesen Faktor
 # langsamer. 1.5 = die Nacht dauert 50 % länger.
 var night_slowdown: float = 1.0
+# Obergrenze beim Laden (ein kaputter Spielstand soll die Zeit nicht anhalten).
+const MAX_SLOWDOWN := 4.0
 # Nur zum Testen (F6): so viele Minuten springt die Uhr im nächsten Frame vor.
 # Über _process, damit Morgen, Warnung und neue Nacht wie sonst auslösen.
 var _debug_skip := 0.0
@@ -101,14 +103,15 @@ func reset() -> void:
 
 
 func get_save_data() -> Dictionary:
-	return {"day": day, "minutes": minutes}
+	return {"day": day, "minutes": minutes, "night_slowdown": night_slowdown}
 
 
 func load_save_data(data: Dictionary) -> void:
-	day = maxi(int(data.get("day", 1)), 1)
-	minutes = fposmod(float(data.get("minutes", START_TIME)), MINUTES_PER_DAY)
+	day = maxi(SaveRead.as_int(data.get("day"), 1), 1)
+	minutes = fposmod(SaveRead.as_float(data.get("minutes"), START_TIME), MINUTES_PER_DAY)
 	fast_forward = false
-	night_slowdown = 1.0
+	# Ewige Nacht hält bis zum Ende der Nacht, auch über Speichern hinweg.
+	night_slowdown = clampf(SaveRead.as_float(data.get("night_slowdown"), 1.0), 1.0, MAX_SLOWDOWN)
 
 
 ## 0 am Tag, 1 in tiefer Nacht. Licht und Farbstimmung richten sich danach.

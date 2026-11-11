@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntryData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/entry_data.gd" id="1_entry"]
+
+[resource]
+script = ExtResource("1_entry")
+id = "moon_water"
+page_group = "beyond"
+order = 12
+title_key = "ITEM_MOON_WATER"
+item_ids = Array[String](["moon_water"])
+discover_on = "forage/moon_water"
+facts = Array[String](["ENTRY_MOON_WATER_1", "ENTRY_MOON_WATER_2", "ENTRY_MOON_WATER_3"])
+fact_triggers = Array[String](["", "forage/moon_water:3", "forage/moon_water:6"])

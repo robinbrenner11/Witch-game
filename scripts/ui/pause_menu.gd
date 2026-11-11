@@ -57,7 +57,25 @@ func _on_settings_button_pressed() -> void:
 	resume_button.grab_focus()
 
 
+## Nur wenn das Speichern wirklich geklappt hat, geht es zum Titel. Sonst
+## bleibt das Spiel offen und das Menü sagt, dass nichts gespeichert wurde.
 func _on_save_quit_button_pressed() -> void:
-	SaveGame.save_game()
+	if not SaveGame.save_game():
+		_show_save_error()
+		return
 	get_tree().paused = false
 	get_tree().change_scene_to_file(TITLE_SCENE)
+
+
+func _show_save_error() -> void:
+	Sfx.play("ui/denied")
+	var box := %ResumeButton.get_parent() as Container
+	var label := box.get_node_or_null("SaveError") as Label
+	if label == null:
+		label = Label.new()
+		label.name = "SaveError"
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		label.custom_minimum_size.x = 140
+		label.add_theme_color_override("font_color", Color("#E0566E"))
+		box.add_child(label)
+	label.text = tr("MSG_SAVE_FAILED")

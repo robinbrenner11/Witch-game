@@ -65,12 +65,21 @@ const DEFAULT_MAX_STACK := 999
 @export var throw_color: Color = Color("#FFB566")
 
 
+# ID -> ItemData (oder null). load() merkt sich eine Datei nur, solange
+# irgendwer sie festhält; sonst wird sie bei jedem Aufruf neu von der Platte
+# gelesen (gemessen 10.11.: 0,25 ms statt 0,004 ms). from_id() wird aber
+# ständig gerufen, z. B. jeden Frame für den Interaktions-Hinweis am Beet.
+static var _cache: Dictionary = {}
+
+
 ## Gibt null zurück, wenn es keine Datei für diese ID gibt (auch bei "").
 static func from_id(item_id: String) -> ItemData:
 	if item_id == "":
 		return null
-	var path := "res://data/items/%s.tres" % item_id
-	return load(path) if ResourceLoader.exists(path) else null
+	if not _cache.has(item_id):
+		var path := "res://data/items/%s.tres" % item_id
+		_cache[item_id] = load(path) if ResourceLoader.exists(path) else null
+	return _cache[item_id]
 
 
 ## Die Pflanze, die aus diesem Samen wächst, sonst null.

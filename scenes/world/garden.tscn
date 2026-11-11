@@ -1,5 +1,6 @@
 [gd_scene format=4]
 
+[ext_resource type="PackedScene" path="res://scenes/world/witch_ring.tscn" id="ring_1"]
 [ext_resource type="Script" path="res://scripts/world/level.gd" id="1_level"]
 [ext_resource type="TileSet" path="res://assets/environment/ground/ground_tileset.tres" id="2_ground"]
 [ext_resource type="PackedScene" path="res://scenes/plants/farm_tile.tscn" id="3_farm_tile"]
@@ -54,6 +55,10 @@ tile_set = ExtResource("2_ground")
 
 [node name="Objects" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="WitchRing_garden" parent="Objects" instance=ExtResource("ring_1")]
+position = Vector2(640, 128)
+ring_id = "garden"
 
 [node name="Decor" type="Node2D" parent="Objects"]
 y_sort_enabled = true

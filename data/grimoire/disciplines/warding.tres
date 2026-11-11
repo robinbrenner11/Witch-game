@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="DisciplineData" format=3]
+
+[ext_resource type="Script" path="res://scripts/grimoire/discipline_data.gd" id="1_discipline"]
+[ext_resource type="Script" path="res://scripts/grimoire/reward_data.gd" id="2_reward"]
+
+[sub_resource type="Resource" id="Resource_r0"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "potion_mending"
+value = 2
+
+[sub_resource type="Resource" id="Resource_r1"]
+script = ExtResource("2_reward")
+type = 5
+target_id = "ward_health"
+value = 2
+
+[sub_resource type="Resource" id="Resource_r2"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "potion_ember_bomb"
+value = 2
+
+[sub_resource type="Resource" id="Resource_r3"]
+script = ExtResource("2_reward")
+type = 5
+target_id = "ward_health"
+value = 2
+
+[sub_resource type="Resource" id="Resource_r5"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "potion_mending_strong"
+value = 2
+
+[sub_resource type="Resource" id="Resource_r6"]
+script = ExtResource("2_reward")
+type = 5
+target_id = "ward_health"
+value = 2
+
+[sub_resource type="Resource" id="Resource_r7"]
+script = ExtResource("2_reward")
+type = 1
+target_id = "potion_cleansing_mist"
+value = 1
+
+[sub_resource type="Resource" id="Resource_r8"]
+script = ExtResource("2_reward")
+type = 5
+target_id = "ward_health"
+value = 2
+
+[resource]
+script = ExtResource("1_discipline")
+id = "warding"
+xp_curve = Array[int]([30, 80, 150, 240, 350, 480, 630, 800, 1000, 1250])
+xp_small = Dictionary[String, int]({"cleanse": 5})
+xp_first = Dictionary[String, int]({"cleanse": 25})
+level_rewards = Array[ExtResource("2_reward")]([SubResource("Resource_r0"), SubResource("Resource_r1"), SubResource("Resource_r2"), SubResource("Resource_r3"), null, SubResource("Resource_r5"), SubResource("Resource_r6"), SubResource("Resource_r7"), SubResource("Resource_r8"), null])
+milestone_levels = Array[int]([5])

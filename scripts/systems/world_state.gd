@@ -15,15 +15,20 @@ signal flag_changed(flag: String)
 # antwortet, egal wie viele Flags es einmal werden.
 var _flags: Dictionary = {}
 # Was heute Nacht schon war, z. B. "watchman/rumor" (höchstens ein Gerücht pro
-# Nacht). Wird mit jeder neuen Nacht geleert und nicht gespeichert:
-# Gespeichert wird beim Schlafen, also zu Beginn einer Nacht, wenn es ohnehin
-# leer ist. Speichert man mitten in der Nacht über das Pausemenü und lädt,
-# kann sich höchstens etwas Nächtliches einmal wiederholen.
+# Nacht), als Zähler. Wird mit jeder neuen Nacht geleert. Gespeichert wird es
+# zusammen mit der Nacht: Wer mitten in der Nacht über das Pausemenü speichert
+# und fortsetzt, ist noch in derselben Nacht. Sonst gäbe es Mondwasser und
+# begrenzte Tauschangebote noch einmal, und ein für die Nacht geöffnetes Gate
+# (Blütennebel) wäre wieder zu, obwohl der Trank verbraucht ist.
 var _tonight: Dictionary = {}
+# Flags, die erst mit der nächsten Nacht gesetzt werden (gespeichert). Für
+# Dinge, die „über Nacht“ passieren, z. B. ein NPC, der umzieht: So
+# verschwindet er nicht vor den Augen der Hexe.
+var _next_night: Array[String] = []
 
 
 func _ready() -> void:
-	DayCycle.day_passed.connect(func(_day: int) -> void: _tonight.clear())
+	DayCycle.day_passed.connect(func(_day: int) -> void: _on_new_night())
 
 
 func set_flag(flag: String) -> void:
@@ -53,27 +58,68 @@ func has_none(flags: Array[String]) -> bool:
 	return true
 
 
+## Setzt das Flag erst, wenn die nächste Nacht beginnt.
+func set_flag_next_night(flag: String) -> void:
+	if flag != "" and not _flags.has(flag) and not _next_night.has(flag):
+		_next_night.append(flag)
+
+
+func is_pending(flag: String) -> bool:
+	return _next_night.has(flag)
+
+
+func _on_new_night() -> void:
+	_tonight.clear()
+	var pending := _next_night.duplicate()
+	_next_night.clear()
+	for flag in pending:
+		set_flag(flag)
+
+
 ## Merkt sich bis zum Ende der Nacht, dass etwas passiert ist.
 func mark_tonight(key: String) -> void:
-	_tonight[key] = true
+	_tonight[key] = maxi(times_tonight(key), 1)
 
 
 func did_tonight(key: String) -> bool:
 	return _tonight.has(key)
 
 
+## Zählt etwas für diese Nacht hoch, z. B. gereinigte Neumond-Käfer eines Ortes.
+func add_tonight(key: String) -> void:
+	_tonight[key] = times_tonight(key) + 1
+
+
+func times_tonight(key: String) -> int:
+	return int(_tonight.get(key, 0))
+
+
 func reset() -> void:
 	_flags.clear()
 	_tonight.clear()
+	_next_night.clear()
 
 
 func get_save_data() -> Dictionary:
-	return {"flags": _flags.keys()}
+	return {
+		"flags": _flags.keys(), "next_night": _next_night.duplicate(),
+		"tonight": _tonight.duplicate(), "tonight_day": DayCycle.day,
+	}
 
 
 func load_save_data(data: Dictionary) -> void:
 	_flags.clear()
 	_tonight.clear()
+	_next_night.clear()
+	var pending: Variant = data.get("next_night", [])
+	if pending is Array:
+		for flag in pending:
+			if flag is String and flag != "":
+				_next_night.append(flag)
+	# Nur wenn der Stand aus genau dieser Nacht stammt (DayCycle ist beim
+	# Laden schon dran gewesen, siehe SaveGame._apply).
+	if SaveRead.as_int(data.get("tonight_day"), -1) == DayCycle.day:
+		_tonight = SaveRead.counts(data.get("tonight"), 1)
 	var flags: Variant = data.get("flags", [])
 	if not flags is Array:
 		push_warning("WorldState: Flags im Spielstand sind keine Liste")

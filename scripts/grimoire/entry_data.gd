@@ -19,6 +19,8 @@ static var _all: Array[EntryData] = []
 @export var order: int = 0
 # Schlüssel in data/translations/texts.csv.
 @export var title_key: String = ""
+# Optionale Unterzeile unter dem Titel (z. B. wer eine Person ist).
+@export var subtitle_key: String = ""
 @export var icon: Texture2D
 # Items, die zu diesem Eintrag gehören. Ein Klick auf so eine Zutat im
 # Rezept springt hierher.

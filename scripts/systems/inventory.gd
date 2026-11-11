@@ -160,19 +160,21 @@ func get_save_data() -> Dictionary:
 func load_save_data(data: Dictionary) -> void:
 	_slot_items.fill("")
 	_slot_counts.fill(0)
-	var saved_items: Array = data.get("slots", [])
-	var saved_counts: Array = data.get("slot_counts", [])
-	var old_counts: Dictionary = data.get("counts", {})
+	# Alles über SaveRead: Ein falscher Typ an irgendeiner Stelle soll nur
+	# diesen Platz kosten, nicht das Laden abbrechen.
+	var saved_items := SaveRead.as_array(data.get("slots"))
+	var saved_counts := SaveRead.as_array(data.get("slot_counts"))
+	var old_counts := SaveRead.as_dict(data.get("counts"))
 	# Ältere Spielstände haben noch keine Truhe; deren Plätze bleiben leer.
-	chest_capacity = clampi(int(data.get("chest_capacity", CHEST_START_CAPACITY)), 0, CHEST_MAX)
+	chest_capacity = clampi(SaveRead.as_int(data.get("chest_capacity"), CHEST_START_CAPACITY), 0, CHEST_MAX)
 	for slot in mini(saved_items.size(), SIZE + CHEST_MAX):
-		var item_id := String(saved_items[slot])
+		var item_id := SaveRead.as_string(saved_items[slot])
 		var amount := 0
 		if slot < saved_counts.size():
-			amount = int(saved_counts[slot])
+			amount = SaveRead.as_int(saved_counts[slot])
 		elif item_id != "":
 			# Älterer Spielstand: Anzahl stand pro Item statt pro Platz.
-			amount = int(old_counts.get(item_id, 1))
+			amount = SaveRead.as_int(old_counts.get(item_id), 1)
 		# Items, die es nicht mehr gibt (umbenannt, entfernt), fallen weg,
 		# statt als leeres Icon ohne Namen in der Tasche zu liegen.
 		if item_id == "" or amount <= 0 or ItemData.from_id(item_id) == null:
@@ -181,7 +183,7 @@ func load_save_data(data: Dictionary) -> void:
 			continue
 		_slot_items[slot] = item_id
 		_slot_counts[slot] = mini(amount, max_stack(item_id))
-	selected_slot = int(data.get("selected_slot", 0))
+	selected_slot = SaveRead.as_int(data.get("selected_slot"))
 	changed.emit()
 
 

@@ -13,6 +13,12 @@ extends Node
 signal changed
 
 const START_CAPACITY := 3
+# Obergrenze beim Laden. Heute gibt es Upgrades bis 4 Plätze; mehr als das
+# hier ergäbe im Brau-Fenster keinen Sinn.
+const MAX_CAPACITY := 6
+# So viele Tränke liegen höchstens fertig im Kessel (mit allen Boni sind es
+# heute bis zu 4). Mehr passte nie in die Tasche: Der Kessel wäre blockiert.
+const MAX_FINISHED := 9
 # Ab so vielen Zutaten kann gebraut werden.
 const MIN_INGREDIENTS := 2
 
@@ -30,6 +36,8 @@ var _brewing: Array[String] = []
 # (Boni aus dem Grimoire können mehr als einen ergeben).
 var _finished: String = ""
 var _finished_count := 1
+# Gemerktes Rezept (Ergebnis-ID), das HUD zeigt seine Zutaten (RecipePin).
+var pinned := ""
 
 
 func _ready() -> void:
@@ -55,6 +63,9 @@ func can_start() -> bool:
 
 func start(ingredients: Array[String]) -> void:
 	_brewing = ingredients.duplicate()
+	# Gemerktes Rezept angesetzt: Ziel erreicht, der Merker verschwindet.
+	if pinned != "" and RecipeData.result_for(ingredients) == pinned:
+		pinned = ""
 	changed.emit()
 
 
@@ -98,42 +109,69 @@ func learn(ingredients: Array[String], result_item_id: String) -> void:
 	_known[_key(ingredients)] = result_item_id
 
 
+## Mehr Plätze im Kessel (Upgrade bei Gnarl). Weniger werden es nie.
+func raise_capacity(new_capacity: int) -> void:
+	if new_capacity > capacity:
+		capacity = new_capacity
+		changed.emit()
+
+
+## Ein Rezept merken (oder mit derselben ID wieder vergessen).
+func toggle_pin(result_item_id: String) -> void:
+	pinned = "" if pinned == result_item_id else result_item_id
+	changed.emit()
+
+
+func pinned_recipe() -> RecipeData:
+	for recipe in RecipeData.all():
+		if recipe.result_item_id == pinned:
+			return recipe
+	return null
+
+
 ## Neues Spiel: leerer Kessel, nichts bekannt, Startkapazität.
 func reset() -> void:
 	load_save_data({})
 
 
 func get_save_data() -> Dictionary:
-	return {"capacity": capacity, "known": _known, "brewing": _brewing, "finished": _finished, "finished_count": _finished_count, "counts": _brew_counts}
+	return {"capacity": capacity, "known": _known, "brewing": _brewing, "finished": _finished, "finished_count": _finished_count, "counts": _brew_counts, "pinned": pinned}
 
 
 func load_save_data(data: Dictionary) -> void:
-	capacity = int(data.get("capacity", START_CAPACITY))
+	capacity = clampi(SaveRead.as_int(data.get("capacity"), START_CAPACITY), START_CAPACITY, MAX_CAPACITY)
 	_known.clear()
-	var known: Dictionary = data.get("known", {})
-	for key in known:
+	var known := SaveRead.as_dict(data.get("known"))
+	for key: Variant in known:
+		var result := SaveRead.as_string(known[key])
+		if not key is String or result == "":
+			continue
 		# Rezepte können sich ändern (16.10.: Irrlicht und Mondlicht). Was
 		# heute etwas anderes ergibt, wird vergessen statt falsch angezeigt.
 		var ingredients: Array[String] = []
-		ingredients.assign(String(key).split("+"))
-		if RecipeData.result_for(ingredients) == String(known[key]):
-			_known[key] = String(known[key])
+		ingredients.assign((key as String).split("+"))
+		if RecipeData.result_for(ingredients) == result:
+			_known[key] = result
 	_brewing.clear()
-	for item_id in data.get("brewing", []):
-		if ItemData.from_id(String(item_id)):
-			_brewing.append(String(item_id))
-	# Ein Rest von unbekannten Zutaten braut nichts Sinnvolles mehr.
-	if _brewing.size() < MIN_INGREDIENTS:
+	for item_id in SaveRead.strings_with_repeats(data.get("brewing")):
+		if ItemData.from_id(item_id):
+			_brewing.append(item_id)
+	# Ein Rest von unbekannten Zutaten braut nichts Sinnvolles mehr, und mehr
+	# als in den Kessel passt, auch nicht.
+	if _brewing.size() < MIN_INGREDIENTS or _brewing.size() > capacity:
 		_brewing.clear()
-	_finished = String(data.get("finished", ""))
+	_finished = SaveRead.as_string(data.get("finished"))
 	if _finished != "" and ItemData.from_id(_finished) == null:
 		push_warning("Spielstand: unbekannter Trank %s im Kessel entfernt" % _finished)
 		_finished = ""
-	_finished_count = int(data.get("finished_count", 1))
+	_finished_count = clampi(SaveRead.as_int(data.get("finished_count"), 1), 1, MAX_FINISHED)
+	pinned = SaveRead.as_string(data.get("pinned"))
+	if pinned != "" and pinned_recipe() == null:
+		pinned = ""
 	_brew_counts.clear()
-	var counts: Dictionary = data.get("counts", {})
-	for key in counts:
-		_brew_counts[String(key)] = int(counts[key])
+	var counts := SaveRead.counts(data.get("counts"), 1)
+	for key: String in counts:
+		_brew_counts[key] = counts[key]
 	changed.emit()
 
 

@@ -336,7 +336,7 @@ func _refresh_forms() -> void:
 	var current_id := current_form().id if current_form() else ""
 	_forms.clear()
 	for form_id in Grimoire.known_forms():
-		var form := DigitalisForm.from_id(form_id)
+		var form := DigitalisForm.at_level(form_id, Grimoire.upgrade_level(form_id))
 		if form:
 			_forms.append(form)
 	var index := 0

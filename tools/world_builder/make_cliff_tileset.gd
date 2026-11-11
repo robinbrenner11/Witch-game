@@ -10,6 +10,8 @@ extends SceneTree
 ##
 ## Aufruf (im Projektordner):
 ##   godot --headless --script res://tools/world_builder/make_cliff_tileset.gd
+## Nur das Wasser neu bauen (z. B. nach neuen Animations-Frames):
+##   godot --headless --script res://tools/world_builder/make_cliff_tileset.gd -- water
 
 const CLIFF_DIR := "res://assets/environment/cliffs/"
 const OUT := CLIFF_DIR + "cliff_tileset.tres"
@@ -23,6 +25,13 @@ const MATERIALS := ["rock", "wall"]
 
 
 func _initialize() -> void:
+	if not OS.get_cmdline_user_args().has("water"):
+		_make_cliffs()
+	_make_water()
+	quit()
+
+
+func _make_cliffs() -> void:
 	var layout: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(CLIFF_DIR + "cliff_layout.json"))
 	var size := int(layout["tile_size"])
 	var tile_set := TileSet.new()
@@ -47,8 +56,6 @@ func _initialize() -> void:
 				data.set_collision_polygon_points(0, index, polygon)
 	var error := ResourceSaver.save(tile_set, OUT)
 	print("cliff_tileset: ", "gespeichert" if error == OK else "Fehler %d" % error)
-	_make_water()
-	quit()
 
 
 func _make_water() -> void:
@@ -64,10 +71,22 @@ func _make_water() -> void:
 	source.texture = load(dir + str(layout["texture"]))
 	source.texture_region_size = Vector2i(size, size)
 	tile_set.add_source(source, 0)
+	# Animation (eingebaute Kachel-Animation): Frame k eines Felds liegt
+	# k * Anzahl Felder Spalten weiter rechts (siehe water.py). Der Abstand
+	# zwischen zwei Frames ist also "Anzahl Felder - 1" Kacheln. Gesetzt wird
+	# im Ort nur Frame 0, Godot spielt den Rest selbst ab.
+	var frames := int(layout.get("frames", 1))
+	var duration := float(layout.get("frame_duration", 0.3))
+	var separation := Vector2i(layout["tiles"].size() - 1, 0)
 	for tile_name in layout["tiles"]:
 		var info: Dictionary = layout["tiles"][tile_name]
 		var coords := Vector2i(int(info["col"]), int(info["row"]))
 		source.create_tile(coords)
+		if frames > 1:
+			source.set_tile_animation_separation(coords, separation)
+			source.set_tile_animation_frames_count(coords, frames)
+			for frame in frames:
+				source.set_tile_animation_frame_duration(coords, frame, duration)
 		if str(info["collision"]) == "full":
 			var data := source.get_tile_data(coords, 0)
 			data.add_collision_polygon(0)

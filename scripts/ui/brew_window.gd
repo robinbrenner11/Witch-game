@@ -16,7 +16,10 @@ extends Control
 ## das Fenster die Zutaten nur an (gesperrt) – fertig ist der Trank am
 ## nächsten Morgen.
 
-const SLOT_SCENE := preload("res://scenes/ui/brew_slot.tscn")
+# Bewusst load() statt preload(): BrewSlot kennt das Fenster (var window:
+# BrewWindow). Mit preload hingen beide Scripts beim Laden im Kreis, und je
+# nach Reihenfolge meldete Godot einen Parse-Fehler.
+const SLOT_SCENE_PATH := "res://scenes/ui/brew_slot.tscn"
 const CAULDRON := preload("res://assets/ui/brew_cauldron.png")
 const CAULDRON_READY := preload("res://assets/ui/brew_cauldron_ready.png")
 const ARROW := preload("res://assets/ui/brew_arrow.png")
@@ -214,7 +217,7 @@ func _build_slots() -> void:
 	# Ein leeres Feld mehr, solange noch etwas hineinpasst.
 	var visible_count := shown.size() if is_locked() else mini(shown.size() + 1, Brewing.capacity)
 	for i in visible_count:
-		var slot: BrewSlot = SLOT_SCENE.instantiate()
+		var slot: BrewSlot = (load(SLOT_SCENE_PATH) as PackedScene).instantiate()
 		slot.index = i
 		slot.window = self
 		slot.position = _slot_position(i, visible_count)

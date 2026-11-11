@@ -13,6 +13,7 @@ extends StaticBody2D
 ##   moon_phase      gerade diese Mondphase (Moon.Phase), -1 = egal
 ##   active_effects  eine dieser Trankwirkungen ist aktiv ("wisp", "moonlight")
 ##   open_with_item  dieser Trank wird daraufgegossen (E) oder geworfen
+##   cut_open        eine Sichel, die Ranken schneidet (Sichel II), trifft es
 ##
 ## Aussehen: optionale Kind-Nodes "Closed" und "Open" werden je nach Zustand
 ## ein- und ausgeblendet. So kann später eine Grafik an dieselbe Stelle.
@@ -26,6 +27,8 @@ const PLAYER_LAYER := 1
 const CLIFF_LAYER := 8
 # So oft höchstens kommt die Meldung, wenn man dagegenläuft.
 const MESSAGE_COOLDOWN := 2.0
+# Überblenden zwischen zu und offen, in Sekunden.
+const FADE_TIME := 0.8
 
 ## Größe des Hindernisses in Pixeln, Mitte = Ursprung.
 @export var size: Vector2 = Vector2(64, 32):
@@ -38,6 +41,13 @@ const MESSAGE_COOLDOWN := 2.0
 @export var active_effects: Array[String] = []
 ## Item-ID eines Tranks zum Gießen oder Werfen. Braucht required_flag.
 @export var open_with_item: String = ""
+## Lässt sich mit einer Sichel aufschneiden, die Ranken schneidet
+## (AttackData.cuts_vines). Braucht required_flag.
+@export var cut_open: bool = false
+## Der Trank (open_with_item) öffnet nur für die laufende Nacht, nicht für
+## immer (Blütennebel S5: Reinigungsnebel lichtet ihn, er zieht wieder zu).
+## Für immer offen bleibt es dann nur über required_flag.
+@export var item_opens_tonight: bool = false
 ## Meldung, solange zu (Text-Schlüssel).
 @export var locked_message: String = "MSG_PATH_LOCKED"
 ## Was E zeigt, wenn man den passenden Trank nicht in der Hand hat
@@ -47,12 +57,15 @@ const MESSAGE_COOLDOWN := 2.0
 var _open := false
 var _message_wait := 0.0
 var _shape: CollisionShape2D
+var _fade_tween: Tween
 
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	add_to_group("potion_target")
+	if cut_open:
+		add_to_group("cuttable")
 	collision_layer = CLIFF_LAYER
 	collision_mask = 0
 	_shape = CollisionShape2D.new()
@@ -86,6 +99,8 @@ func _draw() -> void:
 func is_open() -> bool:
 	if required_flag != "" and WorldState.has_flag(required_flag):
 		return true
+	if item_opens_tonight and WorldState.did_tonight(tonight_key()):
+		return true
 	if moon_phase >= 0 and Moon.phase() == moon_phase:
 		return true
 	for effect in active_effects:
@@ -112,6 +127,14 @@ func on_potion(item: ItemData) -> bool:
 	return true
 
 
+## Ein Sichelhieb, der Ranken schneidet, hat es getroffen (Slash ruft das auf).
+func on_cut() -> bool:
+	if _open or not cut_open:
+		return false
+	_open_for_good()
+	return true
+
+
 func _effect_active(effect: String) -> bool:
 	var player := get_tree().get_first_node_in_group("player")
 	var effects := player.get_node_or_null("PotionEffects") as PotionEffects if player else null
@@ -119,8 +142,15 @@ func _effect_active(effect: String) -> bool:
 
 
 func _open_for_good() -> void:
-	WorldState.set_flag(required_flag)
+	if item_opens_tonight:
+		WorldState.mark_tonight(tonight_key())
+	else:
+		WorldState.set_flag(required_flag)
 	_apply(true, false)
+
+
+func tonight_key() -> String:
+	return "gate/%s/%s" % [name, open_with_item]
 
 
 func _apply(open: bool, instant: bool) -> void:
@@ -129,13 +159,41 @@ func _apply(open: bool, instant: bool) -> void:
 	_shape.set_deferred("disabled", open)
 	var closed_node := get_node_or_null("Closed") as CanvasItem
 	var open_node := get_node_or_null("Open") as CanvasItem
-	if closed_node:
-		closed_node.visible = not open
-	if open_node:
-		open_node.visible = open
+	if instant or open == was_open:
+		if closed_node:
+			closed_node.visible = not open
+		if open_node:
+			open_node.visible = open
+	else:
+		# Sichtbar überblenden, damit man merkt, dass sich hier gerade etwas
+		# verändert (Ranken vergehen, der Mondsteg erscheint).
+		_fade(open_node if open else closed_node, closed_node if open else open_node)
 	if open and not was_open and not instant:
 		Sfx.play_at("garden/grow_magic", global_position)
 		opened.emit()
+
+
+func _fade(appearing: CanvasItem, vanishing: CanvasItem) -> void:
+	# Kippt der Zustand mitten im Überblenden zurück (Trankwirkung endet),
+	# geht es von der aktuellen Deckkraft aus weiter.
+	if _fade_tween:
+		_fade_tween.kill()
+		_fade_tween = null
+	# Ein Gate ohne eigenes Aussehen (z. B. der Höhlenspalt) hat nichts zu
+	# blenden; ein leerer Tween wäre ein Engine-Fehler.
+	if appearing == null and vanishing == null:
+		return
+	_fade_tween = create_tween().set_parallel()
+	if appearing:
+		if not appearing.visible:
+			appearing.modulate.a = 0.0
+		appearing.visible = true
+		_fade_tween.tween_property(appearing, "modulate:a", 1.0, FADE_TIME)
+	if vanishing:
+		_fade_tween.tween_property(vanishing, "modulate:a", 0.0, FADE_TIME)
+		_fade_tween.chain().tween_callback(func() -> void:
+			vanishing.visible = false
+			vanishing.modulate.a = 1.0)
 
 
 ## Etwas größer als das Hindernis: merkt, wenn die Hexe dagegenläuft.
