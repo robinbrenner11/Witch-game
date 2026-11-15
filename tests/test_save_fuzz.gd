@@ -138,7 +138,7 @@ func test_values_stay_sane() -> void:
 	_holder.add_child(player)
 	await tree.process_frame
 	var vitals := player.get_node("Vitals") as Vitals
-	check(vitals.health >= 1 and vitals.health <= vitals.max_hp(), "Leben zwischen 1 und Maximum (ist %d)" % vitals.health)
+	check(vitals.health >= 1 and vitals.health <= vitals.max_health, "Leben zwischen 1 und Maximum (ist %d)" % vitals.health)
 	check(vitals.power >= 0.0 and vitals.power <= vitals.max_power(), "Hexenkraft zwischen 0 und Maximum")
 
 
@@ -309,7 +309,7 @@ func _use_grimoire() -> void:
 		Grimoire.revealed_facts(entry)
 		Grimoire.is_entry_complete(entry)
 	for form_id in Grimoire.known_forms():
-		DigitalisForm.at_level(form_id, Grimoire.upgrade_level(form_id))
+		DigitalisForm.from_id(form_id, Grimoire.upgrade_level(form_id))
 	Grimoire.upgrade_level("cauldron")
 	Grimoire.report("forage", {"id": "moonmoss"})
 	Grimoire.mark_seen("fuzz")
