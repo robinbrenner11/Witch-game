@@ -19,6 +19,9 @@ const DIRECTORY := "res://data/digitalis/%s.tres"
 @export var display_name: String = ""
 # Bild in der Kampfleiste. Leer = Platzhalter-Zeichnung (siehe CombatBar).
 @export var icon: Texture2D
+# Große Abbildung im Grimoire (1:1 aus der Vorlage, docs/art/ref_converter/
+# convert_illustration.py). Leer = keine Abbildung.
+@export var book_image: Texture2D
 @export var light: AttackData
 @export var heavy: AttackData
 ## Stufe dieser Datei (1 = ohne Upgrade).

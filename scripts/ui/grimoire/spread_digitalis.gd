@@ -10,6 +10,10 @@ extends GrimoireSpread
 # Alle Formen in Buch-Reihenfolge, auch die, die es noch nicht als Daten gibt.
 const ALL_FORMS: Array[String] = ["staff", "sickle", "thornwhip", "rootmaul"]
 const NOTCH := Vector2(6, 6)
+# Tafel für die große Abbildung: so groß wie die breiteste (Sichel) und
+# höchste (Stab) Abbildung plus Rand, damit sie beim Umschalten nicht springt.
+const PLATE_SIZE := Vector2(106, 219)
+const PLATE_PADDING := 4.0
 
 var _selected := "staff"
 
@@ -23,9 +27,19 @@ func has_new() -> bool:
 
 func build(left: Control, right: Control) -> void:
 	add_title(left)
+	# Links eine schmale Spalte mit den Formen, rechts daneben die gewählte
+	# Form groß auf einer dunklen Tafel.
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 6)
+	var column := VBoxContainer.new()
+	column.add_theme_constant_override("separation", 4)
+	var column_width := text_width - PLATE_SIZE.x - 6
+	column.custom_minimum_size.x = column_width
+	row.add_child(column)
 	var grid := GridContainer.new()
-	grid.columns = 6
+	grid.columns = 2
 	grid.add_theme_constant_override("h_separation", 4)
+	grid.add_theme_constant_override("v_separation", 4)
 	for form_id in ALL_FORMS:
 		var known := Grimoire.known_forms().has(form_id)
 		var form := DigitalisForm.from_id(form_id, Grimoire.upgrade_level(form_id))
@@ -40,8 +54,12 @@ func build(left: Control, right: Control) -> void:
 			_selected = s.data
 			book.refresh())
 		grid.add_child(slot)
-	left.add_child(grid)
-	left.add_child(BookStyle.label("BOOK_FORMS_HINT", BookStyle.INK_FAINT, text_width))
+	column.add_child(grid)
+	column.add_child(BookStyle.label("BOOK_FORMS_HINT", BookStyle.INK_FAINT, column_width))
+	var selected_form := DigitalisForm.from_id(_selected, Grimoire.upgrade_level(_selected))
+	if Grimoire.known_forms().has(_selected) and selected_form and selected_form.book_image:
+		row.add_child(Plate.new(selected_form.book_image))
+	left.add_child(row)
 	if Grimoire.known_forms().has(_selected):
 		_build_detail(right, _selected)
 		Grimoire.mark_seen(_seen_key(_selected))
@@ -102,3 +120,27 @@ class Notches:
 				draw_rect(rect, BookStyle.GOLD)
 				draw_rect(Rect2(rect.position, Vector2(NOTCH.x, 2)), BookStyle.GOLD.lightened(0.3))
 			draw_rect(rect, BookStyle.GOLD_DARK, false)
+
+
+## Die große Abbildung einer Form auf einer dunklen Tafel mit Goldrand,
+## wie ein eingeklebtes Bild. Auf dem hellen Papier ginge die helle Klinge
+## der Sichel sonst unter; auf Dunkel leuchten Magenta und Gold.
+class Plate:
+	extends Control
+
+	var _image: Texture2D
+
+	func _init(image: Texture2D) -> void:
+		_image = image
+		custom_minimum_size = PLATE_SIZE
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func _draw() -> void:
+		var rect := Rect2(Vector2.ZERO, PLATE_SIZE)
+		draw_rect(rect, BookStyle.AUBERGINE)
+		BookStyle.draw_frame(self, rect, BookStyle.GOLD_DARK)
+		BookStyle.draw_frame(self, rect.grow(-2), Color(BookStyle.GOLD_DARK, 0.4))
+		# Unten mittig, auf ganze Pixel gerundet.
+		var at := Vector2(roundf((PLATE_SIZE.x - _image.get_width()) / 2.0),
+				PLATE_SIZE.y - PLATE_PADDING - _image.get_height())
+		draw_texture(_image, at)

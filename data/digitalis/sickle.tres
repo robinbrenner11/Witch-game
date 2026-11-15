@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/player/digitalis_form.gd" id="1_form"]
 [ext_resource type="Script" path="res://scripts/player/attack_data.gd" id="2_attack"]
 [ext_resource type="Texture2D" path="res://assets/items/digitalis/digitalis_sickle_icon.png" id="3_icon"]
+[ext_resource type="Texture2D" path="res://assets/items/digitalis/digitalis_sickle_book.png" id="4_book"]
 
 [sub_resource type="Resource" id="Attack_light"]
 script = ExtResource("2_attack")
@@ -39,5 +40,6 @@ script = ExtResource("1_form")
 id = "sickle"
 display_name = "DIGITALIS_SICKLE"
 icon = ExtResource("3_icon")
+book_image = ExtResource("4_book")
 light = SubResource("Attack_light")
 heavy = SubResource("Attack_heavy")
