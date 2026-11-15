@@ -888,7 +888,7 @@ size = Vector2(24, 12)
 spawn_offset = Vector2(0, 26)
 
 [node name="ToLakewood" parent="." unique_id=945791924 instance=ExtResource("10_exit")]
-position = Vector2(816, 712)
+position = Vector2(816, 656)
 target_scene = "res://scenes/world/lakewood.tscn"
 target_exit = "ToGarden"
 size = Vector2(96, 32)
