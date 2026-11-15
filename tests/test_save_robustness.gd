@@ -124,7 +124,7 @@ func test_new_game_starts_fresh() -> void:
 	var player := _player()
 	await tree.process_frame
 	var vitals := player.get_node("Vitals") as Vitals
-	check_eq(vitals.health, vitals.max_hp(), "Neues Spiel: volle Lebenspunkte")
+	check_eq(vitals.health, vitals.max_health, "Neues Spiel: volle Lebenspunkte")
 
 
 # --- 3 ---
