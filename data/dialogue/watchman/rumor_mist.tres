@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="DialogueData" format=3]
+
+[ext_resource type="Script" path="res://scripts/npcs/dialogue_data.gd" id="1_dialogue"]
+
+[resource]
+script = ExtResource("1_dialogue")
+id = "rumor_mist"
+lines = Array[String](["DLG_WATCHMAN_RUMOR_MIST_1", "DLG_WATCHMAN_RUMOR_MIST_2", "DLG_WATCHMAN_RUMOR_MIST_3"])
+priority = 18
+once = true
+requires_flags = Array[String](["met_watchman", "met_gnarl"])
+blocked_by_flags = Array[String](["bloom_heart_1_cleansed"])
+topic = "rumor"
+once_per_night = "rumor"
+hint_recipe = "potion_cleansing_mist"
+hint_ingredient = "bloom_bud"

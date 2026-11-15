@@ -36,6 +36,7 @@ func _initialize() -> void:
 				continue
 			suite.before_each()
 			await suite.call(test_name)
+			await suite.after_each()
 			var failures: PackedStringArray = suite.take_failures()
 			if failures.is_empty():
 				passed += 1
