@@ -1,47 +1,43 @@
 # Backlog
 
-Stand: 03.11.2026. Aufgabenliste für Sessions, die ohne Robin laufen (Regeln: `CLAUDE.md` Abschnitt 10 und 13).
+Stand: 15.11.2026. Aufgabenliste für Sessions, die ohne Robin laufen (Regeln: `CLAUDE.md` Abschnitt 10 und 13).
 
 - **Bereit**: darf ohne Rückfrage umgesetzt werden, von oben nach unten.
 - **Wartet auf Robin**: erst anfangen, wenn Robin es nach „Bereit“ verschiebt.
-- Eine Aufgabe pro Session. Branch `claude/<thema>`, PR gegen den Arbeitsbranch aus `docs/START.md` (gerade `overworld`).
+- Eine Aufgabe pro Session. Branch `claude/<thema>`, PR gegen den Arbeitsbranch aus `docs/START.md` (gerade `claude/zusammenfuehrung`, nach Robins Test `overworld`).
 - Erledigtes nach „Erledigt“ verschieben, mit Datum und PR.
 
 ## Bereit
 
-_(leer, siehe „Vorschläge“)_
-
-## Erledigt aus der Code-Prüfung (06.11.)
-
-Alle fünf Befunde der externen Prüfung behoben und getestet (`tests/test_save_robustness.gd`), Details in `DEV_PROGRESS.md` Zeile 47. Noch offen aus derselben Prüfung (Vorschläge, nicht dringend): CI-Workflow, der die Tests bei jedem Push laufen lässt; Platzhalter-Zeichnungen aus Gameplay-Skripten lösen (Käfer, Grimoire), wenn die echten Grafiken kommen.
+_(leer: erst Robins Test der Zusammenführung)_
 
 ## Wartet auf Robin
 
-- ❓ **Hexenpfade ohne Wirkung:** „Mondblut“ (`rare_variants`, seltene Varianten) und „Pfadfinderin“ (`pathfinder`, Abkürzungen) versprechen etwas, das es noch nicht gibt. („Seitenfinderin“ wirkt seit 06.11.: Der lange Schatten zeigt in jeder Mondphase auf lose Seiten.) Bauen (eigene Systeme) oder den Kartentext vorerst ehrlich machen („… sobald es … gibt“, wie bei Potenz und Qualität)?
-- ❓ **Warding (Bannkunst) als Disziplin freischalten?** Das Kapitel ist versiegelt (`unlock = "combat"` wird nicht ausgewertet), weil es die Disziplin noch nicht gibt. Fehlt dafür: Pfade bei Stufe 5/10 (`grimoire.md`: Hexblade / Hexcaster, ❓ nach Kampf-Prototyp), Belohnungen je Stufe, wofür es Erfahrung gibt (Reinigen? neue Wesen im Bestiarium?). Das Bestiarium ist seit 05.11. offen und wäre die Grundlage.
-- **Alte Branches löschen?** `combat-overhaul` und `quality-overhaul` sind vollständig in `main`. Löschen nur mit deinem Okay.
-- **Gnarl und Upgrades testen.** Seit 06.11. ist Seewald v2 der echte Seewald, Weidenrinde und Höhlenkristall sind also im normalen Spiel erreichbar.
-- **`overworld` nach `main` mergen.** `overworld` ist rund 30 Commits vor `main`. Nach Robins Test mergen, damit es wieder einen stabilen Stand gibt.
-- **Schritt 8 testen: Turmruine, Blütennebel S5, erstes Blütenherz** (gebaut 06.11. auf Robins Auftrag „Lücke im Gameplay füllen“, Entwurf von Claude): Bosskampf spielen, Schwierigkeit und Lesbarkeit der Angriffe bewerten. Hexenring-Schnellreise (Garten ↔ tiefer Wald) ist seit 06.11. gebaut. Offen: Apprentice erscheint (Story), echte Grafiken.
+- **Zusammenführung testen** (`claude/zusammenfuehrung`, 15.11.): Robins lokaler Stand vom 18.10. plus alles vom Autopilot, was ihm fehlte. Danach nach `overworld` und `main` mergen. Zum Testen:
+  - Neues Spiel (F2 löscht den Spielstand): Titelbildschirm, Intro mit Namensfrage, Einstieg am Lesepult
+  - Garten: Südausgang führt jetzt in den Seewald (lag vorher unter der Kartenwand)
+  - Seewald (früher v2, F9 entfällt): Ranken-Treppe und Mondsteg mit eigenen Grafiken, Tropfen am Höhlenspalt
+  - Schlafen: erst die Nachtbilanz, dann ein Traum (falls einer ansteht). Nervt die Bilanz jede Nacht?
+  - Rezept merken (Knopf auf der Rezeptseite), lange Schatten bei zunehmendem Mond, Uhr pulsiert ab 5 Uhr
+  - Gnarl antwortet jetzt direkt nach Gabe und Upgrade; Nachtwächter erzählt von Gnarls Kerze und vom Nebel
+  - Nach dem Blütenherz: Reaktionen von Nachtwächter, Mutter Moos und Gnarl; die Pilzringe in Garten und Wald werden zum Hexenring (Schnellreise)
+- **Nicht übernommen vom Autopilot, weil Robins Fassung anders entschieden hat:** Eule fliegt bei Annäherung weg (bei Robin spricht man sie an), eigene Fassungen von Gnarl, Herbarium, Wasser-Animation, Digitalis-, People- und Bestiarium-Kapitel, Bannkunst (Autopilot: +2 Leben, Hexenklinge/Hexenwirkerin) und Blütenherz (Autopilot: Heilung des Waldes, Glühwürmchen in der Ruine, eigene Grafiken). Einzelnes davon nachholen? Alles liegt noch auf `claude/autopilot`.
+- ❓ **Hexenpfade ohne Wirkung:** „Mondblut“ (`rare_variants`) und „Pfadfinderin“ (`pathfinder`) versprechen etwas, das es noch nicht gibt. Bauen oder den Kartentext vorerst ehrlich machen?
+- **Blütenherz balancieren**, nachdem Robin es gespielt hat (Schwierigkeit, Lesbarkeit der Angriffe)
+- **Alte Branches löschen?** `combat-overhaul`, `quality-overhaul`, `claude/agent-setup`, `claude/gnarl-upgrades`, `claude/herbarium-eintraege` sind überholt. Nur mit Robins Okay.
 - ❓ **Garten und Seewald zusammenlegen?** (`overworld_plan.md`, offene Fragen)
-- ❓ **Alte Spielstände beim Garten-Umbau** (`overworld_plan.md` Abschnitt 7)
-- **Grimoire mit echten Grafiken** (`docs/auftraege/auftrag_grimoire_umbau.md`), wartet auf Robins Grafik-Paket.
-- **Große Welt-Sprites der Bitterblüte** (`docs/auftraege/grafik_auftrag_bitterbloom.md`), macht Robin.
+- ❓ **Freundschaftssystem** (Herzen, Geschenke): Umfang klären
+- **Grimoire mit echten Grafiken** (`docs/auftraege/auftrag_grimoire_umbau.md`), wartet auf Robins Grafik-Paket
+- **Große Welt-Sprites der Bitterblüte** (`docs/auftraege/grafik_auftrag_bitterbloom.md`), macht Robin
 
 ## Vorschläge
 
 Von Claude notiert, nicht gebaut. Robin entscheidet, ob sie nach „Bereit“ wandern.
 
-_(alle umgesetzt, siehe „Erledigt“ und `DEV_PROGRESS.md`)_
+- CI-Workflow, der die Tests bei jedem Push laufen lässt (aus der Code-Prüfung vom 06.11.)
+- Robins Stand regelmäßig pushen, damit Autopilot-Läufe darauf aufbauen (sonst entstehen wieder zwei Fassungen)
 
 ## Erledigt
 
-- 05.11.2026: Bestiarium öffnet sich nach der ersten Reinigung (Freischaltung wurde nie ausgewertet), Einträge für beide Käferarten. Name der Hexe im Intro. Fortschritt und Entdecken mit Klang und Funken. Anschlagbrett-Seiten passen in die Dialogbox. PR #4.
-- 05.11.2026: People-Kapitel mit Einträgen für Nachtwächter, Mutter Moos, Ugo, Gnarl (entdeckt durch Gespräche, Eindrücke wachsen mit), Titelbildschirm mit Stimmung, Durchspiel-Test des Kern-Kreislaufs. Tests `test_people.gd`, `test_core_loop.gd`. PR #4.
-- 05.11.2026: Dornkäfer lassen mit 30 % eine Blütenknospe fallen (`rare_drop_item`/`rare_drop_chance`). Einstieg (Zielreihenfolge, glimmendes Pult, Tasten aus der Belegung), Grimoire-Seiten laufen nicht mehr über, NPC-Silhouetten. Tests `test_beetle_drops.gd`, `test_onboarding.gd`, `test_book_layout.gd`. PR #4.
-- 05.11.2026: Digitalis-Kapitel im Grimoire (Formen, Stufe als Kerben, Gnarls Bedarf), Screenshot-Werkzeug `tools/qa/`, Gnarl lesbarer (Silhouette, Schnitzkerze), Fix Werkstatt-Licht. Test `test_digitalis_chapter.gd`. Protokoll: `DEV_PROGRESS.md`. PR #4.
-- 03.11.2026: Kleinkram: Ladekreis `BrewSlot` ↔ `BrewWindow` aufgelöst (`load()` statt `preload()`), der Parse-Fehler im Testlauf ist weg. Test `tests/test_brew_ui.gd` (startet Godot einmal frisch, prüft auch Platz für 4 Zutaten). PR #4 (`claude/autopilot`).
-- 03.11.2026: Wasser-Animation: 4 Frames pro Wasserfeld über die Kachel-Animation des TileSets, Platzhalter-Frames aus `water.py`, Builder unverändert (setzt Frame 0). Test `tests/test_water.gd`. PR #4 (`claude/autopilot`).
-- 03.11.2026: Schritt 7, Gnarl und Upgrades: Gnarl im tiefen Wald, Heiltrank als Gabe, Umzug in die Dorf-Werkstatt zur nächsten Nacht (7a); Stab II, Sichel II, Kessel mit 4 Plätzen als Tausch bei Gnarl (7b). Tests `tests/test_gnarl.gd`, `tests/test_upgrades.gd`. PR #3 (`claude/gnarl-upgrades`).
-- 03.11.2026: Herbarium-Einträge für Weidenrinde, Mondwasser, Höhlenkristall, Sumpflicht, Bitterblütenblatt und Blütenknospe (Mondmoos und Eulenfeder hatten schon einen), Test `tests/test_herbarium.gd`. PR #2 (`claude/herbarium-eintraege`).
-- 03.11.2026: Tests im Repo (`tests/`), Godot-Setup für Cloud-Sessions (`tools/setup_godot.sh`), Regeln für Arbeit ohne Robin in `CLAUDE.md`, doppelte Text-Schlüssel `DIGITALIS_STAFF`/`DIGITALIS_SICKLE` entfernt.
+- 15.11.2026: **Zusammenführung** von `robin/garten-neu` und `claude/autopilot` auf `claude/zusammenfuehrung`. Fix: Südausgang im Garten war unerreichbar. Übernommen: Tests und QA-Werkzeuge, Titelbildschirm, Name der Hexe, Einstieg, Nachtbuch, Rezept merken, lange Schatten, Hexenring, Uhr-Warnung, Funkeln reifer Pflanzen, HUD-Symbole, Dornkäfer-Knospen, Hexenpfad-Wirkungen, Seewald v2 als Seewald, Gate-Grafiken, Höhlentropfen, NPC-Silhouetten, Hinweise und Reaktionen der NPCs, Speichern und Laden gehärtet. 100 Tests grün, Dauerlauf ohne Fehler.
+- 03.–10.11.2026: Autopilot-Läufe auf `claude/autopilot` (Protokoll: `DEV_PROGRESS.md`)

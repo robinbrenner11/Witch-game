@@ -1,10 +1,10 @@
 # Bitterbloom – Einstieg
 
-Stand: 18.10.2026. **Das hier zuerst lesen**, danach nur die Dokumente, die die Aufgabe braucht. Regeln für die Zusammenarbeit und die technischen Leitplanken stehen in `CLAUDE.md`.
+Stand: 15.11.2026. **Das hier zuerst lesen**, danach nur die Dokumente, die die Aufgabe braucht. Regeln für die Zusammenarbeit und die technischen Leitplanken stehen in `CLAUDE.md`.
 
 ## Stand in einem Absatz
 
-Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen und Hexenpfaden, Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen. Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss, Ugo und der Wanderin Wren (Halbmondmarkt), Gnarl mit Upgrades (Stab II, Sichel II, Kessel II), Turmruine mit Blütennebel und Blütenherz 1 (Boss, Platzhalter), Grimoire mit allen Kapiteln außer Bonding (Digitalis, People, Bestiary, Warding), Träume, versteckte Seiten im Mondlicht, die Eule mit Hinweisen, animiertes Wasser, Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald v2, Wasserfall-Höhle, Sumpf). Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
+Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spielbar sind: Garten mit Wachstum über Nacht, Brauen am Kessel, Trinken und Werfen von Tränken, Sammeln mit Nachwachsen, Truhe, Grimoire mit Disziplinen und Hexenpfaden, Mondphasen (8 Nächte), Kampf mit Digitalis (Stab und Sichel) gegen befallene Käfer, Sonne ab 6 Uhr, Speichern beim Schlafen. Dazu der Dorf-Hub (Graybox) mit Nachtwächter, Dialogen und Gerüchten, Gesuche am Anschlagbrett, Tausch mit Mother Moss, Ugo und der Wanderin Wren (Halbmondmarkt), Gnarl mit Upgrades (Stab II, Sichel II, Kessel II), Turmruine mit Blütennebel und Blütenherz 1 (Boss, Platzhalter), Grimoire mit allen Kapiteln außer Bonding (Digitalis, People, Bestiary, Warding), Träume, versteckte Seiten im Mondlicht, die Eule mit Hinweisen, animiertes Wasser, Sperren (Gates) und Orte mit Höhen aus Bauplänen (Seewald, Wasserfall-Höhle, Sumpf). Seit der Zusammenführung am 15.11. außerdem (vom Autopilot): Name der Hexe im Intro, Titelbildschirm mit Stimmung, Nachtbuch beim Einschlafen (vor dem Traum), Rezept merken mit HUD-Anzeige, lange Schatten bei zunehmendem Mond, Hexenring als Schnellreise nach dem Blütenherz, Uhr warnt vor dem Morgen, reife Pflanzen funkeln, Hexenpfade Volatil/Nachhall/Bändigerin/Sucherin/Seitenfinderin wirken, robusteres Speichern und Laden, Tests und Screenshot-Werkzeug. Viele Grafiken sind Platzhalter. Die echten macht Robin selbst mit dem Plugin.
 
 ## Branches
 
@@ -12,15 +12,18 @@ Bitterbloom ist ein Cozy RPG, das nur nachts spielt (Godot 4.7, GDScript). Spiel
 |---|---|
 | `main` | stabiler Stand (Kampf, Quality Overhaul) |
 | `village-hub` | Dorf-Hub M1–M8 |
-| `overworld` | **aktuell**: Höhen, World-Builder, Sperren, Gesuche, neue Orte und NPCs (baut auf `village-hub` auf) |
+| `overworld` | Höhen, World-Builder, Sperren, Gesuche, neue Orte und NPCs (baut auf `village-hub` auf) |
+| `robin/garten-neu` | Robins lokaler Stand vom 16.–18.10. (neuer Garten, Grafiken, Gnarl, Blütenherz, Wren, Träume …), am 15.11. gesichert |
+| `claude/autopilot` | Autopilot-Läufe 03.–10.11., auf dem alten `overworld` gebaut (ohne Robins lokalen Stand) |
+| `claude/zusammenfuehrung` | **aktuell**: Robins Stand als Basis plus alles vom Autopilot, was ihm fehlte. Nach Robins Test → `overworld` → `main` |
 
 Nach `main` wird nur mit Robins Okay gemergt und gepusht.
 
 ## Nächste Schritte
 
 Gepflegt in `docs/design/welt_und_items.md`, Abschnitt 10 („Nächste Schritte“). Akt 1 ist komplett als Graybox gebaut. Kurz:
-1. **Seewald v2 (F9) testen und freigeben**, dann Ausgänge umstellen (bis dahin sind Mutter Moos, Sumpf, Insel, Höhle und damit der Weg zur Turmruine im normalen Spiel nicht erreichbar)
-2. Robins Test der neuen Inhalte vom 18.10. (Gnarl, Blütenherz 1, Wren, Grimoire-Kapitel, Träume)
+1. **Robins Test von `claude/zusammenfuehrung`** (Liste in `docs/BACKLOG.md`), danach nach `overworld` und `main` mergen
+2. Blütenherz-Kampf spielen und balancieren
 3. Offene Entscheidungen (Liste in `welt_und_items.md`, Abschnitt 10), danach Höhen für Wald, Dorf und Garten
 
 ## Welches Dokument für welche Frage
@@ -53,5 +56,6 @@ Gilt bei Widersprüchen: das neuere Dokument. `welt_und_items.md` (16.10.) vor `
 
 - `docs/art/`: Palette `hexen_palette.gpl`, Grafik-Generatoren (Python), Referenzen und Vorschauen
 - `tools/world_builder/`: Builder und Baupläne
-- Debug-Tasten: F3–F5 Grimoire, F7 Höhen-Test, F9 Seewald v2 (nicht F8, das stoppt in Godot das Spiel)
+- Debug-Tasten: F1 Samen und Tränke, F2 Spielstand löschen, F3–F5 Grimoire, F6 eine Stunde weiter, F7 Höhen-Test, N nächste Nacht
+- `tools/qa/`: Screenshots ohne Bildschirm (`shot.sh`) und Dauerlauf durch alle Orte (`soak.gd`)
 - `tests/`: Tests im Repo, headless mit `godot --headless --script res://tests/run_tests.gd`. In der Cloud vorher `bash tools/setup_godot.sh`.

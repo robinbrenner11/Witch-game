@@ -1,6 +1,12 @@
 # DEV_PROGRESS – selbstständige Weiterentwicklung
 
-Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln: `CLAUDE.md`. Aufgabenliste: `docs/BACKLOG.md`. Branch: `claude/autopilot` (baut auf PR #2 und #3 auf).
+Kompaktes Arbeitsprotokoll für die Iterationen ohne Robin. Verbindliche Regeln: `CLAUDE.md`. Aufgabenliste: `docs/BACKLOG.md`.
+
+## Zusammenführung (15.11.2026)
+
+Die Autopilot-Läufe unten (03.–10.11.) liefen auf `claude/autopilot`, gebaut auf dem alten `overworld`. Robins lokaler Stand vom 16.–18.10. (neuer Garten, Grafiken, eigene Fassungen von Gnarl, Blütenherz, Bannkunst, Digitalis-/People-/Bestiarium-Kapitel, Wren, Träume, Eule mit Hinweisen) lag nicht auf GitHub. Am 15.11. auf `claude/zusammenfuehrung` zusammengeführt: Robins Stand ist die Basis, vom Autopilot kam alles, was ihm fehlte; bei doppelten Features gilt Robins Fassung. Was bewusst nicht übernommen wurde, steht in `docs/BACKLOG.md`. Die Tabelle unten beschreibt den Autopilot-Stand; Einträge zu Gnarl (1, 3, 4), People (14, 35), Bestiarium (32), Eule (34), Ende Akt 1 (44, nur Gerücht und Reaktionen übernommen) und Bannkunst (46) gelten auf dem neuen Stand nicht oder in Robins Fassung.
+
+Prüfung 15.11.: 100/100 Tests grün, Dauerlauf (Nächte 1, 3, 5) ohne Fehler, Screenshots von Titel, Intro, Garten mit Hexenring, Seewald (Ranken, Mutter Moos), Wald (Gnarl), Dorf (Werkstatt), Turmruine, Innendeckel mit Namen, Nachtbilanz, Digitalis-Kapitel angesehen.
 
 ## Stand (06.11.2026)
 
