@@ -12,7 +12,7 @@ const ErrorCatcher := preload("res://tests/helpers/error_catcher.gd")
 const LEVELS := [
 	"res://scenes/world/shelter.tscn", "res://scenes/world/garden.tscn",
 	"res://scenes/world/lakewood.tscn", "res://scenes/world/forest.tscn",
-	"res://scenes/world/village.tscn", "res://scenes/world/lakewood.tscn",
+	"res://scenes/world/village.tscn", "res://scenes/world/tower_ruin.tscn",
 	"res://scenes/world/waterfall_cave.tscn", "res://scenes/world/swamp.tscn",
 ]
 
