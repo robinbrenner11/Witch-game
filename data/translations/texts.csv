@@ -173,7 +173,7 @@ BOOK_LEVEL_MAX,"Level %d, mastered","Stufe %d, gemeistert"
 BOOK_PATHS,Witch Paths,Hexenpfade
 BOOK_PATH_LOCKED,Opens at level %d.,Öffnet sich auf Stufe %d.
 BOOK_PATH_CHOOSE,Choose,Wählen
-BOOK_PATH_UNKNOWN,Depends on your first path.,Hängt von deinem ersten Pfad ab.
+BOOK_PATH_UNKNOWN,Depends on your first path.,Folgt deinem ersten Pfad.
 BOOK_MILESTONE,A path opens,Ein Pfad öffnet sich
 REWARD_ITEM,%d× %s,%d× %s
 REWARD_RECIPE,Recipe: %s,Rezept: %s
