@@ -65,7 +65,7 @@ func test_damage_over_time_does_not_stagger() -> void:
 func test_every_attack_hurts() -> void:
 	for form_id in Grimoire.START_FORMS:
 		for level in [1, 2]:
-			var form := DigitalisForm.at_level(form_id, level)
+			var form := DigitalisForm.from_id(form_id, level)
 			for attack: AttackData in [form.light, form.heavy]:
 				check(attack.damage > 0, "%s Stufe %d: Angriff macht Schaden" % [form_id, level])
 				check(attack.power_cost > 0.0, "%s Stufe %d: Angriff kostet Hexenkraft" % [form_id, level])
