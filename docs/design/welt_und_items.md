@@ -333,7 +333,7 @@ Offen und bewusst nicht hier: Mondeffekte für die Nächte 2–3 und 5–7, Craf
 
 Akt 1 aus Abschnitt 9 ist komplett gebaut (Schritte 1–8, alles Graybox). Was jetzt an Robin hängt:
 
-1. **Ausgänge auf Seewald v2 umstellen (W5, wartet auf Robins Okay).** Wichtig: Bis dahin sind im normalen Spiel (ohne F9) Mutter Moos, Insel, Höhle, Sumpf mit Ugo, Mondwasser und Weidenrinde **nicht erreichbar**. Ohne Mondwasser gibt es keinen Reinigungsnebel, und ohne den kommt man nicht durch den Blütennebel zur Turmruine (außer über den Debug-Weg). Danach tiefer Wald, Dorf, Garten mit Höhen (Spielstand-Frage beim Garten, `overworld_plan.md` Abschnitt 7).
+1. ✅ **Ausgänge auf Seewald v2 umgestellt** (von Robin am 06.11. freigegeben, auf seinem Stand am 15.11. übernommen): `lakewood.tscn` ist jetzt der Seewald, F9 entfällt.
 2. **Robins Test** von Gnarl und den Upgrades, Blütenherz 1 (Entwurf Abschnitt 11), Wren, den Grimoire-Kapiteln Digitalis, People, Bestiary, Warding und den Träumen.
 3. **Entscheidungen:** Was nach Blütenherz 1 passiert (vorbereitet nur als Flag `bloom_heart_1_cleansed`: Heilung des Walds, Hexenring als Schnellreise, Apprentice, Moor S8; game_design.md 4 und 10). Warding Stufe 10. Mondeffekte für die Nächte 2–3 und 5–7. Seltene Ereignisse und Fest. Katze und Bonding. Crafting über den Kessel. Akt-2-Sperren S3, S6, S7.
 4. **Grafiken** (Robin): echte Sprites für alle Platzhalter (Liste in der Session-Zusammenfassung vom 18.10.), Grimoire-Grafikpaket (danach Umblättern, Tintenkleckse, Ranken-Welken).
