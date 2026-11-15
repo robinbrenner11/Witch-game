@@ -23,7 +23,7 @@ func test_sleeps_until_healed() -> void:
 	await tree.process_frame
 	check(not ring.is_awake(), "Vor dem Blütenherz schläft der Ring")
 	check_eq(ring.interaction_prompt(), "PROMPT_LOOK", "Nur anschauen")
-	WorldState.set_flag(BloomHeart.CLEANSED_FLAG)
+	WorldState.set_flag("bloom_heart_1_cleansed")
 	check(ring.is_awake(), "Nach der Heilung wach")
 	check_eq(ring.destinations(), ["garden"] as Array[String], "Vom Wald in den Garten")
 	check_eq(ring.interaction_prompt(), "PROMPT_RING_TRAVEL", "Hineintreten")
